@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "singularName": "page",
+    "pluralName": "pages",
+    "displayName": "Page",
+    "description": "Marketing pages: slug + seo + sections dynamic zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.hero",
+        "sections.intro",
+        "sections.value-props",
+        "sections.philosophy",
+        "sections.timeline",
+        "sections.stats-block",
+        "sections.portfolio-block",
+        "sections.team-grid",
+        "sections.board-grid",
+        "sections.faq-block",
+        "sections.process-steps",
+        "sections.news-list",
+        "sections.document-list",
+        "sections.cta-group",
+        "sections.pull-quote",
+        "sections.stock-info",
+        "sections.rich-text",
+        "sections.form-block",
+        "sections.disclosures",
+        "sections.anchor-nav",
+        "sections.truths",
+        "sections.platform-tabs"
+      ]
+    }
+  }
+}

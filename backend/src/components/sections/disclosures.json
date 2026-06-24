@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_disclosures",
+  "info": {
+    "displayName": "Disclosures",
+    "description": "Relation to the Disclaimers singleton"
+  },
+  "options": {},
+  "attributes": {
+    "disclaimers": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::disclaimers.disclaimers"
+    }
+  }
+}

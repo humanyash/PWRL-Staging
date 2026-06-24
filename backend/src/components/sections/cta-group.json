@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_cta_groups",
+  "info": {
+    "displayName": "CTA Group",
+    "description": "Heading + subheading + a group of CTAs"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "subheading": {
+      "type": "text"
+    },
+    "ctas": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.cta"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_image_with_alts",
+  "info": {
+    "displayName": "Image With Alt",
+    "description": "Media with an accessible alt string"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "required": true
+    },
+    "alt": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

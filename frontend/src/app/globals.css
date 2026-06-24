@@ -1,0 +1,263 @@
+@import "tailwindcss";
+/* Kinetic layer (design handoff 06.11.26) — global system, then
+   per-component signatures. All pre-states gate on html[data-mo-on]. */
+@import "./motion.css";
+@import "./motion-bespoke.css";
+
+/**
+ * PWRL theme — Tailwind v4 CSS-based config.
+ * Values mirror the LIVE site's stylesheet (extracted from
+ * _inventory/css/live-home.css) for a faithful port.
+ *
+ * Display font prefers the real `ivypresto-headline` (served by the Adobe
+ * Fonts / Typekit kit once its <link> is added to the document head). Until
+ * then it falls back to Cormorant Garamond — so adding the kit needs no
+ * component changes, the real font just takes over everywhere.
+ */
+@theme {
+  /* Brand blues (live --color-blue-400 #0023ec, brand CTA #085cf0) */
+  --color-brand-blue: #085cf0;
+  --color-electric-blue: #0023ec;
+  --color-deep-blue: #000a96; /* live --color-blue-500 */
+  --color-periwinkle: #5d75ff;
+  --color-link-blue: #76aaf7;
+
+  /* Navy dark sections (live bg-[#060B35]) */
+  --color-navy: #060b35;
+
+  /* Sky / ice light blues */
+  --color-sky: #b0e9fe;
+  --color-sky-alt: #b0e9fd;
+  --color-ice: #e4f7fd;
+  --color-mint: #23fbc5; /* live --color-mint */
+
+  /* Neutrals — exact live values */
+  --color-charcoal: #242424; /* live --color-charcoal (was #171717) */
+  --color-gray-muted: #757575; /* live --color-gray-400 */
+  --color-gray-mid: #333333; /* live --color-gray-500 */
+  --color-gray-100: #f1f1f1; /* live --color-gray-100 (timeline section bg) */
+
+  /* Fonts */
+  --font-display: "ivypresto-headline", var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-inter), "Libre Franklin", sans-serif;
+  --font-franklin: var(--font-franklin-sans), "Libre Franklin", sans-serif;
+
+  /* Radii (live) */
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* Display font sizes seen on the live hero/sections */
+  --text-display: 4rem;
+  --text-display--line-height: 1.02;
+  --text-featured: 24px;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #242424;
+}
+
+/* Live root font-size is responsive: 16px on mobile, 18px (112.5%) from
+   desktop up — probed from computed paddings (e.g. the timeline's pt-23 is
+   92px at phone width but 103.5px at 1440). Media-query thresholds are
+   evaluated against the INITIAL root (16px), so Tailwind's breakpoints stay
+   fixed (md = 768px) regardless of this override. */
+html {
+  font-size: 100%;
+}
+@media (min-width: 1024px) {
+  html {
+    font-size: 112.5%;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), "Libre Franklin", Arial, sans-serif;
+}
+
+/* Display face for headings/hero — prefers the real ivypresto-headline. */
+.font-display {
+  font-family:
+    "ivypresto-headline", var(--font-cormorant), Georgia, "Times New Roman",
+    serif;
+}
+.font-body {
+  font-family: var(--font-inter), "Libre Franklin", Arial, sans-serif;
+}
+
+/* Live signature gradients (verbatim from the live stylesheet). */
+.bg-blue-white-gradient {
+  background: linear-gradient(
+    #060b35 0% 13%,
+    #06154b 20%,
+    #07328f 30%,
+    #0751d6 40%,
+    #0f68ee 50%,
+    #39afe3 55%,
+    #7cf3e0 60%,
+    #c1feef 65%,
+    #edfffa 70%,
+    #fff 75% 100%
+  );
+}
+.bg-blue-mint-gradient {
+  background: linear-gradient(
+    #060b35 0% 27%,
+    #060e3a 35%,
+    #061344 40%,
+    #061751 45%,
+    #061e61 50%,
+    #072776 55%,
+    #08328e 60%,
+    #083da8 65%,
+    #0646be 70%,
+    #084fd0 75%,
+    #095bdd 80%,
+    #0c6ee3 85%,
+    #0f89e2 90%,
+    #16abda 95%,
+    #1acdd1 100%
+  );
+}
+
+/* Live utility: vertical section padding = 8 spacing units (2rem). */
+.section-spacing {
+  padding-block: calc(0.25rem * 8);
+}
+
+/* Live hero headline animation — 27s master cycle, six 4.5s slots.
+   Each slide rises in (translateY 50% → 0) over ~0.4s, holds ~4s, exits up.
+   Percentages verbatim from the live keyframes. */
+@keyframes hero-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  1.48% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  15.19% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  16.67% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+}
+
+/* The static "Only for" prefix — visible across the four suffix slots
+   (4.5s → 22.5s of the 27s cycle), entering/exiting like the slides. */
+@keyframes hero-prefix {
+  0%,
+  16.67% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  18.15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  81.85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  83.33% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+}
+
+.hero-anim {
+  animation-duration: 27s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim {
+    animation: none !important;
+  }
+  .quote-slide {
+    animation: none !important;
+  }
+  .quote-slide:first-child {
+    opacity: 1 !important;
+  }
+}
+
+/* Quote-panel background slideshow — each slide holds its 1/8 window with a
+   ~1s crossfade (live: transition-opacity duration-1000). Slide count × 4s
+   per slide is set inline via animation-duration/delay. */
+@keyframes quote-fade {
+  0% {
+    opacity: 0;
+  }
+  3.2% {
+    opacity: 1;
+  }
+  12.5% {
+    opacity: 1;
+  }
+  15.7% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.quote-slide {
+  opacity: 0;
+  animation-name: quote-fade;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Live /fund "Investment Strategy" sector wheel (AUDIT R5-6): the orbit
+   spins while the icons counter-spin to stay upright. */
+@keyframes sector-wheel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sector-wheel-counter-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="sector-wheel-spin"],
+  [style*="sector-wheel-counter-spin"] {
+    animation: none !important;
+  }
+}
+
+/* Live news carousel hides its scrollbar (AUDIT R7-3). */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

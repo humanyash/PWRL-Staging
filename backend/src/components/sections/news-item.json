@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_sections_news_items",
+  "info": {
+    "displayName": "News Item",
+    "description": "A press/news card (date + title + link + thumbnail)"
+  },
+  "options": {},
+  "attributes": {
+    "date": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "source": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

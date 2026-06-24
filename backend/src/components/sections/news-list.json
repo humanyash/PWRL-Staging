@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_news_lists",
+  "info": {
+    "displayName": "News List",
+    "description": "Heading + limit; auto-pulls latest NewsItems"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "limit": {
+      "type": "integer",
+      "default": 5,
+      "min": 1
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.news-item"
+    }
+  }
+}

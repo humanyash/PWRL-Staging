@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_timeline_entries",
+  "info": {
+    "displayName": "Timeline Entry",
+    "description": "A single timeline entry"
+  },
+  "options": {},
+  "attributes": {
+    "year": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    }
+  }
+}

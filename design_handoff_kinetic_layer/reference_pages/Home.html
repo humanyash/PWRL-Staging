@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PWRL — Home (Kinetic Layer Prototype)</title>
+<link rel="preconnect" href="https://use.typekit.net">
+<link rel="stylesheet" href="https://use.typekit.net/usg7ynr.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap">
+<link rel="stylesheet" href="site/pwrl-site.css">
+<link rel="stylesheet" href="motion/motion.css">
+<link rel="stylesheet" href="motion/motion-bespoke.css">
+</head>
+<body>
+
+<!-- ================= Header (existing site chrome) ================= -->
+<header class="site-header" data-screen-label="Header">
+  <div class="site-banner">
+    <a href="https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html" target="_blank" rel="noopener noreferrer">Read Monthly NAV Update</a>
+  </div>
+  <div class="header-track" data-header-hide="">
+    <div class="header-row">
+      <a class="header-logo" href="index.html" aria-label="Go to homepage">
+        <img src="assets/brand/pwrl-logo.svg" alt="PWRL — Private Tech. Nasdaq Listed.">
+      </a>
+      <nav class="header-nav">
+        <ul>
+          <li class="mo-dropdown-parent">
+            <a class="nav-link" href="Vision.html"><span class="nav-swap"><span class="ghost">Our Vision</span><span class="real">Our Vision</span></span></a>
+            <div class="nav-dropdown mo-dropdown"><div class="nav-dropdown-panel">
+              <a href="Vision.html#strategy">Strategy</a><a href="Vision.html#difference">Difference</a><a href="Vision.html#team">Team</a><a href="Vision.html#heritage">Heritage</a><a href="Vision.html#investing">Investing</a><a href="Vision.html#faq">FAQ</a>
+            </div></div>
+          </li>
+          <li class="mo-dropdown-parent">
+            <a class="nav-link" href="Fund.html"><span class="nav-swap"><span class="ghost">The Fund</span><span class="real">The Fund</span></span></a>
+            <div class="nav-dropdown mo-dropdown"><div class="nav-dropdown-panel">
+              <a href="Fund.html#portfolio">Portfolio</a><a href="Fund.html#investment_strategy">Investment Strategy</a><a href="Fund.html#investment_process">Investment Process</a><a href="Fund.html#faq">FAQ</a>
+            </div></div>
+          </li>
+          <li class="mo-dropdown-parent">
+            <a class="nav-link" href="Trade.html"><span class="nav-swap"><span class="ghost">How to Trade</span><span class="real">How to Trade</span></span></a>
+            <div class="nav-dropdown mo-dropdown"><div class="nav-dropdown-panel">
+              <a href="Trade.html#where-how">Where &amp; How</a><a href="Trade.html#cef-overview">CEF Overview</a>
+            </div></div>
+          </li>
+          <li class="mo-dropdown-parent">
+            <a class="nav-link" href="Investor Relations.html"><span class="nav-swap"><span class="ghost">Investor Relations</span><span class="real">Investor Relations</span></span></a>
+            <div class="nav-dropdown mo-dropdown"><div class="nav-dropdown-panel">
+              <a href="Investor Relations.html#news">News</a><a href="Investor Relations.html#directors">Board of Directors</a><a href="Investor Relations.html#sec-filings">SEC Filings</a><a href="Investor Relations.html#fund-documents">Fund Documents</a>
+            </div></div>
+          </li>
+        </ul>
+      </nav>
+      <div class="header-utility" id="utility">
+        <button class="header-burger" type="button" aria-label="Open utility menu"><span></span><span></span><span></span></button>
+        <div class="nav-dropdown"><div class="nav-dropdown-panel"><a href="Contact.html">Contact</a></div></div>
+      </div>
+      <button class="header-burger header-burger--mobile" type="button" aria-label="Open menu" style="display:none;"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ================= Hero (video + rotator) ================= -->
+  <section class="hero" data-mo-hero="" data-screen-label="Home hero">
+    <div class="hero-media-wrap mo-settle">
+      <video class="hero-media mo-parallax" src="assets/media/Home-Sequence.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+    </div>
+    <div class="container hero-inner">
+      <div>
+        <h1 class="mo-arrive" style="--mo-arrive-d: 150ms;">
+          <span class="rotator">
+            <span aria-hidden="true" class="spacer"><span>Only for</span><span class="suffix-sp">world changers.</span></span>
+            <span class="hero-anim slide-abs" style="animation-name: hero-slide; animation-delay: 0s;">Powerlaw Corp.</span>
+            <span class="hero-anim slide-abs" style="animation-name: hero-slide; animation-delay: 22.5s;">Nasdaq: PWRL</span>
+            <span class="prefix-row">
+              <span class="hero-anim prefix" style="animation-name: hero-prefix;">Only for</span>
+              <span class="suffix-stage">
+                <span aria-hidden="true" class="ghost-suffix">world changers.</span>
+                <span class="hero-anim suffix" style="animation-name: hero-slide; animation-delay: 4.5s;">big thinkers.</span>
+                <span class="hero-anim suffix" style="animation-name: hero-slide; animation-delay: 9s;">Mars seekers.</span>
+                <span class="hero-anim suffix" style="animation-name: hero-slide; animation-delay: 13.5s;">world changers.</span>
+                <span class="hero-anim suffix" style="animation-name: hero-slide; animation-delay: 18s;">everyone.</span>
+              </span>
+            </span>
+          </span>
+        </h1>
+        <p class="hero-body" data-mo="" style="--mo-d: 380ms;"><b>18 leading private tech companies. One Nasdaq-listed stock. A public venture capital fund built by venture capitalists. Only for everyone.</b></p>
+        <div class="hero-ctas" data-mo="" style="--mo-d: 540ms;">
+          <a class="cta cta--blue mo-btn" href="Fund.html">VIEW PORTFOLIO</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NAV signup band ================= -->
+  <section class="signup signup--navy" data-screen-label="NAV signup" data-mo-stagger="">
+    <div class="container">
+      <div class="signup-head">
+        <h2 data-mo="">Get the latest.</h2>
+        <p data-mo="">Sign up to receive NAV alerts, fund updates and portfolio news.</p>
+      </div>
+      <form class="signup-form" data-mo="" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks!';">
+        <input name="firstname" type="text" placeholder="First Name*" required>
+        <input name="lastname" type="text" placeholder="Last Name*" required>
+        <input name="email" type="email" placeholder="Email*" required>
+        <button class="mo-btn" type="submit">Sign Up</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= Intro (gradient) ================= -->
+  <section class="intro bg-blue-white-gradient" id="introducing-powerlaw-corp" data-screen-label="Introducing Powerlaw">
+    <div class="inner">
+      <div class="intro-center">
+        <div class="intro-stack">
+          <h2 data-mo="">Introducing Powerlaw Corp.</h2>
+          <p class="p2" data-mo="" style="--mo-i: 1;">A curated portfolio of private technology companies that you probably already know. Now available in one stock, tradable on Nasdaq. Powerlaw Corp. (Nasdaq: PWRL) is the flagship fund from Powerlaw Capital Group, an asset management firm building a publicly-listed platform for private technology investing.</p>
+        </div>
+        <div role="separator" aria-orientation="vertical" class="divider-mint" data-mo="draw" style="--mo-i: 2;"></div>
+      </div>
+      <div class="intro-statement">
+        <div class="intro-stack">
+          <h2 data-mo="fade"><span class="mo-phrase" style="--mo-i: 0;">We believe the world&rsquo;s most transformative companies</span> <span class="mo-phrase" style="--mo-i: 1;">should be within everyone&rsquo;s reach.</span></h2>
+          <p class="p2" data-mo="" style="--mo-i: 1;">Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to leading private technology companies through a single Nasdaq-listed security. PWRL is a listed closed-end fund registered under the Investment Company Act of 1940. It provides daily liquidity, monthly NAV reporting, quarterly portfolio disclosure, independent governance, and the disclosure standards of a registered investment company.</p>
+          <span data-mo="" style="--mo-i: 2;"><a class="cta cta--mint cta--compact mo-btn" href="#">TRADE PWRL</a></span>
+        </div>
+      </div>
+      <div class="intro-tail">
+        <div class="intro-tail-col">
+          <div class="intro-tail-left" data-mo-stagger="">
+            <h3 data-mo="fade"><span class="mo-phrase" style="--mo-i: 0;">Private Tech.</span> <span class="mo-phrase" style="--mo-i: 1;">Nasdaq Listed.</span> <span class="mo-phrase" style="--mo-i: 2;">Only for everyone.</span></h3>
+            <p class="p3" data-mo="">Powerlaw Corp. offers the access you've been wanting with the wisdom you've been waiting for. As more of the world's most consequential technology companies stay private longer, an entire generation of investors has been locked out of the value creation those companies represent.</p>
+            <p class="p3" data-mo="">Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-listed fund offering exposure to leading private technology companies through a single ticker. Powerlaw Corp. is the first product on Powerlaw Capital Group's platform.</p>
+            <span data-mo=""><a class="cta cta--blue cta--compact mo-btn" href="https://www.sec.gov/ix?doc=/Archives/edgar/data/0002052053/000121390026059594/ea0290638-02_424b3.htm" target="_blank" rel="noopener noreferrer">READ OUR PROSPECTUS</a></span>
+          </div>
+        </div>
+        <div class="intro-tail-col">
+          <div class="intro-items" data-mo-stagger="">
+            <div class="intro-item" data-mo="">
+              <div class="icon"><img src="assets/access.png" alt="Access Key"></div>
+              <div>
+                <h5>ACCESS</h5>
+                <p>Private markets have been institutional-only for a generation. Powerlaw Corp. opens that door by providing exposure to leading private technology companies in AI, software, aerospace and defense, fintech, and digital infrastructure through a single Nasdaq-listed security.</p>
+              </div>
+            </div>
+            <div class="intro-item" data-mo="">
+              <div class="icon"><img src="assets/wisdom.png" alt="Wisdom Owl"></div>
+              <div>
+                <h5>WISDOM</h5>
+                <p>The wisdom of venture capital shouldn&rsquo;t live behind closed doors. Powerlaw Corp. is built on more than two decades of operational and origination experience inside private technology. The portfolio is advised by Powerlaw Fund Adviser, LLC, and backed by Akkadian Ventures, with 16 years of venture secondary-market relationships across the founders, employees, and investors of the companies that have defined an era.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Pull quote (8-slide crossfade) ================= -->
+  <section class="pullquote" data-screen-label="Pull quote">
+    <div class="quote-stack mo-kenwrap">
+      <div class="quote-base" style="background-image: url('assets/quote-variant1.webp');" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant1.webp'); animation-delay: 0s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant4.webp'); animation-delay: 4s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant2.webp'); animation-delay: 8s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant5.webp'); animation-delay: 12s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant3.webp'); animation-delay: 16s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant6.webp'); animation-delay: 20s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant8.webp'); animation-delay: 24s; animation-duration: 32s;" aria-hidden="true"></div>
+      <div class="quote-slide" style="background-image: url('assets/quote-variant7.webp'); animation-delay: 28s; animation-duration: 32s;" aria-hidden="true"></div>
+    </div>
+    <div class="quote-overlay" aria-hidden="true"></div>
+    <blockquote>
+      <p data-mo="fade"><span class="mo-phrase" style="--mo-i: 0;">Powerlaw Corp. is built on the principle</span> <span class="mo-phrase" style="--mo-i: 1;">that a small number of breakout private technology companies</span> <span class="mo-phrase" style="--mo-i: 2;">drive a disproportionate share of long-term value creation.</span></p>
+      <div class="quote-cta" data-mo="" style="--mo-i: 1;">
+        <a class="cta cta--mint cta--compact mo-btn" href="#">EXPLORE OUR VISION</a>
+      </div>
+    </blockquote>
+  </section>
+
+  <!-- ================= Timeline ("A History of Firsts") ================= -->
+  <section class="timeline" id="history" data-screen-label="Timeline">
+    <div class="container container--tl">
+      <h2 data-mo="">A History of Firsts</h2>
+      <div class="timeline-intro" data-mo="" style="--mo-i: 1;">
+        <p>Powerlaw Corp. (Nasdaq: PWRL) is the first product of Powerlaw Capital Group and managed by Powerlaw Fund Adviser, LLC. The firm is backed by Akkadian Ventures' 16-year heritage in institutional private-company secondary markets.</p>
+      </div>
+    </div>
+    <div class="timeline-scroller">
+      <div class="timeline-canvas">
+        <div class="timeline-grid">
+          <div>
+            <article class="tl-card" style="left: 6.8%; width: 31.7%; top: 110px;" data-mo="" data-comment-anchor="tl-2010">
+              <div class="card-inner">
+                <p class="tl-title">One of the First in Secondaries</p>
+                <p class="tl-body">Ben Black and Pete Smith launched Akkadian Ventures to buy direct secondary shares from employees, founders, and early investors &ndash; when the market was still &lt; $20B and largely unproven.</p>
+              </div>
+            </article>
+            <article class="tl-card" style="left: 38.5%; width: 31.5%; top: 30px; --mo-i: 2;" data-mo="">
+              <div class="card-inner">
+                <p class="tl-title">Scaling the Secondary Market</p>
+                <p class="tl-body">Akkadian closes its latest and largest flagship fund: <b>$276M</b> Fund VI to continue building one of the leading direct-secondary platforms in the market.</p>
+              </div>
+            </article>
+            <article class="tl-card" style="left: 70%; width: 30%; top: 0px; --mo-i: 4;" data-mo="">
+              <div class="card-inner">
+                <p class="tl-title">Expansive Innovation Engine</p>
+                <p class="tl-body">PWRL begins trading on the Nasdaq Stock Market as the first product of Powerlaw Capital Group. The US Venture Capital Market now exceeds <b>$1.24 Trillion</b>.</p>
+              </div>
+            </article>
+          </div>
+          <div>
+            <img class="timeline-beam" src="assets/timeline-infographic.webp" alt="Timeline ribbon" data-mo="fade">
+            <span class="beam-sweep" data-mo="fade" style="--mo-d: 0ms;" aria-hidden="true"></span>
+          </div>
+          <div>
+            <article class="tl-card" style="left: 22.7%; width: 31.8%; top: -50px; --mo-i: 1;" data-mo="">
+              <div class="card-inner">
+                <p class="tl-title">RAISE Global Established</p>
+                <p class="tl-body">Akkadian creates RAISE Global, which becomes one of the leading LP&ndash;GP emerging manager conferences connecting forward-thinking allocators with next-generation venture talent.</p>
+              </div>
+            </article>
+            <article class="tl-card" style="left: 54.5%; width: 45.5%; top: 0px; --mo-i: 3;" data-mo="">
+              <div class="card-inner">
+                <p class="tl-title">Powerlaw Capital Group Launches</p>
+                <p class="tl-body">Powerlaw Capital Group emerges as a platform with the goal of bringing exposure to leading private technology companies into the public market for investors globally.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="timeline-overlay" aria-hidden="true">
+          <span class="tl-line" style="left: 6.8%; top: 177px; height: 286px; --mo-d: 200ms;" data-mo="draw"></span>
+          <span class="tl-line" style="left: 22.7%; top: 431px; height: 323px; --mo-i: 1; --mo-d: 200ms;" data-mo="draw"></span>
+          <span class="tl-line" style="left: 38.5%; top: 86px; height: 377px; --mo-i: 2; --mo-d: 200ms;" data-mo="draw"></span>
+          <span class="tl-line" style="left: 54.5%; top: 431px; height: 335px; --mo-i: 3; --mo-d: 200ms;" data-mo="draw"></span>
+          <span class="tl-line" style="left: 70%; top: 59px; height: 404px; --mo-i: 4; --mo-d: 200ms;" data-mo="draw"></span>
+          <span class="tl-year" style="left: 7.78%; --mo-d: 350ms;" data-mo="fade">2010</span>
+          <span class="tl-year" style="left: 23.9%; --mo-i: 1; --mo-d: 350ms;" data-mo="fade">2016</span>
+          <span class="tl-year" style="left: 40%; --mo-i: 2; --mo-d: 350ms;" data-mo="fade">2022</span>
+          <span class="tl-year" style="left: 55.7%; --mo-i: 3; --mo-d: 350ms;" data-mo="fade">2025</span>
+          <span class="tl-year" style="left: 71.4%; --mo-i: 4; --mo-d: 350ms;" data-mo="fade">2026</span>
+          <p class="tl-caption" style="left: 71.4%; --mo-i: 5; --mo-d: 350ms;" data-mo="fade">Powerlaw Corp. debuts on Nasdaq under ticker: PWRL</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ================= Footer (legal — functional fades only) ================= -->
+<footer class="site-footer" data-screen-label="Footer">
+  <div class="container container--tl">
+    <div class="footer-top">
+      <div>
+        <a class="footer-logo" href="index.html" aria-label="PWRL home">
+          <img src="assets/brand/pwrl-logo.svg" alt="PWRL — Private Tech. Nasdaq Listed.">
+        </a>
+        <div class="footer-copy">
+          <p>&copy; Powerlaw Corp. All Rights Reserved. <a href="#" class="mo-link">Privacy Policy</a> | <a href="#" class="mo-link">Terms &amp; Conditions</a></p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <ul class="footer-links">
+          <li><a class="mo-link" href="Vision.html">Our Vision</a></li>
+          <li><a class="mo-link" href="Investor Relations.html">Investor Relations</a></li>
+          <li><a class="mo-link" href="Fund.html">The Fund</a></li>
+          <li><a class="mo-link" href="Contact.html">Contact</a></li>
+          <li><a class="mo-link" href="Trade.html">How to Trade</a></li>
+          <li>
+            <ul class="footer-socials">
+              <li><a href="#" aria-label="LinkedIn"><img src="assets/brand/social/linkedin.svg" alt="LinkedIn" width="18" height="18"></a></li>
+              <li><a href="#" aria-label="Instagram"><img src="assets/brand/social/instagram.svg" alt="Instagram" width="18" height="18"></a></li>
+              <li><a href="#" aria-label="YouTube"><img src="assets/brand/social/youtube.svg" alt="YouTube" width="18" height="18"></a></li>
+              <li><a href="#" aria-label="X"><img src="assets/brand/social/x.svg" alt="X" width="18" height="18"></a></li>
+              <li><a href="#" aria-label="Seeking Alpha"><img src="assets/brand/social/seekingalpha.svg" alt="Seeking Alpha" width="18" height="18"></a></li>
+              <li><a href="#" aria-label="StockTwits"><img src="assets/brand/social/stocktwits.svg" alt="StockTwits" width="18" height="18"></a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="footer-copy-m">
+          <p>&copy; Powerlaw Corp. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms &amp; Conditions</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimers">
+      <p>Powerlaw Fund Adviser, LLC (&ldquo;Powerlaw&rdquo;) is an investment adviser registered with the United States Securities and Exchange Commission (&ldquo;SEC&rdquo;). Powerlaw is the registered adviser for Powerlaw Corp. (&ldquo;PWRL&rdquo;), a closed-end fund listed on Nasdaq.</p>
+      <p><b>Investors are advised to carefully consider the investment objective, risks, charges and expenses of PWRL before investing. A prospectus, dated May 20, 2026, together with any subsequent prospectus supplements, each of which has been filed with the Securities and Exchange Commission (&ldquo;SEC&rdquo;), contains this and other information about PWRL and should be read carefully before investing.</b></p>
+      <p><b>A registration statement relating to the resale of shares of common stock of PWRL has been filed with the SEC and is effective. This website and the information it contains does not constitute an offer to sell nor a solicitation of an offer to buy shares of common stock of PWRL, which offering may only be made by means of a prospectus, a copy of which may be obtained by clicking <a href="https://www.sec.gov/ix?doc=/Archives/edgar/data/0002052053/000121390026059594/ea0290638-02_424b3.htm" target="_blank" rel="noopener noreferrer">here</a>.</b></p>
+      <p><b>This website and the information it contains shall not constitute an offer to sell or the solicitation of an offer to buy any securities, nor shall there be any sale of these securities in any state or jurisdiction in which such offer, solicitation or sale would be unlawful prior to registration or qualification under the securities laws of any such state or jurisdiction.</b></p>
+      <p>There can be no assurance that PWRL investment objectives will be achieved. An investment in PWRL is not appropriate for all investors and is not intended to be a complete investment program. PWRL is designed as a long-term investment and not as a trading vehicle. Investors could lose some or all of their investment. Past performance is not indicative of future results. An investment in PWRL is speculative and involves a high degree of risk with substantial risk of loss. Shares of closed-end funds such as PWRL frequently trade at a discount to net asset value. Before making an investment decision, a prospective investor should (i) consider the suitability of this investment with respect to the investor&rsquo;s investment objectives and (ii) consider factors such as the investor&rsquo;s investment goals, income, risk tolerance, and time horizon.</p>
+      <p>Closed-end funds differ from open-end funds in that closed-end funds do not redeem their shares at the request of an investor. No shareholder has the right to require PWRL to redeem his, her or its shares. While Powerlaw&rsquo;s shares are expected to be listed on an exchange, an active public market for the shares may not develop. As a result, shareholders may not be able to liquidate their investment. Accordingly, shareholders should consider that they may not have access to the funds they invest in PWRL for an indefinite period of time. There is no assurance that PWRL will achieve its investment objective, or that the private companies in which PWRL invests will ever have a liquidity event.</p>
+      <p>Certain information on the website may contain forward-looking statements, which can be identified by the use of terms such as &ldquo;may&rdquo;, &ldquo;should&rdquo;, &ldquo;believe&rdquo;, &ldquo;expect&rdquo;, &ldquo;anticipate&rdquo;, &ldquo;project&rdquo;, &ldquo;estimate&rdquo;, &ldquo;optimistic&rdquo;, &ldquo;intend&rdquo;, &ldquo;aim&rdquo;, &ldquo;will&rdquo;, &ldquo;continue&rdquo; (or the negatives thereof) or other variations thereof. Due to various risks and uncertainties, actual events or results of actual performance of an investment may differ materially from those reflected or contemplated in such forward-looking statements, which speak only of the date they are made, and there is no guarantee that these opinions or predictions will ultimately be realized. As a result, investors should not rely on such forward-looking statements in making their investment decisions. Any projection of the performance discussed by Powerlaw is highly speculative and represents Powerlaw&rsquo;s opinion, which may change. Powerlaw undertakes no obligation to update publicly or revise any statements contained on the website, whether as a result of new information, future developments or otherwise.</p>
+      <p>This website&rsquo;s content is for informational purposes only and does not constitute advice, a recommendation or an offer to enter into any transaction with PWRL or any other fund. Powerlaw does not provide tax, accounting, financial, regulatory or legal advice, and all investors are advised to consult with their tax, accounting, financial, legal and/or other professional advisors.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Prototype-only page switcher -->
+<nav class="proto-nav" aria-label="Prototype pages">
+  <a href="index.html">Brief</a>
+  <a class="active" href="Home.html">Home</a>
+  <a href="Vision.html">Vision</a>
+  <a href="Fund.html">/fund</a>
+  <a href="Trade.html">Trade</a>
+  <a href="Investor Relations.html">IR</a>
+  <a href="Contact.html">Contact</a>
+  <a href="Cursor Recipes.html">Recipes</a>
+  <a href="Motion Spec.html">Spec</a>
+</nav>
+
+<div id="tweaks-root"></div>
+
+<script src="motion/pwrl-motion.js"></script>
+<script>
+  // Utility hamburger (existing behavior).
+  (function () {
+    var u = document.getElementById("utility");
+    u.querySelector("button").addEventListener("click", function () {
+      u.classList.toggle("open");
+    });
+  })();
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="site/tweaks-panel.jsx"></script>
+<script type="text/babel" src="site/pwrl-tweaks.jsx"></script>
+
+</body>
+</html>

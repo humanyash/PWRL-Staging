@@ -1,0 +1,50 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * ivypresto-headline:
+ *   - http://typekit.com/eulas/00000000000000007735e5aa
+ *   - http://typekit.com/eulas/00000000000000007735e5a0
+ *   - http://typekit.com/eulas/00000000000000007735e5ac
+ *   - http://typekit.com/eulas/00000000000000007735e5ab
+ *   - http://typekit.com/eulas/00000000000000007735e5a2
+ *
+ * © 2009-2026 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2025-12-04 23:00:51 UTC"}*/
+
+@import url("https://p.typekit.net/p.css?s=1&k=xyr7qcs&ht=tk&f=45412.45413.45414.45415.45417&a=1484815&app=typekit&e=css");
+
+@font-face {
+font-family:"ivypresto-headline";
+src:url("https://use.typekit.net/af/f7d4b7/00000000000000007735e5aa/31/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n1&v=3") format("woff2"),url("https://use.typekit.net/af/f7d4b7/00000000000000007735e5aa/31/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n1&v=3") format("woff"),url("https://use.typekit.net/af/f7d4b7/00000000000000007735e5aa/31/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n1&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:100;font-stretch:normal;
+}
+
+@font-face {
+font-family:"ivypresto-headline";
+src:url("https://use.typekit.net/af/dda4ef/00000000000000007735e5a0/31/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=i1&v=3") format("woff2"),url("https://use.typekit.net/af/dda4ef/00000000000000007735e5a0/31/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=i1&v=3") format("woff"),url("https://use.typekit.net/af/dda4ef/00000000000000007735e5a0/31/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=i1&v=3") format("opentype");
+font-display:auto;font-style:italic;font-weight:100;font-stretch:normal;
+}
+
+@font-face {
+font-family:"ivypresto-headline";
+src:url("https://use.typekit.net/af/4e4a98/00000000000000007735e5ac/31/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n3&v=3") format("woff2"),url("https://use.typekit.net/af/4e4a98/00000000000000007735e5ac/31/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n3&v=3") format("woff"),url("https://use.typekit.net/af/4e4a98/00000000000000007735e5ac/31/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n3&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:300;font-stretch:normal;
+}
+
+@font-face {
+font-family:"ivypresto-headline";
+src:url("https://use.typekit.net/af/d3c106/00000000000000007735e5ab/31/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=i3&v=3") format("woff2"),url("https://use.typekit.net/af/d3c106/00000000000000007735e5ab/31/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=i3&v=3") format("woff"),url("https://use.typekit.net/af/d3c106/00000000000000007735e5ab/31/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=i3&v=3") format("opentype");
+font-display:auto;font-style:italic;font-weight:300;font-stretch:normal;
+}
+
+@font-face {
+font-family:"ivypresto-headline";
+src:url("https://use.typekit.net/af/e14196/00000000000000007735e5a2/31/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/e14196/00000000000000007735e5a2/31/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/e14196/00000000000000007735e5a2/31/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n4&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
+}
+
+.tk-ivypresto-headline { font-family: "ivypresto-headline",serif; }

@@ -1,0 +1,46 @@
+# Monorepo root gitignore — belt-and-suspenders over the per-app gitignores.
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Builds / caches
+.next/
+**/.next/
+dist/
+**/dist/
+build/
+**/build/
+.strapi/
+**/.strapi/
+.cache/
+**/.cache/
+
+# Strapi runtime
+backend/.tmp/
+backend/exports/
+backend/*.cache
+backend/build/
+backend/dist/
+
+# Local data / uploads (media goes to Cloudinary, not git)
+backend/public/uploads/*
+!backend/public/uploads/.gitkeep
+
+# OS / editor
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# Inventory raw HTML snapshots are large; keep extracted JSON, drop raw HTML
+_inventory/html/*.html
+.env.ingest
+.vercel

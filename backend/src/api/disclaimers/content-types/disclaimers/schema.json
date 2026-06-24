@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "disclaimers",
+  "info": {
+    "singularName": "disclaimers",
+    "pluralName": "disclaimers-plural",
+    "displayName": "Disclaimers",
+    "description": "Verbatim disclaimer paragraphs + effectiveDate (Legal Reviewer only)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "paragraphs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.disclaimer-paragraph",
+      "required": true
+    },
+    "effectiveDate": {
+      "type": "date",
+      "required": true
+    }
+  }
+}

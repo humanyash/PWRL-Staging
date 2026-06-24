@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fund_documents",
+  "info": {
+    "singularName": "fund-document",
+    "pluralName": "fund-documents",
+    "displayName": "Fund Document",
+    "description": "Prospectus, factsheets, reports. Cloudinary-hosted PDF + kind enum"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "kind": {
+      "type": "enumeration",
+      "enum": ["prospectus", "factsheet", "annual-report", "semi-annual-report", "shareholder-report", "other"],
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files"],
+      "required": true
+    },
+    "effectiveDate": {
+      "type": "date"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

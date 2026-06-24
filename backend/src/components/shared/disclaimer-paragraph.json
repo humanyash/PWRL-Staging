@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_disclaimer_paragraphs",
+  "info": {
+    "displayName": "Disclaimer Paragraph",
+    "description": "A single verbatim disclaimer paragraph"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

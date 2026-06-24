@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_holdings",
+  "info": {
+    "displayName": "Holding",
+    "description": "A single portfolio holding row"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "allocation": {
+      "type": "string",
+      "required": true
+    },
+    "sector": {
+      "type": "string"
+    }
+  }
+}

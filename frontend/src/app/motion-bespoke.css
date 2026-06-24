@@ -1,0 +1,862 @@
+/* ==========================================================================
+   PWRL MOTION — BESPOKE LAYER (motion-bespoke.css)
+   Per-component signature treatments, layered OVER the global system.
+   Load order:  motion.css  →  motion-bespoke.css  (this file)
+
+   Same contract as the global layer: gated on html[data-mo-on], killed by
+   [data-mo-reduced] + prefers-reduced-motion, transform/opacity only,
+   resting states pixel-identical. Every block below is independently
+   deletable — removing a component's block reverts it to the global
+   vocabulary, nothing else changes.
+
+   Page map:
+     §1 shared chrome (hero arrival, nav dropdown cascade, anchor underline)
+     §2 home       (intro icons, divider ink-tip, quote, timeline signature)
+     §3 /fund      (donut dial, segment focus, rule wipes, wheel, sphere)
+     §4 /vision    (.mo-stat heritage stats, .mo-photo team/board cards)
+     §5 /trade + /investor-relations (platform tiles, news cards)
+     §6 /contact   (functional only — no bespoke treatment by design)
+     §7 reduced-motion kills for everything this file animates
+   ========================================================================== */
+
+/* ==========================================================================
+   §1 SHARED CHROME
+   ========================================================================== */
+
+/* Page arrival — the landing is choreographed, never abrupt:
+   1. The page opens on the hero's navy ground (the .hero section bg).
+   2. The header slides down into place (0–500ms).
+   3. Headline, body and CTA rise in sequence (.mo-arrive + --mo-arrive-d,
+      or the existing data-mo head-delays inside [data-mo-hero]).
+   4. The hero media fades up from the navy while it settles (250–1250ms).
+   All on-load animations; reveals lower on the page still wait for scroll. */
+
+/* Page transition veil — internal navigation fades to the navy ground
+   (exit, ~240ms), then the next page lifts the veil into its arrival
+   sequence. Driven by pwrl-motion.js (bindTransitions); reduced-motion
+   and modified/external/anchor clicks bypass it entirely. */
+.mo-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--navy, #060b35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity calc(240ms * var(--mo-speed, 1)) var(--mo-ease-inout, ease-in-out);
+}
+
+@keyframes mo-header-in {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: none; }
+}
+html[data-mo-on]:not([data-mo-reduced]) .site-header {
+  animation: mo-header-in calc(500ms * var(--mo-speed)) var(--mo-ease-out) both;
+}
+
+@keyframes mo-rise-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-arrive {
+  animation: mo-rise-in var(--mo-dur-slow) var(--mo-ease-out) both;
+  animation-delay: calc(var(--mo-arrive-d, 0ms) * var(--mo-speed));
+}
+
+/* Hero media arrival — fades up from the navy ground while it settles
+   (1.045 → 1). Lives on the WRAPPER so it composes with the inner
+   parallax transform. Markup: add .mo-settle to .hero-media-wrap. */
+@keyframes mo-settle {
+  from { transform: scale(1.045); }
+  to   { transform: scale(1); }
+}
+@keyframes mo-media-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-settle {
+  animation:
+    mo-settle calc(1400ms * var(--mo-speed)) var(--mo-ease-out) both,
+    mo-media-in calc(1000ms * var(--mo-speed)) ease-out both;
+  animation-delay: calc(250ms * var(--mo-speed));
+}
+
+/* Nav dropdown items cascade in (25ms/item) once the panel drops.
+   Closing is immediate — delays only apply on the open state. */
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown .nav-dropdown-panel a {
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity var(--mo-dur-tap) var(--mo-ease-out),
+    transform var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .mo-dropdown .nav-dropdown-panel a,
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .mo-dropdown .nav-dropdown-panel a {
+  opacity: 1;
+  transform: translateY(0);
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(2),
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(2) { transition-delay: 25ms; }
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(3),
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(3) { transition-delay: 50ms; }
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(4),
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(4) { transition-delay: 75ms; }
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(5),
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(5) { transition-delay: 100ms; }
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(6),
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(6) { transition-delay: 125ms; }
+
+/* Anchor-nav underline draws from the left on hover (sky hairline,
+   composes with the existing invisible-bold swap). */
+.anchor-nav a .nav-swap { position: relative; }
+html[data-mo-on] .anchor-nav a .nav-swap::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 2px;
+  background: var(--electric, #0023ec);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--mo-dur-fast) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .anchor-nav a:hover .nav-swap::after {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   §2 HOME
+   ========================================================================== */
+
+/* Value-prop icons (Access key / Wisdom owl) pop in a beat after their
+   row rises — scale-from-0.7, landing crisp. */
+html[data-mo-on]:not([data-mo-reduced]) .intro-item .icon img {
+  transition:
+    opacity var(--mo-dur-fast) var(--mo-ease-out),
+    transform var(--mo-dur-fast) var(--mo-ease-out);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + 60ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .intro-item:not(.mo-in) .icon img {
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+/* Mint divider — ink tip: a bright leading edge rides the draw, then
+   extinguishes. (Pinned to the bottom of the scaleY'd line, so it travels
+   with the growing edge for free — no per-frame JS.) */
+.divider-mint { position: relative; }
+@keyframes mo-ink-tip {
+  0% { opacity: 0.9; }
+  75% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+html[data-mo-on]:not([data-mo-reduced]) .divider-mint::after {
+  content: "";
+  position: absolute;
+  left: -2px; right: -2px; bottom: 0;
+  height: 26px;
+  background: linear-gradient(to bottom, transparent, #fff);
+  opacity: 0;
+}
+html[data-mo-on]:not([data-mo-reduced]) .divider-mint.mo-in::after {
+  animation: mo-ink-tip var(--mo-dur-draw) var(--mo-ease-inout) both;
+  animation-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + var(--mo-d, 0ms));
+}
+
+/* Pull-quote — grander arrival: longer travel, deeper pop. */
+.pullquote blockquote p { --mo-dist: 34px; --mo-pop: 0.95; }
+
+/* Timeline — the signature build, sharpened:
+   cards land with a deeper pop; years rise-and-scale instead of fading;
+   each sky connector draws with the same ink tip as the divider. */
+.tl-card { --mo-pop: 0.94; }
+
+html[data-mo-on]:not([data-mo-reduced]) .tl-year:not(.mo-in) {
+  transform: translateY(14px) scale(0.9);
+}
+
+/* (.tl-line is already position:absolute in the site styles — that alone
+   anchors the ::after tip; do NOT re-declare position here.) */
+html[data-mo-on]:not([data-mo-reduced]) .tl-line::after {
+  content: "";
+  position: absolute;
+  left: -2.5px; right: -2.5px; bottom: 0;
+  height: 24px;
+  background: linear-gradient(to bottom, transparent, #fff);
+  opacity: 0;
+}
+html[data-mo-on]:not([data-mo-reduced]) .tl-line.mo-in::after {
+  animation: mo-ink-tip var(--mo-dur-draw) var(--mo-ease-inout) both;
+  animation-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + var(--mo-d, 0ms));
+}
+
+/* ==========================================================================
+   §3 /FUND
+   ========================================================================== */
+
+/* Donut charts — dial settle: the whole chart eases out of a −10° rotation
+   while the conic mask sweeps, like an instrument finding its reading. */
+html[data-mo-on]:not([data-mo-reduced]) .mo-donut svg {
+  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: var(--mo-d, 0ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-donut:not(.mo-in) svg {
+  transform: rotate(-10deg) scale(0.98);
+}
+
+/* Segment focus — hovering one slice dims the rest (data behaving
+   like data: the chart answers a question). */
+html[data-mo-on] .mo-donut svg path {
+  transition: opacity var(--mo-dur-tap) ease;
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-donut svg:hover path {
+  opacity: 0.55;
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-donut svg path:hover {
+  opacity: 1;
+}
+
+/* Stock-info rows — the blue top rule wipes in left-to-right as the row
+   reveals (a white strip over the border retreats; resting state is the
+   plain border, pixel-identical). */
+.stockinfo-row { position: relative; }
+html[data-mo-on]:not([data-mo-reduced]) .stockinfo-row::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -1px;
+  height: 2px;
+  background: #fff;
+  transform-origin: right center;
+  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + 120ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .stockinfo-row:not(.mo-in)::before {
+  transform: scaleX(1);
+}
+html[data-mo-on]:not([data-mo-reduced]) .stockinfo-row.mo-in::before {
+  transform: scaleX(0);
+}
+
+/* Ice origination panel — same wipe on its action-blue top border. */
+.ice-panel { position: relative; transition: none; }
+html[data-mo-on]:not([data-mo-reduced]) .ice-panel::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -2px;
+  height: 3px;
+  background: #fff;
+  transform-origin: right center;
+  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: 150ms;
+}
+html[data-mo-on]:not([data-mo-reduced]) .ice-panel:not(.mo-in)::before { transform: scaleX(1); }
+html[data-mo-on]:not([data-mo-reduced]) .ice-panel.mo-in::before { transform: scaleX(0); }
+
+/* Sector wheel — individual discs acknowledge the pointer (scale + lift
+   above the orbit ring); composes with the global brighten + spin-ease. */
+html[data-mo-on] .wheel-disc {
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .wheel-disc:hover {
+  transform: scale(1.12);
+  z-index: 2;
+}
+
+/* Dotted sphere — the handoff's ambient-drift rotation (mo-sphere-drift)
+   is REMOVED by client request (06.12.26): it spun the sphere's own build
+   animation like a radar sweep. The E5 bloom reveal below stays. */
+
+/* FAQ — restrained by design (risk language nearby), but the row may
+   acknowledge: faint sky tint on hover, icon pops, open icon eases. */
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .faq-row:hover {
+  background: rgb(6 11 53 / 0.025);
+}
+html[data-mo-on] .faq-q .icon svg {
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .faq-q:hover .icon svg {
+  transform: scale(1.18);
+}
+
+/* ==========================================================================
+   §4 /VISION — class recipes (annotate components with these)
+   ========================================================================== */
+
+/* Heritage stats ($1.36B · 134 · 57 · 5,000+):
+   markup contract — <div class="mo-stat" data-mo data-countup>…</div>
+   inside a [data-mo-stagger] grid. Deep pop + a mint baseline that draws
+   under each figure after it lands. */
+.mo-stat { --mo-pop: 0.92; position: relative; }
+html[data-mo-on]:not([data-mo-reduced]) .mo-stat::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -10px;
+  height: 3px;
+  background: var(--mint, #23fbc5);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + 250ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-stat.mo-in::after {
+  transform: scaleX(1);
+}
+
+/* Team / board bio cards — white at rest; ice blue fill + name underline on hover. */
+.mo-photo { overflow: hidden; }
+
+.person-card {
+  background-color: #fff;
+  outline: none;
+  transition: background-color 0.28s ease-out;
+}
+.person-card__name {
+  text-decoration-color: #0023ec;
+  text-underline-offset: 0.18em;
+}
+@media (hover: hover) {
+  .person-card:hover {
+    background-color: #e4f7fd;
+  }
+  .person-card:hover .person-card__name {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+}
+
+html[data-mo-on]:not([data-mo-reduced]) .person-card {
+  background-color: #fff;
+  transition: background-color calc(280ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on] .person-card .photo-frame img {
+  transition: filter calc(280ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]) .person-card .photo-frame img {
+  filter: grayscale(1) saturate(0.88);
+}
+html[data-mo-on] .person-card__name {
+  text-decoration-color: #0023ec;
+  text-underline-offset: 0.18em;
+  transition:
+    text-decoration-color calc(280ms * var(--mo-speed)) var(--mo-ease-out),
+    text-decoration-thickness calc(280ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .person-card:hover {
+  background-color: #e4f7fd;
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .person-card:hover .person-card__name {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .person-card:active {
+  background-color: #e4f7fd;
+}
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .person-card:active .person-card__name {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+html[data-mo-reduced][data-mo-on] .person-card .photo-frame img {
+  filter: none !important;
+}
+
+html[data-mo-on] .mo-photo img {
+  transition:
+    transform calc(480ms * var(--mo-speed)) var(--mo-ease-out),
+    filter calc(480ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-photo:hover img,
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-card:hover .mo-photo img {
+  transform: scale(1.04);
+}
+
+/* Ice origination panel — informational, not interactive; no hover state. */
+
+/* ==========================================================================
+   §5 /TRADE + /INVESTOR-RELATIONS
+   ========================================================================== */
+
+/* Platform tiles — the broker logo leans toward the action on hover
+   (slight scale + forward nudge, mirroring the arrow). */
+html[data-mo-on] .platform-tile img {
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile:hover img {
+  transform: translateX(2px) scale(1.07);
+}
+
+/* News cards — thumbnail breathes inside its 16:9 crop on hover
+   (.news-thumb is already overflow:hidden; geometry untouched). */
+html[data-mo-on] .news-card .news-thumb img {
+  transition: transform calc(420ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-card:hover .news-thumb img {
+  transform: scale(1.05);
+}
+
+/* Fund-document rows — the "View PDF" affordance slides into emphasis. */
+html[data-mo-on] .doc-row .pdf {
+  display: inline-block;
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .doc-row:hover .pdf {
+  transform: translateX(-3px);
+}
+
+/* SEC filings table: NO treatment (legal surface) — deliberately absent. */
+
+/* ==========================================================================
+   §6 /CONTACT — the form acknowledges attention without theatrics.
+   Markup contract: wrap each control in <div class="mo-field">.
+   — An action-blue baseline draws under the focused field (left→right);
+   — the control lifts 1px while focused;
+   — fields cascade in via the global stagger; submit is a standard .mo-btn.
+   Validation, error and success states stay functional — no treatment.
+   ========================================================================== */
+
+.mo-field { position: relative; }
+html[data-mo-on] .mo-field::after {
+  content: "";
+  position: absolute;
+  left: 1px; right: 1px; bottom: 0;
+  height: 2px;
+  background: var(--action, #085cf0);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--mo-dur-fast) var(--mo-ease-out);
+  pointer-events: none;
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-field:focus-within::after {
+  transform: scaleX(1);
+}
+html[data-mo-on] .mo-field input,
+html[data-mo-on] .mo-field select,
+html[data-mo-on] .mo-field textarea {
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out),
+              border-color var(--mo-dur-tap) ease;
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-field:focus-within input,
+html[data-mo-on]:not([data-mo-reduced]) .mo-field:focus-within select,
+html[data-mo-on]:not([data-mo-reduced]) .mo-field:focus-within textarea {
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   §6b GREEN-LIT AUDIT ITEMS (E1–E14) — v1.1 additions
+   ========================================================================== */
+
+/* E1 — Timeline beam energize: one luminous sweep travels the beam after
+   it reveals. Markup: <span class="beam-sweep" data-mo="fade"> over the
+   beam cell. Resting: the strip parks off-canvas right — invisible. */
+.beam-sweep { position: absolute; inset: 0; z-index: 11; overflow: hidden; pointer-events: none; }
+.beam-sweep::after {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 0; width: 16%;
+  background: linear-gradient(105deg, transparent, rgb(255 255 255 / 0.5) 50%, transparent);
+  mix-blend-mode: soft-light;
+  transform: translateX(-130%) skewX(-12deg);
+  /* Repo perf patch (06.12.26): a soft-light element standing over the
+     full-bleed beam cell forces backdrop compositing on every scroll
+     frame (visible scroll hitch around the timeline). Paint it only
+     while the one-time sweep is running — hidden before and after via
+     the keyframes' fill. */
+  visibility: hidden;
+}
+@keyframes mo-beam-sweep {
+  0%    { transform: translateX(-130%) skewX(-12deg); visibility: visible; }
+  99.9% { visibility: visible; }
+  100%  { transform: translateX(760%) skewX(-12deg); visibility: hidden; }
+}
+html[data-mo-on]:not([data-mo-reduced]) .beam-sweep.mo-in::after {
+  animation: mo-beam-sweep calc(1500ms * var(--mo-speed)) var(--mo-ease-inout) both;
+  animation-delay: calc(700ms * var(--mo-speed));
+}
+
+/* E2/E3 — Phrase rise: spans inside a [data-mo] block rise in sequence
+   once the block reveals. Markup: <span class="mo-phrase" style="--mo-i">.
+   Phrases are inline-block so they wrap as units at any width. */
+.mo-phrase { display: inline-block; }
+html[data-mo-on]:not([data-mo-reduced]) [data-mo] .mo-phrase {
+  transition:
+    opacity var(--mo-dur-slow) var(--mo-ease-out),
+    transform var(--mo-dur-slow) var(--mo-ease-out);
+  transition-delay: calc(var(--mo-i, 0) * 110ms + var(--mo-d, 0ms));
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo]:not(.mo-in) .mo-phrase {
+  opacity: 0;
+  transform: translateY(0.55em);
+}
+
+/* E4 — Two-truths sequence: number icons pop a beat after their row,
+   and a sky thread draws down through the gap into truth 2. */
+html[data-mo-on]:not([data-mo-reduced]) .truth-row .num img {
+  transition:
+    opacity var(--mo-dur-fast) var(--mo-ease-out),
+    transform var(--mo-dur-fast) var(--mo-ease-out);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + 140ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .truth-row:not(.mo-in) .num img {
+  opacity: 0;
+  transform: scale(0.6);
+}
+.truth-row + .truth-row { position: relative; }
+html[data-mo-on]:not([data-mo-reduced]) .truth-row + .truth-row::before {
+  content: "";
+  position: absolute; left: 29px; top: -37px; height: 34px; width: 2px;
+  background: var(--sky, #b0e9fd);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
+}
+html[data-mo-on]:not([data-mo-reduced]) .truth-row.mo-in + .truth-row.mo-in::before,
+html[data-mo-on]:not([data-mo-reduced]) .truth-row + .truth-row.mo-in::before {
+  transform: scaleY(1);
+}
+
+/* E5 — Sphere bloom: the dotted sphere reveals center-out via radial
+   mask while its 97% caption counts up. Markup: data-mo="fade" on the
+   .sphere-img + <span data-countup>97%</span> in the caption. */
+@property --mo-bloom {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+html[data-mo-on]:not([data-mo-reduced]) .sphere-img[data-mo] {
+  --mo-bloom: 0%;
+  -webkit-mask: radial-gradient(circle, #000 var(--mo-bloom), transparent calc(var(--mo-bloom) + 14%));
+  mask: radial-gradient(circle, #000 var(--mo-bloom), transparent calc(var(--mo-bloom) + 14%));
+  transition:
+    --mo-bloom calc(1100ms * var(--mo-speed)) var(--mo-ease-inout),
+    opacity var(--mo-dur-fast) var(--mo-ease-out);
+  transition-delay: var(--mo-d, 0ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .sphere-img[data-mo].mo-in { --mo-bloom: 100%; }
+
+/* E6 — Bio dialog choreography: scrim fades, dialog rises with a pop;
+   close reverses faster. (.bio-overlay is always display:flex now;
+   .open gates visibility — see pwrl-site-2.css.) */
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay .scrim,
+html[data-mo-on]:not([data-mo-reduced]) .exit-overlay .scrim {
+  opacity: 0;
+  transition: opacity 180ms var(--mo-ease-exit);
+}
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay .bio-dialog,
+html[data-mo-on]:not([data-mo-reduced]) .exit-overlay .exit-dialog {
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  transition:
+    opacity 180ms var(--mo-ease-exit),
+    transform 180ms var(--mo-ease-exit);
+}
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay.open .scrim,
+html[data-mo-on]:not([data-mo-reduced]) .exit-overlay.open .scrim {
+  opacity: 1;
+  transition: opacity calc(220ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay,
+html[data-mo-on]:not([data-mo-reduced]) .exit-overlay {
+  display: flex;
+  visibility: hidden;
+  transition: visibility 0s linear 200ms;
+}
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay.open,
+html[data-mo-on]:not([data-mo-reduced]) .exit-overlay.open {
+  visibility: visible;
+  transition-delay: 0s;
+}
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay.open .bio-dialog,
+html[data-mo-on]:not([data-mo-reduced]) .exit-overlay.open .exit-dialog {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity calc(240ms * var(--mo-speed)) var(--mo-ease-out),
+    transform calc(240ms * var(--mo-speed)) var(--mo-ease-out);
+}
+
+/* Home portfolio grid — class retained for layout hooks. */
+html[data-mo-on]:not([data-mo-reduced]) .portfolio-grid [data-mo] {
+  transition-duration: var(--mo-dur-base);
+}
+
+/* E7 — Donut ↔ table dialogue (driven by Fund.html page JS):
+   .focus on the svg dims all slices except .hot; .hot on a table row
+   washes it sky. Paint-only. */
+html[data-mo-on] .mo-donut svg.focus path { opacity: 0.45; }
+html[data-mo-on] .mo-donut svg.focus path.hot { opacity: 1; }
+.alloc-table tbody tr td { transition: background-color 140ms ease; }
+html[data-mo-on] .alloc-table tbody tr.hot td { background: rgb(176 233 253 / 0.35); }
+html[data-mo-on] .alloc-table tbody tr.hot td:first-child {
+  color: #085CF0;
+  font-weight: 600;
+}
+
+/* E9 — Sector wheel entrance: the orbit ring draws while discs cascade
+   into position, then the spin owns the stage. Markup: data-mo="fade"
+   on .wheel-stage. */
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo] circle {
+  stroke-dasharray: 974;
+  stroke-dashoffset: 974;
+  transition: stroke-dashoffset calc(1100ms * var(--mo-speed)) var(--mo-ease-inout);
+}
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in circle {
+  stroke-dashoffset: 0;
+}
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo] .wheel-disc {
+  transition:
+    opacity var(--mo-dur-fast) var(--mo-ease-out),
+    transform var(--mo-dur-fast) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo]:not(.mo-in) .wheel-disc {
+  opacity: 0;
+  transform: scale(0.4);
+}
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in .wheel-disc:nth-of-type(2) { transition-delay: 90ms; }
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in .wheel-disc:nth-of-type(3) { transition-delay: 180ms; }
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in .wheel-disc:nth-of-type(4) { transition-delay: 270ms; }
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in .wheel-disc:nth-of-type(5) { transition-delay: 360ms; }
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in .wheel-disc:nth-of-type(6) { transition-delay: 450ms; }
+html[data-mo-on]:not([data-mo-reduced]) .wheel-stage[data-mo].mo-in .wheel-disc:nth-of-type(7) { transition-delay: 540ms; }
+/* Hover responses must never inherit the entrance delays. */
+html[data-mo-on] .wheel-stage .wheel-disc:hover { transition-delay: 0ms !important; }
+
+/* E10 — Process progress line: a sky hairline draws beneath the four
+   steps as they cascade. Markup: <span class="steps-line" data-mo="draw-x">
+   inside .steps-grid. */
+.steps-grid { position: relative; }
+.steps-line {
+  position: absolute; left: 0; right: 0; bottom: -18px; height: 2px;
+  background: var(--sky, #b0e9fd);
+  pointer-events: none;
+}
+
+/* E11 — CEF definition rules draw: under the motion gate the real white
+   border goes transparent and a pseudo draws in its exact place; resting
+   end-state is pixel-identical. No-JS / reduced keep the real border. */
+html[data-mo-on]:not([data-mo-reduced]) .cef-item {
+  position: relative;
+  border-left-color: transparent;
+}
+html[data-mo-on]:not([data-mo-reduced]) .cef-item::before {
+  content: "";
+  position: absolute; left: -2px; top: 0; bottom: 0; width: 2px;
+  background: #fff;
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
+}
+html[data-mo-on]:not([data-mo-reduced]) .cef-item:has(.mo-in)::before {
+  transform: scaleY(1);
+}
+
+/* E12 — News strip edge affordance: while more cards exist off-screen,
+   the right edge fades (mask set by pwrl-pages.js via .has-more). */
+html[data-mo-on] .news-strip.has-more {
+  -webkit-mask: linear-gradient(to right, #000 calc(100% - 90px), transparent);
+  mask: linear-gradient(to right, #000 calc(100% - 90px), transparent);
+}
+
+/* News carousel prev/next — minimal circular controls, no movement. */
+.news-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(6 11 53 / 0.14);
+  border-radius: 9999px;
+  color: #060b35;
+  background: transparent;
+  transition:
+    border-color calc(380ms * var(--mo-speed)) var(--mo-ease-out),
+    background-color calc(380ms * var(--mo-speed)) var(--mo-ease-out),
+    color calc(380ms * var(--mo-speed)) var(--mo-ease-out),
+    opacity calc(380ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-nav-btn:hover:not(:disabled) {
+  border-color: rgb(6 11 53 / 0.32);
+  background: rgb(6 11 53 / 0.04);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-nav-btn:active:not(:disabled) {
+  background: rgb(6 11 53 / 0.07);
+}
+.news-nav-btn:focus-visible {
+  outline: 2px solid rgb(8 92 240 / 0.45);
+  outline-offset: 2px;
+}
+.news-nav-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* E13 — Submission completion: confirmed buttons settle into mint and
+   sweep their sheen once; the status line rises in. */
+.mo-btn.mo-confirm, .contact-submit.mo-confirm {
+  background: var(--mint, #23fbc5);
+  color: #000;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+@keyframes mo-sheen-once {
+  from { opacity: 1; transform: translateX(-120%) skewX(-18deg); }
+  to   { opacity: 1; transform: translateX(440%) skewX(-18deg); }
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-btn.mo-confirm::after {
+  animation: mo-sheen-once calc(500ms * var(--mo-speed)) var(--mo-ease-inout) both;
+}
+.contact-status { display: block; }
+html[data-mo-on]:not([data-mo-reduced]) .contact-status {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--mo-dur-fast) var(--mo-ease-out), transform var(--mo-dur-fast) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]) .contact-status.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* E14 — Anchor-nav scrollspy: a persistent electric underline slides to
+   the section currently in view (element appended by pwrl-motion.js;
+   positioned via transform only). */
+.anchor-nav { position: relative; }
+.anchor-spy {
+  position: absolute; left: 0; top: 0;
+  width: 100px; height: 2px;
+  background: var(--electric, #0023ec);
+  transform-origin: left center;
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-mo-on] .anchor-spy.on { opacity: 1; }
+html[data-mo-on]:not([data-mo-reduced]) .anchor-spy {
+  transition:
+    transform calc(320ms * var(--mo-speed)) var(--mo-ease-out),
+    opacity var(--mo-dur-fast) ease;
+}
+
+/* §6b reduced-motion kills (mirrors §7 pattern). */
+@media (prefers-reduced-motion: reduce) {
+  html[data-mo-on] .beam-sweep::after { animation: none !important; }
+  html[data-mo-on] .mo-phrase,
+  html[data-mo-on] .truth-row .num img,
+  html[data-mo-on] .wheel-stage .wheel-disc,
+  html[data-mo-on] .wheel-stage circle,
+  html[data-mo-on] .sphere-img[data-mo],
+  html[data-mo-on] .bio-overlay .scrim,
+  html[data-mo-on] .bio-overlay .bio-dialog,
+  html[data-mo-on] .exit-overlay .scrim,
+  html[data-mo-on] .exit-overlay .exit-dialog,
+  html[data-mo-on] .contact-status,
+  html[data-mo-on] .anchor-spy {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    -webkit-mask: none !important;
+    mask: none !important;
+  }
+  html[data-mo-on] .bio-overlay:not(.open) .scrim,
+  html[data-mo-on] .bio-overlay:not(.open) .bio-dialog,
+  html[data-mo-on] .exit-overlay:not(.open) .scrim,
+  html[data-mo-on] .exit-overlay:not(.open) .exit-dialog { opacity: 0 !important; }
+  html[data-mo-on] .truth-row + .truth-row::before,
+  html[data-mo-on] .cef-item::before { transition: none !important; transform: scaleY(1) !important; }
+  html[data-mo-on] .cef-item { border-left-color: #fff !important; }
+  html[data-mo-on] .mo-btn.mo-confirm::after { animation: none !important; }
+}
+html[data-mo-reduced][data-mo-on] .beam-sweep::after { animation: none !important; }
+html[data-mo-reduced][data-mo-on] .mo-phrase,
+html[data-mo-reduced][data-mo-on] .truth-row .num img,
+html[data-mo-reduced][data-mo-on] .wheel-stage .wheel-disc,
+html[data-mo-reduced][data-mo-on] .wheel-stage circle,
+html[data-mo-reduced][data-mo-on] .sphere-img[data-mo],
+html[data-mo-reduced][data-mo-on] .bio-overlay .scrim,
+html[data-mo-reduced][data-mo-on] .bio-overlay .bio-dialog,
+html[data-mo-reduced][data-mo-on] .exit-overlay .scrim,
+html[data-mo-reduced][data-mo-on] .exit-overlay .exit-dialog,
+html[data-mo-reduced][data-mo-on] .contact-status,
+html[data-mo-reduced][data-mo-on] .anchor-spy {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+}
+html[data-mo-reduced][data-mo-on] .bio-overlay:not(.open) .scrim,
+html[data-mo-reduced][data-mo-on] .bio-overlay:not(.open) .bio-dialog,
+html[data-mo-reduced][data-mo-on] .exit-overlay:not(.open) .scrim,
+html[data-mo-reduced][data-mo-on] .exit-overlay:not(.open) .exit-dialog { opacity: 0 !important; }
+html[data-mo-reduced][data-mo-on] .truth-row + .truth-row::before,
+html[data-mo-reduced][data-mo-on] .cef-item::before { transition: none !important; transform: scaleY(1) !important; }
+html[data-mo-reduced][data-mo-on] .cef-item { border-left-color: #fff !important; }
+html[data-mo-reduced][data-mo-on] .mo-btn.mo-confirm::after { animation: none !important; }
+
+/* ==========================================================================
+   §7 REDUCED MOTION — kill everything this file animates.
+   (Mirrors the global pattern: real media query + QA simulator attr.)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-mo-on] .mo-settle,
+  html[data-mo-on] .site-header,
+  html[data-mo-on] .mo-arrive,
+  html[data-mo-on] .sphere-img,
+  html[data-mo-on] .divider-mint::after,
+  html[data-mo-on] .tl-line::after {
+    animation: none !important;
+  }
+  html[data-mo-on] .mo-donut svg,
+  html[data-mo-on] .intro-item .icon img,
+  html[data-mo-on] .tl-year,
+  html[data-mo-on] .wheel-disc,
+  html[data-mo-on] .platform-tile img,
+  html[data-mo-on] .news-card .news-thumb img,
+  html[data-mo-on] .mo-photo img,
+  html[data-mo-on] .doc-row .pdf,
+  html[data-mo-on] .faq-q .icon svg,
+  html[data-mo-on] .mo-dropdown .nav-dropdown-panel a {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  html[data-mo-on] .stockinfo-row::before,
+  html[data-mo-on] .ice-panel::before,
+  html[data-mo-on] .mo-stat::after,
+  html[data-mo-on] .mo-field::after,
+  html[data-mo-on] .anchor-nav a .nav-swap::after {
+    transition: none !important;
+  }
+  html[data-mo-on] .stockinfo-row::before,
+  html[data-mo-on] .ice-panel::before { transform: scaleX(0) !important; }
+  html[data-mo-on] .mo-stat::after { transform: scaleX(1) !important; }
+}
+
+html[data-mo-reduced][data-mo-on] .mo-settle,
+html[data-mo-reduced][data-mo-on] .site-header,
+html[data-mo-reduced][data-mo-on] .mo-arrive,
+html[data-mo-reduced][data-mo-on] .sphere-img,
+html[data-mo-reduced][data-mo-on] .divider-mint::after,
+html[data-mo-reduced][data-mo-on] .tl-line::after {
+  animation: none !important;
+}
+html[data-mo-reduced][data-mo-on] .mo-donut svg,
+html[data-mo-reduced][data-mo-on] .intro-item .icon img,
+html[data-mo-reduced][data-mo-on] .tl-year,
+html[data-mo-reduced][data-mo-on] .wheel-disc,
+html[data-mo-reduced][data-mo-on] .platform-tile img,
+html[data-mo-reduced][data-mo-on] .news-card .news-thumb img,
+html[data-mo-reduced][data-mo-on] .mo-photo img,
+html[data-mo-reduced][data-mo-on] .doc-row .pdf,
+html[data-mo-reduced][data-mo-on] .faq-q .icon svg,
+html[data-mo-reduced][data-mo-on] .mo-dropdown .nav-dropdown-panel a {
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+html[data-mo-reduced][data-mo-on] .stockinfo-row::before,
+html[data-mo-reduced][data-mo-on] .ice-panel::before,
+html[data-mo-reduced][data-mo-on] .mo-stat::after,
+html[data-mo-reduced][data-mo-on] .mo-field::after,
+html[data-mo-reduced][data-mo-on] .anchor-nav a .nav-swap::after {
+  transition: none !important;
+}
+html[data-mo-reduced][data-mo-on] .stockinfo-row::before,
+html[data-mo-reduced][data-mo-on] .ice-panel::before { transform: scaleX(0) !important; }
+html[data-mo-reduced][data-mo-on] .mo-stat::after { transform: scaleX(1) !important; }

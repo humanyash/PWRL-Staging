@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_platform_items",
+  "info": {
+    "displayName": "Platform Item",
+    "description": "A brokerage platform link (logo + label + group)"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "group": {
+      "type": "enumeration",
+      "enum": ["self-directed", "advisor"],
+      "default": "self-directed"
+    }
+  }
+}

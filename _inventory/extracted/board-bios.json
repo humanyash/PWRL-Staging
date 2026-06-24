@@ -1,0 +1,35 @@
+{
+  "source": "https://www.powerlawfunds.com/pwrl/investor-relations#directors",
+  "extractedAt": "2026-06-09",
+  "method": "Chrome MCP automation — clicked Show bio for each director, read hidden mt-5 text-charcoal/80 container",
+  "note": "5 directors total (not 6 as initial crawl agent reported). Benjamin Black and Michael Dinsdale also appear on the team page with the same bio text.",
+  "directors": [
+    {
+      "name": "Benjamin Black",
+      "role": "Director",
+      "alsoOnTeam": true,
+      "bio": "(see team-bios.json — Benjamin Black, CIO — same text)"
+    },
+    {
+      "name": "Michael Dinsdale",
+      "role": "Director",
+      "alsoOnTeam": true,
+      "bio": "(see team-bios.json — Michael Dinsdale, CEO — same text)"
+    },
+    {
+      "name": "Vivian Chow",
+      "role": "Independent Director, Chair of the Board",
+      "bio": "Vivian Chow spent eight years as SVP Chief Accounting Officer at DocuSign (NASDAQ: DOCU), a cloud-based platform for electronic signatures. While there, she was responsible for accounting, sales compensation, internal audit, tax and treasury.\n\nPrior to joining DocuSign in 2013, Ms. Chow served five years as VP of Finance Worldwide Controller at Electronic Arts Inc. (NASDAQ: EA), a leading publisher of video games. Prior to Electronic Arts, she held VP and Corporate Controller positions at companies in the retail, medical device and financial services industries.\n\nMs. Chow started her career in public accounting at Arthur Andersen & Co., a public accounting partnership. She is an inactive Certified Public Accountant in the State of California.\n\nMs. Chow holds a BS in Accounting from Lehigh University. She is a Board Member of LiveRamp (NYSE: RAMP), a data collaboration platform for consumer data.\n\nMs. Chow's extensive accounting and financial background and her executive experience, including serving as a chief accounting officer and controller, make her qualified to serve on the Board."
+    },
+    {
+      "name": "Nicholas Earl",
+      "role": "Independent Director",
+      "bio": "Nicholas Earl is a 29-year game industry veteran. He served as Glu Mobile's President and CEO and held a seat on the company's Board of Directors. In 2021, Electronic Arts purchased Glu Mobile for $2.4 billion, the 7th largest acquisition in video gaming history.\n\nPrior to Glu, Mr. Earl was President of Worldwide Studios at Kabam, presiding over such games as Marvel: Contest of Champions. Mr. Earl served as SVP of EA Mobile at Electronic Arts, overseeing hits such as The Simpsons: Tapped Out, The Sims FreePlay and Real Racing 3. While there, he also led the company's transition from the premium to freemium model.\n\nPrior to EA Mobile, Mr. Earl was SVP of EA Games launching such console and PC franchises as Knockout Kings, James Bond, Tiger Woods PGA Tour, The Godfather, The Sims, The Simpsons, Lord of the Rings and Dead Space.\n\nMr. Earl holds a BA in Economics from the University of California, Berkeley. He served as a Board Member and head of the Compensation Committee of SciPlay (SCPL), a leading developer and publisher of digital games, until its sale to Light & Wonder in 2023.\n\nMr. Earl's service on multiple boards, and his extensive executive experience, including as a CEO make him qualified to serve on the Board."
+    },
+    {
+      "name": "Lars Leckie",
+      "role": "Independent Director",
+      "bio": "Lars Leckie has a wealth of experience in technology investment as a former technology founder and twenty year career in venture capital. As a Co-founder of Aspenwood Ventures and a long-standing Managing Director at Hummer Winblad Venture Partners, Mr. Leckie has a track record of identifying and nurturing founders of disruptive software companies.\n\nBefore his venture capital career, Mr. Leckie co-founded AutoFarm, a company focused on GPS and robotics. As a Managing Director at Aspenwood Ventures, Mr. Leckie continues to focus on early-stage B2B software companies. His firm's prior successes include exited category winning companies like Mulesoft and Five9, as well as emerging companies like Arkose Labs, Amberdata and Aria Systems.\n\nMr. Leckie holds a MS (Engineering) from Stanford University and an MBA from the Stanford Graduate School of Business.\n\nMr. Leckie's depth of experience in venture capital investing, and his experience as an executive make him qualified to serve on the Board."
+    }
+  ]
+}

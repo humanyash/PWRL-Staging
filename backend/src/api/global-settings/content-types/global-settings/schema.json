@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "global_settings",
+  "info": {
+    "singularName": "global-settings",
+    "pluralName": "global-settings-plural",
+    "displayName": "Global Settings",
+    "description": "Logo, top banner, footer links, socials, copyright"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "topBanner": {
+      "type": "string"
+    },
+    "topBannerEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "footerLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.footer-link"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.footer-link"
+    },
+    "copyright": {
+      "type": "text"
+    }
+  }
+}

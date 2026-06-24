@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_sections_stock_infos",
+  "info": {
+    "displayName": "Stock Info",
+    "description": "Stock Info: static labelled rows + notes (widget optional)"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.key-value"
+    },
+    "notes": {
+      "type": "richtext"
+    },
+    "widgetId": {
+      "type": "string",
+      "required": false
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "dark",
+        "deep"
+      ],
+      "default": "light"
+    }
+  }
+}

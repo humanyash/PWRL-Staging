@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_process_steps",
+  "info": {
+    "displayName": "Process Steps",
+    "description": "Heading + intro + ordered steps"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "text"
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.process-step"
+    }
+  }
+}

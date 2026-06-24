@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_rich_texts",
+  "info": {
+    "displayName": "Rich Text",
+    "description": "Fallback heading + rich text body"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext",
+      "required": true
+    },
+    "sideItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.key-value"
+    }
+  }
+}

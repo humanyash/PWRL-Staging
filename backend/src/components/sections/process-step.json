@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_process_step_items",
+  "info": {
+    "displayName": "Process Step",
+    "description": "A single step in a process"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

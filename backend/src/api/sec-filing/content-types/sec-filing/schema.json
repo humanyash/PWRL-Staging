@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sec_filings",
+  "info": {
+    "singularName": "sec-filing",
+    "pluralName": "sec-filings",
+    "displayName": "SEC Filing",
+    "description": "Auto-synced from EDGAR; read-only in admin"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "formType": {
+      "type": "string",
+      "required": true
+    },
+    "accessionNumber": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "filedDate": {
+      "type": "date",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

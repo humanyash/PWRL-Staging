@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "portfolio_snapshots",
+  "info": {
+    "singularName": "portfolio-snapshot",
+    "pluralName": "portfolio-snapshots",
+    "displayName": "Portfolio Snapshot",
+    "description": "Latest holdings table + asOfDate + footnotes; replaced atomically each month"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "asOfDate": {
+      "type": "date",
+      "required": true
+    },
+    "intro": {
+      "type": "text"
+    },
+    "holdings": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.holding",
+      "required": true
+    },
+    "footnotes": {
+      "type": "richtext"
+    }
+  }
+}

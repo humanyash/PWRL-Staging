@@ -1,0 +1,1497 @@
+{
+  "pages": [
+    {
+      "path": "/pwrl",
+      "title": "PWRL - Private Tech, Nasdaq Listed.",
+      "metaDescription": "15 Leading  private tech companies. One easily tradeable fund",
+      "sections": [
+        {
+          "anchor": "hero",
+          "type": "Hero",
+          "heading": "Powerlaw Corp. Nasdaq: PWRL Only for big thinkers. Only for Mars seekers. Only for world changers. Only for everyone. Powerlaw Corp. Nasdaq: PWRL",
+          "subheading": "",
+          "bodyCopy": [
+            "18 leading private tech companies. One Nasdaq-listed stock. A public venture capital fund built by venture capitalists. Only for everyone."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [],
+          "rotatingPhrases": [
+            "Only for big thinkers.",
+            "Only for Mars seekers.",
+            "Only for world changers.",
+            "Only for everyone.",
+            "Only for big thinkers. big thinkers. Mars seekers. world changers. everyone."
+          ]
+        },
+        {
+          "anchor": "email",
+          "type": "FormBlock",
+          "heading": "",
+          "subheading": "",
+          "bodyCopy": [
+            "Sign up to receive NAV alerts, fund updates and portfolio news."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "introducing-powerlaw-corp",
+          "type": "Intro",
+          "heading": "Introducing Powerlaw Corp.",
+          "subheading": "We believe the world’s most transformative companies should be within everyone’s reach.",
+          "bodyCopy": [
+            "A curated portfolio of private technology companies that you probably already know. Now available in one stock, tradable on Nasdaq. Powerlaw Corp. (Nasdaq: PWRL) is the flagship fund from Powerlaw Capital Group, an asset management firm building a publicly-listed platform for private technology investing.",
+            "Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to leading private technology companies through a single Nasdaq-listed security. PWRL is a listed closed-end fund registered under the Investment Company Act of 1940. It provides daily liquidity, monthly NAV reporting, quarterly portfolio disclosure, independent governance, and the disclosure standards of a registered investment company.",
+            "Powerlaw Corp. offers the access you've been wanting with the wisdom you've been waiting for. As more of the world's most consequential technology companies stay private longer, an entire generation of investors has been locked out of the value creation those companies represent.",
+            "Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-listed fund offering exposure to leading private technology companies through a single ticker. Powerlaw Corp. is the first product on Powerlaw Capital Group's platform.",
+            "Private markets have been institutional-only for a generation. Powerlaw Corp. opens that door by providing exposure to leading private technology companies in AI, software, aerospace and defense, fintech, and digital infrastructure through a single Nasdaq-listed security.",
+            "The wisdom of venture capital shouldn’t live behind closed doors. Powerlaw Corp. is built on more than two decades of operational and origination experience inside private technology. The portfolio is advised by Powerlaw Fund Adviser, LLC, and backed by Akkadian Ventures, with 16 years of venture secondary-market relationships across the founders, employees, and investors of the companies that have defined an era."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6g1tkXzLRNA4B4PioBIQbQ%2Fa4985c8919ea9ce0a512008c7be18458%2FAccess.png&w=3840&q=75",
+              "alt": "Access Key"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F2NICb5L311Wp9PlIrkTUQP%2F09d847f30e5c6a633f2a12b1f6479df6%2FWisdom.png&w=3840&q=75",
+              "alt": "Wisdom Owl"
+            }
+          ]
+        },
+        {
+          "anchor": "powerlaw-corp-is-built-on-the-principle-",
+          "type": "PullQuote",
+          "heading": "Powerlaw Corp. is built on the principle that a small number of breakout private technology companies drive a disproportionate share of long-term value creation.",
+          "subheading": "",
+          "bodyCopy": [],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "a-history-of-firsts",
+          "type": "Timeline",
+          "heading": "A History of Firsts",
+          "subheading": "",
+          "bodyCopy": [
+            "Powerlaw Corp. (Nasdaq: PWRL) is the first product of Powerlaw Capital Group and managed by Powerlaw Fund Adviser, LLC. The firm is backed by Akkadian Ventures' 16-year heritage in institutional private-company secondary markets.",
+            "One of the First in Secondaries",
+            "Ben Black and Pete Smith launched Akkadian Ventures to buy direct secondary shares from employees, founders, and early investors – when the market was still < $20B and largely unproven.",
+            "Scaling the Secondary Market",
+            "Akkadian closes its latest and largest flagship fund: $276M Fund VI to continue building one of the leading direct-secondary platforms in the market.",
+            "Expansive Innovation Engine",
+            "PWRL begins trading on the Nasdaq Stock Market as the first product of Powerlaw Capital Group. The US Venture Capital Market now exceeds $1.24 Trillion .",
+            "RAISE Global Established",
+            "Akkadian creates RAISE Global, which becomes one of the leading LP–GP emerging manager conferences connecting forward-thinking allocators with next-generation venture talent.",
+            "Powerlaw Capital Group Launches",
+            "Powerlaw Capital Group emerges as a platform with the goal of bringing exposure to leading private technology companies into the public market for investors globally."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=%2Fpwrl%2Finfographic_background.webp&w=3840&q=75",
+              "alt": "Timeline ribbon"
+            }
+          ],
+          "timeline": [
+            {
+              "title": "One of the First in Secondaries",
+              "year": null,
+              "body": "Ben Black and Pete Smith launched Akkadian Ventures to buy direct secondary shares from employees, founders, and early investors – when the market was still < $20B and largely unproven."
+            },
+            {
+              "title": "Scaling the Secondary Market",
+              "year": null,
+              "body": "Akkadian closes its latest and largest flagship fund: $276M Fund VI to continue building one of the leading direct-secondary platforms in the market."
+            },
+            {
+              "title": "Expansive Innovation Engine",
+              "year": null,
+              "body": "PWRL begins trading on the Nasdaq Stock Market as the first product of Powerlaw Capital Group. The US Venture Capital Market now exceeds $1.24 Trillion ."
+            },
+            {
+              "title": "RAISE Global Established",
+              "year": null,
+              "body": "Akkadian creates RAISE Global, which becomes one of the leading LP–GP emerging manager conferences connecting forward-thinking allocators with next-generation venture talent."
+            },
+            {
+              "title": "Powerlaw Capital Group Launches",
+              "year": null,
+              "body": "Powerlaw Capital Group emerges as a platform with the goal of bringing exposure to leading private technology companies into the public market for investors globally."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/pwrl/vision",
+      "title": "PWRL - Private Tech, Nasdaq Listed.",
+      "metaDescription": "15 Leading  private tech companies. One easily tradeable fund",
+      "sections": [
+        {
+          "anchor": "hero",
+          "type": "Hero",
+          "heading": "Only for everyone.",
+          "subheading": "",
+          "bodyCopy": [
+            "We’re on a mission to provide exposure to leading private technology companies to everyone."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1eQs3LYqOR63n7SSVQeekL%2F4ae58ea3e5e00f623972e26f5d1a3b77%2FPeople_compressed.png&w=3840&q=75",
+              "alt": "Vision Hero Image"
+            }
+          ],
+          "rotatingPhrases": [
+            "Only for everyone."
+          ]
+        },
+        {
+          "anchor": "strategy",
+          "type": "Philosophy",
+          "heading": "We believe venture capital wisdom should be available to everyone.",
+          "subheading": "",
+          "bodyCopy": [
+            "Powerlaw Corp. is the first listed product of Powerlaw Capital Group and is advised by Powerlaw Fund Adviser, LLC. The Fund draws on more than two decades of operational and origination experience inside private technology."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "difference",
+          "type": "ValueProps",
+          "heading": "One ticker. Daily liquidity. Built for everyone .",
+          "subheading": "",
+          "bodyCopy": [
+            "A curated portfolio of private technology companies, available through a single Nasdaq-listed security. Open to any investor with a brokerage account. No accreditation requirement, no minimum investment, no platform fees.",
+            "Buy and sell PWRL through any standard brokerage account — Schwab, Fidelity, Vanguard, and others — including taxable accounts, IRAs, and self-directed accounts. No K-1. Standard 1099 reporting at year-end.",
+            "PWRL trades on Nasdaq during market hours. Monthly NAV reporting and quarterly fund disclosure, paired with no lockup and no redemption gates. T+1 clearing.",
+            "A concentrated portfolio focused on what we believe are the most consequential private technology companies of a generation, built through the team’s differentiated expertise and access in private markets. We believe in quality of position over breadth of name.",
+            "Monthly NAV reporting and quarterly portfolio holdings disclosure. Independent board, independent auditor, independent custodian. The disclosure and governance standards of a registered investment company under the Investment Company Act of 1940.",
+            "PWRL is a listed closed-end fund registered under the Investment Company Act of 1940. Like other Nasdaq-listed securities, it can be held in standard brokerage accounts and in individual retirement accounts. Listed exposure to leading private technology companies."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6g1tkXzLRNA4B4PioBIQbQ%2Fa4985c8919ea9ce0a512008c7be18458%2FAccess.png&w=3840&q=75",
+              "alt": "Access Key"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3H0y7t04gKHYkZjYPP4dhw%2F9eb2236236e6d499da46d8ba66d2087c%2Fease.png&w=3840&q=75",
+              "alt": "Ease"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4yocG6bgzioaKR6ddHYXps%2F13d008aeb84e0e1d56d857f8600c0d19%2Fliquidity.png&w=3840&q=75",
+              "alt": "Liquidity"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F2InD6ex5pEXstgmPOnUDVF%2Fdcbb6bad3f99718991aa150737b7d089%2Fconviction.png&w=3840&q=75",
+              "alt": "Conviction"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7vCm6NNQfDC9u9i7sv7nqf%2F8b1fa442e9f6419ea1461cb2a8cbb206%2Ftransparency.png&w=3840&q=75",
+              "alt": "Transparency"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6oPKBAb1KmDqWAD9NPDvQy%2F649b5c13f81574259f932c85532199ce%2Fstructure.png&w=3840&q=75",
+              "alt": "Structure"
+            }
+          ]
+        },
+        {
+          "anchor": "team",
+          "type": "TeamGrid",
+          "heading": "Decades of breaking through barriers.",
+          "subheading": "Michael Dinsdale",
+          "bodyCopy": [
+            "CEO",
+            "CIO",
+            "President",
+            "COO",
+            "CFO",
+            "General Counsel"
+          ],
+          "bullets": [
+            "Michael Dinsdale CEO Show bio Michael Dinsdale CEO",
+            "Benjamin Black CIO Show bio Benjamin Black CIO",
+            "Peter Smith President Show bio Peter Smith President",
+            "Angela Stanley COO Show bio Angela Stanley COO",
+            "Tracy Hogan CFO Show bio Tracy Hogan CFO",
+            "Benjamin Hadary General Counsel Show bio Benjamin Hadary General Counsel"
+          ],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4atLBnJRbowZdqU0pedUO0%2F335a43eb73cfd8781d55d22ca198a89e%2Fmichael_dindsdale.webp&w=1200&q=75",
+              "alt": "Michael Dinsdale"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4atLBnJRbowZdqU0pedUO0%2F335a43eb73cfd8781d55d22ca198a89e%2Fmichael_dindsdale.webp&w=750&q=75",
+              "alt": "Michael Dinsdale"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6hsQ8P4xCPKJg46ejgmX62%2F71cc34f963ec871ca86dd3048d202978%2Fben_black.webp&w=1200&q=75",
+              "alt": "Benjamin Black"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6hsQ8P4xCPKJg46ejgmX62%2F71cc34f963ec871ca86dd3048d202978%2Fben_black.webp&w=750&q=75",
+              "alt": "Benjamin Black"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F33hHt7u63UhvCaOITtPpLu%2F4a2b12f30d1f0efc4b8b89a24a7fbef0%2Fpeter_smith.webp&w=1200&q=75",
+              "alt": "Peter Smith"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F33hHt7u63UhvCaOITtPpLu%2F4a2b12f30d1f0efc4b8b89a24a7fbef0%2Fpeter_smith.webp&w=750&q=75",
+              "alt": "Peter Smith"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1EiehWOPpCDbenH7DVoIdl%2F7aec1aa43e78b73603ed901aee568341%2Fangela_stanley.webp&w=1200&q=75",
+              "alt": "Angela Stanley"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1EiehWOPpCDbenH7DVoIdl%2F7aec1aa43e78b73603ed901aee568341%2Fangela_stanley.webp&w=750&q=75",
+              "alt": "Angela Stanley"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1jM52UUockmTbLNNJXB9zJ%2Fa912596daebcba2e6e7575636369b94e%2Ftracy_hogan.webp&w=1200&q=75",
+              "alt": "Tracy Hogan"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1jM52UUockmTbLNNJXB9zJ%2Fa912596daebcba2e6e7575636369b94e%2Ftracy_hogan.webp&w=750&q=75",
+              "alt": "Tracy Hogan"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3fqQ7h51y0keGQFLjVhsIX%2F9fbc7b52bbfab46b4e3ce2a49e53d0d4%2FBen.png&w=1200&q=75",
+              "alt": "Benjamin Hadary"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3fqQ7h51y0keGQFLjVhsIX%2F9fbc7b52bbfab46b4e3ce2a49e53d0d4%2FBen.png&w=750&q=75",
+              "alt": "Benjamin Hadary"
+            }
+          ],
+          "members": [
+            {
+              "name": "Decades of breaking through barriers.",
+              "role": "",
+              "bio": "Michael Dinsdale CEO Show bio Michael Dinsdale CEO Benjamin Black CIO Show bio Benjamin Black CIO Peter Smith President Show bio Peter Smith President Angela Stanley COO Show bio Angela Stanley COO Tracy Hogan CFO Show bio Tracy Hogan CFO Benjamin Hadary General Counsel Show bio Benjamin Hadary General Counsel"
+            },
+            {
+              "name": "Michael Dinsdale",
+              "role": "CEO",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Benjamin Black",
+              "role": "CIO",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Peter Smith",
+              "role": "President",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Angela Stanley",
+              "role": "COO",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Tracy Hogan",
+              "role": "CFO",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Benjamin Hadary",
+              "role": "General Counsel",
+              "bio": "Show bio"
+            }
+          ]
+        },
+        {
+          "anchor": "heritage",
+          "type": "StatsBlock",
+          "heading": "Our Heritage",
+          "subheading": "",
+          "bodyCopy": [
+            "Akkadian Ventures is an venture secondary firm in the private technology market, providing liquidity to founders, employees, and investors since 2010, building a deep origination engine inside the private-technology economy. Powerlaw Corp. (Nasdaq: PWRL) is advised by Powerlaw Fund Adviser, LLC a registered investment adviser. Akkadian's heritage informs Powerlaw's investment approach.",
+            "$1.36B",
+            "Assets under management*",
+            "134",
+            "portfolio companies*",
+            "57",
+            "portfolio exits*",
+            "5,000+",
+            "raise global community",
+            "*As of March 30, 2026"
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "investing",
+          "type": "CTAGroup",
+          "heading": "Only for those who want to own the future.",
+          "subheading": "",
+          "bodyCopy": [
+            "Powerlaw Corp. (Nasdaq: PWRL) provides investors with exposure to leading private technology companies through a single Nasdaq-listed security. Shares can be bought and sold in any standard brokerage account."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "email",
+          "type": "FormBlock",
+          "heading": "",
+          "subheading": "",
+          "bodyCopy": [
+            "Sign up to receive NAV alerts, fund updates and portfolio news."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "faq",
+          "type": "FAQ",
+          "heading": "Frequently Asked Questions.",
+          "subheading": "What is Powerlaw Corp. (Nasdaq: PWRL)?",
+          "bodyCopy": [
+            "We want to bring as much transparency as possible to accessing private market investing. If you're not finding the answers you're looking for, contact us at: Info@PWRL.com",
+            "Powerlaw Corp. (Nasdaq: PWRL) is a listed closed-end fund registered under the Investment Company Act of 1940, offering exposure to leading private technology companies through a single Nasdaq-listed security. It provides daily liquidity, monthly NAV reporting, and quarterly portfolio disclosure.",
+            "Powerlaw Corp. (Nasdaq: PWRL) is the first product of Powerlaw Capital Group and advised by Powerlaw Fund Adviser, LLC. The firm is backed by Akkadian Ventures' 16-year heritage in private-company secondary markets.",
+            "Portfolio holdings are carried at fair value, determined under the Fund's valuation policies with input from independent valuation sources. Inputs include recent primary financings, secondary market transactions, and comparable-company multiples.",
+            "In an IPO, the Fund's position converts to listed equity, generally subject to a customary lock-up. In a sale, the Fund receives cash, stock, or a mix of consideration. Proceeds are reflected in NAV and may be available for reinvestment or distributions.",
+            "No. Shareholders own PWRL; the Fund owns the underlying private positions. Buying PWRL provides economic exposure to the portfolio through a single security listed on NASDAQ.",
+            "Powerlaw Corp. publishes monthly NAV and NAV per share, with quarterly portfolio disclosures. All filings are available on PWRL.com and through the SEC's EDGAR system.",
+            "Investing in PWRL involves a number of significant risks. Before you invest in PWRL, you should be aware of various risks associated with the investment, including those described in our prospectus . The prospectus contains this and other information about the Fund, and is available free of charge at www.PWRL.com. You should carefully consider these risk factors, together with all of the other information included in the prospectus, before you decide whether to make an investment in PWRL. If any of the events listed in the prospectus occur, our business, financial condition and results of operations could be materially and adversely affected. In such case, you may lose all or part of your investment."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [],
+          "faqs": [
+            {
+              "q": "What is Powerlaw Corp. (Nasdaq: PWRL)?",
+              "a": "Powerlaw Corp. (Nasdaq: PWRL) is a listed closed-end fund registered under the Investment Company Act of 1940, offering exposure to leading private technology companies through a single Nasdaq-listed security. It provides daily liquidity, monthly NAV reporting, and quarterly portfolio disclosure."
+            },
+            {
+              "q": "Who is behind Powerlaw?",
+              "a": "Powerlaw Corp. (Nasdaq: PWRL) is the first product of Powerlaw Capital Group and advised by Powerlaw Fund Adviser, LLC. The firm is backed by Akkadian Ventures' 16-year heritage in private-company secondary markets."
+            },
+            {
+              "q": "How are portfolio investments valued?",
+              "a": "Portfolio holdings are carried at fair value, determined under the Fund's valuation policies with input from independent valuation sources. Inputs include recent primary financings, secondary market transactions, and comparable-company multiples."
+            },
+            {
+              "q": "What happens if a portfolio company goes public or is acquired?",
+              "a": "In an IPO, the Fund's position converts to listed equity, generally subject to a customary lock-up. In a sale, the Fund receives cash, stock, or a mix of consideration. Proceeds are reflected in NAV and may be available for reinvestment or distributions."
+            },
+            {
+              "q": "Do investors receive shares of portfolio companies directly?",
+              "a": "No. Shareholders own PWRL; the Fund owns the underlying private positions. Buying PWRL provides economic exposure to the portfolio through a single security listed on NASDAQ."
+            },
+            {
+              "q": "How will Powerlaw communicate with stockholders?",
+              "a": "Powerlaw Corp. publishes monthly NAV and NAV per share, with quarterly portfolio disclosures. All filings are available on PWRL.com and through the SEC's EDGAR system."
+            },
+            {
+              "q": "What are the key risks?",
+              "a": "Investing in PWRL involves a number of significant risks. Before you invest in PWRL, you should be aware of various risks associated with the investment, including those described in our prospectus . The prospectus contains this and other information about the Fund, and is available free of charge at www.PWRL.com. You should carefully consider these risk factors, together with all of the other information included in the prospectus, before you decide whether to make an investment in PWRL. If any of the events listed in the prospectus occur, our business, financial condition and results of operations could be materially and adversely affected. In such case, you may lose all or part of your investment."
+            }
+          ]
+        },
+        {
+          "anchor": "powerlaw-corp-was-born-from-two-simple-b",
+          "type": "RichText",
+          "heading": "Powerlaw Corp. was born from two simple but powerful truths.",
+          "subheading": "The Power Law",
+          "bodyCopy": [
+            "In private technology investing, a small number of breakout companies have historically generated a disproportionate share of total returns. Our name reflects this principle.",
+            "Private companies are staying private longer than at any time in modern market history. Until now, the value created during those private years has been available almost exclusively to insiders and institutional investors — leaving most of the world locked out of the asset class.",
+            "The top tier companies of a Venture Capital fund typically generate 97% of the exit profits. 1",
+            "1. Source"
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F28i9f1UiOodLizlZBRVfax%2Fb471b1d3b022656bef6f67dd65ebfb8c%2F1.png&w=3840&q=75",
+              "alt": "One Sky Blue"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1ofhSb29NZDupfX83369bi%2F58e553edf0ace432ff76ec52e77357a0%2F2.png&w=3840&q=75",
+              "alt": "Two Sky Blue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/pwrl/fund",
+      "title": "PWRL - Private Tech, Nasdaq Listed.",
+      "metaDescription": "15 Leading  private tech companies. One easily tradeable fund",
+      "sections": [
+        {
+          "anchor": "hero",
+          "type": "Hero",
+          "heading": "Listed Private Technology.",
+          "subheading": "Built for everyone.",
+          "bodyCopy": [],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3AI2RlNUOhmd1EJPnfzQsa%2Fcd2c005d1537fdd2463332767fdda8c5%2FCity_compressed.png&w=3840&q=75",
+              "alt": "City"
+            }
+          ]
+        },
+        {
+          "anchor": "portfolio",
+          "type": "Portfolio",
+          "heading": "A focused portfolio of leading private technology companies.",
+          "subheading": "",
+          "bodyCopy": [
+            "PWRL invests across the sectors driving the next generation of value creation in technology: artificial intelligence, next-generation software, modern aerospace and defense, and leading consumer technology platforms. The portfolio is advised by Powerlaw Fund Adviser, LLC."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [],
+          "companies": []
+        },
+        {
+          "anchor": "investment_strategy",
+          "type": "Philosophy",
+          "heading": "Investment Strategy",
+          "subheading": "",
+          "bodyCopy": [
+            "Powerlaw Corp. targets late-stage private technology companies operating in sectors we believe are poised for long-term, transformative growth, including enterprise SaaS, consumer platforms, aerospace and defense, and artificial intelligence.",
+            "These companies often remain private longer, driven by abundant private capital, reduced public-market pressure, and the availability of secondary liquidity—shifting meaningful value creation into the private markets.",
+            "Powerlaw Corp. is designed to provide access to this phase of growth by focusing on a select group of companies we believe are positioned to become durable, high-performance public companies.",
+            "At Powerlaw Corp., we seek to bring transparency and clarity to investing opportunities."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/investment_sector_wheel/head.svg",
+              "alt": "AI"
+            },
+            {
+              "src": "/pwrl/investment_sector_wheel/dna.svg",
+              "alt": "Biotech"
+            },
+            {
+              "src": "/pwrl/investment_sector_wheel/window.svg",
+              "alt": "Software"
+            },
+            {
+              "src": "/pwrl/investment_sector_wheel/money_chip.svg",
+              "alt": "Fintech"
+            },
+            {
+              "src": "/pwrl/investment_sector_wheel/shield.svg",
+              "alt": "Cybersecurity"
+            },
+            {
+              "src": "/pwrl/investment_sector_wheel/rocket.svg",
+              "alt": "Aerospace"
+            }
+          ]
+        },
+        {
+          "anchor": "investment_process",
+          "type": "Process",
+          "heading": "Investment Process",
+          "subheading": "",
+          "bodyCopy": [
+            "Venture capital returns follow a power law, where a small number of companies generate the majority of value. Rather than broad diversification, Powerlaw Corp. is built to concentrate exposure in companies that have already demonstrated outlier potential.",
+            "The Adviser leverages its experience and position within the venture capital and secondary market ecosystem to identify a small number of potential outlier companies. Powerlaw Corp. generally targets businesses with meaningful revenue scale, strong growth, durable competitive advantages, globally recognized brands, deep institutional backing, and robust secondary market demand.",
+            "Each investment undergoes a rigorous due diligence process, including analysis of financial performance, secondary market pricing, capitalization structure, addressable market size, competitive dynamics, and insights from industry experts. The Fund applies a concentrated portfolio approach, allocating capital to companies the Adviser believes offer the most compelling opportunity for long-term capital appreciation.",
+            "The top tier companies of a Venture Capital fund typically generate 97% of the exit profits. 1"
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "email",
+          "type": "FormBlock",
+          "heading": "",
+          "subheading": "",
+          "bodyCopy": [
+            "Sign up to receive NAV alerts, fund updates and portfolio news."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "faq",
+          "type": "FAQ",
+          "heading": "Frequently Asked Questions.",
+          "subheading": "What is Powerlaw Corp. (Nasdaq: PWRL)?",
+          "bodyCopy": [
+            "We want to bring as much transparency as possible to accessing private market investing. If you're not finding the answers you're looking for, contact us at: Info@PWRL.com",
+            "Powerlaw Corp. (Nasdaq: PWRL) is a listed closed-end fund registered under the Investment Company Act of 1940, offering exposure to leading private technology companies through a single Nasdaq-listed security. It provides daily liquidity, monthly NAV reporting, and quarterly portfolio disclosure.",
+            "Powerlaw Corp. (Nasdaq: PWRL) is the first product of Powerlaw Capital Group and advised by Powerlaw Fund Adviser, LLC. The firm is backed by Akkadian Ventures' 16-year heritage in private-company secondary markets.",
+            "Portfolio holdings are carried at fair value, determined under the Fund's valuation policies with input from independent valuation sources. Inputs include recent primary financings, secondary market transactions, and comparable-company multiples.",
+            "In an IPO, the Fund's position converts to listed equity, generally subject to a customary lock-up. In a sale, the Fund receives cash, stock, or a mix of consideration. Proceeds are reflected in NAV and may be available for reinvestment or distributions.",
+            "No. Shareholders own PWRL; the Fund owns the underlying private positions. Buying PWRL provides economic exposure to the portfolio through a single security listed on NASDAQ.",
+            "Powerlaw Corp. publishes monthly NAV and NAV per share, with quarterly portfolio disclosures. All filings are available on PWRL.com and through the SEC's EDGAR system.",
+            "Investing in PWRL involves a number of significant risks. Before you invest in PWRL, you should be aware of various risks associated with the investment, including those described in our prospectus . The prospectus contains this and other information about the Fund, and is available free of charge at www.PWRL.com. You should carefully consider these risk factors, together with all of the other information included in the prospectus, before you decide whether to make an investment in PWRL. If any of the events listed in the prospectus occur, our business, financial condition and results of operations could be materially and adversely affected. In such case, you may lose all or part of your investment."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [],
+          "faqs": [
+            {
+              "q": "What is Powerlaw Corp. (Nasdaq: PWRL)?",
+              "a": "Powerlaw Corp. (Nasdaq: PWRL) is a listed closed-end fund registered under the Investment Company Act of 1940, offering exposure to leading private technology companies through a single Nasdaq-listed security. It provides daily liquidity, monthly NAV reporting, and quarterly portfolio disclosure."
+            },
+            {
+              "q": "Who is behind Powerlaw?",
+              "a": "Powerlaw Corp. (Nasdaq: PWRL) is the first product of Powerlaw Capital Group and advised by Powerlaw Fund Adviser, LLC. The firm is backed by Akkadian Ventures' 16-year heritage in private-company secondary markets."
+            },
+            {
+              "q": "How are portfolio investments valued?",
+              "a": "Portfolio holdings are carried at fair value, determined under the Fund's valuation policies with input from independent valuation sources. Inputs include recent primary financings, secondary market transactions, and comparable-company multiples."
+            },
+            {
+              "q": "What happens if a portfolio company goes public or is acquired?",
+              "a": "In an IPO, the Fund's position converts to listed equity, generally subject to a customary lock-up. In a sale, the Fund receives cash, stock, or a mix of consideration. Proceeds are reflected in NAV and may be available for reinvestment or distributions."
+            },
+            {
+              "q": "Do investors receive shares of portfolio companies directly?",
+              "a": "No. Shareholders own PWRL; the Fund owns the underlying private positions. Buying PWRL provides economic exposure to the portfolio through a single security listed on NASDAQ."
+            },
+            {
+              "q": "How will Powerlaw communicate with stockholders?",
+              "a": "Powerlaw Corp. publishes monthly NAV and NAV per share, with quarterly portfolio disclosures. All filings are available on PWRL.com and through the SEC's EDGAR system."
+            },
+            {
+              "q": "What are the key risks?",
+              "a": "Investing in PWRL involves a number of significant risks. Before you invest in PWRL, you should be aware of various risks associated with the investment, including those described in our prospectus . The prospectus contains this and other information about the Fund, and is available free of charge at www.PWRL.com. You should carefully consider these risk factors, together with all of the other information included in the prospectus, before you decide whether to make an investment in PWRL. If any of the events listed in the prospectus occur, our business, financial condition and results of operations could be materially and adversely affected. In such case, you may lose all or part of your investment."
+            }
+          ]
+        },
+        {
+          "anchor": "how-the-portfolio-gets-built",
+          "type": "RichText",
+          "heading": "How the portfolio gets built.",
+          "subheading": "",
+          "bodyCopy": [
+            "PWRL draws on more than 16 years of venture secondary-market relationships through Akkadian Ventures and on the operator networks built by the team of industry veterans. Portfolio decisions are advised by Powerlaw Fund Adviser, LLC, drawing on this origination engine to identify and execute on positions in leading private technology companies."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "exposure",
+          "type": "RichText",
+          "heading": "Exposure",
+          "subheading": "",
+          "bodyCopy": [
+            "Updated quarterly. Last updated 05/13/2026.",
+            "For the detailed Portfolio Schedule, click here ."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "sectors",
+          "type": "RichText",
+          "heading": "Sectors",
+          "subheading": "",
+          "bodyCopy": [
+            "Updated quarterly. Last updated 05/13/2026"
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "stock-info",
+          "type": "StockInfo",
+          "heading": "Stock Info",
+          "subheading": "",
+          "bodyCopy": [
+            "Stock Info section above updated monthly. Last updated 5/31/26.",
+            "*Exposure and Sector Allocations based on Portfolio Company's fair value as a percentage of the Fund's net assets as of May 13, 2026."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        }
+      ]
+    },
+    {
+      "path": "/pwrl/trade",
+      "title": "PWRL - Private Tech, Nasdaq Listed.",
+      "metaDescription": "15 Leading  private tech companies. One easily tradeable fund",
+      "sections": [
+        {
+          "anchor": "hero",
+          "type": "Hero",
+          "heading": "PWRL trades on Nasdaq.",
+          "subheading": "Here's how to invest.",
+          "bodyCopy": [],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2FqsBy8aLDKQRPPKcWwP48f%2F69d56320d64e690c99def47fc659106f%2Fhow-to-trade_compressed.png&w=3840&q=75",
+              "alt": "How to Trade Hero Image"
+            }
+          ]
+        },
+        {
+          "anchor": "where-how",
+          "type": "Process",
+          "heading": "How to Invest in PWRL",
+          "subheading": "",
+          "bodyCopy": [
+            "PWRL trades on Nasdaq, just like any other listed security. Investors can buy and sell shares through any standard brokerage account.",
+            "Use any brokerage account.",
+            "PWRL is available through any standard brokerage account that supports Nasdaq-listed securities, including taxable accounts and IRAs.",
+            "Search for PWRL.",
+            "In your brokerage account, search for Powerlaw Corp. or the ticker symbol PWRL.",
+            "Place your order.",
+            "Choose the number of shares and place your order through your brokerage platform. Standard order types apply: market, limit, stop.",
+            "Track your position.",
+            "View PWRL's market price in real time through your brokerage platform. Net asset value (NAV) and portfolio holdings are published on a regular basis at PWRL.com."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4pOsCNFbsD5Lclv3tyWEOF%2F5719ae003789014444d40b082f764089%2F1.png&w=3840&q=75",
+              "alt": "1 Blue"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F43avXJqGTBma7AVPdGGxPm%2Fff878370a1dfa654086e3a34d22b096e%2F2.png&w=3840&q=75",
+              "alt": "2 Blue"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6Eg0yHVYstqUZombqnjWlE%2F2a6dd155e85ee823c48e14771042d757%2F3.png&w=3840&q=75",
+              "alt": "3 Blue"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4wIe9LHCXeUZsw3yZlB5eb%2F81e6b844db6700aca4c83ce278be7116%2F4.png&w=3840&q=75",
+              "alt": "4 Blue"
+            }
+          ]
+        },
+        {
+          "anchor": "cef-overview",
+          "type": "RichText",
+          "heading": "What is a closed-end fund?",
+          "subheading": "",
+          "bodyCopy": [
+            "A closed-end fund (CEF) is a regulated investment fund that pools investor capital into a managed portfolio and trades on a stock exchange like any other listed security. CEFs offer exchange-traded access to portfolios that have historically been available only through private vehicles.",
+            "Shares of CEFs are bought and sold through brokerage accounts at market prices, which may trade at a premium or discount to the fund's net asset value (NAV). NAV represents the per-share value of the fund's underlying holdings.",
+            "A registered investment adviser selects and advises the portfolio. PWRL is advised by Powerlaw Fund Adviser, LLC."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "email",
+          "type": "FormBlock",
+          "heading": "",
+          "subheading": "",
+          "bodyCopy": [
+            "Sign up to receive NAV alerts, fund updates and portfolio news."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": []
+        },
+        {
+          "anchor": "available-on-all-major-brokerage-platfor",
+          "type": "RichText",
+          "heading": "Available on all major brokerage platforms.",
+          "subheading": "",
+          "bodyCopy": [
+            "Click your platform below to access PWRL."
+          ],
+          "bullets": [],
+          "ctas": [
+            {
+              "label": "Charles Schwab →",
+              "href": "https://www.schwab.com/"
+            },
+            {
+              "label": "Fidelity →",
+              "href": "https://www.fidelity.com/"
+            },
+            {
+              "label": "Public →",
+              "href": "https://public.com/"
+            },
+            {
+              "label": "Chase →",
+              "href": "https://www.chase.com/"
+            },
+            {
+              "label": "Robinhood →",
+              "href": "https://robinhood.com/"
+            },
+            {
+              "label": "Vanguard →",
+              "href": "https://investor.vanguard.com/"
+            },
+            {
+              "label": "E-Trade →",
+              "href": "https://us.etrade.com/"
+            },
+            {
+              "label": "SoFi →",
+              "href": "https://www.sofi.com/"
+            },
+            {
+              "label": "WellsTrade →",
+              "href": "https://www.wellsfargoadvisors.com/services/online.htm"
+            }
+          ],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F27jO0LnWxA7x42hiTK4mXO%2F9fd477229fd5ec50159345611c393869%2Fcharlesschwab.png&w=128&q=75",
+              "alt": "Charles Schwab → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4mfno5jaeo67j3J6QejqLc%2F1239374c7174d28057f5c4f2a7cdf733%2Ffidelity.png&w=128&q=75",
+              "alt": "Fidelity → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6RIP7jhS6BSFvZVfaPZB5b%2F79d95db842dc4f047abfafec8bd82ce1%2FPublic.png&w=128&q=75",
+              "alt": "Public → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F2YIONoUb5bXK7ZLypZYzMX%2F13a1cc7fc07b66f2ddc06cb560a2188e%2Fchase.png&w=128&q=75",
+              "alt": "Chase → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6vlpf5X8BFLGzjQozfPOCz%2F4118a978730441e9c3eb4d70b7676fd8%2Frobinhood.png&w=128&q=75",
+              "alt": "Robinhood → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6FYJGNrJUtkcWhkGdCrPLh%2F660f30ce12242c29b5369f6e235e4362%2Fvanguard.png&w=128&q=75",
+              "alt": "Vanguard → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4Z5e4oQntuGw7vf5qY4ZBx%2Faf7b51860e173e62403804302cce61ba%2Fetrade.png&w=128&q=75",
+              "alt": "E-Trade → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F5G49Q59073JNgKZYaJhqhi%2F637a0e6a7194269c7af679a04294a196%2Fsofi.png&w=128&q=75",
+              "alt": "SoFi → platform logo"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3LU9qn43hLEv6lvJa0fPJk%2F31944d484d965cc89b34dd2220646f93%2Fwellsfargo.png&w=128&q=75",
+              "alt": "WellsTrade → platform logo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/pwrl/investor-relations",
+      "title": "PWRL - Private Tech, Nasdaq Listed.",
+      "metaDescription": "15 Leading  private tech companies. One easily tradeable fund",
+      "sections": [
+        {
+          "anchor": "hero",
+          "type": "Hero",
+          "heading": "Investor Relations",
+          "subheading": "",
+          "bodyCopy": [],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F41jRe8imi4D9UP0bfRBtSH%2Fda955c9f7c97bb48027b5b8ddac62147%2Fbackground.png&w=3840&q=75",
+              "alt": "Default Background"
+            }
+          ]
+        },
+        {
+          "anchor": "news",
+          "type": "NewsList",
+          "heading": "News",
+          "subheading": "Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
+          "bodyCopy": [],
+          "bullets": [],
+          "ctas": [
+            {
+              "label": "June 9, 2026 Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
+              "href": "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html"
+            },
+            {
+              "label": "June 5, 2026 SpaceX Announced as Powerlaw Corp. (Nasdaq: PWRL) Largest Holding",
+              "href": "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-announces-134600213.html"
+            },
+            {
+              "label": "June 4, 2026 Powerlaw Corp. (Nasdaq: PWRL) to Host Virtual Investor Roadshow",
+              "href": "https://www.businesswire.com/news/home/20260604841313/en/Powerlaw-Corp.-Nasdaq-PWRL-to-Host-Virtual-Investor-Roadshow"
+            },
+            {
+              "label": "May 27, 2026 Powerlaw Corp. Begins Trading on Nasdaq as PWRL",
+              "href": "https://www.businesswire.com/news/home/20260527046646/en/Powerlaw-Corp.-Begins-Trading-on-Nasdaq-as-PWRL"
+            },
+            {
+              "label": "May 27, 2026 Powerlaw Capital Group CEO: We’re bringing access to private companies to everyone",
+              "href": "https://www.cnbc.com/video/2026/05/27/powerlaw-capital-group-ceo-were-bringing-access-to-private-companies-to-everyone.html"
+            },
+            {
+              "label": "May 27, 2026 SpaceX Investor Powerlaw to Debut on Nasdaq as IPO Race Heats Up",
+              "href": "https://www.bloomberg.com/news/articles/2026-05-27/spacex-investor-powerlaw-to-debut-on-nasdaq-as-ipo-race-heats-up?srnd=undefined&embedded-checkout=true"
+            },
+            {
+              "label": "March 10, 2026 It’s easy for everyday investors to get a piece of Stripe, Revolut and OpenAI — here’s how",
+              "href": "https://www.businesspost.ie/markets/its-easy-for-everyday-investors-to-get-a-piece-of-stripe-revolut-and-openai-heres-how/"
+            },
+            {
+              "label": "February 17, 2026 Akkadian Ventures Announces Powerlaw Capital Group",
+              "href": "https://pwrl.com/media/powerlaw-capital-launch.pdf"
+            }
+          ],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7pPCORGw8lPk7l2zaHcYg6%2F64e72bfed05004c29308a33071d6f377%2Fpreview.jpg&w=3840&q=75",
+              "alt": "PWRL"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F46gItPRVgxQpy692sqIWDf%2F16717d5ed5214d57a837492c8dcaba9a%2Fimage__1_.png&w=3840&q=75",
+              "alt": "PWRL SPACE X "
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7pPCORGw8lPk7l2zaHcYg6%2F64e72bfed05004c29308a33071d6f377%2Fpreview.jpg&w=3840&q=75",
+              "alt": "PWRL"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F43FjJS25SRwlaR7RB9HQ7c%2F7210e2f8eb841335ec0652d7f7468100%2FPowerlaw_052726-4.jpg&w=3840&q=75",
+              "alt": "Powerlaw Corp. (Nasdaq: PWRL) "
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6XX9eNS2QB9Ct83nE1rmqa%2F1a85b3ed81d130659f98d49f29d6d6de%2F108312358-4ED1-MC-Mike-052726.jpg&w=3840&q=75",
+              "alt": "108312358-4ED1-MC-Mike-052726"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3bMNnpxMLkzxdDD0n5HTeB%2F7b6708b2a896c3f80321289a0f56bf85%2Fbloomberg.png&w=3840&q=75",
+              "alt": "Bloomberg"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7rwF8QuUszOBbwAz1GuGQB%2F3a34a121b8e543f0dec0c0b0bc8f5e18%2Fbp-01.jpg&w=3840&q=75",
+              "alt": "Business Post"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7pPCORGw8lPk7l2zaHcYg6%2F64e72bfed05004c29308a33071d6f377%2Fpreview.jpg&w=3840&q=75",
+              "alt": "PWRL"
+            }
+          ],
+          "items": [
+            {
+              "title": "June 9, 2026 Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
+              "href": "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html"
+            },
+            {
+              "title": "June 5, 2026 SpaceX Announced as Powerlaw Corp. (Nasdaq: PWRL) Largest Holding",
+              "href": "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-announces-134600213.html"
+            },
+            {
+              "title": "June 4, 2026 Powerlaw Corp. (Nasdaq: PWRL) to Host Virtual Investor Roadshow",
+              "href": "https://www.businesswire.com/news/home/20260604841313/en/Powerlaw-Corp.-Nasdaq-PWRL-to-Host-Virtual-Investor-Roadshow"
+            },
+            {
+              "title": "May 27, 2026 Powerlaw Corp. Begins Trading on Nasdaq as PWRL",
+              "href": "https://www.businesswire.com/news/home/20260527046646/en/Powerlaw-Corp.-Begins-Trading-on-Nasdaq-as-PWRL"
+            },
+            {
+              "title": "May 27, 2026 Powerlaw Capital Group CEO: We’re bringing access to private companies to everyone",
+              "href": "https://www.cnbc.com/video/2026/05/27/powerlaw-capital-group-ceo-were-bringing-access-to-private-companies-to-everyone.html"
+            },
+            {
+              "title": "May 27, 2026 SpaceX Investor Powerlaw to Debut on Nasdaq as IPO Race Heats Up",
+              "href": "https://www.bloomberg.com/news/articles/2026-05-27/spacex-investor-powerlaw-to-debut-on-nasdaq-as-ipo-race-heats-up?srnd=undefined&embedded-checkout=true"
+            },
+            {
+              "title": "March 10, 2026 It’s easy for everyday investors to get a piece of Stripe, Revolut and OpenAI — here’s how",
+              "href": "https://www.businesspost.ie/markets/its-easy-for-everyday-investors-to-get-a-piece-of-stripe-revolut-and-openai-heres-how/"
+            },
+            {
+              "title": "February 17, 2026 Akkadian Ventures Announces Powerlaw Capital Group",
+              "href": "https://pwrl.com/media/powerlaw-capital-launch.pdf"
+            }
+          ]
+        },
+        {
+          "anchor": "directors",
+          "type": "TeamGrid",
+          "heading": "Board of Directors",
+          "subheading": "Benjamin Black",
+          "bodyCopy": [
+            "Director",
+            "Independent Director, Chair of the Board",
+            "Independent Director"
+          ],
+          "bullets": [
+            "Benjamin Black Director Show bio Benjamin Black Director",
+            "Michael Dinsdale Director Show bio Michael Dinsdale Director",
+            "Vivian Chow Independent Director, Chair of the Board Show bio Vivian Chow Independent Director, Chair of the Board",
+            "Nicholas Earl Independent Director Show bio Nicholas Earl Independent Director",
+            "Lars Leckie Independent Director Show bio Lars Leckie Independent Director"
+          ],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6hsQ8P4xCPKJg46ejgmX62%2F71cc34f963ec871ca86dd3048d202978%2Fben_black.webp&w=1200&q=75",
+              "alt": "Benjamin Black"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6hsQ8P4xCPKJg46ejgmX62%2F71cc34f963ec871ca86dd3048d202978%2Fben_black.webp&w=750&q=75",
+              "alt": "Benjamin Black"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4atLBnJRbowZdqU0pedUO0%2F335a43eb73cfd8781d55d22ca198a89e%2Fmichael_dindsdale.webp&w=1200&q=75",
+              "alt": "Michael Dinsdale"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4atLBnJRbowZdqU0pedUO0%2F335a43eb73cfd8781d55d22ca198a89e%2Fmichael_dindsdale.webp&w=750&q=75",
+              "alt": "Michael Dinsdale"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F611b6qJpwf8vP68pZhqEI2%2F9a419a7fa54fd21dcba7ce9c48d11807%2Fvivian.webp&w=1200&q=75",
+              "alt": "Vivian Chow"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F611b6qJpwf8vP68pZhqEI2%2F9a419a7fa54fd21dcba7ce9c48d11807%2Fvivian.webp&w=750&q=75",
+              "alt": "Vivian Chow"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2FPdK34BH99cAFAYG1Uzye3%2F081e727a772c9f458d0cbee6c261ea2b%2Fnicholas.webp&w=1200&q=75",
+              "alt": "Nicholas Earl"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2FPdK34BH99cAFAYG1Uzye3%2F081e727a772c9f458d0cbee6c261ea2b%2Fnicholas.webp&w=750&q=75",
+              "alt": "Nicholas Earl"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3Jq4Dh7TNoWeR3xgRWVyAI%2Ffccd0650e4e77f9385f36361b42445ba%2Flars.webp&w=1200&q=75",
+              "alt": "Lars Leckie"
+            },
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3Jq4Dh7TNoWeR3xgRWVyAI%2Ffccd0650e4e77f9385f36361b42445ba%2Flars.webp&w=750&q=75",
+              "alt": "Lars Leckie"
+            }
+          ],
+          "members": [
+            {
+              "name": "Board of Directors",
+              "role": "",
+              "bio": "Benjamin Black Director Show bio Benjamin Black Director Michael Dinsdale Director Show bio Michael Dinsdale Director Vivian Chow Independent Director, Chair of the Board Show bio Vivian Chow Independent Director, Chair of the Board Nicholas Earl Independent Director Show bio Nicholas Earl Independent Director Lars Leckie Independent Director Show bio Lars Leckie Independent Director"
+            },
+            {
+              "name": "Benjamin Black",
+              "role": "Director",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Michael Dinsdale",
+              "role": "Director",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Vivian Chow",
+              "role": "Independent Director, Chair of the Board",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Nicholas Earl",
+              "role": "Independent Director",
+              "bio": "Show bio"
+            },
+            {
+              "name": "Lars Leckie",
+              "role": "Independent Director",
+              "bio": "Show bio"
+            }
+          ]
+        },
+        {
+          "anchor": "sec-filings",
+          "type": "DocumentList",
+          "heading": "SEC Filings",
+          "subheading": "",
+          "bodyCopy": [
+            "Loading filings..."
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [],
+          "documents": []
+        },
+        {
+          "anchor": "fund-documents",
+          "type": "DocumentList",
+          "heading": "Fund Documents",
+          "subheading": "",
+          "bodyCopy": [],
+          "bullets": [
+            "Powerlaw Corp. FAQs (06.04.26) View PDF",
+            "Portfolio Schedule View PDF",
+            "Investor Deck View PDF",
+            "Semi-Annual Shareholder Report (03.31.26) View PDF",
+            "Semi-Annual Shareholder Report (09.30.25) View PDF",
+            "Powerlaw Code of Ethics View PDF",
+            "Compensation Committee Charter View PDF",
+            "Nominating and Corporate Governance Committee Charter View PDF",
+            "Audit Committee Charter View PDF"
+          ],
+          "ctas": [
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/3QsYDiFopKwu4W57hodv0/3e0d199caa2556738274d6e681592a6e/Powrlaw_Corp_FAQs__06.04.26_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/55NFrWeRmp6dCUGHhzAQUJ/537ccf9d9231e911ce3e3d72f4047f6a/Portfolio_Schedule_-_as_of_May_13__2026.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/4PL9BGpWM0PTZsXth8s0mi/07d17bf610a83bb23ac70cd1da6dbe4e/Powerlaw_Investor_Deck_-_06.01.26____FOR_WEBSITE___1_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/WTgvk9Ov48FN0wYSi1zSK/58824c7e95028799d99506f3e9822807/Powerlaw_Corp_Semi-annual_Shareholder_Report__03.31.26_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/17ICgB0MDvMjdDpunAN1ZY/7fc40f92b13b20f2b6c9b20e66274d02/Powerlaw_Corp_Semi-annual_Shareholder_Report__09.30.25_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/5oDHxUQAqphkUDSbxhhao4/d3a6f005375a816591b15d3e19fc8be5/Powerlaw_Code_of_Ethics.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/6v4F13DyiXs41TfSCWHbSe/21137ea5fa64e153bb507a97d8597245/3_Powerlaw_Corp_-_Compensation_Committee_Charter.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/5z23T8rULhmpmJnxMzAuQR/ae11b3f0ed3c856ddbccdcec5438e9e8/2_Powerlaw_Corp_-_Nominating_and_Corporate_Governance_Committee_Charter.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/7b324FS2xFCdNXex2UEg4W/9ee32491bed36241b4fb4d0d1715c14a/1_Powerlaw_Corp_-_Audit_Committee_Charter.pdf"
+            }
+          ],
+          "images": [],
+          "documents": [
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/3QsYDiFopKwu4W57hodv0/3e0d199caa2556738274d6e681592a6e/Powrlaw_Corp_FAQs__06.04.26_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/55NFrWeRmp6dCUGHhzAQUJ/537ccf9d9231e911ce3e3d72f4047f6a/Portfolio_Schedule_-_as_of_May_13__2026.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/4PL9BGpWM0PTZsXth8s0mi/07d17bf610a83bb23ac70cd1da6dbe4e/Powerlaw_Investor_Deck_-_06.01.26____FOR_WEBSITE___1_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/WTgvk9Ov48FN0wYSi1zSK/58824c7e95028799d99506f3e9822807/Powerlaw_Corp_Semi-annual_Shareholder_Report__03.31.26_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/17ICgB0MDvMjdDpunAN1ZY/7fc40f92b13b20f2b6c9b20e66274d02/Powerlaw_Corp_Semi-annual_Shareholder_Report__09.30.25_.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/5oDHxUQAqphkUDSbxhhao4/d3a6f005375a816591b15d3e19fc8be5/Powerlaw_Code_of_Ethics.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/6v4F13DyiXs41TfSCWHbSe/21137ea5fa64e153bb507a97d8597245/3_Powerlaw_Corp_-_Compensation_Committee_Charter.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/5z23T8rULhmpmJnxMzAuQR/ae11b3f0ed3c856ddbccdcec5438e9e8/2_Powerlaw_Corp_-_Nominating_and_Corporate_Governance_Committee_Charter.pdf"
+            },
+            {
+              "label": "View PDF",
+              "href": "https://assets.ctfassets.net/lavpbulm6258/7b324FS2xFCdNXex2UEg4W/9ee32491bed36241b4fb4d0d1715c14a/1_Powerlaw_Corp_-_Audit_Committee_Charter.pdf"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/pwrl/contact",
+      "title": "PWRL - Private Tech, Nasdaq Listed.",
+      "metaDescription": "15 Leading  private tech companies. One easily tradeable fund",
+      "sections": [
+        {
+          "anchor": "hero",
+          "type": "Hero",
+          "heading": "Get in touch",
+          "subheading": "",
+          "bodyCopy": [],
+          "bullets": [],
+          "ctas": [],
+          "images": [
+            {
+              "src": "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F41jRe8imi4D9UP0bfRBtSH%2Fda955c9f7c97bb48027b5b8ddac62147%2Fbackground.png&w=3840&q=75",
+              "alt": "Default Background"
+            }
+          ]
+        },
+        {
+          "anchor": "form-2b83c383",
+          "type": "FormBlock",
+          "heading": "",
+          "subheading": "",
+          "bodyCopy": [
+            "Looking for more information on Powerlaw Corp.? We would be glad to help. Please reach out with your inquiry, and we will respond to you soon.",
+            "For media inquires contact us at Press@PWRL.com"
+          ],
+          "bullets": [],
+          "ctas": [],
+          "images": [],
+          "hubspotFormId": "2b83c383-c728-4cc1-b08c-70545c64d73c"
+        }
+      ]
+    }
+  ],
+  "globals": {
+    "header": {
+      "logoSrc": null,
+      "logoAlt": null,
+      "navItems": [
+        {
+          "label": "Our Vision Our Vision",
+          "href": "/pwrl/vision"
+        },
+        {
+          "label": "Strategy",
+          "href": "/pwrl/vision#strategy"
+        },
+        {
+          "label": "Difference",
+          "href": "/pwrl/vision#difference"
+        },
+        {
+          "label": "Team",
+          "href": "/pwrl/vision#team"
+        },
+        {
+          "label": "Heritage",
+          "href": "/pwrl/vision#heritage"
+        },
+        {
+          "label": "Investing",
+          "href": "/pwrl/vision#investing"
+        },
+        {
+          "label": "FAQ",
+          "href": "/pwrl/vision#faq"
+        },
+        {
+          "label": "The Fund The Fund",
+          "href": "/pwrl/fund"
+        },
+        {
+          "label": "Portfolio",
+          "href": "/pwrl/fund#portfolio"
+        },
+        {
+          "label": "Investment Strategy",
+          "href": "/pwrl/fund#investment_strategy"
+        },
+        {
+          "label": "Investment Process",
+          "href": "/pwrl/fund#investment_process"
+        },
+        {
+          "label": "FAQ",
+          "href": "/pwrl/fund#faq"
+        },
+        {
+          "label": "How to Trade How to Trade",
+          "href": "/pwrl/trade"
+        },
+        {
+          "label": "Where & How",
+          "href": "/pwrl/trade#where-how"
+        },
+        {
+          "label": "CEF Overview",
+          "href": "/pwrl/trade#cef-overview"
+        },
+        {
+          "label": "Investor Relations Investor Relations",
+          "href": "/pwrl/investor-relations"
+        },
+        {
+          "label": "News",
+          "href": "/pwrl/investor-relations#news"
+        },
+        {
+          "label": "Board of Directors",
+          "href": "/pwrl/investor-relations#directors"
+        },
+        {
+          "label": "SEC Filings",
+          "href": "/pwrl/investor-relations#sec-filings"
+        },
+        {
+          "label": "Fund Documents",
+          "href": "/pwrl/investor-relations#fund-documents"
+        },
+        {
+          "label": "Contact",
+          "href": "/pwrl/contact"
+        }
+      ]
+    },
+    "footer": {
+      "links": [
+        {
+          "label": "Privacy Policy",
+          "href": "/pwrl/legal"
+        },
+        {
+          "label": "Terms & Conditions",
+          "href": "/pwrl/terms"
+        },
+        {
+          "label": "Our Vision",
+          "href": "/pwrl/vision"
+        },
+        {
+          "label": "Investor Relations",
+          "href": "/pwrl/investor-relations"
+        },
+        {
+          "label": "The Fund",
+          "href": "/pwrl/fund"
+        },
+        {
+          "label": "Contact",
+          "href": "/pwrl/contact"
+        },
+        {
+          "label": "How to Trade",
+          "href": "/pwrl/trade"
+        },
+        {
+          "label": "",
+          "href": "https://www.linkedin.com/company/pwrl"
+        },
+        {
+          "label": "",
+          "href": "https://www.instagram.com/PWRL_Fund"
+        },
+        {
+          "label": "",
+          "href": "https://www.youtube.com/@PWRL_Fund"
+        },
+        {
+          "label": "",
+          "href": "https://x.com/pwrl_"
+        },
+        {
+          "label": "",
+          "href": "https://seekingalpha.com/symbol/PWRL"
+        },
+        {
+          "label": "",
+          "href": "https://stocktwits.com/symbol/PWRL"
+        },
+        {
+          "label": "Privacy Policy",
+          "href": "/pwrl/legal"
+        },
+        {
+          "label": "Terms & Conditions",
+          "href": "/pwrl/terms"
+        },
+        {
+          "label": "here",
+          "href": "https://www.sec.gov/ix?doc=/Archives/edgar/data/0002052053/000121390026059594/ea0290638-02_424b3.htm"
+        }
+      ],
+      "disclaimers": [
+        "Powerlaw Fund Adviser, LLC (“Powerlaw”) is an investment adviser registered with the United States Securities and Exchange Commission (“SEC”). Powerlaw is the registered adviser for Powerlaw Corp. (“PWRL”), a closed-end fund listed on Nasdaq.",
+        "Investors are advised to carefully consider the investment objective, risks, charges and expenses of PWRL before investing. A prospectus, dated May 20, 2026, together with any subsequent prospectus supplements, each of which has been filed with the Securities and Exchange Commission (“SEC”), contains this and other information about PWRL and should be read carefully before investing.",
+        "A registration statement relating to the resale of shares of common stock of PWRL has been filed with the SEC and is effective. This website and the information it contains does not constitute an offer to sell nor a solicitation of an offer to buy shares of common stock of PWRL, which offering may only be made by means of a prospectus, a copy of which may be obtained by clicking here .",
+        "This website and the information it contains shall not constitute an offer to sell or the solicitation of an offer to buy any securities, nor shall there be any sale of these securities in any state or jurisdiction in which such offer, solicitation or sale would be unlawful prior to registration or qualification under the securities laws of any such state or jurisdiction.",
+        "There can be no assurance that PWRL investment objectives will be achieved. An investment in PWRL is not appropriate for all investors and is not intended to be a complete investment program. PWRL is designed as a long-term investment and not as a trading vehicle. Investors could lose some or all of their investment. Past performance is not indicative of future results. An investment in PWRL is speculative and involves a high degree of risk with substantial risk of loss. Shares of closed-end funds such as PWRL frequently trade at a discount to net asset value. Before making an investment decision, a prospective investor should (i) consider the suitability of this investment with respect to the investor’s investment objectives and (ii) consider factors such as the investor’s investment goals, income, risk tolerance, and time horizon.",
+        "Closed-end funds differ from open-end funds in that closed-end funds do not redeem their shares at the request of an investor. No shareholder has the right to require PWRL to redeem his, her or its shares. While Powerlaw’s shares are expected to be listed on an exchange, an active public market for the shares may not develop. As a result, shareholders may not be able to liquidate their investment. Accordingly, shareholders should consider that they may not have access to the funds they invest in PWRL for an indefinite period of time. There is no assurance that PWRL will achieve its investment objective, or that the private companies in which PWRL invests will ever have a liquidity event.",
+        "Certain information on the website may contain forward-looking statements, which can be identified by the use of terms such as “may”, “should”, “believe”, “expect”, “anticipate”, “project”, “estimate”, “optimistic”, “intend”, “aim”, “will”, “continue” (or the negatives thereof) or other variations thereof. Due to various risks and uncertainties, actual events or results of actual performance of an investment may differ materially from those reflected or contemplated in such forward-looking statements, which speak only of the date they are made, and there is no guarantee that these opinions or predictions will ultimately be realized. As a result, investors should not rely on such forward-looking statements in making their investment decisions. Any projection of the performance discussed by Powerlaw is highly speculative and represents Powerlaw’s opinion, which may change. Powerlaw undertakes no obligation to update publicly or revise any statements contained on the website, whether as a result of new information, future developments or otherwise.",
+        "This website’s content is for informational purposes only and does not constitute advice, a recommendation or an offer to enter into any transaction with PWRL or any other fund. Powerlaw does not provide tax, accounting, financial, regulatory or legal advice, and all investors are advised to consult with their tax, accounting, financial, legal and/or other professional advisors."
+      ],
+      "legalText": "© Powerlaw Corp. All Rights Reserved."
+    }
+  },
+  "forms": [
+    {
+      "page": "/pwrl",
+      "context": "Sign up to receive NAV alerts, fund updates and portfolio news.",
+      "handler": "HubSpot",
+      "portalId": "243469173",
+      "formId": "ce5f73ec-b4cd-4529-805f-6e7bdb03960a",
+      "fields": [
+        "email"
+      ],
+      "pages": [
+        "/pwrl",
+        "/pwrl/vision",
+        "/pwrl/fund",
+        "/pwrl/trade"
+      ]
+    },
+    {
+      "page": "/pwrl/contact",
+      "context": "For media inquires contact us at Press@PWRL.com",
+      "handler": "HubSpot",
+      "portalId": "243469173",
+      "formId": "2b83c383-c728-4cc1-b08c-70545c64d73c",
+      "fields": [
+        "unknown — rendered client-side by HubSpot embed"
+      ],
+      "pages": [
+        "/pwrl/contact"
+      ]
+    }
+  ],
+  "thirdPartyEmbeds": [
+    {
+      "service": "HubSpot tracking",
+      "id": "243469173",
+      "page": "/pwrl",
+      "pages": [
+        "/pwrl",
+        "/pwrl/vision",
+        "/pwrl/fund",
+        "/pwrl/trade",
+        "/pwrl/investor-relations",
+        "/pwrl/contact"
+      ]
+    },
+    {
+      "service": "Google Tag Manager",
+      "id": "GTM-NVJKNWJP",
+      "page": "/pwrl",
+      "pages": [
+        "/pwrl",
+        "/pwrl/vision",
+        "/pwrl/fund",
+        "/pwrl/trade",
+        "/pwrl/investor-relations",
+        "/pwrl/contact"
+      ]
+    },
+    {
+      "service": "InvestingChannel",
+      "src": "https://u5.investingchannel.com/static/uat.js",
+      "page": "/pwrl",
+      "pages": [
+        "/pwrl",
+        "/pwrl/vision",
+        "/pwrl/fund",
+        "/pwrl/trade",
+        "/pwrl/investor-relations",
+        "/pwrl/contact"
+      ]
+    },
+    {
+      "service": "Adobe Typekit",
+      "kit": "xyr7qcs",
+      "page": "/pwrl",
+      "pages": [
+        "/pwrl",
+        "/pwrl/vision",
+        "/pwrl/fund",
+        "/pwrl/trade",
+        "/pwrl/investor-relations",
+        "/pwrl/contact"
+      ]
+    }
+  ],
+  "uniqueImageUrls": [
+    "/pwrl/_next/image?url=%2Fpwrl%2Finfographic_background.webp&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1EiehWOPpCDbenH7DVoIdl%2F7aec1aa43e78b73603ed901aee568341%2Fangela_stanley.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1EiehWOPpCDbenH7DVoIdl%2F7aec1aa43e78b73603ed901aee568341%2Fangela_stanley.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1eQs3LYqOR63n7SSVQeekL%2F4ae58ea3e5e00f623972e26f5d1a3b77%2FPeople_compressed.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1jM52UUockmTbLNNJXB9zJ%2Fa912596daebcba2e6e7575636369b94e%2Ftracy_hogan.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1jM52UUockmTbLNNJXB9zJ%2Fa912596daebcba2e6e7575636369b94e%2Ftracy_hogan.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F1ofhSb29NZDupfX83369bi%2F58e553edf0ace432ff76ec52e77357a0%2F2.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F27jO0LnWxA7x42hiTK4mXO%2F9fd477229fd5ec50159345611c393869%2Fcharlesschwab.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F28i9f1UiOodLizlZBRVfax%2Fb471b1d3b022656bef6f67dd65ebfb8c%2F1.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F2InD6ex5pEXstgmPOnUDVF%2Fdcbb6bad3f99718991aa150737b7d089%2Fconviction.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F2NICb5L311Wp9PlIrkTUQP%2F09d847f30e5c6a633f2a12b1f6479df6%2FWisdom.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F2YIONoUb5bXK7ZLypZYzMX%2F13a1cc7fc07b66f2ddc06cb560a2188e%2Fchase.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F33hHt7u63UhvCaOITtPpLu%2F4a2b12f30d1f0efc4b8b89a24a7fbef0%2Fpeter_smith.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F33hHt7u63UhvCaOITtPpLu%2F4a2b12f30d1f0efc4b8b89a24a7fbef0%2Fpeter_smith.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3AI2RlNUOhmd1EJPnfzQsa%2Fcd2c005d1537fdd2463332767fdda8c5%2FCity_compressed.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3H0y7t04gKHYkZjYPP4dhw%2F9eb2236236e6d499da46d8ba66d2087c%2Fease.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3Jq4Dh7TNoWeR3xgRWVyAI%2Ffccd0650e4e77f9385f36361b42445ba%2Flars.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3Jq4Dh7TNoWeR3xgRWVyAI%2Ffccd0650e4e77f9385f36361b42445ba%2Flars.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3LU9qn43hLEv6lvJa0fPJk%2F31944d484d965cc89b34dd2220646f93%2Fwellsfargo.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3bMNnpxMLkzxdDD0n5HTeB%2F7b6708b2a896c3f80321289a0f56bf85%2Fbloomberg.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3fqQ7h51y0keGQFLjVhsIX%2F9fbc7b52bbfab46b4e3ce2a49e53d0d4%2FBen.png&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F3fqQ7h51y0keGQFLjVhsIX%2F9fbc7b52bbfab46b4e3ce2a49e53d0d4%2FBen.png&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F41jRe8imi4D9UP0bfRBtSH%2Fda955c9f7c97bb48027b5b8ddac62147%2Fbackground.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F43FjJS25SRwlaR7RB9HQ7c%2F7210e2f8eb841335ec0652d7f7468100%2FPowerlaw_052726-4.jpg&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F43avXJqGTBma7AVPdGGxPm%2Fff878370a1dfa654086e3a34d22b096e%2F2.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F46gItPRVgxQpy692sqIWDf%2F16717d5ed5214d57a837492c8dcaba9a%2Fimage__1_.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4Z5e4oQntuGw7vf5qY4ZBx%2Faf7b51860e173e62403804302cce61ba%2Fetrade.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4atLBnJRbowZdqU0pedUO0%2F335a43eb73cfd8781d55d22ca198a89e%2Fmichael_dindsdale.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4atLBnJRbowZdqU0pedUO0%2F335a43eb73cfd8781d55d22ca198a89e%2Fmichael_dindsdale.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4mfno5jaeo67j3J6QejqLc%2F1239374c7174d28057f5c4f2a7cdf733%2Ffidelity.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4pOsCNFbsD5Lclv3tyWEOF%2F5719ae003789014444d40b082f764089%2F1.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4wIe9LHCXeUZsw3yZlB5eb%2F81e6b844db6700aca4c83ce278be7116%2F4.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F4yocG6bgzioaKR6ddHYXps%2F13d008aeb84e0e1d56d857f8600c0d19%2Fliquidity.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F5G49Q59073JNgKZYaJhqhi%2F637a0e6a7194269c7af679a04294a196%2Fsofi.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F611b6qJpwf8vP68pZhqEI2%2F9a419a7fa54fd21dcba7ce9c48d11807%2Fvivian.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F611b6qJpwf8vP68pZhqEI2%2F9a419a7fa54fd21dcba7ce9c48d11807%2Fvivian.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6Eg0yHVYstqUZombqnjWlE%2F2a6dd155e85ee823c48e14771042d757%2F3.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6FYJGNrJUtkcWhkGdCrPLh%2F660f30ce12242c29b5369f6e235e4362%2Fvanguard.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6RIP7jhS6BSFvZVfaPZB5b%2F79d95db842dc4f047abfafec8bd82ce1%2FPublic.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6XX9eNS2QB9Ct83nE1rmqa%2F1a85b3ed81d130659f98d49f29d6d6de%2F108312358-4ED1-MC-Mike-052726.jpg&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6g1tkXzLRNA4B4PioBIQbQ%2Fa4985c8919ea9ce0a512008c7be18458%2FAccess.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6hsQ8P4xCPKJg46ejgmX62%2F71cc34f963ec871ca86dd3048d202978%2Fben_black.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6hsQ8P4xCPKJg46ejgmX62%2F71cc34f963ec871ca86dd3048d202978%2Fben_black.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6oPKBAb1KmDqWAD9NPDvQy%2F649b5c13f81574259f932c85532199ce%2Fstructure.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F6vlpf5X8BFLGzjQozfPOCz%2F4118a978730441e9c3eb4d70b7676fd8%2Frobinhood.png&w=128&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7pPCORGw8lPk7l2zaHcYg6%2F64e72bfed05004c29308a33071d6f377%2Fpreview.jpg&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7rwF8QuUszOBbwAz1GuGQB%2F3a34a121b8e543f0dec0c0b0bc8f5e18%2Fbp-01.jpg&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2F7vCm6NNQfDC9u9i7sv7nqf%2F8b1fa442e9f6419ea1461cb2a8cbb206%2Ftransparency.png&w=3840&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2FPdK34BH99cAFAYG1Uzye3%2F081e727a772c9f458d0cbee6c261ea2b%2Fnicholas.webp&w=1200&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2FPdK34BH99cAFAYG1Uzye3%2F081e727a772c9f458d0cbee6c261ea2b%2Fnicholas.webp&w=750&q=75",
+    "/pwrl/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Flavpbulm6258%2FqsBy8aLDKQRPPKcWwP48f%2F69d56320d64e690c99def47fc659106f%2Fhow-to-trade_compressed.png&w=3840&q=75",
+    "/pwrl/investment_sector_wheel/dna.svg",
+    "/pwrl/investment_sector_wheel/head.svg",
+    "/pwrl/investment_sector_wheel/money_chip.svg",
+    "/pwrl/investment_sector_wheel/rocket.svg",
+    "/pwrl/investment_sector_wheel/shield.svg",
+    "/pwrl/investment_sector_wheel/window.svg"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_value_prop_items",
+  "info": {
+    "displayName": "Value Prop Item",
+    "description": "A single value proposition"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

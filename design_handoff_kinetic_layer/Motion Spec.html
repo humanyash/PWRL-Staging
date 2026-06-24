@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PWRL — Motion Spec v1</title>
+<link rel="preconnect" href="https://use.typekit.net">
+<link rel="stylesheet" href="https://use.typekit.net/usg7ynr.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap">
+<style>
+  :root {
+    --navy: #060b35; --electric: #0023ec; --action: #085cf0;
+    --mint: #23fbc5; --sky: #b0e9fd; --ice: #e4f7fd;
+    --charcoal: #242424; --muted: #757575;
+    --display: "ivypresto-headline", "Cormorant Garamond", Georgia, serif;
+    --franklin: "Libre Franklin", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--charcoal); font-family: var(--franklin); font-weight: 300; line-height: 1.5; }
+  .doc { max-width: 880px; margin: 0 auto; padding: 72px 40px 120px; }
+  .kicker { font-family: var(--franklin); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--action); }
+  h1 { font-family: var(--display); font-size: 52px; font-weight: 300; line-height: 1.05; margin: 10px 0 0; }
+  .meta { margin-top: 14px; font-size: 13px; color: var(--muted); }
+  h2 { font-family: var(--display); font-size: 30px; font-weight: 300; line-height: 1.1; margin: 64px 0 0; padding-top: 18px; border-top: 2px solid var(--ice); }
+  h3 { font-family: var(--franklin); font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin: 32px 0 0; color: var(--navy); }
+  p { margin: 12px 0 0; font-size: 15.5px; }
+  strong { font-weight: 600; }
+  code { font-family: var(--mono); font-size: 12.5px; background: #f4f6f8; border-radius: 4px; padding: 1px 5px; color: #143; }
+  table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+  th { text-align: left; font-family: var(--franklin); font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy); border-bottom: 2px solid var(--sky); padding: 0 10px 8px 0; }
+  td { border-bottom: 1px solid var(--ice); padding: 9px 10px 9px 0; vertical-align: top; }
+  td code { white-space: nowrap; }
+  .swatches { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .sw { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: #444; }
+  .sw i { display: inline-block; width: 22px; height: 22px; border-radius: 5px; border: 1px solid rgb(0 0 0 / 0.08); }
+  .callout { margin-top: 16px; background: var(--ice); border-top: 2px solid var(--action); padding: 14px 18px; font-size: 14px; }
+  .callout.warn { background: #fff7f0; border-top-color: #d97757; }
+  ul { margin: 10px 0 0; padding-left: 20px; }
+  li { margin-top: 6px; font-size: 15px; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+  .proto-nav {
+    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+    z-index: 9000; display: flex; gap: 4px; padding: 4px;
+    background: rgb(6 11 53 / 0.92); border: 1px solid rgb(176 233 253 / 0.25);
+    border-radius: 999px; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .proto-nav a { color: rgb(255 255 255 / 0.75); padding: 7px 14px; border-radius: 999px; text-decoration: none; }
+  .proto-nav a:hover { color: #fff; }
+  .proto-nav a.active { background: var(--action); color: #fff; }
+  @media print { .proto-nav { display: none; } .doc { padding: 0; } }
+</style>
+</head>
+<body>
+<div class="doc">
+  <span class="kicker">PWRL Interactive Layer</span>
+  <h1>Motion Spec <em style="font-style: italic;">v1</em></h1>
+  <p class="meta">The contract for implementation. Reference build: <code>motion/motion.css</code> + <code>motion/pwrl-motion.js</code> (drop-in, dependency-free). Working demos: Home.html, Fund.html, Cursor Recipes.html. <strong>Status: committed 06.11.26</strong> — shipped configuration: Standard intensity, Recipe A (Lumen), glow #085CF0, magnetic pull + sheen, per-line hero rise, Ken Burns + parallax on.</p>
+
+  <h2>1 &middot; Principles</h2>
+  <p><strong>Precision</strong> — deliberate easings, orchestrated staggers, data that behaves like data. <strong>Economy</strong> — fast in, faster out; the site feels quick because the motion is quick. <strong>Weight</strong> — short distances, confident ease-out, no bounce, no elastic, no rotation. One vocabulary across all six pages. <strong>Play</strong> lives exclusively in the cursor layer; everything is serious at rest.</p>
+  <div class="callout">Hard rule: the motion layer is purely additive — <code>transform</code>, <code>opacity</code>, masks, and pseudo-element glows. Nothing that changes box geometry. A screenshot of any resting state is pixel-identical to the static build. Without JS, nothing is ever hidden (all pre-states are gated on <code>html[data-mo-on]</code>, which only the script sets).</div>
+
+  <h2>2 &middot; Tokens</h2>
+  <table>
+    <thead><tr><th>Token</th><th>Default</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>--mo-dur-tap</code></td><td>140ms</td><td>Hover responses — always under 200ms</td></tr>
+      <tr><td><code>--mo-dur-fast</code></td><td>260ms</td><td>Small reveals, button sheen arm, dropdowns</td></tr>
+      <tr><td><code>--mo-dur-base</code></td><td>380ms</td><td>Standard scroll reveal (300&ndash;500ms band)</td></tr>
+      <tr><td><code>--mo-dur-slow</code></td><td>600ms</td><td>Hero line rise, signature moments</td></tr>
+      <tr><td><code>--mo-dur-draw</code></td><td>750ms</td><td>Line draws, donut arc sweeps</td></tr>
+      <tr><td><code>--mo-ease-out</code></td><td><code>cubic-bezier(.16,1,.3,1)</code></td><td>Default — expo-style out: near-instant launch, decisive arrival; punch from velocity, never overshoot</td></tr>
+      <tr><td><code>--mo-ease-inout</code></td><td><code>cubic-bezier(.65,0,.35,1)</code></td><td>Draws and sweeps</td></tr>
+      <tr><td><code>--mo-dist</code></td><td>24px (12px touch)</td><td>Reveal travel — top of the 12&ndash;24px band</td></tr>
+      <tr><td><code>--mo-pop</code></td><td>0.97</td><td>Scale snap on rise reveals (1 disables)</td></tr>
+      <tr><td><code>--mo-stagger</code></td><td>70ms</td><td>Per-item delay inside a group (60&ndash;90ms band)</td></tr>
+      <tr><td><code>--mo-lift</code></td><td>3px</td><td>Card hover lift (2&ndash;4px max)</td></tr>
+      <tr><td><code>--mo-glow</code></td><td>0.25</td><td>Glow alpha</td></tr>
+      <tr><td><code>--mo-speed</code></td><td>1</td><td>Global duration multiplier (every duration is <code>calc()</code>-scaled)</td></tr>
+    </tbody>
+  </table>
+  <h3>Glow palette</h3>
+  <div class="swatches">
+    <span class="sw"><i style="background: #085CF0;"></i>#085CF0 light surfaces (default)</span>
+    <span class="sw"><i style="background: #0023EC;"></i>#0023EC light surfaces (alt)</span>
+    <span class="sw"><i style="background: #B0E9FD;"></i>#B0E9FD navy surfaces (fixed)</span>
+    <span class="sw"><i style="background: #23FBC5;"></i>#23FBC5 reserved for mint CTAs</span>
+  </div>
+  <h3>Intensity presets</h3>
+  <table>
+    <thead><tr><th>Preset</th><th>Speed</th><th>Stagger</th><th>Distance</th><th>Lift</th><th>Glow</th></tr></thead>
+    <tbody>
+      <tr><td>Subtle</td><td>0.85&times;</td><td>55ms</td><td>14px</td><td>2px</td><td>0.16</td></tr>
+      <tr><td><strong>Standard</strong> (ship)</td><td>1&times;</td><td>70ms</td><td>24px</td><td>3px</td><td>0.25</td></tr>
+      <tr><td>Expressive</td><td>1.15&times;</td><td>95ms</td><td>32px</td><td>5px</td><td>0.38</td></tr>
+    </tbody>
+  </table>
+
+  <h2>3 &middot; Reveal vocabulary</h2>
+  <p>Markup contract: add <code>data-mo</code> (rise), <code>data-mo="fade"</code>, <code>data-mo="draw"</code> (scaleY) or <code>data-mo="draw-x"</code> (scaleX). A parent <code>data-mo-stagger</code> auto-indexes children; <code>--mo-i</code> sets explicit order, <code>--mo-d</code> a fixed head-delay. Reveals fire <strong>once, on first view</strong> (IntersectionObserver, <code>rootMargin: 0 0 -8%</code>).</p>
+  <ul>
+    <li>Rises snap: 24px travel + 0.97&rarr;1 scale at expo-out &mdash; high initial velocity reads as punch; still no bounce, no overshoot.</li>
+    <li>Section headings lead; body copy and CTAs follow at the stagger interval.</li>
+    <li>Grids cascade left-to-right / top-to-bottom via <code>data-mo-stagger</code>.</li>
+    <li>Hero zones are wrapped in <code>data-mo-hero</code>: they enter on <em>load</em>, never wait for scroll.</li>
+  </ul>
+
+  <h2>4 &middot; Cursor layer</h2>
+  <p>All cards share: lift <code>translateY(-3px)</code> at 140ms + a pointer-driven pseudo-element (<code>--mx/--my</code> px, <code>--dx/--dy</code> &minus;1..1, set by one rAF-throttled <code>pointermove</code> listener). <strong>Shipped recipe: A &middot; Lumen</strong> (<code>html[data-glow="lumen"]</code>, the default the script sets). Cast and Edgelight remain implemented and selectable for future revisits; the comparison lives in Cursor Recipes.html.</p>
+  <table>
+    <thead><tr><th>Recipe</th><th>Mechanic</th><th>Reads as</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A &middot; Lumen</strong> — SHIPPED</td><td>Interior radial glow tracks the pointer; static under-shadow deepens</td><td>Warm, &ldquo;the card notices you&rdquo;</td></tr>
+      <tr><td>B &middot; Cast <em style="color: var(--muted); font-style: normal; font-size: 12px;">(archived)</em></td><td>Blurred brand-blue layer displaces <em>away</em> from the pointer (transform only)</td><td>Physical, lit-from-cursor</td></tr>
+      <tr><td>C &middot; Edgelight <em style="color: var(--muted); font-style: normal; font-size: 12px;">(archived)</em></td><td>Masked 1.5px rim brightens nearest the pointer + faint wash</td><td>Instrumentation, most restrained</td></tr>
+    </tbody>
+  </table>
+  <h3>Buttons</h3>
+  <ul>
+    <li><strong>Magnetic micro-pull:</strong> &le;6px &times; strength toward the cursor, JS transform, 140ms reset. Shipped strength: 0.3 (&asymp;1.8px max pull).</li>
+    <li><strong>Sheen sweep:</strong> clipped white strip (32% alpha) sweeps once per hover, 450ms.</li>
+    <li><strong>Arrow nudge:</strong> <code>.mo-arrow</code> spans translate 4px on hover of the parent link/card.</li>
+  </ul>
+
+  <h2>5 &middot; Component map</h2>
+  <table>
+    <thead><tr><th>Surface</th><th>Treatment</th></tr></thead>
+    <tbody>
+      <tr><td>Hero headline (static pages)</td><td>Per-line masked rise on load (700ms, 90ms/line); per-word variant available</td></tr>
+      <tr><td>Home hero rotator</td><td><strong>Untouched</strong> — 27s cycle is the existing signature; body + CTA rise after it (180/320ms)</td></tr>
+      <tr><td>Hero imagery</td><td>Whisper parallax: media translates at 0.14&times; scroll, oversized 1.08 to hide edges (toggleable)</td></tr>
+      <tr><td>News cards, platform tiles, doc rows, team/board photo cards, value-prop items</td><td><code>.mo-card</code> — lift + Lumen glow (#085CF0 at 0.25 alpha); arrows nudge</td></tr>
+      <tr><td>Navy-surface cards</td><td><code>.mo-card--dark</code> — sky #B0E9FD glow</td></tr>
+      <tr><td>Blue / mint CTAs</td><td><code>.mo-btn</code> — magnet + sheen per <code>data-magnet</code></td></tr>
+      <tr><td>Nav dropdowns</td><td>140ms fade + 6px drop (replaces hard display flip)</td></tr>
+      <tr><td>Heritage stats / Stock-info values</td><td><code>data-countup</code> — 0.9s ease-out count-up preserving prefix/suffix/format</td></tr>
+      <tr><td>Donut charts</td><td>Conic-mask arc sweep, 750ms ease-in-out on first view</td></tr>
+      <tr><td>Timeline</td><td>Beam fades (200ms head delay) &rarr; sky connectors draw top-down &rarr; years fade &rarr; cards rise, all cascading chronologically left-to-right</td></tr>
+      <tr><td>Dotted sphere + 97% caption</td><td>One shared reveal (single <code>data-mo</code> wrapper, 120ms after copy)</td></tr>
+      <tr><td>Quote panel (8-slide crossfade)</td><td>Crossfade untouched; optional 36s Ken Burns drift on the slide stack</td></tr>
+      <tr><td>Sector wheel (20s orbit)</td><td>JS velocity-lerp: eases 18&rarr;40&deg;/s on hover, icons brighten 1.25&times;; falls back to stock CSS spin when layer is off</td></tr>
+      <tr><td>FAQ rows</td><td>Functional only: existing open/close transitions kept; +/&minus; icon nudge</td></tr>
+      <tr><td>Footer disclaimers, risk language, filings tables</td><td><strong>No treatment.</strong> Footer links get a 140ms opacity hover at most</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5b &middot; Bespoke layer (<code>motion-bespoke.css</code>)</h2>
+  <p>Per-component signatures layered over the global vocabulary &mdash; separate file, loaded after <code>motion.css</code>, same gates and tokens. Every block is independently deletable: removing one reverts that component to the global treatment. Highlights by page:</p>
+  <table>
+    <thead><tr><th>Page</th><th>Signatures</th></tr></thead>
+    <tbody>
+      <tr><td>Shared</td><td>Choreographed arrival: header slides down (500ms), headline/body/CTA rise in sequence (<code>.mo-arrive</code> / head-delays), hero media fades up from the navy ground while it settles (1.045&rarr;1, composes with parallax). Internal navigation fades to navy (260ms exit veil) and the next page lifts it into the same arrival &mdash; one continuous motion between pages. Dropdown items cascade 25ms/item; anchor-nav underline draws on hover</td></tr>
+      <tr><td>Home</td><td>Value-prop icons pop a beat after their row; mint divider + timeline connectors draw with a bright <em>ink tip</em> riding the leading edge; years rise-and-scale; timeline cards land at 0.94 pop; pull-quote arrives grander (34px / 0.95)</td></tr>
+      <tr><td>/fund</td><td>Donuts settle out of &minus;10&deg; like a dial while the arc sweeps; hovering a slice dims the rest (segment focus); stock-info + ice-panel rules wipe in left-to-right; wheel discs scale 1.12 on hover; dotted sphere drifts (180s/rev); FAQ rows tint + icon pops</td></tr>
+      <tr><td>/vision</td><td><code>.mo-stat</code>: heritage stats land at 0.92 pop, then a mint baseline draws under each figure; <code>.mo-photo</code>: team/board photos breathe (1.04) inside their crop on hover</td></tr>
+      <tr><td>/trade &middot; /investor-relations</td><td>Platform logos lean toward the action (2px + 1.07); news thumbnails breathe in their 16:9 crop; doc-row &ldquo;View PDF&rdquo; slides into emphasis. Filings table: deliberately untouched</td></tr>
+      <tr><td>/contact</td><td><code>.mo-field</code>: an action-blue baseline draws under the focused field, the control lifts 1px while focused; fields cascade on entry; submit gets the standard magnet + sheen. Validation and error states stay functional</td></tr>
+      <tr><td>v1.1 (audit E1&ndash;E14)</td><td>Timeline beam energize sweep; manifesto/quote phrase rises; two-truths thread + number pops; sphere radial bloom + 97% count-up; bio dialog open/close choreography; donut&harr;table hover dialogue; holdings rows tick in (30ms); sector wheel ring-draw + disc cascade entrance; /trade process progress line + CEF rules draw; news-strip edge fade + first-view nudge; submission completion (mint settle + sheen + status rise); anchor-nav scrollspy underline. See Enhancement Audit.html for rationale</td></tr>
+    </tbody>
+  </table>
+
+  <h2>6 &middot; Reduced motion &amp; mobile</h2>
+  <div class="cols">
+    <div>
+      <h3>prefers-reduced-motion</h3>
+      <ul>
+        <li>Every reveal, glow, sweep, count-up, parallax and Ken Burns is disabled; content is fully visible immediately.</li>
+        <li>The pre-existing loops (hero rotator, quote crossfade, sector wheel) stay stilled exactly as the current <code>globals.css</code> guards do — the layer extends that pattern.</li>
+        <li>QA simulator: Tweaks &rarr; &ldquo;prefers-reduced-motion&rdquo; forces <code>html[data-mo-reduced]</code>, which mirrors the media query rules 1:1.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Touch / mobile</h3>
+      <ul>
+        <li>Scroll reveals stay, with travel shortened to 12px.</li>
+        <li>Cursor glows and magnetism are inert (<code>hover: none</code>); cards acknowledge taps with lift + glow on <code>:active</code>.</li>
+        <li>QA simulator: Tweaks &rarr; &ldquo;Touch device&rdquo;.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>7 &middot; Performance constraints</h2>
+  <ul>
+    <li>Animate only <code>transform</code> and <code>opacity</code>; glows are pseudo-elements faded by opacity — <code>box-shadow</code> is never animated.</li>
+    <li>One document-level <code>pointermove</code> (rAF-throttled), one IntersectionObserver, passive scroll listeners. No scroll-jacking, no wheel hijack, no canvas/WebGL.</li>
+    <li>Reveals fire once and unobserve; <code>will-change</code> only on persistently animated elements.</li>
+  </ul>
+
+  <h2>8 &middot; Repo integration (Next.js App Router + Tailwind v4)</h2>
+  <ul>
+    <li>Copy <code>motion/motion.css</code> &rarr; <code>frontend/src/app/motion.css</code> and <code>motion/motion-bespoke.css</code> &rarr; <code>frontend/src/app/motion-bespoke.css</code>; <code>@import</code> both from <code>globals.css</code> (after the theme block, global first).</li>
+    <li>Copy <code>motion/pwrl-motion.js</code> &rarr; <code>frontend/public/pwrl-motion.js</code> and load it once in <code>app/layout.tsx</code> via <code>&lt;Script src="/pwrl-motion.js" strategy="afterInteractive" /&gt;</code>. No component needs to become a client component — the contract is data attributes and classes, all serializable from server components.</li>
+    <li>Annotate server components with <code>data-mo</code> / <code>data-mo-stagger</code> / <code>.mo-card</code> / <code>.mo-btn</code> exactly as in the two prototype pages (they mirror the repo's block structure 1:1: <code>Hero</code>, <code>Intro</code>, <code>PullQuote</code>, <code>Timeline</code>, <code>PortfolioBlock</code>, <code>StockInfo</code>, <code>Philosophy</code>, <code>FAQBlock</code>, &hellip;).</li>
+    <li><code>SectorWheel</code>: add <code>.mo-wheel</code> / <code>.wheel-orbit</code> / <code>.wheel-icon-inner</code> class hooks (markup only; the stock CSS animation remains the no-JS/reduced fallback).</li>
+  </ul>
+  <div class="callout warn">Out of scope by design: mobile menu choreography (existing behavior kept), filings-table interactions (legal), and any treatment that alters layout, scroll position, or the 27s rotator timing.</div>
+</div>
+
+<nav class="proto-nav" aria-label="Prototype pages">
+  <a href="index.html">Brief</a>
+  <a href="Home.html">Home</a>
+  <a href="Vision.html">Vision</a>
+  <a href="Fund.html">/fund</a>
+  <a href="Trade.html">Trade</a>
+  <a href="Investor Relations.html">IR</a>
+  <a href="Contact.html">Contact</a>
+  <a href="Cursor Recipes.html">Recipes</a>
+  <a class="active" href="Motion Spec.html">Spec</a>
+</nav>
+</body>
+</html>

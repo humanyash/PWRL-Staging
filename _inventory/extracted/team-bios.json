@@ -1,0 +1,68 @@
+{
+  "source": "https://www.powerlawfunds.com/pwrl/vision#team",
+  "extractedAt": "2026-06-09",
+  "method": "Chrome MCP automation — clicked Show bio for each member, read hidden mt-5 text-charcoal/80 container",
+  "members": [
+    {
+      "name": "Michael Dinsdale",
+      "role": "CEO",
+      "bio": "Mike Dinsdale is a Managing Director at Akkadian. For over 20 years, Mr. Dinsdale has embodied the \"modern unicorn\" CFO, with strategic expertise in building high-growth international companies that consistently exceed growth targets.\n\nPrior to Akkadian, Mr. Dinsdale was the Chief Financial Officer of three market-leading software companies that generated an aggregate of over $80 billion in value and for which he successfully secured an aggregate of over $2 billion in financing. He previously served on the Board of Directors for WildAid (non-profit).\n\nMr. Dinsdale holds a BS in engineering from the University of Western Ontario, an MBA from McMaster University, and the CFA designation. He competed on the Canadian National Sailing Team in the 1996 Olympic trials.\n\nMr. Dinsdale's finance expertise and his experience as a CFO of multiple companies makes him qualified to serve on the Board."
+    },
+    {
+      "name": "Benjamin Black",
+      "role": "CIO",
+      "bio": "Benjamin Black is the Co-Founder and Managing Director of Akkadian and a 20-year private equity veteran.\n\nIn addition, Mr. Black is the Co-Founder of the RAISE Global Summit, which has grown into a premier launchpad for emerging venture capital funds.\n\nPrior to Akkadian, Mr. Black co-founded New Cycle Capital to bring socially responsible investing to sectors like clean energy and social finance. He started his private equity career on the investment teams at Maveron and Rosewood Capital, where he focused on branded consumer products and services. Prior to his private equity career, Mr. Black was a member of the founding team of Harris Interactive.\n\nMr. Black holds a BA and JD from Cornell University.\n\nMr. Black's extensive experience in venture capital and private equity, including as a managing director and founder of various firms, makes him qualified to serve on the Board."
+    },
+    {
+      "name": "Peter Smith",
+      "role": "President",
+      "bioRawNoBreaks": "Co-founded Akkadian in 201020+ years of legal experienceAssociate at Cooley, Morrison & Foerster, and Bryan CaveReal estate investor and developerBA (Cum Laude) from Cornell University and JD from UC BerkeleyInactive member of the State Bar of California and the State Bar of Colorado",
+      "bioBullets": [
+        "Co-founded Akkadian in 2010",
+        "20+ years of legal experience",
+        "Associate at Cooley, Morrison & Foerster, and Bryan Cave",
+        "Real estate investor and developer",
+        "BA (Cum Laude) from Cornell University and JD from UC Berkeley",
+        "Inactive member of the State Bar of California and the State Bar of Colorado"
+      ]
+    },
+    {
+      "name": "Angela Stanley",
+      "role": "COO",
+      "bioBullets": [
+        "Joined Akkadian in 2024 after supporting the firm with two prior fundraises in 2016 and 2019",
+        "20+ years of IR & fundraising experience",
+        "Head of IR & Fundraising at Delta-v Capital",
+        "Co-founder and Managing Director of Harpeth Fund Advisors",
+        "Vice President and Head of the San Francisco office at BerchWood Partners",
+        "BS in International Finance from University of North Carolina-Wilmington"
+      ]
+    },
+    {
+      "name": "Tracy Hogan",
+      "role": "CFO",
+      "bioBullets": [
+        "Joined Akkadian in 2025",
+        "20+ years of experience in venture capital / private equity finance and operations",
+        "Partner and CFO at IVP",
+        "CFO and CCO at Elevation Partners",
+        "Vice President of Finance at Code, Hennessy & Simmons",
+        "BBA (Magna Cum Laude) from Saint Mary's College (Notre Dame, Indiana)"
+      ]
+    },
+    {
+      "name": "Benjamin Hadary",
+      "role": "General Counsel",
+      "bioBullets": [
+        "20+ years of experience representing technology and energy companies in commercial, M&A, finance, public reporting, securities, and governance matters",
+        "Vice President and General Counsel at ANM",
+        "Experience as a strategy executive and real estate entrepreneur",
+        "JD from Stanford Law School, with distinction; MSc Management, Stanford Business School",
+        "BS from Penn State University",
+        "Active member of the State Bar of Colorado",
+        "RPCV, United States Peace Corps, The Gambia"
+      ]
+    }
+  ],
+  "notes": "Dinsdale and Black bios are full-prose; the other four are bullet-point style. Schema should support both (e.g. a `bioFormat: 'prose' | 'bullets'` field, or a single rich-text field that renders accordingly)."
+}

@@ -1,0 +1,32 @@
+{
+  "source": "https://www.powerlawfunds.com/pwrl/contact",
+  "extractedAt": "2026-06-09",
+  "handler": "HubSpot",
+  "portalId": "243469173",
+  "formId": "2b83c383-c728-4cc1-b08c-70545c64d73c",
+  "embedScript": "https://js.hsforms.net/forms/embed/v2.js",
+  "fields": [
+    { "name": "firstname",                            "type": "text",     "label": "First Name",   "placeholder": "First Name*",      "required": true  },
+    { "name": "lastname",                             "type": "text",     "label": "Last Name",    "placeholder": "Last Name*",       "required": true  },
+    { "name": "email",                                "type": "email",    "label": "Email",        "placeholder": "Email Address*",   "required": true  },
+    { "name": "company",                              "type": "text",     "label": "Company Name", "placeholder": "Company Name*",    "required": false },
+    {
+      "name": "which_of_these_best_describes_you_",
+      "type": "select",
+      "label": "I am... (select one)",
+      "required": true,
+      "options": [
+        "Asset Manager / RIA",
+        "Individual Investor",
+        "Institutional Investor",
+        "Family Office",
+        "Financial Analyst",
+        "Press/Media",
+        "Other"
+      ]
+    },
+    { "name": "message",                              "type": "textarea", "label": "Message",      "placeholder": "What's on your mind?*", "required": true  }
+  ],
+  "hiddenFields": ["utm_campaign", "utm_source", "utm_medium", "utm_content", "utm_term"],
+  "implementation": "Drop HubSpot embed v2 script + a div with the formId. Submissions land in the same HubSpot list with no migration. UTM params auto-captured by HubSpot tracking script."
+}

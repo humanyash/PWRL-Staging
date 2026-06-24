@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_truth_items",
+  "info": {
+    "displayName": "Truth Item",
+    "description": "Numbered principle row (number graphic + title + body)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

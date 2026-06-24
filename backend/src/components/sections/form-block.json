@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_sections_form_blocks",
+  "info": {
+    "displayName": "Form Block",
+    "description": "Relation to a Form + optional heading/body/theme"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "dark",
+        "deep"
+      ],
+      "default": "light"
+    },
+    "form": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form.form"
+    }
+  }
+}

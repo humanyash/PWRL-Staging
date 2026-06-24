@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_sections_stats_blocks",
+  "info": {
+    "displayName": "Stats Block",
+    "description": "Heading + intro + a row of statistics"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "subheading": {
+      "type": "text"
+    },
+    "intro": {
+      "type": "text"
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.stat-item"
+    }
+  }
+}

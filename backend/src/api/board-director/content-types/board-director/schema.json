@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "board_directors",
+  "info": {
+    "singularName": "board-director",
+    "pluralName": "board-directors",
+    "displayName": "Board Director",
+    "description": "Board directors. alsoOnTeam relation when applicable (Black, Dinsdale)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "role": {
+      "type": "string"
+    },
+    "headshot": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "bio": {
+      "type": "richtext"
+    },
+    "independent": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "alsoOnTeam": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::team-member.team-member"
+    }
+  }
+}

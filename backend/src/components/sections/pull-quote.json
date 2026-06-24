@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_pull_quotes",
+  "info": {
+    "displayName": "Pull Quote",
+    "description": "A large pull quote with an optional CTA"
+  },
+  "options": {},
+  "attributes": {
+    "quote": {
+      "type": "text",
+      "required": true
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta"
+    }
+  }
+}

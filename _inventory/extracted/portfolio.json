@@ -1,0 +1,33 @@
+{
+  "source": "https://www.powerlawfunds.com/pwrl/fund#portfolio",
+  "extractedAt": "2026-06-09",
+  "method": "Chrome MCP — portfolio table is hydrated client-side, captured via DOM query of the rendered <table>",
+  "intro": "A focused portfolio of leading private technology companies. PWRL invests across the sectors driving the next generation of value creation in technology: artificial intelligence, next-generation software, modern aerospace and defense, and leading consumer technology platforms. The portfolio is advised by Powerlaw Fund Adviser, LLC.",
+  "asOfDate": "2026-05-13",
+  "footnotes": [
+    "*Exposure and Sector Allocations based on Portfolio Company's fair value as a percentage of the Fund's net assets as of May 13, 2026.",
+    "Portfolio holdings are carried at fair value, determined under the Fund's valuation policies with input from independent valuation sources. Inputs include recent primary financings, secondary market transactions, and comparable-company multiples."
+  ],
+  "holdings": [
+    { "name": "Space Exploration Technologies Corp.", "allocation": "19.37%" },
+    { "name": "OpenAI Group PBC",                    "allocation": "7.77%"  },
+    { "name": "Kalshi Inc.",                         "allocation": "6.26%"  },
+    { "name": "Deel, Inc.",                          "allocation": "4.96%"  },
+    { "name": "Stripe, Inc.",                        "allocation": "4.19%"  },
+    { "name": "Payward, Inc. (aka Kraken)",          "allocation": "4.16%"  },
+    { "name": "Vast Data Ltd.",                      "allocation": "4.14%"  },
+    { "name": "Databricks, Inc.",                    "allocation": "3.45%"  },
+    { "name": "Tether Holdings, S.A. de C.V.",       "allocation": "3.31%"  },
+    { "name": "Colossal Biosciences Inc.",           "allocation": "3.31%"  },
+    { "name": "Mercor.io Corporation",               "allocation": "3.31%"  },
+    { "name": "Perplexity AI, Inc.",                 "allocation": "1.32%"  },
+    { "name": "Canva, Inc.",                         "allocation": "1.09%"  },
+    { "name": "Groq, Inc.",                          "allocation": "1.07%"  },
+    { "name": "People Center Inc. d/b/a Rippling",   "allocation": "0.82%"  },
+    { "name": "Saronic Technologies, Inc.",          "allocation": "0.82%"  },
+    { "name": "Figma, Inc.",                         "allocation": "0.20%"  },
+    { "name": "Waymo, LLC",                          "allocation": "0.06%"  },
+    { "name": "Other Net Assets",                    "allocation": "30.39%" }
+  ],
+  "notes": "18 portfolio companies + Other Net Assets = 19 rows. Matches hero claim of '18 leading private tech companies'. Allocation data changes monthly when fund publishes NAV; suggest Strapi schema with `Holding` collection (name, allocation, asOfDate) + a `PortfolioSnapshot` parent with an `asOfDate` + footnote text field, so the whole table updates atomically each month."
+}

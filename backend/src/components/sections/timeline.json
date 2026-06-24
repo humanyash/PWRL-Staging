@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_timelines",
+  "info": {
+    "displayName": "Timeline",
+    "description": "Heading + intro + chronological entries"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "text"
+    },
+    "entries": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.timeline-entry"
+    }
+  }
+}

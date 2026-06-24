@@ -1,0 +1,475 @@
+/* ==========================================================================
+   PWRL MOTION LAYER — motion.css
+   Drop-in kinetic layer for pwrl.com. Purely additive: transforms, opacity,
+   masks and pseudo-element glows only. Zero layout shift — every rule here
+   describes how an element ARRIVES at or RESPONDS from its resting state;
+   the resting state itself is untouched.
+
+   Activation contract:
+     <html data-mo-on>            the layer is live (set by pwrl-motion.js;
+                                  without JS nothing is hidden — no FOUC)
+     <html data-mo-reduced>       reduced-motion (auto from media query,
+                                  or forced for QA)
+     <html data-mo-touch>         touch-device behavior (auto via
+                                  (hover:none), or forced for QA)
+     <html data-glow="lumen|cast|edge">   cursor-shadow recipe
+                                  SHIPPED DEFAULT: "lumen" (committed 06.11.26;
+                                  cast/edge kept for future revisits)
+     <html data-magnet="both|sheen|magnet|off">  button behavior (ships "both")
+     <html data-hero="lines|words|fade">  hero entrance (ships "lines")
+     <html data-kenburns> <html data-parallax>   optional garnish (ship on)
+
+   Tokens (override on :root or per-component):
+     --mo-speed     global duration multiplier        (default 1)
+     --mo-dist      reveal travel distance            (default 20px)
+     --mo-stagger   per-item stagger interval         (default 75ms)
+     --mo-lift      hover lift on cards               (default 3px)
+     --mo-glow      glow strength 0..1                (default .25)
+     --mo-glow-rgb  glow color on light surfaces      (default 8 92 240)
+   ========================================================================== */
+
+:root {
+  --mo-speed: 1;
+  --mo-dist: 24px;
+  --mo-stagger: 70ms;
+  --mo-lift: 3px;
+  --mo-pop: 0.97;                 /* scale snap on rise reveals (1 = off) */
+  --mo-glow: 0.25;
+  --mo-glow-rgb: 8 92 240;        /* action blue #085CF0 */
+  --mo-glow-rgb-dark: 176 233 253; /* sky #B0E9FD on navy surfaces */
+  --mo-magnet: 0.3;
+
+  /* Duration scale — fast in, faster out. */
+  --mo-dur-tap: calc(140ms * var(--mo-speed));   /* hover responses */
+  --mo-dur-fast: calc(260ms * var(--mo-speed));  /* small reveals, buttons */
+  --mo-dur-base: calc(380ms * var(--mo-speed));  /* standard reveal */
+  --mo-dur-slow: calc(600ms * var(--mo-speed));  /* signature data moments */
+  --mo-dur-draw: calc(750ms * var(--mo-speed));  /* line draws, arc sweeps */
+
+  /* Easing — weight without bounce. Expo-style out: near-instant launch,
+     decisive arrival. Punch comes from velocity, never from overshoot. */
+  --mo-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --mo-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --mo-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Touch / mobile: shorter travel, same vocabulary. */
+html[data-mo-touch] { --mo-dist: 12px; }
+@media (hover: none) and (pointer: coarse) {
+  :root { --mo-dist: 12px; }
+}
+
+/* ==========================================================================
+   1. SCROLL REVEALS
+   Markup: data-mo            → fade + rise (default)
+           data-mo="fade"     → fade only
+           data-mo="left"     → fade + slide from left
+           data-mo="right"    → fade + slide from right
+           data-mo="draw"     → scaleY draw (vertical lines)
+           data-mo="draw-x"   → scaleX draw (horizontal rules)
+   Parent[data-mo-stagger] — pwrl-motion.js assigns --mo-i to children.
+   JS adds .mo-in when the element first enters the viewport.
+   ========================================================================== */
+
+html[data-mo-on]:not([data-mo-reduced]) [data-mo] {
+  transition:
+    opacity var(--mo-dur-base) var(--mo-ease-out),
+    transform var(--mo-dur-base) var(--mo-ease-out);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + var(--mo-d, 0ms));
+}
+
+html[data-mo-on]:not([data-mo-reduced]) [data-mo]:not(.mo-in) {
+  opacity: 0;
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo=""]:not(.mo-in),
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="up"]:not(.mo-in) {
+  transform: translateY(var(--mo-dist)) scale(var(--mo-pop));
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="left"]:not(.mo-in) {
+  transform: translateX(calc(var(--mo-dist) * -1)) scale(var(--mo-pop));
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="right"]:not(.mo-in) {
+  transform: translateX(var(--mo-dist)) scale(var(--mo-pop));
+}
+
+/* Line draws — connector lines, dividers. Transform only. */
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="draw"] {
+  transform-origin: top center;
+  transition:
+    opacity var(--mo-dur-fast) var(--mo-ease-out),
+    transform var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + var(--mo-d, 0ms));
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="draw"]:not(.mo-in) {
+  transform: scaleY(0);
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="draw-x"] {
+  transform-origin: left center;
+  transition:
+    opacity var(--mo-dur-fast) var(--mo-ease-out),
+    transform var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + var(--mo-d, 0ms));
+}
+html[data-mo-on]:not([data-mo-reduced]) [data-mo="draw-x"]:not(.mo-in) {
+  transform: scaleX(0);
+}
+
+/* ==========================================================================
+   2. HERO ENTRANCE (on load, not on scroll — above the fold never waits;
+   pwrl-motion.js adds .mo-in within one frame of init)
+   data-hero="lines": .mo-mask > .mo-line rises out of an overflow clip.
+   data-hero="words": JS wraps words in .mo-word spans.
+   data-hero="fade": plain data-mo behavior.
+   ========================================================================== */
+
+.mo-mask { display: block; overflow: hidden; }
+.mo-line, .mo-word { display: inline-block; will-change: transform; }
+
+html[data-mo-on][data-hero="lines"]:not([data-mo-reduced]) .mo-line {
+  transition:
+    opacity var(--mo-dur-base) var(--mo-ease-out),
+    transform calc(var(--mo-dur-slow)) var(--mo-ease-out);
+  transition-delay: calc(var(--mo-i, 0) * 90ms);
+}
+html[data-mo-on][data-hero="lines"]:not([data-mo-reduced]) .mo-line:not(.mo-in) {
+  opacity: 0;
+  transform: translateY(105%);
+}
+
+html[data-mo-on][data-hero="words"]:not([data-mo-reduced]) .mo-word {
+  transition:
+    opacity var(--mo-dur-base) var(--mo-ease-out),
+    transform var(--mo-dur-base) var(--mo-ease-out);
+  transition-delay: calc(var(--mo-i, 0) * 45ms);
+}
+html[data-mo-on][data-hero="words"]:not([data-mo-reduced]) .mo-word:not(.mo-in) {
+  opacity: 0;
+  transform: translateY(0.45em);
+}
+
+/* ==========================================================================
+   3. CURSOR-REACTIVE CARD SYSTEM (.mo-card)
+   Three recipes, selected on <html data-glow="…">. All share:
+     — subtle lift (translateY −var(--mo-lift)) + shadow deepen
+     — pseudo-elements driven by --mx/--my (px, set by pwrl-motion.js)
+       and --dx/--dy (−1..1 offset from card centre)
+   .mo-card--dark marks cards sitting on navy (glow goes sky).
+   Resting state: pseudos at opacity 0 — geometrically invisible.
+   ========================================================================== */
+
+.mo-card { position: relative; }
+
+html[data-mo-on]:not([data-mo-reduced]) .mo-card {
+  transition:
+    transform var(--mo-dur-tap) var(--mo-ease-out),
+    opacity var(--mo-dur-base) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-card:hover {
+  transform: translateY(calc(var(--mo-lift) * -1));
+}
+/* Reveal + hover both use transform: compose via translate, reveals end at
+   identity so the two never fight (reveal completes before hover matters). */
+
+/* Shared glow plumbing. */
+html[data-mo-on] .mo-card::before,
+html[data-mo-on] .mo-card::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on] .mo-card::after { inset: 0; }
+
+/* —— Recipe A: LUMEN — a soft light that tracks the pointer. */
+html[data-glow="lumen"][data-mo-on] .mo-card::after {
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--mo-glow-rgb) / var(--mo-glow)),
+    transparent 72%
+  );
+}
+html[data-glow="lumen"][data-mo-on] .mo-card--dark::after {
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--mo-glow-rgb-dark) / calc(var(--mo-glow) * 0.8)),
+    transparent 72%
+  );
+}
+/* Lumen also deepens a static under-shadow on hover. */
+html[data-glow="lumen"][data-mo-on] .mo-card::before {
+  inset: 8% 4% -6px 4%;
+  z-index: -1;
+  border-radius: 12px;
+  background: rgb(var(--mo-glow-rgb) / calc(var(--mo-glow) * 0.55));
+  filter: blur(18px);
+}
+
+/* —— Recipe B: CAST — a diffused shadow thrown away from the pointer,
+   as if the card were lit from the cursor. Transform-only displacement. */
+html[data-glow="cast"][data-mo-on] .mo-card::before {
+  inset: 6% 3%;
+  z-index: -1;
+  border-radius: 14px;
+  background: rgb(var(--mo-glow-rgb) / calc(var(--mo-glow) * 1.15));
+  filter: blur(22px);
+  transform: translate3d(
+    calc(var(--dx, 0) * -14px),
+    calc(var(--dy, 0) * -14px + 6px),
+    0
+  );
+  transition:
+    opacity var(--mo-dur-tap) var(--mo-ease-out),
+    transform 120ms linear;
+}
+html[data-glow="cast"][data-mo-on] .mo-card--dark::before {
+  background: rgb(var(--mo-glow-rgb-dark) / var(--mo-glow));
+}
+
+/* —— Recipe C: EDGELIGHT — a hairline rim that lights up nearest the
+   pointer. The ring is a masked pseudo: zero geometry impact. */
+html[data-glow="edge"][data-mo-on] .mo-card::after {
+  background: radial-gradient(
+    200px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--mo-glow-rgb) / calc(var(--mo-glow) * 3)),
+    rgb(var(--mo-glow-rgb) / calc(var(--mo-glow) * 0.6)) 55%,
+    transparent 80%
+  );
+  padding: 1.5px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+html[data-glow="edge"][data-mo-on] .mo-card--dark::after {
+  background: radial-gradient(
+    200px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--mo-glow-rgb-dark) / calc(var(--mo-glow) * 3.2)),
+    rgb(var(--mo-glow-rgb-dark) / calc(var(--mo-glow) * 0.7)) 55%,
+    transparent 80%
+  );
+}
+/* Edgelight keeps a faint lumen wash at 35% strength for depth. */
+html[data-glow="edge"][data-mo-on] .mo-card::before {
+  inset: 0;
+  background: radial-gradient(
+    280px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(var(--mo-glow-rgb) / calc(var(--mo-glow) * 0.35)),
+    transparent 70%
+  );
+}
+
+/* Hover arms the pseudos (hover-capable pointers only). */
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-card:hover::before,
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-card:hover::after {
+  opacity: 1;
+}
+
+/* Touch: tap acknowledgment — lift + brief glow on :active. */
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .mo-card:active {
+  transform: translateY(calc(var(--mo-lift) * -1));
+}
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .mo-card:active::after {
+  opacity: 1;
+}
+@media (hover: none) and (pointer: coarse) {
+  html[data-mo-on]:not([data-mo-reduced]) .mo-card:active {
+    transform: translateY(calc(var(--mo-lift) * -1));
+  }
+  html[data-mo-on]:not([data-mo-reduced]) .mo-card:active::after { opacity: 1; }
+}
+
+/* ==========================================================================
+   4. BUTTONS (.mo-btn) — sheen sweep + magnetic micro-pull.
+   Magnet displacement is JS-driven (transform on the element); the sheen
+   is a clipped pseudo strip. data-magnet gates each half.
+   ========================================================================== */
+
+.mo-btn { position: relative; overflow: hidden; }
+
+html[data-mo-on]:not([data-mo-reduced]) .mo-btn {
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out), filter var(--mo-dur-tap) ease;
+  will-change: transform;
+}
+
+html[data-mo-on] .mo-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -40%;
+  width: 36%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(255 255 255 / 0.32) 50%,
+    transparent 100%
+  );
+  transform: translateX(-120%) skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-mo-on][data-magnet="both"]:not([data-mo-reduced]):not([data-mo-touch]) .mo-btn:hover::after,
+html[data-mo-on][data-magnet="sheen"]:not([data-mo-reduced]):not([data-mo-touch]) .mo-btn:hover::after {
+  opacity: 1;
+  transition: transform calc(450ms * var(--mo-speed)) var(--mo-ease-inout);
+  transform: translateX(440%) skewX(-18deg);
+}
+
+/* Arrow labels ("Charles Schwab →"): nudge forward on hover. */
+html[data-mo-on] .mo-arrow {
+  display: inline-block;
+  transition: transform var(--mo-dur-tap) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) a:hover > .mo-arrow,
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) a:hover .mo-arrow,
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-card:hover .mo-arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   5. DATA MOMENTS
+   ========================================================================== */
+
+/* Donut charts: arcs sweep in via an animated conic mask. */
+@property --mo-arc {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 360deg;
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-donut {
+  --mo-arc: 0deg;
+  -webkit-mask: conic-gradient(#000 var(--mo-arc), transparent 0);
+  mask: conic-gradient(#000 var(--mo-arc), transparent 0);
+  transition: --mo-arc var(--mo-dur-draw) var(--mo-ease-inout);
+  transition-delay: var(--mo-d, 0ms);
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-donut.mo-in { --mo-arc: 360deg; }
+
+/* Count-ups ([data-countup]) are JS-driven; no pre-hide — the real value
+   is in the markup and is what no-JS, print and reduced-motion get. */
+
+/* ==========================================================================
+   6. EXISTING ANIMATIONS — enrichment
+   ========================================================================== */
+
+/* Quote panel: a whisper of Ken Burns on the slide stack. */
+@keyframes mo-ken {
+  from { transform: scale(1) translateX(0); }
+  to   { transform: scale(1.055) translateX(-0.6%); }
+}
+html[data-mo-on][data-kenburns]:not([data-mo-reduced]) .mo-kenwrap {
+  animation: mo-ken 36s var(--mo-ease-inout) infinite alternate;
+  will-change: transform;
+}
+/* Pause the drift while the panel is off-screen (attr set by pwrl-motion.js;
+   defaults to playing wherever IntersectionObserver is unavailable). */
+html[data-mo-on][data-kenburns]:not([data-mo-reduced]) .mo-kenwrap[data-mo-offscreen] {
+  animation-play-state: paused;
+}
+
+/* Sector wheel: JS velocity-lerped spin (eases faster on hover); CSS only
+   brightens. The .mo-wheel-js class suppresses the stock CSS animation so
+   pwrl-motion.js can drive rotation. */
+html[data-mo-on]:not([data-mo-reduced]) .mo-wheel-js .wheel-orbit,
+html[data-mo-on]:not([data-mo-reduced]) .mo-wheel-js .wheel-icon-inner {
+  animation: none !important;
+}
+html[data-mo-on] .wheel-disc img {
+  transition: filter var(--mo-dur-tap) ease, opacity var(--mo-dur-tap) ease;
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-wheel:hover .wheel-disc img {
+  filter: brightness(1.25) saturate(1.15);
+}
+
+/* Hero media parallax (wrapper oversized via scale so no edges show). */
+html[data-mo-on][data-parallax]:not([data-mo-reduced]) .mo-parallax {
+  transform: translate3d(0, var(--mo-py, 0px), 0) scale(1.08);
+  will-change: transform;
+}
+
+/* Nav dropdowns: fade + drop, replacing the hard display flip.
+   (The dropdown stays display:block; visibility+opacity gate it.) */
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown {
+  display: block !important;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--mo-dur-tap) var(--mo-ease-out),
+    transform var(--mo-dur-tap) var(--mo-ease-out),
+    visibility 0s linear var(--mo-dur-tap);
+}
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .mo-dropdown,
+html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .mo-dropdown {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+/* Footer links / generic underline-nudge hover. */
+html[data-mo-on] .mo-link { transition: opacity var(--mo-dur-tap) ease; }
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-link:hover { opacity: 0.85; }
+
+/* ==========================================================================
+   7. REDUCED MOTION — everything off. Real media query + QA simulator.
+   (Reveal/hero/card rules above are already scoped out via
+   :not([data-mo-reduced]); the media query mirrors that for the real thing.)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-mo-on] [data-mo],
+  html[data-mo-on] .mo-line,
+  html[data-mo-on] .mo-word,
+  html[data-mo-on] .mo-card,
+  html[data-mo-on] .mo-btn,
+  html[data-mo-on] .mo-donut,
+  html[data-mo-on] .mo-kenwrap,
+  html[data-mo-on] .mo-parallax {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    -webkit-mask: none !important;
+    mask: none !important;
+  }
+  html[data-mo-on] .mo-card::before,
+  html[data-mo-on] .mo-card::after,
+  html[data-mo-on] .mo-btn::after {
+    transition: none !important;
+    opacity: 0 !important;
+  }
+}
+
+/* QA simulator (mirrors the media query exactly). */
+html[data-mo-reduced][data-mo-on] [data-mo],
+html[data-mo-reduced][data-mo-on] .mo-line,
+html[data-mo-reduced][data-mo-on] .mo-word,
+html[data-mo-reduced][data-mo-on] .mo-card,
+html[data-mo-reduced][data-mo-on] .mo-btn,
+html[data-mo-reduced][data-mo-on] .mo-donut,
+html[data-mo-reduced][data-mo-on] .mo-kenwrap,
+html[data-mo-reduced][data-mo-on] .mo-parallax {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+}
+html[data-mo-reduced][data-mo-on] .mo-card::before,
+html[data-mo-reduced][data-mo-on] .mo-card::after,
+html[data-mo-reduced][data-mo-on] .mo-btn::after {
+  transition: none !important;
+  opacity: 0 !important;
+}
+/* Reduced motion also stills the pre-existing loops (extends the pattern
+   already in globals.css). */
+html[data-mo-reduced] .hero-anim,
+html[data-mo-reduced] .quote-slide { animation: none !important; }
+html[data-mo-reduced] .quote-slide:first-child { opacity: 1 !important; }

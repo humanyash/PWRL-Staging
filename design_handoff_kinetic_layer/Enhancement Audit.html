@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PWRL — Kinetic Enhancement Audit</title>
+<link rel="preconnect" href="https://use.typekit.net">
+<link rel="stylesheet" href="https://use.typekit.net/usg7ynr.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap">
+<style>
+  :root {
+    --navy: #060b35; --electric: #0023ec; --action: #085cf0;
+    --mint: #23fbc5; --sky: #b0e9fd; --ice: #e4f7fd;
+    --charcoal: #242424; --muted: #757575;
+    --display: "ivypresto-headline", "Cormorant Garamond", Georgia, serif;
+    --franklin: "Libre Franklin", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--charcoal); font-family: var(--franklin); font-weight: 300; line-height: 1.5; }
+  .doc { max-width: 880px; margin: 0 auto; padding: 72px 40px 120px; }
+  .kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--action); }
+  h1 { font-family: var(--display); font-size: 48px; font-weight: 300; line-height: 1.05; margin: 10px 0 0; }
+  .meta { margin-top: 14px; font-size: 14px; color: var(--muted); max-width: 640px; }
+  h2 { font-family: var(--display); font-size: 28px; font-weight: 300; line-height: 1.1; margin: 56px 0 0; padding-top: 16px; border-top: 2px solid var(--ice); }
+  .item { margin-top: 24px; padding: 18px 20px; background: #fafcfe; border: 1px solid var(--ice); border-radius: 8px; }
+  .item-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .item-id { font-family: ui-monospace, Menlo, monospace; font-size: 13px; font-weight: 700; color: var(--action); }
+  .item-head h3 { font-family: var(--franklin); font-size: 17px; font-weight: 700; margin: 0; color: #000; }
+  .badge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
+  .b-top { background: var(--navy); color: var(--mint); }
+  .b-rec { background: var(--ice); color: var(--electric); }
+  .b-con { background: #f1f1f1; color: var(--muted); }
+  .effort { margin-left: auto; font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; color: var(--muted); }
+  .item p { margin: 8px 0 0; font-size: 14.5px; }
+  .item p b { font-weight: 600; }
+  .lbl { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .skiplist { margin-top: 16px; padding-left: 20px; }
+  .skiplist li { margin-top: 8px; font-size: 14.5px; }
+  .picks { margin-top: 18px; background: var(--navy); color: #fff; border-radius: 8px; padding: 20px 24px; }
+  .picks h3 { font-family: var(--franklin); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sky); margin: 0; }
+  .picks p { margin: 10px 0 0; font-size: 14.5px; color: rgb(255 255 255 / 0.88); }
+  .picks code { font-family: ui-monospace, Menlo, monospace; color: var(--mint); }
+  a.back { color: var(--action); font-size: 13px; text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="doc">
+  <span class="kicker">PWRL Interactive Layer &middot; working document</span>
+  <h1>Kinetic enhancement audit</h1>
+  <p class="meta">A pass over all six pages against the current layer (global system + bespoke signatures + arrival/transition choreography), flagging where storytelling or kinetic energy is being left on the table. Each item: what's there now, the proposed move, effort (S/M/L), and a verdict. Nothing here is built &mdash; reply with the IDs to green-light. <a class="back" href="index.html">&larr; back to hub</a></p>
+
+  <div class="picks">
+    <h3>Status: all 14 green-lit &middot; built 06.11.26</h3>
+    <p>Every item below (including the “consider” tier) is now live in the prototypes and shipped in the drop-in files. The verdict badges record the original recommendation for posterity.</p>
+  </div>
+
+  <div class="picks">
+    <h3>My short list, if you green-light five</h3>
+    <p><code>E7</code> donut&harr;table dialogue (the single most "data behaves like data" move available), <code>E5</code> sphere bloom + 97% count-up (it's the thesis stat), <code>E14</code> anchor-nav scrollspy (continuous orientation on long pages), <code>E6</code> bio dialog choreography (the most-felt interaction gap), and <code>E1</code> timeline beam energize (caps the marquee section). <code>E13</code> is the cheapest meaningful add if you want a sixth.</p>
+  </div>
+
+  <h2>Home</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E1</span><h3>Timeline beam energize</h3><span class="badge b-top">Top pick</span><span class="effort">effort M</span></div>
+    <p><span class="lbl">Now</span> &mdash; the beam image fades in flat; the connectors and years carry all the energy.</p>
+    <p><span class="lbl">Proposed</span> &mdash; after the beam fades in, a single luminous highlight sweeps it left&rarr;right once (masked gradient pseudo, transform-only), arriving at 2026 just as the PWRL caption reveals. Extends the existing ink-tip language to the marquee graphic: the company's history literally powers up in chronological order.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E2</span><h3>Manifesto per-line rise</h3><span class="badge b-rec">Recommend</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; "We believe the world's most transformative companies&hellip;" rises as one block.</p>
+    <p><span class="lbl">Proposed</span> &mdash; the two statement headings in the gradient section get the same masked per-line rise as the /fund hero. A manifesto reads as deliberate, spoken lines rather than a paragraph that appears.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E3</span><h3>Quote panel per-line rise</h3><span class="badge b-con">Consider</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; the display quote rises as a block over the Ken Burns crossfade.</p>
+    <p><span class="lbl">Proposed</span> &mdash; per-line masked rise on the quote, CTA following. Held at "consider": the panel already has two motion layers (crossfade + drift); a third may compete rather than compound.</p>
+  </div>
+
+  <h2>/vision</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E4</span><h3>Two-truths sequence thread</h3><span class="badge b-rec">Recommend</span><span class="effort">effort S&ndash;M</span></div>
+    <p><span class="lbl">Now</span> &mdash; the two truth rows cascade like any grid; the numbered icons ride along.</p>
+    <p><span class="lbl">Proposed</span> &mdash; the "1" pops first, its copy rises, then a sky hairline draws downward to the "2" before it pops. The page's founding argument ("born from two truths") becomes a told sequence instead of a list.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E5</span><h3>Sphere bloom + 97% count-up</h3><span class="badge b-top">Top pick</span><span class="effort">effort M</span></div>
+    <p><span class="lbl">Now</span> &mdash; the dotted sphere fades in with its caption (it drifts ambiently afterward); "97%" is static text. Same on /fund's Investment Process band.</p>
+    <p><span class="lbl">Proposed</span> &mdash; the sphere blooms center-out (radial mask) while "97%" counts 0&rarr;97 in the caption. This is the thesis statistic of the entire fund &mdash; the one number that justifies the strategy &mdash; and it currently gets less treatment than the stock-info table. Applies to both pages with one recipe.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E6</span><h3>Bio dialog choreography</h3><span class="badge b-top">Top pick</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; clicking a team/board card snaps the dialog open and shut instantly &mdash; the most-felt motion gap in the prototype, shared with /investor-relations.</p>
+    <p><span class="lbl">Proposed</span> &mdash; scrim fades in (200ms), dialog rises 12px at 0.97&rarr;1 pop; close reverses at exit speed. Pure polish, exactly where users interact most deliberately.</p>
+  </div>
+
+  <h2>/fund</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E7</span><h3>Donut &harr; table dialogue</h3><span class="badge b-top">Top pick</span><span class="effort">effort M&ndash;L</span></div>
+    <p><span class="lbl">Now</span> &mdash; hovering a donut slice dims the others; the holdings table and the chart never acknowledge each other.</p>
+    <p><span class="lbl">Proposed</span> &mdash; hovering a table row brightens its slice (others dim) and hovering a slice highlights its row with a sky wash. The chart answers the table; the table answers the chart. The strongest available "trading floor" move &mdash; it converts two adjacent data displays into one instrument.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E8</span><h3>Holdings rows tick in</h3><span class="badge b-rec">Recommend</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; the allocation tables rise as a single block.</p>
+    <p><span class="lbl">Proposed</span> &mdash; the first ~8 rows cascade at 30ms/row (SpaceX first), remainder instant inside the scroll area. Position sizes report in like fills on a tape.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E9</span><h3>Sector wheel entrance</h3><span class="badge b-con">Consider</span><span class="effort">effort M</span></div>
+    <p><span class="lbl">Now</span> &mdash; the wheel fades in already spinning.</p>
+    <p><span class="lbl">Proposed</span> &mdash; the orbit ring draws (SVG stroke) while the six discs cascade into position, then the spin takes over. Held at "consider": the wheel already moves continuously; entrance may be invisible garnish on an element that never rests.</p>
+  </div>
+
+  <h2>/trade</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E10</span><h3>Process progress line</h3><span class="badge b-rec">Recommend</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; the four steps cascade left-to-right with icon pops.</p>
+    <p><span class="lbl">Proposed</span> &mdash; a sky hairline draws beneath the row, reaching each column just as its step lands. "How to invest" becomes a path with a direction, not four cards.</p>
+  </div>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E11</span><h3>CEF definition rules draw</h3><span class="badge b-rec">Recommend</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; the two bordered side items ("Exchange-Listed Trading", "Managed Portfolio") rise as blocks; their white left rules are static.</p>
+    <p><span class="lbl">Proposed</span> &mdash; each left rule draws downward (scaleY) a beat before its copy rises &mdash; the same wipe vocabulary as the stock-info rules, closing the loop on "rules draw" as a site-wide signature.</p>
+  </div>
+
+  <h2>/investor-relations</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E12</span><h3>News strip edge affordance</h3><span class="badge b-con">Consider</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; nothing signals the strip scrolls beyond the chevrons; the eighth card just sits cropped.</p>
+    <p><span class="lbl">Proposed</span> &mdash; a right-edge fade mask while more content exists, plus a one-time 8px nudge of the strip on first view. Held at "consider": the cropped card already implies continuation; verify with a fresh viewer first.</p>
+  </div>
+
+  <h2>/contact</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E13</span><h3>Submission completion moment</h3><span class="badge b-rec">Recommend</span><span class="effort">effort S</span></div>
+    <p><span class="lbl">Now</span> &mdash; submitting swaps the button text instantly; the confirmation line just appears.</p>
+    <p><span class="lbl">Proposed</span> &mdash; on success the button sweeps its sheen once and settles into a confirmed state, and the status line rises in below. The one moment a visitor gives PWRL something deserves an acknowledgment with weight. (Error state stays instant and plain &mdash; no play on failure.)</p>
+  </div>
+
+  <h2>Cross-page</h2>
+
+  <div class="item">
+    <div class="item-head"><span class="item-id">E14</span><h3>Anchor-nav scrollspy</h3><span class="badge b-top">Top pick</span><span class="effort">effort M</span></div>
+    <p><span class="lbl">Now</span> &mdash; the anchor band underlines on hover only; on long pages (/vision has six sections) you never know where you are.</p>
+    <p><span class="lbl">Proposed</span> &mdash; the existing underline persists beneath the section currently in view and <em>slides</em> between labels as you scroll. Continuous orientation; the page reports your position like an instrument. Builds entirely on the already-shipped underline.</p>
+  </div>
+
+  <h2>Deliberately not proposing</h2>
+  <ul class="skiplist">
+    <li><b>Custom cursor / cursor dot</b> &mdash; reads startup-landing-page, not Nasdaq-listed fund; the play already lives in how surfaces respond, not in the pointer itself.</li>
+    <li><b>Scroll-pinned scenes / scroll-jacking</b> &mdash; explicitly barred by the brief, and rightly so.</li>
+    <li><b>Animated gradients</b> (home intro, CEF band) &mdash; paint-heavy, violates the transform/opacity rule for marginal effect.</li>
+    <li><b>News auto-advance carousel</b> &mdash; motion the user didn't ask for, on content they're trying to read.</li>
+    <li><b>Odometer-style digit flips on count-ups</b> &mdash; the current count-up already says "data"; digit flips say "slot machine".</li>
+    <li><b>Anything on filings, disclaimers, or FAQ risk copy</b> &mdash; legal surfaces stay still.</li>
+  </ul>
+</div>
+</body>
+</html>
