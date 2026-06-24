@@ -1,17 +1,7 @@
 /**
  * HeroRotator — the live home-hero headline cycle, reproduced with pure CSS
- * (no JS timers). Live mechanics, probed from the production DOM:
- *
- *   27s master cycle, six 4.5s slots sharing one `hero-slide` keyframe
- *   (rise in over ~0.4s → hold ~4s → exit upward):
- *     slot 0   (delay 0s)     "Powerlaw Corp."
- *     slots 1–4 (4.5s–22.5s)  static "Only for" prefix (own `hero-prefix`
- *                             keyframe spanning the whole window) while the
- *                             suffixes rotate: delays 4.5 / 9 / 13.5 / 18s
- *     slot 5   (delay 22.5s)  "Nasdaq: PWRL"
- *
- *   Layout: an invisible spacer reserves the tallest line; suffixes stack
- *   below the prefix on mobile and sit beside it (pl-4) from xl up.
+ * (no JS timers). Markup matches the production DOM (grid spacer, slide
+ * delays, prefix/suffix layout) so positioning aligns with powerlawfunds.com.
  */
 export function HeroRotator({
   slides,
@@ -27,18 +17,29 @@ export function HeroRotator({
     (a, b) => (a.length >= b.length ? a : b),
     "",
   );
-  // Standalone slides occupy the first and last slots (live: 0s and 22.5s).
   const slideDelays = [0, (suffixes.length + 1) * slotSeconds];
 
   return (
-    <span className="relative block">
-      {/* Invisible spacer — reserves the tallest layout (prefix + suffix). */}
-      <span aria-hidden className="invisible flex flex-col xl:flex-row">
-        <span className="shrink-0">{prefix}</span>
-        <span className="xl:pl-4">{longestSuffix}</span>
+    <>
+      {/* Invisible grid — reserves the tallest line across every slide state. */}
+      <span aria-hidden className="invisible grid">
+        {slides.map((slide) => (
+          <span key={slide} className="col-start-1 row-start-1 block">
+            {slide}
+          </span>
+        ))}
+        {suffixes.map((suffix) => (
+          <span
+            key={suffix}
+            className="col-start-1 row-start-1 flex flex-col xl:flex-row"
+          >
+            <span className="shrink-0">{prefix}</span>
+            <span className="xl:pl-4">{suffix}</span>
+          </span>
+        ))}
       </span>
 
-      {/* Standalone slides */}
+      {/* Standalone slides (first + last slots). */}
       {slides.map((slide, i) => (
         <span
           key={slide}
@@ -52,7 +53,7 @@ export function HeroRotator({
         </span>
       ))}
 
-      {/* Static prefix + rotating suffixes */}
+      {/* Static prefix + rotating suffixes. */}
       <span className="absolute left-0 top-0 flex w-full flex-col xl:flex-row">
         <span
           className="hero-anim shrink-0 opacity-0 will-change-[transform,opacity]"
@@ -78,7 +79,7 @@ export function HeroRotator({
           ))}
         </span>
       </span>
-    </span>
+    </>
   );
 }
 

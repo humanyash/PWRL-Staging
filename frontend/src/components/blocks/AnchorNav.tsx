@@ -10,7 +10,7 @@ import type { AnchorNavBlock } from "@/types/blocks";
 export function AnchorNav({ block }: { block: AnchorNavBlock }) {
   return (
     <nav className="anchor-nav hidden bg-[#E4F7FD] font-[family-name:var(--font-franklin)] text-charcoal md:block">
-      <ul className="flex items-center justify-center gap-x-16 py-3 uppercase">
+      <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 py-3 uppercase lg:gap-x-12 xl:gap-x-16">
         {block.items.map((item) => (
           <li key={item.href}>
             <Link href={item.href} className="group no-underline">

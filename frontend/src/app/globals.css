@@ -52,11 +52,20 @@
   --text-display: 4rem;
   --text-display--line-height: 1.02;
   --text-featured: 24px;
+
+  /* Live typography tokens (hero h1 + body copy) */
+  --text-h1-mob: 55px;
+  --text-h1-desk: 90px;
+  --text-p1-mob: 18px;
+  --text-p1-desk: 24px;
+  --font-ivy: "ivypresto-headline", var(--font-cormorant), Georgia, serif;
 }
 
 :root {
   --background: #ffffff;
   --foreground: #242424;
+  /* Set by Header when the homepage masthead is visible (banner height). */
+  --pwrl-site-banner-h: 0px;
 }
 
 /* Live root font-size is responsive: 16px on mobile, 18px (112.5%) from
@@ -260,4 +269,149 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Live h1 — ivypresto 55px mobile, 90px from xl (80rem). */
+h1 {
+  font-family: var(--font-ivy);
+  font-size: var(--text-h1-mob);
+  line-height: 1.3em;
+}
+@media (min-width: 80rem) {
+  h1 {
+    font-size: var(--text-h1-desk);
+  }
+}
+
+/* Live `.common-cta` system (AUDIT R3-1). */
+.common-cta {
+  display: inline-block;
+  border-radius: var(--radius-sm);
+  padding: 10px 24px;
+  font-family: var(--font-franklin);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 24px;
+  text-decoration: none;
+  transition: filter 0.15s ease;
+}
+@media (min-width: 64rem) {
+  .common-cta {
+    padding: 14px 36px;
+    font-size: 20px;
+  }
+}
+.common-cta:hover {
+  filter: brightness(90%);
+}
+.cta-blue {
+  background-color: #085cf0;
+  color: #fff;
+}
+.cta-mint {
+  background-color: var(--color-mint);
+  color: #000;
+  font-weight: 800;
+}
+.cta-compact {
+  padding: 10px 32px !important;
+  font-size: 14px !important;
+}
+@media (min-width: 64rem) {
+  .cta-compact {
+    font-size: 18px !important;
+  }
+}
+
+/* Live hero body + CTA wrappers (AUDIT R3-4). */
+.hero-wysiwyg--on-dark {
+  color: #fff;
+}
+.hero-wysiwyg p {
+  font-family: var(--font-franklin);
+  font-size: var(--text-p1-mob);
+  font-weight: 300;
+  line-height: 2rem;
+}
+@media (min-width: 48rem) {
+  .hero-wysiwyg p {
+    font-size: var(--text-p1-desk);
+  }
+}
+.textbox-content > * + .rich-cta {
+  margin-top: 11px;
+}
+@media (min-width: 768px) {
+  .textbox-content > * + .rich-cta {
+    margin-top: -5px;
+  }
+}
+.max-w-240 {
+  max-width: calc(var(--spacing) * 240);
+}
+
+/* Live external-link exit dialog (powerlawfunds.com/pwrl). */
+.exit-dialog__title {
+  font-family: var(--font-ivy);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.15;
+  color: #fff;
+}
+@media (min-width: 48rem) {
+  .exit-dialog__title {
+    font-size: 48px;
+  }
+}
+.exit-dialog__body {
+  margin: 32px auto 0;
+  max-width: 520px;
+  font-family: var(--font-franklin);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #fff;
+}
+.exit-dialog__actions {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+@media (min-width: 40rem) {
+  .exit-dialog__actions {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+.exit-dialog__cancel,
+.exit-dialog__proceed {
+  min-width: 160px;
+  border-radius: var(--radius-sm);
+  padding: 14px 40px;
+  font-family: var(--font-franklin);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: filter 0.15s ease;
+}
+.exit-dialog__cancel {
+  border: none;
+  background: #fff;
+  color: #085cf0;
+}
+.exit-dialog__cancel:hover {
+  filter: brightness(95%);
+}
+.exit-dialog__proceed {
+  border: none;
+  background: #085cf0;
+  color: #fff;
+}
+.exit-dialog__proceed:hover {
+  filter: brightness(90%);
 }

@@ -31,7 +31,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`scroll-mt-28 py-16 md:py-24 ${toneClasses[tone]} ${className}`}
+      className={`relative z-10 scroll-mt-28 py-16 md:py-24 ${toneClasses[tone]} ${className}`}
     >
       <Container className={containerClassName}>{children}</Container>
     </section>

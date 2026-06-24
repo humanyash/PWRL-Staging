@@ -100,12 +100,12 @@ export function NewsList({ block }: { block: NewsListBlock }) {
   return (
     <Section tone="light" id="news" className="!py-[100px]">
       <div className="flex items-end justify-between">
-        <h2
-          className="font-display text-[32px] font-light leading-[1.1] text-black md:text-[48px]"
+        <h4
+          className="font-display text-[32px] font-normal leading-[1.1] text-black md:text-[48px] md:leading-none"
           data-mo=""
         >
           {block.heading}
-        </h2>
+        </h4>
         <div
           className="flex items-center gap-3 pr-2"
           data-mo=""
@@ -113,7 +113,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
         >
           <button
             type="button"
-            aria-label="Scroll news left"
+            aria-label="navigate back"
             onClick={() => scrollBy(-1)}
             disabled={!canScrollLeft}
             className="news-nav-btn"
@@ -122,7 +122,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
           </button>
           <button
             type="button"
-            aria-label="Scroll news right"
+            aria-label="navigate forward"
             onClick={() => scrollBy(1)}
             disabled={!canScrollRight}
             className="news-nav-btn"

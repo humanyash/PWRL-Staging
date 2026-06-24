@@ -69,13 +69,13 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
                   aria-expanded={open}
                 >
                   <div className="flex items-center justify-between gap-2 hover:cursor-pointer">
-                    <h3
+                    <h4
                       className={`text-left font-[family-name:var(--font-franklin)] text-[18px] font-light md:text-[24px] ${
                         navy ? "text-white" : "text-charcoal"
                       }`}
                     >
                       {faq.q}
-                    </h3>
+                    </h4>
                     <span className="icon mo-arrow w-6 shrink-0" aria-hidden>
                       <svg
                         viewBox="0 0 24 24"

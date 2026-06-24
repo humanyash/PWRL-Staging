@@ -15,6 +15,9 @@ import { BoardGrid } from "./blocks/BoardGrid";
 import { FAQBlock } from "./blocks/FAQBlock";
 import { ProcessSteps } from "./blocks/ProcessSteps";
 import { NewsList } from "./blocks/NewsList";
+import { EducationList } from "./blocks/EducationList";
+import { EventsList } from "./blocks/EventsList";
+import { EducationGrid } from "./blocks/EducationGrid";
 import { DocumentList } from "./blocks/DocumentList";
 import { CTAGroup } from "./blocks/CTAGroup";
 import { PullQuote } from "./blocks/PullQuote";
@@ -60,6 +63,12 @@ function renderBlock(block: Block, key: number) {
       return <ProcessSteps key={key} block={block} />;
     case "sections.news-list":
       return <NewsList key={key} block={block} />;
+    case "sections.education-list":
+      return <EducationList key={key} block={block} />;
+    case "sections.events-list":
+      return <EventsList key={key} block={block} />;
+    case "sections.education-grid":
+      return <EducationGrid key={key} block={block} />;
     case "sections.document-list":
       return <DocumentList key={key} block={block} />;
     case "sections.cta-group":

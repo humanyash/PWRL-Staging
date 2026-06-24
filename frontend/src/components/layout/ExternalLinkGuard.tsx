@@ -90,37 +90,30 @@ export function ExternalLinkGuard() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="exit-link-title"
-      className={`exit-overlay ${shown ? "open" : ""} fixed inset-0 z-[70] flex items-center justify-center p-6`}
+      className={`exit-overlay ${shown ? "open" : ""} fixed inset-0 z-[70] flex items-center justify-center px-6 py-10`}
     >
       <div
-        className="scrim absolute inset-0 bg-black/75"
+        className="scrim absolute inset-0 bg-black/80"
         onClick={close}
         aria-hidden
       />
-      <div className="exit-dialog relative w-full max-w-[560px] rounded-2xl bg-[#1c1c1c] px-8 py-10 text-center shadow-2xl md:px-12 md:py-12">
-        <h2
-          id="exit-link-title"
-          className="font-display text-[32px] font-light leading-[1.15] text-white md:text-[40px]"
-        >
+      <div className="exit-dialog relative w-full max-w-[640px] rounded-[20px] bg-charcoal px-10 py-12 text-center md:px-14 md:py-14">
+        <h2 id="exit-link-title" className="exit-dialog__title">
           You are leaving PWRL.com
         </h2>
-        <p className="mx-auto mt-6 max-w-md font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.5] text-white/70 md:text-[16px]">
+        <p className="exit-dialog__body">
           By clicking below you acknowledge that you are navigating away from
           PWRL.com. Please take note of Powerlaw&apos;s privacy policy, terms of
           use, and disclosures are not applicable for this site.
         </p>
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
-          <button
-            type="button"
-            onClick={close}
-            className="mo-btn min-w-[140px] rounded-sm border border-white/20 bg-white px-8 py-3 font-[family-name:var(--font-franklin)] text-[14px] font-bold uppercase tracking-wide text-[#085CF0] transition hover:bg-white/95 md:text-[15px]"
-          >
+        <div className="exit-dialog__actions">
+          <button type="button" onClick={close} className="exit-dialog__cancel">
             Cancel
           </button>
           <button
             type="button"
             onClick={proceed}
-            className="mo-btn min-w-[140px] rounded-sm bg-[#085CF0] px-8 py-3 font-[family-name:var(--font-franklin)] text-[14px] font-bold uppercase tracking-wide text-white transition hover:brightness-105 md:text-[15px]"
+            className="exit-dialog__proceed"
           >
             Proceed
           </button>

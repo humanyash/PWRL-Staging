@@ -1,5 +1,6 @@
 import { CTA } from "@/components/ui/CTA";
-import { moStyle, phrases } from "@/lib/motion";
+import { moStyle } from "@/lib/motion";
+import { renderLines } from "@/lib/rich";
 import type { PullQuoteBlock } from "@/types/blocks";
 
 /**
@@ -57,12 +58,12 @@ export function PullQuote({ block }: { block: PullQuoteBlock }) {
       ) : null}
 
       <blockquote className="relative z-20 mx-auto w-[91.667%] text-balance text-center">
-        <p
+        <h2
           className="font-display text-[36px] font-light leading-[1.1] text-white md:text-[55px]"
           data-mo="fade"
         >
-          {phrases(block.quote, 3)}
-        </p>
+          {renderLines(block.quote)}
+        </h2>
         {block.subheading ? (
           <p
             className="mx-auto mt-6 max-w-3xl font-[family-name:var(--font-franklin)] text-[16px] font-light leading-snug text-white md:text-[18px]"

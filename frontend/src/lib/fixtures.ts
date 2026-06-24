@@ -311,7 +311,7 @@ const HOME: PageData = {
         { name: "Waymo", allocation: "0.06%", logo: img("https://images.ctfassets.net/lavpbulm6258/4AZhuu2caNU8vltI7M1dh4/652224a33ca14f53954082d00d72d183/waymo.png", "Waymo") },
       ],
       cta: { label: "EXPLORE THE FUND", href: "/fund", variant: "mint" },
-      tailHeading: "Private Tech. Nasdaq Listed. Only for everyone.",
+      tailHeading: "Private Tech. Nasdaq Listed.\nOnly for everyone.",
       tailParagraphs: [
         "Powerlaw Corp. offers the access you've been wanting with the wisdom you've been waiting for. As more of the world's most consequential technology companies stay private longer, an entire generation of investors has been locked out of the value creation those companies represent.",
         "Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-listed fund offering exposure to leading private technology companies through a single ticker. Powerlaw Corp. is the first product on Powerlaw Capital Group's platform.",
@@ -334,7 +334,7 @@ const HOME: PageData = {
     {
       __component: "sections.pull-quote",
       quote:
-        "We believe the world's most transformative companies should be within everyone's reach.",
+        "We believe the world's most transformative\ncompanies should be within everyone's reach.",
       subheading:
         "Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to leading private technology companies through a single Nasdaq-listed security.",
       cta: {
@@ -459,6 +459,7 @@ const HOME: PageData = {
         },
       ],
     },
+    FAQ_BLOCK,
   ],
 };
 
@@ -862,6 +863,8 @@ const IR: PageData = {
       __component: "sections.anchor-nav",
       items: [
         { label: "News", href: "/investor-relations#news" },
+        { label: "Education", href: "/investor-relations#education" },
+        { label: "Events", href: "/investor-relations#events" },
         { label: "Board of Directors", href: "/investor-relations#directors" },
         { label: "SEC Filings", href: "/investor-relations#sec-filings" },
         { label: "Fund Documents", href: "/investor-relations#fund-documents" },
@@ -930,6 +933,21 @@ const IR: PageData = {
       ],
     },
     {
+      __component: "sections.education-list",
+      heading: "Education",
+      viewAllHref: "/education",
+      items: [
+        { slug: "how-to-measure-pwrls-progress" },
+        { slug: "how-pwrl-manages-its-portfolio" },
+        { slug: "how-pwrl-accesses-the-best-in-private-tech" },
+      ],
+    },
+    {
+      __component: "sections.events-list",
+      heading: "Events",
+      items: [],
+    },
+    {
       __component: "sections.board-grid",
       heading: "Board of Directors",
       directors: BOARD_DIRECTORS,
@@ -983,6 +1001,27 @@ const IR: PageData = {
           href: "https://assets.ctfassets.net/lavpbulm6258/7b324FS2xFCdNXex2UEg4W/9ee32491bed36241b4fb4d0d1715c14a/1_Powerlaw_Corp_-_Audit_Committee_Charter.pdf",
         },
       ],
+    },
+  ],
+};
+
+const EDUCATION: PageData = {
+  slug: "/education",
+  title: "PWRL — Education",
+  metaDescription:
+    "Learn how PWRL measures progress, manages its portfolio, and accesses leading private technology companies.",
+  sections: [
+    {
+      __component: "sections.hero",
+      heading: "Education",
+      backgroundImage: img(
+        "/remote-assets/bbe3442c-background.png",
+        "Education hero background",
+      ),
+    },
+    {
+      __component: "sections.education-grid",
+      heading: "Education articles",
     },
   ],
 };
@@ -1043,6 +1082,7 @@ export const PAGE_FIXTURES: Record<string, PageData> = {
   "/fund": FUND,
   "/trade": TRADE,
   "/investor-relations": IR,
+  "/education": EDUCATION,
   "/contact": CONTACT,
 };
 
@@ -1059,8 +1099,8 @@ export function getFixturePage(slug: string): PageData | null {
 
 export const GLOBAL_SETTINGS: GlobalSettings = {
   banner: {
-    text: "Read Monthly NAV Update",
-    href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
+    text: "__**Bloomberg**__**: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment**",
+    href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
   },
   nav: [
     {
@@ -1098,6 +1138,7 @@ export const GLOBAL_SETTINGS: GlobalSettings = {
       href: "/investor-relations",
       children: [
         { label: "News", href: "/investor-relations#news" },
+        { label: "Events", href: "/investor-relations#events" },
         { label: "Board of Directors", href: "/investor-relations#directors" },
         { label: "SEC Filings", href: "/investor-relations#sec-filings" },
         { label: "Fund Documents", href: "/investor-relations#fund-documents" },

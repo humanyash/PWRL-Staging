@@ -16,6 +16,7 @@
 
 import type {
   Block,
+  AnchorNavBlock,
   FormBlock,
   GlobalSettings,
   IntroBlock,
@@ -172,6 +173,16 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     out.subheading = quoteFixture.subheading;
     out.cta = quoteFixture.cta;
     out.backgroundSlides = quoteFixture.backgroundSlides;
+  }
+
+  // IR anchor tabs are tied to on-page section ids; fixtures carry the
+  // current nav (Education, Events, …) until Strapi schema catches up.
+  if (
+    cms.__component === "sections.anchor-nav" &&
+    fixture?.__component === "sections.anchor-nav"
+  ) {
+    const navFixture = fixture as AnchorNavBlock;
+    if (navFixture.items?.length) out.items = navFixture.items;
   }
 
   return out as unknown as Block;
@@ -370,13 +381,9 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
 
   return {
     ...GLOBAL_SETTINGS, // nav (and the banner link) aren't in the CMS schema yet
+    // Banner copy/link aren't fully modeled in CMS yet — fixtures match production.
     banner:
-      settings.topBannerEnabled !== false && settings.topBanner
-        ? {
-            text: settings.topBanner,
-            href: GLOBAL_SETTINGS.banner?.href ?? "",
-          }
-        : GLOBAL_SETTINGS.banner,
+      settings.topBannerEnabled === false ? undefined : GLOBAL_SETTINGS.banner,
     footerLinks: settings.footerLinks?.length
       ? settings.footerLinks
       : GLOBAL_SETTINGS.footerLinks,

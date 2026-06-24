@@ -3,15 +3,50 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { renderRich } from "@/lib/rich";
 import type { GlobalSettings } from "@/types/blocks";
+
+/** Live utility/mobile menu icon — 24×24 SVG, stroke 1.8. */
+function HamburgerIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <path
+        d="M4 7H20"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 12H20"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 17H20"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 /**
  * Fixed overlay header matching the live PWRL site (AUDIT.md R3-2/R3-3):
- *  - Banner: bg #085CF0, 20px, py-[10px], underlined link — pinned fixed
+ *  - Banner: bg #085CF0, 20px, h-[44px], underlined link — pinned fixed
  *    at the top on the homepage so it never scrolls away; nav sits below it.
- *  - Nav row: static black gradient `from-black via-black/65 via-50%
- *    to-black/0` (no navy-on-scroll); the row hides on scroll-down and
- *    returns on scroll-up (live translates the wrapper).
+ *  - Nav row: gradient over the hero (`from-black via-black/65 to-transparent`);
+ *    switches to solid black once scrolled past the hero. The row hides on
+ *    scroll-down and returns on scroll-up (live translates the wrapper).
  *  - Links: uppercase, tracking-wide, hover = BOLD (invisible-bold-span
  *    width trick so nothing shifts); each item opens a dropdown submenu
  *    (rounded-md bg-neutral-900/95 py-4 px-6 text-sm).
@@ -22,10 +57,31 @@ export function Header({ settings }: { settings: GlobalSettings }) {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [utilityOpen, setUtilityOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const lastY = useRef(0);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
   const showBanner = pathname === "/" && Boolean(settings.banner);
+
+  // Homepage masthead height — hero video starts below this edge.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (!showBanner || !bannerRef.current) {
+      root.style.setProperty("--pwrl-site-banner-h", "0px");
+      return;
+    }
+    const el = bannerRef.current;
+    const sync = () =>
+      root.style.setProperty("--pwrl-site-banner-h", `${el.offsetHeight}px`);
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      root.style.setProperty("--pwrl-site-banner-h", "0px");
+    };
+  }, [showBanner]);
 
   const inlineNav = settings.nav.filter((n) => n.label !== "Contact");
   const utilityNav = settings.nav.filter((n) => n.label === "Contact");
@@ -50,46 +106,62 @@ export function Header({ settings }: { settings: GlobalSettings }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Gradient over the hero at the top; solid black once the hero scrolls away.
+  useEffect(() => {
+    const hero = document.querySelector("[data-mo-hero]");
+    if (!hero) {
+      setPastHero(true);
+      return;
+    }
+
+    setPastHero(false);
+    const observer = new IntersectionObserver(
+      ([entry]) => setPastHero(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [pathname]);
+
   return (
     <>
-      {showBanner && settings.banner ? (
-        <div className="fixed inset-x-0 top-0 z-[60] bg-[#085CF0] py-[10px] text-center text-[16px] text-white md:text-[20px]">
-          <div className="px-2">
-            {settings.banner.href ? (
-              <a
-                href={settings.banner.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white hover:text-white"
-              >
-                <u>{settings.banner.text}</u>
-              </a>
-            ) : (
-              <span>{settings.banner.text}</span>
-            )}
+      {/* Masthead + nav stack in one fixed column so nav always sits below the banner. */}
+      <div className="fixed inset-x-0 top-0 z-50">
+        {showBanner && settings.banner ? (
+          <div
+            ref={bannerRef}
+            className="relative z-[60] flex h-[44px] items-center justify-center bg-[#085CF0] text-center text-[16px] text-white md:text-[20px]"
+          >
+            <div className="px-2 [&_p]:my-0">
+              {settings.banner.href ? (
+                <a
+                  href={settings.banner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-[family-name:var(--font-franklin)] font-normal text-white no-underline hover:text-white"
+                >
+                  {renderRich(settings.banner.text)}
+                </a>
+              ) : (
+                <span>{renderRich(settings.banner.text)}</span>
+              )}
+            </div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
 
-      {/* Reserve space so page content doesn't slide under the fixed banner. */}
-      {showBanner ? (
-        <div
-          className="h-[44px] shrink-0 md:h-[50px]"
-          aria-hidden
-        />
-      ) : null}
-
-      <header
-        className={`site-header fixed inset-x-0 z-50 text-white ${
-          showBanner ? "top-[44px] md:top-[50px]" : "top-0"
-        }`}
-      >
+        <header className="site-header text-white">
         <div
           className={`transition-transform duration-300 ease-out will-change-transform ${
             hidden ? "-translate-y-full" : "translate-y-0"
           }`}
         >
-          <div className="flex items-center justify-between bg-gradient-to-b from-black via-black/65 via-50% to-black/0 p-4 md:px-8">
+          <div
+            className={`flex items-center justify-between p-4 transition-colors duration-300 md:px-8 ${
+              pastHero
+                ? "bg-black"
+                : "bg-gradient-to-b from-black via-black/65 via-50% to-black/0"
+            }`}
+          >
             <Link href="/" aria-label="Go to homepage" className="leading-none">
               {/* Real brand wordmark extracted from the live site's inline SVG
                 (includes the "Private Tech. Nasdaq Listed." tagline paths). */}
@@ -152,12 +224,10 @@ export function Header({ settings }: { settings: GlobalSettings }) {
                 type="button"
                 aria-label="Open utility menu"
                 aria-expanded={utilityOpen}
-                className="relative block size-6 cursor-pointer"
+                className="flex cursor-pointer items-center justify-center rounded-full text-white"
                 onClick={() => setUtilityOpen((v) => !v)}
               >
-                <span className="absolute left-0 top-0 h-[3px] w-6 bg-white" />
-                <span className="absolute left-0 top-[11px] h-[3px] w-6 bg-white" />
-                <span className="absolute left-0 top-[21px] h-[3px] w-6 bg-white" />
+                <HamburgerIcon />
               </button>
               {utilityOpen ? (
                 <div className="absolute right-0 top-full z-30 text-left normal-case">
@@ -183,12 +253,10 @@ export function Header({ settings }: { settings: GlobalSettings }) {
             <button
               type="button"
               aria-label="Open menu"
-              className="relative block size-6 md:hidden"
+              className="flex items-center justify-center rounded-full text-white md:hidden"
               onClick={() => setMobileOpen((v) => !v)}
             >
-              <span className="absolute left-0 top-0 h-[3px] w-6 bg-white" />
-              <span className="absolute left-0 top-[11px] h-[3px] w-6 bg-white" />
-              <span className="absolute left-0 top-[21px] h-[3px] w-6 bg-white" />
+              <HamburgerIcon className="h-6 w-6" />
             </button>
           </div>
 
@@ -333,7 +401,8 @@ export function Header({ settings }: { settings: GlobalSettings }) {
             </div>
           </div>
         </div>
-      </header>
+        </header>
+      </div>
     </>
   );
 }

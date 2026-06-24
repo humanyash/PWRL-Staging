@@ -1,5 +1,6 @@
 import { CTA } from "@/components/ui/CTA";
-import { moStyle, phrases } from "@/lib/motion";
+import { moStyle } from "@/lib/motion";
+import { renderLines } from "@/lib/rich";
 import type { IntroBlock, PortfolioGridItem } from "@/types/blocks";
 
 /**
@@ -133,7 +134,7 @@ export function Intro({ block }: { block: IntroBlock }) {
                         className="font-display text-[36px] font-light leading-[1.1] md:text-[55px]"
                         data-mo="fade"
                       >
-                        {phrases(block.tailHeading, 3)}
+                        {renderLines(block.tailHeading)}
                       </h3>
                       {block.tailParagraphs?.map((p, i) => (
                         <p key={i} className="font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.2] md:text-[18px]" data-mo="">

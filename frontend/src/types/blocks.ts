@@ -258,6 +258,38 @@ export interface NewsListBlock {
   items: NewsItem[];
 }
 
+export interface EducationListItem {
+  slug: string;
+}
+
+export interface EducationListBlock {
+  __component: "sections.education-list";
+  heading: string;
+  viewAllHref?: string;
+  items: EducationListItem[];
+}
+
+export interface EventItemBlock {
+  dateTime: string;
+  title: string;
+  ctaLabel: string;
+  ctaHref: string;
+  type: "webcast" | "recording";
+  image?: ImageWithAlt;
+  brandPanel?: { label: string; sublabel?: string };
+}
+
+export interface EventsListBlock {
+  __component: "sections.events-list";
+  heading: string;
+  items: EventItemBlock[];
+}
+
+export interface EducationGridBlock {
+  __component: "sections.education-grid";
+  heading?: string;
+}
+
 export interface DocumentItem {
   label: string;
   href: string;
@@ -402,6 +434,9 @@ export type Block =
   | FAQBlock
   | ProcessStepsBlock
   | NewsListBlock
+  | EducationListBlock
+  | EventsListBlock
+  | EducationGridBlock
   | DocumentListBlock
   | CTAGroupBlock
   | PullQuoteBlock

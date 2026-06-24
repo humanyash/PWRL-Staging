@@ -30,12 +30,12 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
             <div className="md:flex-1">
               <div className="flex flex-col items-start gap-y-6 md:gap-y-10">
                 {block.subheading ? (
-                  <h3
-                    className="font-display text-[24px] font-light leading-[1.1] text-charcoal md:text-[30px]"
+                  <h5
+                    className="font-display text-[24px] font-light leading-[1.1] text-charcoal md:text-[30px] md:leading-[1]"
                     data-mo=""
                   >
                     {block.subheading}
-                  </h3>
+                  </h5>
                 ) : null}
                 {(block.body ?? (block.intro ? [block.intro] : [])).map(
                   (paragraph, i) => (
@@ -66,7 +66,7 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
                   {block.stats.map((stat) => (
                     <div
                       key={stat.label}
-                      className="mo-stat flex items-center gap-4 bg-ice p-6"
+                      className="flex items-center gap-4 bg-ice p-6"
                       data-mo=""
                     >
                       {stat.icon?.src ? (
