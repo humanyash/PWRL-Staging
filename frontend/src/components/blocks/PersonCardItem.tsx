@@ -149,7 +149,7 @@ export function PersonCardItem({ person }: { person: PersonCard }) {
           ) : (
             <div className="mx-auto aspect-square w-full max-w-[180px] rounded-2xl bg-ice" />
           )}
-          <p className="person-card__name mt-5 min-h-[2lh] font-[family-name:var(--font-franklin)] text-[18px] font-bold leading-[1.1] text-[#0023EC] lg:text-[24px]">
+          <p className="person-card__name mt-5 min-h-[2lh] font-[family-name:var(--font-franklin)] text-[26px] font-bold leading-[1.1] text-[#0023EC]">
             <SplitName name={person.name} />
           </p>
           <p className="mt-[10px] text-center text-[14px] text-charcoal md:text-[18px]">
@@ -200,13 +200,13 @@ export function PersonCardItem({ person }: { person: PersonCard }) {
 
                   {/* Right: name, role, bio */}
                   <div className="text-left">
-                    <h1 className="font-[family-name:var(--font-franklin)] text-[32px] font-bold leading-tight text-[#0023EC]">
+                    <p className="font-[family-name:var(--font-franklin)] text-[32px] font-bold leading-tight text-[#0023EC]">
                       {person.name}
-                    </h1>
+                    </p>
                     <h2 className="mt-2 font-[family-name:var(--font-franklin)] text-[20px] font-semibold text-charcoal">
                       {person.role}
                     </h2>
-                    <div className="mt-6 font-[family-name:var(--font-franklin)] text-[15px] font-light leading-relaxed text-charcoal/80">
+                    <div className="mt-6 font-[family-name:var(--font-franklin)] text-[20px] font-normal leading-relaxed text-charcoal/80">
                       <Bio person={person} />
                     </div>
                   </div>
