@@ -19,6 +19,7 @@ import type {
   AnchorNavBlock,
   FormBlock,
   GlobalSettings,
+  HeroBlock,
   IntroBlock,
   PageData,
   PersonCard,
@@ -126,6 +127,17 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     } else {
       out[k] = v;
     }
+  }
+
+  // Home hero body (2026-06): CMS may still carry the legacy manifesto line.
+  if (
+    cms.__component === "sections.hero" &&
+    fixture?.__component === "sections.hero" &&
+    typeof cms.body === "string" &&
+    cms.body.includes("18 leading private tech companies")
+  ) {
+    const heroFixture = fixture as HeroBlock;
+    if (heroFixture.body) out.body = heroFixture.body;
   }
 
   // Home intro redesign (2026-06): production CMS may still carry the legacy

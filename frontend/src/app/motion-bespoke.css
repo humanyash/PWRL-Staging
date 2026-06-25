@@ -105,21 +105,11 @@ html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dr
 html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(6),
 html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(6) { transition-delay: 125ms; }
 
-/* Anchor-nav underline draws from the left on hover (sky hairline,
-   composes with the existing invisible-bold swap). */
+/* Anchor-nav — bold label on hover and scroll-spied active (no underline). */
 .anchor-nav a .nav-swap { position: relative; }
-html[data-mo-on] .anchor-nav a .nav-swap::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -3px;
-  height: 2px;
-  background: var(--electric, #0023ec);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--mo-dur-fast) var(--mo-ease-out);
-}
-html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .anchor-nav a:hover .nav-swap::after {
-  transform: scaleX(1);
+.anchor-nav a:hover .real,
+.anchor-nav a.is-active .real {
+  font-weight: 700;
 }
 
 /* ==========================================================================
@@ -316,10 +306,6 @@ html[data-mo-on]:not([data-mo-reduced]) .mo-stat.mo-in::after {
   .person-card:hover {
     background-color: #e4f7fd;
   }
-  .person-card:hover .person-card__name {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-  }
 }
 
 html[data-mo-on]:not([data-mo-reduced]) .person-card {
@@ -343,15 +329,13 @@ html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .person-card:hover 
   background-color: #e4f7fd;
 }
 html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .person-card:hover .person-card__name {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+  text-decoration: none;
 }
 html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .person-card:active {
   background-color: #e4f7fd;
 }
 html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .person-card:active .person-card__name {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+  text-decoration: none;
 }
 html[data-mo-reduced][data-mo-on] .person-card .photo-frame img {
   filter: none !important;
@@ -373,13 +357,24 @@ html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .mo-card:hover .mo-
    §5 /TRADE + /INVESTOR-RELATIONS
    ========================================================================== */
 
-/* Platform tiles — the broker logo leans toward the action on hover
-   (slight scale + forward nudge, mirroring the arrow). */
+/* Platform tiles — swap the mo-card--quiet lift + shadow for a black
+   text underline. The logo still nudges slightly to stay lively. */
 html[data-mo-on] .platform-tile img {
   transition: transform var(--mo-dur-tap) var(--mo-ease-out);
 }
 html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile:hover img {
-  transform: translateX(2px) scale(1.07);
+  transform: translateX(2px) scale(1.04);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile.mo-card--quiet:hover,
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .platform-tile.mo-card--quiet:active {
+  transform: none;
+  box-shadow: none;
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile:hover span,
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .platform-tile:active span {
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-underline-offset: 3px;
 }
 
 /* News cards — thumbnail breathes inside its 16:9 crop on hover
@@ -393,7 +388,8 @@ html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-card:hover .n
 
 /* Fund-document rows — the "View PDF" affordance slides into emphasis. */
 html[data-mo-on] .doc-row .pdf {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   transition: transform var(--mo-dur-tap) var(--mo-ease-out);
 }
 html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .doc-row:hover .pdf {
@@ -496,19 +492,6 @@ html[data-mo-on]:not([data-mo-reduced]) .truth-row:not(.mo-in) .num img {
   opacity: 0;
   transform: scale(0.6);
 }
-.truth-row + .truth-row { position: relative; }
-html[data-mo-on]:not([data-mo-reduced]) .truth-row + .truth-row::before {
-  content: "";
-  position: absolute; left: 29px; top: -37px; height: 34px; width: 2px;
-  background: var(--sky, #b0e9fd);
-  transform: scaleY(0);
-  transform-origin: top center;
-  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
-}
-html[data-mo-on]:not([data-mo-reduced]) .truth-row.mo-in + .truth-row.mo-in::before,
-html[data-mo-on]:not([data-mo-reduced]) .truth-row + .truth-row.mo-in::before {
-  transform: scaleY(1);
-}
 
 /* E5 — Sphere bloom: the dotted sphere reveals center-out via radial
    mask while its 97% caption counts up. Markup: data-mo="fade" on the
@@ -537,7 +520,13 @@ html[data-mo-on]:not([data-mo-reduced]) .exit-overlay .scrim {
   opacity: 0;
   transition: opacity 180ms var(--mo-ease-exit);
 }
-html[data-mo-on]:not([data-mo-reduced]) .bio-overlay .bio-dialog,
+html[data-mo-on]:not([data-mo-reduced]) .bio-overlay .bio-dialog {
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  transition:
+    opacity 180ms var(--mo-ease-exit),
+    transform 180ms var(--mo-ease-exit);
+}
 html[data-mo-on]:not([data-mo-reduced]) .exit-overlay .exit-dialog {
   opacity: 0;
   transform: translateY(14px) scale(0.97);
@@ -553,6 +542,8 @@ html[data-mo-on]:not([data-mo-reduced]) .exit-overlay.open .scrim {
 html[data-mo-on]:not([data-mo-reduced]) .bio-overlay,
 html[data-mo-on]:not([data-mo-reduced]) .exit-overlay {
   display: flex;
+  align-items: center;
+  justify-content: center;
   visibility: hidden;
   transition: visibility 0s linear 200ms;
 }
@@ -645,13 +636,6 @@ html[data-mo-on]:not([data-mo-reduced]) .cef-item:has(.mo-in)::before {
   transform: scaleY(1);
 }
 
-/* E12 — News strip edge affordance: while more cards exist off-screen,
-   the right edge fades (mask set by pwrl-pages.js via .has-more). */
-html[data-mo-on] .news-strip.has-more {
-  -webkit-mask: linear-gradient(to right, #000 calc(100% - 90px), transparent);
-  mask: linear-gradient(to right, #000 calc(100% - 90px), transparent);
-}
-
 /* News carousel prev/next — minimal circular controls, no movement. */
 .news-nav-btn {
   display: inline-flex;
@@ -659,18 +643,16 @@ html[data-mo-on] .news-strip.has-more {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 1px solid rgb(6 11 53 / 0.14);
+  border: 1px solid #060b35;
   border-radius: 9999px;
   color: #060b35;
   background: transparent;
   transition:
-    border-color calc(380ms * var(--mo-speed)) var(--mo-ease-out),
     background-color calc(380ms * var(--mo-speed)) var(--mo-ease-out),
     color calc(380ms * var(--mo-speed)) var(--mo-ease-out),
     opacity calc(380ms * var(--mo-speed)) var(--mo-ease-out);
 }
 html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-nav-btn:hover:not(:disabled) {
-  border-color: rgb(6 11 53 / 0.32);
   background: rgb(6 11 53 / 0.04);
 }
 html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-nav-btn:active:not(:disabled) {
@@ -711,24 +693,8 @@ html[data-mo-on]:not([data-mo-reduced]) .contact-status.show {
   transform: none;
 }
 
-/* E14 — Anchor-nav scrollspy: a persistent electric underline slides to
-   the section currently in view (element appended by pwrl-motion.js;
-   positioned via transform only). */
+/* E14 — Anchor-nav scrollspy: active section link gets .is-active (bold). */
 .anchor-nav { position: relative; }
-.anchor-spy {
-  position: absolute; left: 0; top: 0;
-  width: 100px; height: 2px;
-  background: var(--electric, #0023ec);
-  transform-origin: left center;
-  opacity: 0;
-  pointer-events: none;
-}
-html[data-mo-on] .anchor-spy.on { opacity: 1; }
-html[data-mo-on]:not([data-mo-reduced]) .anchor-spy {
-  transition:
-    transform calc(320ms * var(--mo-speed)) var(--mo-ease-out),
-    opacity var(--mo-dur-fast) ease;
-}
 
 /* §6b reduced-motion kills (mirrors §7 pattern). */
 @media (prefers-reduced-motion: reduce) {
@@ -742,8 +708,7 @@ html[data-mo-on]:not([data-mo-reduced]) .anchor-spy {
   html[data-mo-on] .bio-overlay .bio-dialog,
   html[data-mo-on] .exit-overlay .scrim,
   html[data-mo-on] .exit-overlay .exit-dialog,
-  html[data-mo-on] .contact-status,
-  html[data-mo-on] .anchor-spy {
+  html[data-mo-on] .contact-status {
     transition: none !important;
     animation: none !important;
     transform: none !important;
@@ -755,7 +720,6 @@ html[data-mo-on]:not([data-mo-reduced]) .anchor-spy {
   html[data-mo-on] .bio-overlay:not(.open) .bio-dialog,
   html[data-mo-on] .exit-overlay:not(.open) .scrim,
   html[data-mo-on] .exit-overlay:not(.open) .exit-dialog { opacity: 0 !important; }
-  html[data-mo-on] .truth-row + .truth-row::before,
   html[data-mo-on] .cef-item::before { transition: none !important; transform: scaleY(1) !important; }
   html[data-mo-on] .cef-item { border-left-color: #fff !important; }
   html[data-mo-on] .mo-btn.mo-confirm::after { animation: none !important; }
@@ -770,8 +734,7 @@ html[data-mo-reduced][data-mo-on] .bio-overlay .scrim,
 html[data-mo-reduced][data-mo-on] .bio-overlay .bio-dialog,
 html[data-mo-reduced][data-mo-on] .exit-overlay .scrim,
 html[data-mo-reduced][data-mo-on] .exit-overlay .exit-dialog,
-html[data-mo-reduced][data-mo-on] .contact-status,
-html[data-mo-reduced][data-mo-on] .anchor-spy {
+html[data-mo-reduced][data-mo-on] .contact-status {
   transition: none !important;
   animation: none !important;
   transform: none !important;
@@ -783,7 +746,6 @@ html[data-mo-reduced][data-mo-on] .bio-overlay:not(.open) .scrim,
 html[data-mo-reduced][data-mo-on] .bio-overlay:not(.open) .bio-dialog,
 html[data-mo-reduced][data-mo-on] .exit-overlay:not(.open) .scrim,
 html[data-mo-reduced][data-mo-on] .exit-overlay:not(.open) .exit-dialog { opacity: 0 !important; }
-html[data-mo-reduced][data-mo-on] .truth-row + .truth-row::before,
 html[data-mo-reduced][data-mo-on] .cef-item::before { transition: none !important; transform: scaleY(1) !important; }
 html[data-mo-reduced][data-mo-on] .cef-item { border-left-color: #fff !important; }
 html[data-mo-reduced][data-mo-on] .mo-btn.mo-confirm::after { animation: none !important; }
@@ -819,8 +781,7 @@ html[data-mo-reduced][data-mo-on] .mo-btn.mo-confirm::after { animation: none !i
   html[data-mo-on] .stockinfo-row::before,
   html[data-mo-on] .ice-panel::before,
   html[data-mo-on] .mo-stat::after,
-  html[data-mo-on] .mo-field::after,
-  html[data-mo-on] .anchor-nav a .nav-swap::after {
+  html[data-mo-on] .mo-field::after {
     transition: none !important;
   }
   html[data-mo-on] .stockinfo-row::before,
@@ -853,8 +814,7 @@ html[data-mo-reduced][data-mo-on] .mo-dropdown .nav-dropdown-panel a {
 html[data-mo-reduced][data-mo-on] .stockinfo-row::before,
 html[data-mo-reduced][data-mo-on] .ice-panel::before,
 html[data-mo-reduced][data-mo-on] .mo-stat::after,
-html[data-mo-reduced][data-mo-on] .mo-field::after,
-html[data-mo-reduced][data-mo-on] .anchor-nav a .nav-swap::after {
+html[data-mo-reduced][data-mo-on] .mo-field::after {
   transition: none !important;
 }
 html[data-mo-reduced][data-mo-on] .stockinfo-row::before,

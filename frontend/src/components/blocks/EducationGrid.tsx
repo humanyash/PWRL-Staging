@@ -3,7 +3,7 @@ import { EducationCard } from "@/components/blocks/EducationCard";
 import { EDUCATION_ARTICLES } from "@/lib/education";
 import type { EducationGridBlock } from "@/types/blocks";
 
-/** Full education index — 3-column article grid (Figma Education Page). */
+/** Full Learn index — 3×3 article grid (Figma Learn Page). */
 export function EducationGrid({ block }: { block: EducationGridBlock }) {
   return (
     <Section tone="light" className="!pb-[100px] !pt-[60px] md:!pt-[80px]">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 type PendingLink = { href: string; target: string };
 
@@ -85,42 +86,51 @@ export function ExternalLinkGuard() {
 
   if (!pending) return null;
 
-  return (
+  const dialog = (
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="exit-link-title"
-      className={`exit-overlay ${shown ? "open" : ""} fixed inset-0 z-[70] flex items-center justify-center px-6 py-10`}
+      className={`exit-overlay ${shown ? "open" : ""} fixed inset-0 z-[70] flex items-center justify-center px-4`}
     >
       <div
-        className="scrim absolute inset-0 bg-black/80"
+        className="scrim absolute inset-0 bg-black/50"
         onClick={close}
         aria-hidden
       />
-      <div className="exit-dialog relative w-full max-w-[640px] rounded-[20px] bg-charcoal px-10 py-12 text-center md:px-14 md:py-14">
-        <h2 id="exit-link-title" className="exit-dialog__title">
+      <div className="exit-dialog relative z-[1] grid w-full max-w-[calc(100%-2rem)] gap-5 rounded-2xl bg-black-100 p-7 text-white shadow-lg sm:max-w-185">
+        <h2
+          id="exit-link-title"
+          className="text-center font-[family-name:var(--font-ivy)] text-[2.2rem] leading-tight md:text-[2.8rem]"
+        >
           You are leaving PWRL.com
         </h2>
-        <p className="exit-dialog__body">
+        <p className="mt-0 text-center font-[family-name:var(--font-franklin)] text-sm leading-relaxed text-white/80">
           By clicking below you acknowledge that you are navigating away from
           PWRL.com. Please take note of Powerlaw&apos;s privacy policy, terms of
           use, and disclosures are not applicable for this site.
         </p>
-        <div className="exit-dialog__actions">
-          <button type="button" onClick={close} className="exit-dialog__cancel">
-            Cancel
+        <div className="flex flex-col gap-4 md:flex-row md:justify-center md:gap-6">
+          <button
+            type="button"
+            onClick={close}
+            className="common-cta cta-white min-w-44 text-electric-blue"
+          >
+            CANCEL
           </button>
           <button
             type="button"
             onClick={proceed}
-            className="exit-dialog__proceed"
+            className="common-cta cta-blue min-w-44"
           >
-            Proceed
+            PROCEED
           </button>
         </div>
       </div>
     </div>
   );
+
+  return createPortal(dialog, document.body);
 }
 
 export default ExternalLinkGuard;

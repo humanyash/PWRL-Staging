@@ -27,7 +27,7 @@ function NewsChevron({ direction }: { direction: "left" | "right" }) {
 
 /**
  * NewsList — rebuilt from live /investor-relations (AUDIT.md R7-3):
- *  - section py-[100px]; heading row `flex justify-between items-end`
+ *  - section py-[54px]; heading row `flex justify-between items-end`
  *    (h4 32/48 + scroll chevrons, PDF reference);
  *  - card strip: `flex snap-x snap-mandatory overflow-x-auto
  *    overscroll-x-contain no-scrollbar mt-6 gap-6`;
@@ -46,16 +46,14 @@ export function NewsList({ block }: { block: NewsListBlock }) {
     const maxScroll = el.scrollWidth - el.clientWidth;
     setCanScrollLeft(el.scrollLeft > 8);
     setCanScrollRight(el.scrollLeft < maxScroll - 8);
-    el.classList.toggle("has-more", maxScroll > 8 && el.scrollLeft < maxScroll - 8);
   }, []);
 
   const scrollBy = (dir: number) => {
     strip.current?.scrollBy({ left: dir * 420, behavior: "smooth" });
   };
 
-  // Kinetic layer E12 (handoff bindNews): right-edge fade while more cards
-  // exist off-screen, plus a one-time nudge on first view (skipped for
-  // reduced motion / touch).
+  // Kinetic layer E12: one-time nudge on first view (skipped for reduced
+  // motion / touch).
   useEffect(() => {
     const el = strip.current;
     if (!el) return;
@@ -98,7 +96,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
   }, [updateScrollState]);
 
   return (
-    <Section tone="light" id="news" className="!py-[100px]">
+    <Section tone="light" id="news" className="!py-[54px]">
       <div className="flex items-end justify-between">
         <h4
           className="font-display text-[32px] font-normal leading-[1.1] text-black md:text-[48px] md:leading-none"

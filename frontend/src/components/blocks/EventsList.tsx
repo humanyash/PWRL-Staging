@@ -2,33 +2,42 @@ import { Section } from "@/components/ui/Section";
 import { EVENT_ITEMS } from "@/lib/education";
 import type { EventItemBlock, EventsListBlock } from "@/types/blocks";
 
-function WebcastBadge({ type }: { type: EventItemBlock["type"] }) {
+function PinIcon() {
   return (
-    <span className="inline-flex items-center gap-1.5 font-[family-name:var(--font-franklin)] text-xs uppercase tracking-wide text-charcoal/70">
-      {type === "recording" ? (
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-          <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" />
-          <path
-            d="M5.5 4.5v5l4-2.5-4-2.5z"
-            fill="currentColor"
-          />
-        </svg>
-      ) : (
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-          <rect
-            x="2"
-            y="3"
-            width="10"
-            height="7"
-            rx="1"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          />
-          <path d="M5 6.5h4" stroke="currentColor" strokeWidth="1.2" />
-        </svg>
-      )}
-      Webcast
-    </span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M7 1.5A3.5 3.5 0 0 0 3.5 5c0 2.625 3.5 7.5 3.5 7.5S10.5 7.625 10.5 5A3.5 3.5 0 0 0 7 1.5z"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <circle cx="7" cy="5" r="1.25" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M5.5 8.5 L3 11A2.121 2.121 0 0 1 0 8l2.5-2.5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8.5 5.5 L11 3A2.121 2.121 0 0 1 14 6l-2.5 2.5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M5 9 L9 5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
@@ -62,23 +71,32 @@ function EventCard({ event }: { event: EventItemBlock }) {
         <div className="aspect-[16/10] bg-navy" />
       )}
 
-      <div className="space-y-4 p-6 md:p-8">
-        <p className="font-[family-name:var(--font-franklin)] text-sm text-charcoal/70">
+      <div className="space-y-3 p-6 md:p-8">
+        <p className="font-[family-name:var(--font-franklin)] text-sm text-[#0023EC]">
           {event.dateTime}
         </p>
         <h3 className="font-[family-name:var(--font-franklin)] text-xl font-semibold leading-snug text-charcoal md:text-2xl">
           {event.title}
         </h3>
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+        <div className="flex flex-col gap-2 pt-1">
           <a
             href={event.ctaHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-[family-name:var(--font-franklin)] text-sm font-semibold uppercase tracking-wide text-[#0023EC] underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 font-[family-name:var(--font-franklin)] text-sm text-charcoal/70"
           >
+            <PinIcon />
             {event.ctaLabel}
           </a>
-          <WebcastBadge type={event.type} />
+          <a
+            href={event.ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-[family-name:var(--font-franklin)] text-sm text-charcoal underline underline-offset-4"
+          >
+            <LinkIcon />
+            Webcast
+          </a>
         </div>
       </div>
     </article>

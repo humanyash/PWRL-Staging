@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import type { PersonCard } from "@/types/blocks";
 
 /**
@@ -30,7 +31,7 @@ function SplitName({ name }: { name: string }) {
 function Bio({ person }: { person: PersonCard }) {
   if (person.bioFormat === "bullets" && person.bioBullets) {
     return (
-      <ul className="list-disc space-y-1.5 pl-5 text-left">
+      <ul className="list-disc space-y-2 pl-6 text-left">
         {person.bioBullets.map((b, i) => (
           <li key={i}>{b}</li>
         ))}
@@ -38,7 +39,7 @@ function Bio({ person }: { person: PersonCard }) {
     );
   }
   return (
-    <div className="space-y-3 text-left">
+    <div className="space-y-6 text-left">
       {(person.bio ?? "").split("\n\n").map((para, i) => (
         <p key={i}>{para}</p>
       ))}
@@ -58,10 +59,15 @@ export function PersonCardItem({ person }: { person: PersonCard }) {
 
   useEffect(() => {
     if (!dialogOpen) return;
+    // Lock page scroll while the dialog is mounted (including close animation).
+    document.body.style.overflow = "hidden";
     // setTimeout, not rAF: rAF freezes in backgrounded tabs and would leave
     // the dialog stuck invisible behind the .open gate.
     const t = setTimeout(() => setDialogShown(true), 20);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(t);
+      document.body.style.overflow = "";
+    };
   }, [dialogOpen]);
 
   const closeDialog = () => {
@@ -151,50 +157,64 @@ export function PersonCardItem({ person }: { person: PersonCard }) {
           </p>
         </button>
 
-        {dialogOpen ? (
+        {dialogOpen ? createPortal(
           <div
             role="dialog"
             aria-modal="true"
             aria-label={`${person.name} bio`}
-            className={`bio-overlay ${dialogShown ? "open" : ""} fixed inset-0 z-[60] flex items-center justify-center p-6`}
+            className={`bio-overlay ${dialogShown ? "open" : ""} fixed inset-0 z-[60] flex items-center justify-center px-4 py-6`}
           >
+            {/* Scrim — clicking anywhere outside the card closes it. */}
             <div
               className="scrim absolute inset-0 bg-navy/70"
               onClick={closeDialog}
               aria-hidden
             />
-            <div className="bio-dialog relative max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-8 text-charcoal shadow-2xl">
+
+            {/* Bio card — matches production structure exactly. */}
+            <div className="bio-dialog relative max-h-[900px] w-full max-w-[1180px] overflow-y-auto rounded-2xl bg-white text-charcoal shadow-2xl">
+              {/* Close button */}
               <button
                 type="button"
                 onClick={closeDialog}
                 aria-label="Close bio"
-                className="absolute right-5 top-4 text-2xl leading-none text-charcoal/60 hover:text-charcoal"
+                className="absolute right-5 top-5 z-10 flex h-7 w-7 items-center justify-center text-xl leading-none text-charcoal/50 transition-colors hover:text-charcoal"
               >
                 ×
               </button>
-              <div className="flex items-center gap-5">
-                {photo ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={photo}
-                    alt={person.name}
-                    className="h-20 w-20 rounded-2xl object-cover"
-                  />
-                ) : null}
-                <div>
-                  <p className="font-[family-name:var(--font-franklin)] text-[24px] font-bold leading-tight text-[#0023EC]">
-                    {person.name}
-                  </p>
-                  <p className="mt-1 text-[18px] text-charcoal">
-                    {person.role}
-                  </p>
+
+              {/* Scrollable content: grid with 360px photo + 1fr text */}
+              <div className="p-10">
+                <div className="grid grid-cols-1 gap-10 md:grid-cols-[360px_1fr] md:items-start">
+                  {/* Left: 4:5 portrait photo with rounded corners */}
+                  {photo ? (
+                    <div className="overflow-hidden rounded-2xl shadow-inner">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={photo}
+                        alt={person.name}
+                        className="aspect-[4/5] w-full rounded-xl object-cover object-top"
+                      />
+                    </div>
+                  ) : null}
+
+                  {/* Right: name, role, bio */}
+                  <div className="text-left">
+                    <h1 className="font-[family-name:var(--font-franklin)] text-[32px] font-bold leading-tight text-[#0023EC]">
+                      {person.name}
+                    </h1>
+                    <h2 className="mt-2 font-[family-name:var(--font-franklin)] text-[20px] font-semibold text-charcoal">
+                      {person.role}
+                    </h2>
+                    <div className="mt-6 font-[family-name:var(--font-franklin)] text-[15px] font-light leading-relaxed text-charcoal/80">
+                      <Bio person={person} />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="mt-6 font-[family-name:var(--font-franklin)] text-[16px] font-light leading-relaxed">
-                <Bio person={person} />
-              </div>
             </div>
-          </div>
+          </div>,
+          document.body
         ) : null}
       </div>
     </>

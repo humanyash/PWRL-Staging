@@ -31,20 +31,86 @@ const PLACEHOLDER_SECTIONS = [
   },
 ];
 
+const LEARN_IMAGES = [
+  {
+    src: "/remote-assets/education/measure-progress.jpg",
+    alt: "Stock market data visualization",
+  },
+  {
+    src: "/remote-assets/education/manages-portfolio.jpg",
+    alt: "Investor looking out over a city skyline",
+  },
+  {
+    src: "/remote-assets/education/accesses-private-tech.jpg",
+    alt: "Abstract blue digital network",
+  },
+] as const;
+
+const PLACEHOLDER_ARTICLES: Omit<EducationArticle, "slug">[] = [
+  {
+    title: "Understanding PWRL's Investment Approach",
+    date: "June 18, 2026",
+    publishedLabel: "Published June 18, 2026",
+    image: LEARN_IMAGES[2],
+    heroImage: LEARN_IMAGES[2],
+    body: PLACEHOLDER_BODY,
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
+    title: "Private Tech Exposure Explained",
+    date: "June 16, 2026",
+    publishedLabel: "Published June 16, 2026",
+    image: LEARN_IMAGES[0],
+    heroImage: LEARN_IMAGES[0],
+    body: PLACEHOLDER_BODY,
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
+    title: "Reading PWRL's Monthly NAV Updates",
+    date: "June 14, 2026",
+    publishedLabel: "Published June 14, 2026",
+    image: LEARN_IMAGES[1],
+    heroImage: LEARN_IMAGES[1],
+    body: PLACEHOLDER_BODY,
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
+    title: "The Role of Secondaries in PWRL",
+    date: "June 12, 2026",
+    publishedLabel: "Published June 12, 2026",
+    image: LEARN_IMAGES[1],
+    heroImage: LEARN_IMAGES[1],
+    body: PLACEHOLDER_BODY,
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
+    title: "What Makes PWRL Different",
+    date: "June 10, 2026",
+    publishedLabel: "Published June 10, 2026",
+    image: LEARN_IMAGES[2],
+    heroImage: LEARN_IMAGES[2],
+    body: PLACEHOLDER_BODY,
+    sections: PLACEHOLDER_SECTIONS,
+  },
+  {
+    title: "Getting Started with PWRL",
+    date: "June 8, 2026",
+    publishedLabel: "Published June 8, 2026",
+    image: LEARN_IMAGES[0],
+    heroImage: LEARN_IMAGES[0],
+    body: PLACEHOLDER_BODY,
+    sections: PLACEHOLDER_SECTIONS,
+  },
+];
+
 export const EDUCATION_ARTICLES: EducationArticle[] = [
   {
     slug: "how-to-measure-pwrls-progress",
     title: "How to Measure PWRL's Progress",
     date: "June 24, 2026",
     publishedLabel: "Published June 24, 2026",
-    image: {
-      src: "/remote-assets/education/measure-progress.jpg",
-      alt: "Stock market data visualization",
-    },
-    heroImage: {
-      src: "/remote-assets/education/measure-progress.jpg",
-      alt: "Stock market data visualization",
-    },
+    image: LEARN_IMAGES[0],
+    heroImage: LEARN_IMAGES[0],
     body: PLACEHOLDER_BODY,
     sections: PLACEHOLDER_SECTIONS,
   },
@@ -53,14 +119,8 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     title: "How PWRL Manages Its Portfolio",
     date: "June 22, 2026",
     publishedLabel: "Published June 22, 2026",
-    image: {
-      src: "/remote-assets/education/manages-portfolio.jpg",
-      alt: "Investor looking out over a city skyline",
-    },
-    heroImage: {
-      src: "/remote-assets/education/manages-portfolio.jpg",
-      alt: "Investor looking out over a city skyline",
-    },
+    image: LEARN_IMAGES[1],
+    heroImage: LEARN_IMAGES[1],
     body: PLACEHOLDER_BODY,
     sections: PLACEHOLDER_SECTIONS,
   },
@@ -69,17 +129,15 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
     title: "How PWRL Accesses The Best in Private Tech",
     date: "June 20, 2026",
     publishedLabel: "Published June 20, 2026",
-    image: {
-      src: "/remote-assets/education/accesses-private-tech.jpg",
-      alt: "Abstract blue digital network",
-    },
-    heroImage: {
-      src: "/remote-assets/education/accesses-private-tech.jpg",
-      alt: "Abstract blue digital network",
-    },
+    image: LEARN_IMAGES[2],
+    heroImage: LEARN_IMAGES[2],
     body: PLACEHOLDER_BODY,
     sections: PLACEHOLDER_SECTIONS,
   },
+  ...PLACEHOLDER_ARTICLES.map((article, i) => ({
+    ...article,
+    slug: `learn-placeholder-${i + 1}`,
+  })),
 ];
 
 export function getEducationArticle(slug: string): EducationArticle | null {
@@ -111,26 +169,27 @@ export interface EventItem {
 
 export const EVENT_ITEMS: EventItem[] = [
   {
-    dateTime: "07/15/2026, 1:00 PM",
+    dateTime: "07/15/2026, 12:00 PM",
     title:
-      "Join the Webinar: Private markets are opening up — but what are you actually buying?",
+      "Join the Webinar: Private markets are opening up – but what are you actually buying?",
     ctaLabel: "Sign Up to Watch Live",
-    ctaHref: "https://www.pwrl.com",
+    ctaHref:
+      "https://moderninvestorsummit.webflow.io/2026/modern-investor-community-series/modern-investor-podcast",
     type: "webcast",
-    brandPanel: {
-      label: "The Modern",
-      sublabel: "Investor Podcast",
+    image: {
+      src: "/events/modern-investor-podcast.png",
+      alt: "The Modern Investor Podcast",
     },
   },
   {
-    dateTime: "06/05/2026, 11:00 AM",
+    dateTime: "06/05/2026, 10:00 AM",
     title: "Virtual Roadshow",
     ctaLabel: "Watch the Recording",
-    ctaHref: "https://www.businesswire.com/news/home/20260604841313/en/Powerlaw-Corp.-Nasdaq-PWRL-to-Host-Virtual-Investor-Roadshow",
+    ctaHref: "https://youtu.be/oRKAE4_4G74?si=KhjXn83maYOIQnFD",
     type: "recording",
     image: {
-      src: "/remote-assets/20be770f-michael_dindsdale.webp",
-      alt: "Virtual roadshow speaker",
+      src: "/events/virtual-roadshow.png",
+      alt: "Virtual Roadshow – Mike Dinsdale, CEO Powerlaw Corp.",
     },
   },
 ];

@@ -9,8 +9,8 @@ import type { PullQuoteBlock } from "@/types/blocks";
  *               bg-cover md:aspect-3/1 flex flex-col justify-center py-20">
  * Slides crossfade behind a `from-blue-400 to-blue-500 opacity-90
  * mix-blend-hard-light` gradient overlay (z-10); content sits at z-20.
- * The quote is a plain h3 (36/55, light, NO quotation marks) in a
- * max-w-11/12 text-balance container; CTA = mint compact, mt-[46px].
+ * The quote is a plain h2 (40/63, light, NO quotation marks) in a
+ * max-w-[1627px] text-balance container; CTA = mint compact, mt-[46px].
  */
 export function PullQuote({ block }: { block: PullQuoteBlock }) {
   const slides = block.backgroundSlides ?? [];
@@ -57,25 +57,25 @@ export function PullQuote({ block }: { block: PullQuoteBlock }) {
         />
       ) : null}
 
-      <blockquote className="relative z-20 mx-auto w-[91.667%] text-balance text-center">
+      <blockquote className="relative z-20 mx-auto flex w-full max-w-[1675px] flex-col items-center px-6 text-center">
         <h2
-          className="font-display text-[36px] font-light leading-[1.1] text-white md:text-[55px]"
+          className="max-w-[1627px] text-balance font-display text-[40px] font-light leading-[1.1] text-white md:text-[63px]"
           data-mo="fade"
         >
           {renderLines(block.quote)}
         </h2>
         {block.subheading ? (
           <p
-            className="mx-auto mt-6 max-w-3xl font-[family-name:var(--font-franklin)] text-[16px] font-light leading-snug text-white md:text-[18px]"
+            className="mt-6 max-w-[91.667%] font-[family-name:var(--font-franklin)] text-[17px] font-light leading-snug text-white md:text-[19px]"
             data-mo=""
             style={moStyle({ "--mo-i": 1 })}
           >
-            {block.subheading}
+            {renderLines(block.subheading)}
           </p>
         ) : null}
         {block.cta ? (
           <div
-            className="mt-[46px]"
+            className="mt-[46px] flex w-full justify-center"
             data-mo=""
             style={moStyle({ "--mo-i": 1 })}
           >

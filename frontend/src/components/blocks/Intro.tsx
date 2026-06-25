@@ -1,6 +1,6 @@
 import { CTA } from "@/components/ui/CTA";
 import { moStyle } from "@/lib/motion";
-import { renderLines } from "@/lib/rich";
+import { renderRich, introTailHeadingLines, renderLines } from "@/lib/rich";
 import type { IntroBlock, PortfolioGridItem } from "@/types/blocks";
 
 /**
@@ -86,7 +86,10 @@ export function Intro({ block }: { block: IntroBlock }) {
           <div className="mx-auto w-full max-w-6xl px-4 md:px-0!">
             <div className="mx-auto w-full max-w-6xl">
               <div className="flex flex-col items-center gap-y-[24px] md:gap-y-[40px] [&>*]:my-0">
-                <h4 className="font-display text-[32px] font-light leading-[1.1] md:text-[48px]" data-mo="">
+                <h4
+                  className="font-display text-[32px] font-light leading-[1.1] md:text-[48px]"
+                  data-mo=""
+                >
                   {block.heading}
                 </h4>
                 {intro ? (
@@ -131,14 +134,27 @@ export function Intro({ block }: { block: IntroBlock }) {
                   <div className="mx-auto w-full max-w-6xl">
                     <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[40px] [&>*]:my-0">
                       <h3
-                        className="font-display text-[36px] font-light leading-[1.1] md:text-[55px]"
+                        className="flex flex-col font-display text-[36px] font-light leading-[1.1] md:text-[55px]"
                         data-mo="fade"
                       >
-                        {renderLines(block.tailHeading)}
+                        {introTailHeadingLines(block.tailHeading).map(
+                          (line, i) => (
+                            <span
+                              key={i}
+                              className={`block${i === 0 ? " w-[650px]" : ""}`}
+                            >
+                              {renderRich(line)}
+                            </span>
+                          ),
+                        )}
                       </h3>
                       {block.tailParagraphs?.map((p, i) => (
-                        <p key={i} className="font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.2] md:text-[18px]" data-mo="">
-                          {p}
+                        <p
+                          key={i}
+                          className="max-w-[650px] font-[family-name:var(--font-franklin)] text-[14px] font-normal leading-[1.2] md:text-[18px]"
+                          data-mo=""
+                        >
+                          {renderLines(p)}
                         </p>
                       ))}
                       {block.tailCta ? (

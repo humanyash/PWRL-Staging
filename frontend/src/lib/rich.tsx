@@ -12,15 +12,46 @@ const TOKEN =
   /(\*\*[^*]+\*\*|__[\s\S]+?__|_[^_]+_|\[[^\]]+\]\([^)\s]+\))/g;
 
 /** Split on `\n` for editorial line breaks; each line still supports rich markers. */
-export function renderLines(text: string): ReactNode {
+export function renderLines(
+  text: string,
+  { block = false }: { block?: boolean } = {},
+): ReactNode {
   const lines = text.split("\n");
   if (lines.length === 1) return renderRich(text);
+  if (block) {
+    return lines.map((line, i) => (
+      <span key={i} className="block">
+        {renderRich(line)}
+      </span>
+    ));
+  }
   return lines.map((line, i) => (
     <span key={i}>
       {renderRich(line)}
       {i < lines.length - 1 ? <br /> : null}
     </span>
   ));
+}
+
+/** Intro tail h3 — always two lines with a single break after "Nasdaq Listed." */
+export function introTailHeadingLines(text: string): string[] {
+  const trimmed = text.trim();
+  const byNewline = trimmed
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (byNewline.length >= 2) {
+    return [byNewline[0], byNewline.slice(1).join(" ")];
+  }
+  const marker = "Nasdaq Listed.";
+  const at = trimmed.indexOf(marker);
+  if (at >= 0) {
+    const end = at + marker.length;
+    return [trimmed.slice(0, end).trim(), trimmed.slice(end).trim()].filter(
+      Boolean,
+    );
+  }
+  return [trimmed];
 }
 
 export function renderRich(text: string): ReactNode {

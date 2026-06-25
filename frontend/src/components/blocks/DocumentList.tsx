@@ -68,10 +68,10 @@ export async function DocumentList({ block }: { block: DocumentListBlock }) {
           {block.documents.map((doc) => (
             <li
               key={doc.href}
-              className="doc-row mo-card mo-card--quiet flex items-center justify-between gap-6 px-6 py-4 sm:px-[112.5px]"
+              className="doc-row mo-card mo-card--quiet flex h-[60px] items-center justify-between gap-6 overflow-hidden px-6 sm:px-[112.5px]"
               data-mo=""
             >
-              <span className="min-w-0 break-words text-sm leading-snug">
+              <span className="min-w-0 truncate text-sm leading-snug">
                 {doc.label}
               </span>
               <div className="flex shrink-0 items-center gap-4">
@@ -80,11 +80,9 @@ export async function DocumentList({ block }: { block: DocumentListBlock }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Open PDF: ${doc.label}`}
-                  className="pdf pdf-link inline-flex items-center justify-center text-black md:gap-2"
+                  className="pdf pdf-link inline-flex items-center gap-2 text-black"
                 >
-                  <span className="mr-1 hidden text-sm underline md:inline">
-                    View PDF
-                  </span>
+                  <span className="text-base underline">View PDF</span>
                   <PdfIcon className="h-6 w-6" />
                 </a>
               </div>

@@ -15,7 +15,7 @@ export function ProcessSteps({ block }: { block: ProcessStepsBlock }) {
   const cols = block.steps.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3";
 
   return (
-    <Section tone="light" id="where-how" className="!py-[40px] md:!py-[80px]">
+    <Section tone="light" id="where-how" className="!py-[40px] md:!py-[57px]">
       <div className="mb-[40px]">
         <h2
           className="font-display text-[32px] font-light leading-[1.1] text-charcoal md:text-[48px]"

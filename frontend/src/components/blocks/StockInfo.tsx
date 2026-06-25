@@ -1,4 +1,5 @@
 import { Section } from "@/components/ui/Section";
+import { countup } from "@/lib/motion";
 import { InvestingChannelWidget } from "./InvestingChannelWidget";
 import type { StockInfoBlock } from "@/types/blocks";
 
@@ -39,7 +40,7 @@ export function StockInfo({ block }: { block: StockInfoBlock }) {
                 <span className="whitespace-nowrap">
                   <strong>{row.label}</strong>
                 </span>
-                <span data-countup="">{row.value}</span>
+                <span>{countup(row.value)}</span>
               </div>
             ))}
           </div>

@@ -27,7 +27,7 @@ const CX = 160;
 const CY = 160;
 const R_OUT = 145;
 const R_IN = 92;
-const PAD = 2; // degrees, live paddingAngle
+const PAD = 1; // degrees between slices (reduced from 2 to minimise the visible gap between large adjacent slices)
 /** Padding around the 320×320 chart so leader-line labels aren't clipped. */
 const VB_PAD = 90;
 const VB = 320 + VB_PAD * 2;
@@ -63,7 +63,7 @@ export function DonutChart({
   hideDecimals = false,
   id,
   linkTableId,
-  className = "h-[300px] w-full max-w-[482px] sm:h-[360px] md:h-[396px]",
+  className = "aspect-square size-full max-h-[520px] max-w-full min-h-[320px] sm:min-h-[400px] md:min-h-[480px]",
 }: {
   data: { name: string; value: number }[];
   hideDecimals?: boolean;
@@ -74,8 +74,7 @@ export function DonutChart({
   className?: string;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const [selected, setSelected] = useState<number | null>(null);
-  const active = hovered ?? selected ?? null;
+  const active = hovered ?? null;
   const svgRef = useRef<SVGSVGElement>(null);
 
   const pctLabel = (v: number) =>
@@ -179,10 +178,10 @@ export function DonutChart({
   const act = active != null ? slices[active] : null;
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex h-full w-full items-center justify-center">
       <div
         id={id}
-        className={`mo-donut overflow-visible px-1 ${className}`}
+        className={`mo-donut w-full overflow-visible ${className}`}
         style={moStyle({ "--mo-d": "150ms" })}
       >
         <svg
@@ -195,15 +194,26 @@ export function DonutChart({
             <path
               key={s.d.name}
               data-name={s.d.name}
-              d={arcPath(R_OUT, R_IN, s.a0, s.a1)}
+              d={arcPath(s.i === active ? R_OUT + 6 : R_OUT, R_IN, s.a0, s.a1)}
               fill={s.i === active ? ACTIVE : inactiveFill(s.i)}
               style={{ cursor: "pointer", transition: "fill 150ms" }}
               onMouseEnter={() => setHovered(s.i)}
-              onClick={() => setSelected((cur) => (cur === s.i ? null : s.i))}
             >
               <title>{`${s.d.name}: ${pctLabel(s.d.value)}`}</title>
             </path>
           ))}
+
+          {/* Invisible circle over the donut hole — clears hover when the
+              mouse drifts off the ring into the empty center, preventing
+              the leader line from sticking when nothing is active. */}
+          <circle
+            cx={CX}
+            cy={CY}
+            r={R_IN - 1}
+            fill="transparent"
+            style={{ cursor: "default" }}
+            onMouseEnter={() => setHovered(null)}
+          />
 
           {act ? (
             <g pointerEvents="none">
@@ -265,6 +275,7 @@ export function DonutChart({
                     <path
                       d={`M${sx},${sy}L${mx},${my}L${ex},${my}`}
                       stroke={ACTIVE}
+                      strokeWidth={1.5}
                       fill="none"
                     />
                     <circle cx={ex} cy={my} r={2.5} fill={ACTIVE} />

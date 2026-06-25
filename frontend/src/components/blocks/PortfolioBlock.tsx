@@ -1,5 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { DonutChart } from "@/components/ui/DonutChart";
+import { renderLines } from "@/lib/rich";
 import { moStyle } from "@/lib/motion";
 import type {
   PortfolioBlock as PortfolioBlockType,
@@ -91,10 +92,10 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
         className="bg-white pb-[20px] pt-[40px] text-center md:pb-[40px] md:pt-[80px]"
       >
         <div className="mx-auto w-full max-w-6xl px-4">
-          <div className="mx-auto w-full max-w-[1000px]">
+          <div className="mx-auto w-full max-w-[1320px]">
             <div className="flex flex-col items-center gap-y-[24px] md:gap-y-[40px]">
               <h2
-                className="font-display text-[40px] font-light leading-[1.1] text-[#0023EC] md:text-[64px]"
+                className="max-w-[1199px] font-display text-[40px] font-light leading-[1.1] text-[#0023EC] md:text-[64px]"
                 data-mo=""
               >
                 {block.heading}
@@ -105,7 +106,7 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
                   data-mo=""
                   style={moStyle({ "--mo-i": 1 })}
                 >
-                  {block.intro}
+                  {renderLines(block.intro)}
                 </p>
               ) : null}
             </div>
@@ -132,7 +133,7 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
 
       {/* 3. Exposure. */}
       <Section tone="light" className="!py-[36px]">
-        <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 md:grid-cols-2">
+        <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 md:grid-cols-2 md:items-stretch">
           <div>
             <h3
               className="mb-4 inline-flex items-end font-display text-[36px] font-light leading-[1.1] text-charcoal md:text-[55px]"
@@ -160,12 +161,12 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
               ) : null}
             </div>
           </div>
-          <div className="flex w-full items-start justify-center">
+          <div className="flex w-full items-center justify-center self-stretch">
             <DonutChart
               data={donutData}
               id="exposure-donut"
               linkTableId="exposure-table"
-              className="h-[300px] w-full max-w-[482px] sm:h-[360px] md:h-[396px]"
+              className="aspect-square size-full max-h-[520px] max-w-full min-h-[320px] sm:min-h-[400px] md:min-h-[480px]"
             />
           </div>
         </div>
@@ -174,7 +175,7 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
       {/* 3. Sectors — table right, donut left at md. */}
       {block.sectors && block.sectors.length > 0 ? (
         <Section tone="light" className="!py-[36px]">
-          <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 md:grid-cols-2">
+          <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 md:grid-cols-2 md:items-stretch">
             <div className="order-1 md:order-2">
               <h3
                 className="mb-4 inline-flex items-end text-center font-display text-[36px] font-light leading-[1.1] text-charcoal md:text-left md:text-[55px]"
@@ -189,13 +190,13 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
                 </div>
               ) : null}
             </div>
-            <div className="order-2 flex w-full items-start justify-center md:order-1">
+            <div className="order-2 flex w-full items-center justify-center self-stretch md:order-1">
               <DonutChart
                 data={sectorData}
                 hideDecimals
                 id="sectors-donut"
                 linkTableId="sectors-table"
-                className="h-[300px] w-full max-w-[482px] sm:h-[360px] md:h-[396px]"
+                className="aspect-square size-full max-h-[520px] max-w-full min-h-[320px] sm:min-h-[400px] md:min-h-[480px]"
               />
             </div>
           </div>

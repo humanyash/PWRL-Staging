@@ -31,7 +31,7 @@ export function HeroRotator({
         {suffixes.map((suffix) => (
           <span
             key={suffix}
-            className="col-start-1 row-start-1 flex flex-col xl:flex-row"
+            className="hero-rotator-tagline col-start-1 row-start-1 flex flex-col xl:flex-row"
           >
             <span className="shrink-0">{prefix}</span>
             <span className="xl:pl-4">{suffix}</span>
@@ -54,7 +54,7 @@ export function HeroRotator({
       ))}
 
       {/* Static prefix + rotating suffixes. */}
-      <span className="absolute left-0 top-0 flex w-full flex-col xl:flex-row">
+      <span className="hero-rotator-tagline absolute left-0 top-0 flex w-full flex-col xl:flex-row">
         <span
           className="hero-anim shrink-0 opacity-0 will-change-[transform,opacity]"
           style={{ animationName: "hero-prefix" }}

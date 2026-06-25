@@ -87,7 +87,7 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="mo-link uppercase no-underline hover:underline"
+                    className="uppercase no-underline"
                   >
                     {link.label}
                   </Link>
@@ -110,7 +110,7 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
                           alt={s.label}
                           width={18}
                           height={18}
-                          className="mo-link cursor-pointer transition-transform hover:-translate-y-0.5"
+                          className="cursor-pointer"
                         />
                       </a>
                     </li>

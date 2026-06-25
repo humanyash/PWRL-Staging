@@ -56,12 +56,19 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
       <Section
         tone={tone}
         id={block.anchor ?? "investment_strategy"}
-        className="!py-[67.5px] md:!py-[81px]"
+        className={
+          sphere
+            ? "!py-0 h-[801px]"
+            : "!py-[67.5px] md:!py-[144px] h-[690px]"
+        }
+        containerClassName={
+          wheel ? "!px-0 h-[494px] -mt-[54px] -mb-[54px]" : ""
+        }
       >
         <div
-          className={`grid items-center gap-10 ${
+          className={`grid items-center gap-10 pt-0 ${
             wheel ? "md:grid-cols-[8fr_12fr]" : "md:grid-cols-[10fr_10fr]"
-          }`}
+          }${sphere ? " absolute left-[99px] top-[62px] h-[640px]" : ""}`}
         >
           {text}
           {wheel ? (
@@ -104,7 +111,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
   const slides = block.backgroundSlides ?? [];
 
   return (
-    <Section tone="light" id="strategy" className="!py-8">
+    <Section tone="light" id="strategy" className="!py-8" containerClassName="h-[422px] !px-[17px]">
       <div className="relative flex flex-col justify-center overflow-hidden rounded-xl bg-black p-8 text-center text-white md:aspect-[3/1]">
         {/* Static base slide so the panel is never black at t=0. */}
         {slides.length > 0 ? (
@@ -149,7 +156,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
 
           {/* Live panel copy: Franklin font-medium, p2 (16 → 20 at xl). */}
           <div
-            className="mx-auto mt-6 space-y-5 font-[family-name:var(--font-franklin)] text-[16px] font-medium leading-[1.4] text-white xl:text-[20px]"
+            className="mx-auto mt-6 max-w-[764px] space-y-5 font-[family-name:var(--font-franklin)] text-[16px] font-medium leading-[1.4] text-white xl:text-[20px]"
             data-mo=""
             style={moStyle({ "--mo-i": 1 })}
           >

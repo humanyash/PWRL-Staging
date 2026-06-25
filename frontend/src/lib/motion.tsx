@@ -37,7 +37,7 @@ export function phrases(text: string, n: number): ReactNode {
 }
 
 export function countup(text: string): ReactNode {
-  const m = text.match(/^([\s\S]*?)(\$?[\d,]+(?:\.\d+)?%?)([\s\S]*)$/);
+  const m = text.match(/^([\s\S]*?)(\$?\d[\d,]*(?:\.\d+)?%?)([\s\S]*)$/);
   if (!m) return text;
   return (
     <>

@@ -16,7 +16,7 @@ export function EducationCard({
   return (
     <article className="education-card h-full">
       <Link
-        href={`/education/${article.slug}`}
+        href={`/learn/${article.slug}`}
         className="mo-card mo-card--quiet grid h-full grid-rows-[auto_1fr] overflow-hidden rounded-lg no-underline"
       >
         <span className="news-thumb relative block aspect-video overflow-hidden">

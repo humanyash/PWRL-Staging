@@ -35,7 +35,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
 
   return (
     <>
-      <section className="relative overflow-hidden bg-navy text-white">
+      <section className="relative h-[415px] min-h-[415px] max-h-[415px] overflow-hidden bg-navy text-white">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -47,9 +47,9 @@ export function EducationArticleView({ article }: { article: EducationArticle })
           <div className="absolute inset-0 bg-navy/70" aria-hidden />
         </div>
 
-        <Container className="relative min-h-[300px] pb-[108px] pt-[166.5px] md:min-h-[415px] lg:pb-[83px] lg:pt-[225px]">
+        <Container className="relative flex h-full flex-col justify-end pb-10 pt-28 md:pb-12">
           <Link
-            href="/education"
+            href="/learn"
             className="inline-flex items-center gap-2 font-[family-name:var(--font-franklin)] text-lg font-light uppercase tracking-wide text-white no-underline hover:underline"
           >
             <ArticleNavChevron direction="left" />
@@ -100,7 +100,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
             <div className="flex items-center justify-between gap-6">
               {prev ? (
                 <Link
-                  href={`/education/${prev.slug}`}
+                  href={`/learn/${prev.slug}`}
                   className="group flex max-w-[45%] items-center gap-3 font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
                 >
                   <ArticleNavChevron direction="left" />
@@ -114,7 +114,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
 
               {next ? (
                 <Link
-                  href={`/education/${next.slug}`}
+                  href={`/learn/${next.slug}`}
                   className="group flex max-w-[45%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
                 >
                   <span className="line-clamp-2 normal-case tracking-normal md:uppercase md:tracking-[0.08em]">

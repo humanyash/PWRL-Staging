@@ -406,8 +406,7 @@
   }
 
   /* ---------------------------------------------------------------- */
-  /* E14: Anchor-nav scrollspy — persistent underline slides to the    */
-  /* section currently in view. Transform-only positioning.            */
+  /* E14: Anchor-nav scrollspy — bold the section currently in view.  */
   /* ---------------------------------------------------------------- */
   function bindScrollspy() {
     var nav = doc.querySelector(".anchor-nav");
@@ -422,40 +421,33 @@
     if (!map.length) return;
     var stale = nav.querySelector(".anchor-spy");
     if (stale) stale.remove();
-    var spy = doc.createElement("span");
-    spy.className = "anchor-spy";
-    nav.appendChild(spy);
     var current = null;
     var raf = 0;
-    function place(link, instant) {
-      var target = link.querySelector(".nav-swap") || link;
-      var r = target.getBoundingClientRect();
-      var n = nav.getBoundingClientRect();
-      var t = "translate(" + (r.left - n.left).toFixed(1) + "px," +
-              (r.bottom - n.top + 3).toFixed(1) + "px) scaleX(" + (r.width / 100).toFixed(4) + ")";
-      if (instant) {
-        spy.style.transition = "none";
-        spy.style.transform = t;
-        void spy.offsetWidth;
-        spy.style.transition = "";
-      } else {
-        spy.style.transform = t;
+    function setActive(link) {
+      for (var i = 0; i < map.length; i++) {
+        map[i].link.classList.toggle("is-active", map[i].link === link);
       }
     }
     function update() {
       raf = 0;
-      if (!state.enabled) { spy.classList.remove("on"); current = null; return; }
+      if (!state.enabled) {
+        setActive(null);
+        current = null;
+        return;
+      }
       var vh = window.innerHeight || 800;
       var active = null;
       for (var i = 0; i < map.length; i++) {
         if (map[i].sec.getBoundingClientRect().top < vh * 0.45) active = map[i];
       }
-      if (!active) { spy.classList.remove("on"); current = null; return; }
+      if (!active) {
+        setActive(null);
+        current = null;
+        return;
+      }
       if (active === current) return;
-      var first = !spy.classList.contains("on");
       current = active;
-      place(active.link, first || reducedNow());
-      spy.classList.add("on");
+      setActive(active.link);
     }
     on(window, "scroll", function () {
       if (!raf) raf = requestAnimationFrame(update);

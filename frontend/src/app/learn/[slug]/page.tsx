@@ -8,6 +8,8 @@ import {
 } from "@/lib/education";
 import { getGlobalSettings } from "@/lib/strapi";
 
+export const revalidate = 60;
+
 export function generateStaticParams() {
   return EDUCATION_ARTICLES.map((a) => ({ slug: a.slug }));
 }
@@ -20,12 +22,12 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getEducationArticle(slug);
   return {
-    title: article ? `${article.title} — PWRL Education` : "PWRL Education",
+    title: article ? `${article.title} — PWRL Learn` : "PWRL Learn",
     description: article?.title,
   };
 }
 
-export default async function EducationArticlePage({
+export default async function LearnArticlePage({
   params,
 }: {
   params: Promise<{ slug: string }>;

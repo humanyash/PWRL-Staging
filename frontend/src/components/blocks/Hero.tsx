@@ -1,9 +1,23 @@
 import { Container } from "@/components/ui/Container";
 import { CTA } from "@/components/ui/CTA";
 import { HeroRotator } from "@/components/blocks/HeroRotator";
-import { renderRich } from "@/lib/rich";
+import { renderLines, renderRich } from "@/lib/rich";
 import { moStyle } from "@/lib/motion";
 import type { HeroBlock } from "@/types/blocks";
+
+function heroBodyParagraphClass(
+  text: string,
+  index: number,
+  total: number,
+): string {
+  if (total >= 2 && index === 0 && text.includes("•")) {
+    return "hero-body-companies";
+  }
+  if (total >= 2 && index === total - 1 && text.startsWith("**")) {
+    return "hero-body-tagline";
+  }
+  return "";
+}
 
 /**
  * Hero — full-bleed banner matching the live PWRL home (/pwrl):
@@ -21,14 +35,14 @@ export function Hero({ block }: { block: HeroBlock }) {
     block.headlineSuffixes.length > 0;
 
   const sectionSpacing = block.compact
-    ? "min-h-[300px] pb-[108px] pt-[166.5px] md:min-h-[415px] lg:pb-[83px] lg:pt-[225px]"
+    ? "h-[415px] min-h-[415px] max-h-[415px]"
     : "pb-19 pt-43 lg:pb-29 lg:pt-68 lg:min-h-[785px] xl:min-h-[785px]";
 
   return (
     <section
       data-mo-hero=""
       className={`relative overflow-hidden ${sectionSpacing} ${
-        onDark ? "text-white" : "bg-ice text-charcoal"
+        onDark ? "bg-black text-white" : "bg-ice text-charcoal"
       }`}
     >
       {hasVideo || hasImage ? (
@@ -48,13 +62,21 @@ export function Hero({ block }: { block: HeroBlock }) {
             <img
               src={block.backgroundImage!.src}
               alt={block.backgroundImage!.alt}
-              className="mo-parallax absolute inset-0 h-full w-full object-cover"
+              className={`absolute inset-0 h-full w-full object-cover${
+                block.compact ? "" : " mo-parallax"
+              }`}
             />
           )}
         </div>
       ) : null}
 
-      <Container className="relative z-20 mt-[50px] flex flex-col justify-center !px-4">
+      <Container
+        className={`relative z-20 flex flex-col !px-4 ${
+          block.compact
+            ? "h-full justify-end pb-10 pt-28 md:px-8 md:pb-12"
+            : "justify-center"
+        }`}
+      >
         {block.eyebrow ? (
           <p
             className={`mb-5 text-xs font-semibold uppercase tracking-[0.2em] ${
@@ -98,14 +120,16 @@ export function Hero({ block }: { block: HeroBlock }) {
 
         {block.body?.length || (block.ctas && block.ctas.length > 0) ? (
           <div
-            className={`hero-wysiwyg [&_h1]:font-light [&>p:first-child]:mt-[8px] max-w-240 leading-8 ${
+            className={`hero-wysiwyg [&_h1]:font-light [&>p:first-child]:mt-4 md:[&>p:first-child]:mt-6 max-w-240 leading-8 ${
               onDark ? "hero-wysiwyg--on-dark" : "text-charcoal/80"
             }`}
             data-mo=""
             style={moStyle({ "--mo-d": "380ms" })}
           >
-            {block.body?.map((p, i) => (
-              <p key={i}>{renderRich(p)}</p>
+            {block.body?.map((p, i, arr) => (
+              <p key={i} className={heroBodyParagraphClass(p, i, arr.length)}>
+                {renderLines(p)}
+              </p>
             ))}
 
             {block.ctas && block.ctas.length > 0 ? (

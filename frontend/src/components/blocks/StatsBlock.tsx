@@ -14,7 +14,7 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
     return (
       <section
         id="heritage"
-        className="scroll-mt-28 pb-5 pt-10 md:pb-10 md:pt-20"
+        className="scroll-mt-28 py-[70px]"
       >
         <div className="mx-auto w-full max-w-6xl px-4">
           <div className="mb-10 pl-4 md:max-w-[65%] md:pl-0">
@@ -29,26 +29,30 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
           <div className="md:flex md:flex-row md:items-center md:gap-10">
             <div className="md:flex-1">
               <div className="flex flex-col items-start gap-y-6 md:gap-y-10">
-                {block.subheading ? (
-                  <h5
-                    className="font-display text-[24px] font-light leading-[1.1] text-charcoal md:text-[30px] md:leading-[1]"
-                    data-mo=""
-                  >
-                    {block.subheading}
-                  </h5>
-                ) : null}
-                {(block.body ?? (block.intro ? [block.intro] : [])).map(
-                  (paragraph, i) => (
-                    <p
-                      key={i}
-                      className="font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] text-charcoal md:text-[20px]"
+                <div className="-translate-y-[3px] flex w-full flex-col items-start gap-y-6 md:gap-y-10">
+                  {block.subheading ? (
+                    <h5
+                      className="font-display text-[24px] font-light leading-[1.1] text-charcoal md:text-[30px] md:leading-[1]"
                       data-mo=""
-                      style={moStyle({ "--mo-i": i + 1 })}
                     >
-                      {paragraph}
-                    </p>
-                  ),
-                )}
+                      {block.subheading}
+                    </h5>
+                  ) : null}
+                  <div className="flex w-full flex-col items-start gap-y-5 md:gap-y-8">
+                    {(block.body ?? (block.intro ? [block.intro] : [])).map(
+                      (paragraph, i) => (
+                        <p
+                          key={i}
+                          className="font-[family-name:var(--font-franklin)] text-[16px] font-normal leading-[1.4] text-charcoal md:text-[20px]"
+                          data-mo=""
+                          style={moStyle({ "--mo-i": i + 1 })}
+                        >
+                          {paragraph}
+                        </p>
+                      ),
+                    )}
+                  </div>
+                </div>
                 {block.cta ? (
                   <div data-mo="" style={moStyle({ "--mo-i": 3 })}>
                     <CTA cta={block.cta} compact />
@@ -60,7 +64,7 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
             <div className="mt-10 md:mt-0 md:flex-1">
               <div className="mx-auto max-w-[640px] md:pt-0">
                 <div
-                  className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+                  className="-translate-y-[10px] grid grid-cols-1 gap-4 sm:grid-cols-2"
                   data-mo-stagger=""
                 >
                   {block.stats.map((stat) => (

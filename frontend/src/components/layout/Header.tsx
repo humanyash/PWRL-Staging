@@ -47,10 +47,8 @@ function HamburgerIcon({ className = "h-5 w-5" }: { className?: string }) {
  *  - Nav row: gradient over the hero (`from-black via-black/65 to-transparent`);
  *    switches to solid black once scrolled past the hero. The row hides on
  *    scroll-down and returns on scroll-up (live translates the wrapper).
- *  - Links: uppercase, tracking-wide, hover = BOLD (invisible-bold-span
- *    width trick so nothing shifts); each item opens a dropdown submenu
- *    (rounded-md bg-neutral-900/95 py-4 px-6 text-sm).
- *  - Contact lives behind the utility hamburger at far right.
+ *  - Links: The Fund, How to Trade, Investor Relations, Learn (primary row).
+ *  - Our Vision + Contact live in the utility hamburger (Figma 2.0).
  */
 export function Header({ settings }: { settings: GlobalSettings }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -64,7 +62,14 @@ export function Header({ settings }: { settings: GlobalSettings }) {
   const pathname = usePathname();
   const showBanner = pathname === "/" && Boolean(settings.banner);
 
-  // Homepage masthead height — hero video starts below this edge.
+  /** True when the current page lives under `href` (exact or sub-path). */
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
+
+  /** Primary header row — everything except hamburger-only items. */
+  const UTILITY_NAV_LABELS = new Set(["Our Vision", "Contact"]);
+  const primaryNav = settings.nav.filter((n) => !UTILITY_NAV_LABELS.has(n.label));
+  const utilityNav = settings.nav.filter((n) => UTILITY_NAV_LABELS.has(n.label));
   useEffect(() => {
     const root = document.documentElement;
     if (!showBanner || !bannerRef.current) {
@@ -82,9 +87,6 @@ export function Header({ settings }: { settings: GlobalSettings }) {
       root.style.setProperty("--pwrl-site-banner-h", "0px");
     };
   }, [showBanner]);
-
-  const inlineNav = settings.nav.filter((n) => n.label !== "Contact");
-  const utilityNav = settings.nav.filter((n) => n.label === "Contact");
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -175,7 +177,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
 
             <nav className="hidden md:block">
               <ul className="flex items-center justify-center gap-x-8 py-3 uppercase lg:gap-x-16">
-                {inlineNav.map((item) => (
+                {primaryNav.map((item) => (
                   <li
                     key={item.href}
                     className="mo-dropdown-parent group relative"
@@ -185,12 +187,16 @@ export function Header({ settings }: { settings: GlobalSettings }) {
                       className="inline-block py-2 no-underline"
                     >
                       {/* Invisible bold copy reserves width; visible copy
-                        bolds on hover without layout shift (live trick). */}
+                        bolds on hover/active without layout shift (live trick). */}
                       <span className="relative inline-block whitespace-nowrap tracking-wide transition-colors">
                         <span className="invisible font-bold">
                           {item.label}
                         </span>
-                        <span className="absolute inset-0 text-white group-hover:font-bold">
+                        <span
+                          className={`absolute inset-0 text-white group-hover:font-bold ${
+                            isActive(item.href) ? "font-bold" : ""
+                          }`}
+                        >
                           {item.label}
                         </span>
                       </span>
@@ -218,7 +224,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
               </ul>
             </nav>
 
-            {/* Desktop utility hamburger (live keeps Contact behind it). */}
+            {/* Desktop utility hamburger — Our Vision + Contact (Figma 2.0). */}
             <div className="relative hidden md:block">
               <button
                 type="button"
@@ -232,12 +238,12 @@ export function Header({ settings }: { settings: GlobalSettings }) {
               {utilityOpen ? (
                 <div className="absolute right-0 top-full z-30 text-left normal-case">
                   <div className="min-w-48 rounded-md bg-neutral-900/95 px-6 py-4 text-sm text-white shadow-xl ring-1 ring-black/40">
-                    <ul>
+                    <ul className="space-y-1">
                       {utilityNav.map((item) => (
                         <li key={item.href}>
                           <Link
                             href={item.href}
-                            className="block rounded py-1.5 text-white/90 no-underline transition hover:font-bold"
+                            className="block rounded py-1.5 font-semibold uppercase tracking-wide text-white/90 no-underline transition hover:font-bold"
                             onClick={() => setUtilityOpen(false)}
                           >
                             {item.label}
@@ -299,7 +305,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
 
               <nav className="px-12">
                 <ul className="border-t border-white/15">
-                  {inlineNav.map((item) => {
+                  {primaryNav.map((item) => {
                     const hasChildren =
                       item.children && item.children.length > 0;
                     if (!hasChildren) {
@@ -310,7 +316,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
                         >
                           <Link
                             href={item.href}
-                            className="flex w-full items-center justify-between py-4 text-left text-base font-semibold uppercase"
+                            className={`flex w-full items-center justify-between py-4 text-left text-base uppercase ${isActive(item.href) ? "font-bold" : "font-semibold"}`}
                             onClick={() => setMobileOpen(false)}
                           >
                             <span>{item.label}</span>
@@ -333,7 +339,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
                         <div className="flex items-center gap-4 py-4">
                           <Link
                             href={item.href}
-                            className="flex-1 text-left text-2xl font-bold uppercase no-underline"
+                            className={`flex-1 text-left text-2xl uppercase no-underline ${isActive(item.href) ? "font-extrabold" : "font-bold"}`}
                             onClick={() => setMobileOpen(false)}
                           >
                             {item.label}

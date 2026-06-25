@@ -106,7 +106,7 @@ export function PlatformTabs({ block }: { block: PlatformTabsBlock }) {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="platform-tile mo-card mo-card--quiet flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-gray-900 no-underline"
+                className="platform-tile mo-card mo-card--quiet flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-gray-900 no-underline hover:underline hover:decoration-black hover:underline-offset-[3px]"
                 data-mo=""
               >
                 {item.logo?.src ? (

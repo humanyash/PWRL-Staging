@@ -1,6 +1,7 @@
 import { renderRich } from "@/lib/rich";
 import { moStyle } from "@/lib/motion";
 import type { TimelineBlock } from "@/types/blocks";
+import { TimelineConnectorLines } from "@/components/blocks/TimelineConnectorLines";
 
 /**
  * Timeline ("A History of Firsts") — rebuilt from the live DOM + Figma
@@ -30,15 +31,6 @@ const CARDS_TOP = [
 const CARDS_BOTTOM = [
   { left: "22.7%", width: "31.8%", top: -50 },
   { left: "54.5%", width: "45.5%", top: 0 },
-];
-
-/** Figma 1:178–1:182, converted to grid-space px (grid top = beam top − 230). */
-const LINES = [
-  { left: "6.8%", top: 177, height: 286 },
-  { left: "38.5%", top: 86, height: 377 },
-  { left: "70%", top: 59, height: 404 },
-  { left: "22.7%", top: 431, height: 323 },
-  { left: "calc(54.5% - 2px)", top: 431, height: 335 },
 ];
 
 /** Year anchor = ascending connector-line x (live adds +24px inline). */
@@ -116,6 +108,7 @@ export function Timeline({ block }: { block: TimelineBlock }) {
           <div className="relative" style={{ width: "max(100vw, 1400px)" }}>
             <div
               className="grid"
+              data-timeline-grid=""
               style={{ height: 860, gridTemplateRows: "230px 400px 230px" }}
             >
               <div className="relative">
@@ -139,6 +132,7 @@ export function Timeline({ block }: { block: TimelineBlock }) {
                   <img
                     src={block.backgroundGraphic}
                     alt="Timeline ribbon"
+                    data-timeline-beam=""
                     className="absolute inset-0 z-10 h-full w-full object-cover"
                     data-mo="fade"
                   />
@@ -174,19 +168,7 @@ export function Timeline({ block }: { block: TimelineBlock }) {
               aria-hidden
               className="pointer-events-none absolute inset-0 z-20"
             >
-              {LINES.map((l, i) => (
-                <span
-                  key={i}
-                  className="tl-line absolute w-[3px] bg-[#B0E9FD]"
-                  data-mo="draw"
-                  style={{
-                    left: l.left,
-                    top: l.top,
-                    height: l.height,
-                    ...moStyle({ "--mo-i": i, "--mo-d": "200ms" }),
-                  }}
-                />
-              ))}
+              <TimelineConnectorLines />
               {/* Live JS truth (R10-3): years 32px (40px for the last) at
                   top 55%, left = connector x + 24px, ls .02em. */}
               {years.map((year, i, arr) => (
@@ -219,7 +201,7 @@ export function Timeline({ block }: { block: TimelineBlock }) {
                   style={{
                     left: `calc(${YEAR_LEFTS[4] ?? "71.4%"} + 24px)`,
                     top: "42%",
-                    transform: "translateY(-50%)",
+                    transform: "translateY(calc(-50% + 25px))",
                   }}
                 >
                   <span

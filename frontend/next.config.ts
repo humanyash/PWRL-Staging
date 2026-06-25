@@ -12,6 +12,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.ctfassets.net" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/education",
+        destination: "/learn",
+        permanent: true,
+      },
+      {
+        source: "/education/:slug",
+        destination: "/learn/:slug",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
