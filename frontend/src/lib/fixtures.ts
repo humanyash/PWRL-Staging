@@ -271,7 +271,7 @@ const HOME: PageData = {
       heading: "Only for everyone.",
       // Live renders the home hero body inside <b> — ** markers → bold.
       body: [
-        "SpaceX • OpenAI • Kalshi • Deel • Stripe • Kraken • Vast Data, • Databricks • Tether •\nColossal • Mercor • Perplexity • Canva • Groq • Rippling • Saronic • Figma • Waymo",
+        "SpaceX • OpenAI • Kalshi • Deel • Stripe • Kraken • Vast Data • Databricks • Tether •\nColossal • Mercor • Perplexity • Canva • Groq • Rippling • Saronic • Figma • Waymo",
         "**All in one Nasdaq-listed stock. Only for Everyone.**",
       ],
       headlineSlides: ["Powerlaw Corp.", "Nasdaq: PWRL"],

@@ -62,7 +62,7 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
             </div>
 
             <div className="mt-10 md:mt-0 md:flex-1">
-              <div className="mx-auto max-w-[640px] md:pt-0">
+              <div className="mx-auto max-w-[640px] md:-mt-10 md:pt-0">
                 <div
                   className="-translate-y-[10px] grid grid-cols-1 gap-4 sm:grid-cols-2"
                   data-mo-stagger=""

@@ -7,7 +7,7 @@ import type { GlobalSettings } from "@/types/blocks";
  *   <footer class="bg-[#060B35] py-12"> → max-w-6xl px-4 container
  *   - LEFT: logo `w-[170px] md:w-[292px]`, © line under it
  *     (`pt-8 text-[14px] font-light text-[#B0E9FD]`, desktop only).
- *   - RIGHT (md:pl-8): one grid `grid-cols-[auto_auto] gap-x-10 gap-y-3`
+ *   - RIGHT (md:pl-3): one grid `grid-cols-[auto_auto] gap-x-10 gap-y-3`
  *     of semibold uppercase links in live's order (Our Vision / Investor
  *     Relations / The Fund / Contact / How to Trade) with the social icon
  *     row as the 6th cell; mobile © (10px) below.
@@ -81,7 +81,7 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
             </div>
           </div>
 
-          <div className="flex flex-col md:pl-8">
+          <div className="flex flex-col md:pl-3">
             <ul className="grid grid-cols-[auto_auto] gap-x-10 gap-y-3 whitespace-nowrap pt-10 font-semibold md:pt-0">
               {navOrder.map((link) => (
                 <li key={link.href}>

@@ -127,7 +127,7 @@ export function Intro({ block }: { block: IntroBlock }) {
 
         {/* White tail: Private Tech copy + fund details. */}
         {(block.tailHeading || block.fundDetails) && (
-          <div className="md:flex md:flex-row md:items-center md:gap-[40px] md:[&>*]:flex-1">
+          <div className="md:flex md:flex-row md:items-start md:gap-[40px] md:[&>*]:flex-1">
             {block.tailHeading ? (
               <div className={`pb-0 pt-[40px] md:pt-[80px] ${charcoalTextbox}`}>
                 <div className="mx-auto w-full max-w-6xl px-4 md:px-0!">
@@ -169,9 +169,9 @@ export function Intro({ block }: { block: IntroBlock }) {
             ) : null}
 
             {block.fundDetails && block.fundDetails.length > 0 ? (
-              <div className="section-spacing pt-[80px]">
-                <div className="mx-auto ml-auto mr-0 w-full max-w-[500px]! px-0!">
-                  <h6 className="pb-0 font-[family-name:var(--font-franklin)] font-normal uppercase tracking-[0.2em] text-[#757575]">
+              <div className="py-0">
+                <div className="mx-auto ml-auto mr-0 mt-[100px] w-full max-w-[500px]! px-0!">
+                  <h6 className="pb-0 font-[family-name:var(--font-franklin)] text-[26px] font-normal uppercase tracking-[0.2em] text-black">
                     FUND DETAILS
                   </h6>
                   <div className="mt-[14px] flex flex-col" data-mo-stagger="">

@@ -42,7 +42,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
             src={hero.src}
             alt=""
             aria-hidden
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="absolute inset-0 h-full w-full object-cover [object-position:center_75%]"
           />
           {/* Transparent at top so the image shows; navy at bottom where text sits */}
           <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/10" aria-hidden />
@@ -51,7 +51,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
         <Container className="relative flex h-full flex-col justify-between pb-10 pt-28 md:pb-12">
           <Link
             href="/learn"
-            className="mt-[25px] inline-flex items-center gap-2 font-[family-name:var(--font-franklin)] text-sm font-semibold uppercase tracking-[0.12em] text-white no-underline hover:opacity-75"
+            className="mt-[25px] inline-flex items-center gap-2 font-[family-name:var(--font-franklin)] text-base font-light uppercase leading-none tracking-[1px] text-white no-underline hover:opacity-75"
           >
             <ArticleNavChevron direction="left" />
             All Articles
@@ -103,10 +103,10 @@ export function EducationArticleView({ article }: { article: EducationArticle })
               {prev ? (
                 <Link
                   href={`/learn/${prev.slug}`}
-                  className="group flex max-w-[45%] items-center gap-3 font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
+                  className="group flex max-w-[45%] items-center gap-3 font-[family-name:var(--font-franklin)] text-xl font-normal uppercase leading-[30px] tracking-[1px] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
                 >
                   <ArticleNavChevron direction="left" />
-                  <span className="line-clamp-2 normal-case tracking-normal px-[13px] md:uppercase md:tracking-[0.08em]">
+                  <span className="line-clamp-2 normal-case leading-[30px] tracking-normal px-[13px] md:uppercase md:tracking-[1px]">
                     {prev.title}
                   </span>
                 </Link>
@@ -117,9 +117,9 @@ export function EducationArticleView({ article }: { article: EducationArticle })
               {next ? (
                 <Link
                   href={`/learn/${next.slug}`}
-                  className="group flex max-w-[38%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
+                  className="group flex max-w-[38%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-xl font-normal uppercase leading-[30px] tracking-[1px] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
                 >
-                  <span className="line-clamp-2 normal-case tracking-normal md:uppercase md:tracking-[0.08em]">
+                  <span className="line-clamp-2 normal-case leading-[30px] tracking-normal md:uppercase md:tracking-[1px]">
                     {next.title}
                   </span>
                   <ArticleNavChevron direction="right" />
