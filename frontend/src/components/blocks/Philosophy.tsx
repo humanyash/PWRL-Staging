@@ -58,7 +58,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
         id={block.anchor ?? "investment_strategy"}
         className={
           sphere
-            ? "!py-0 h-[801px]"
+            ? "!py-[67.5px] md:!py-[99px]"
             : "!py-[67.5px] md:!py-[144px] h-[690px]"
         }
         containerClassName={
@@ -68,7 +68,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
         <div
           className={`grid items-center gap-10 pt-0 ${
             wheel ? "md:grid-cols-[8fr_12fr]" : "md:grid-cols-[10fr_10fr]"
-          }${sphere ? " absolute left-[99px] top-[62px] h-[640px]" : ""}`}
+          }`}
         >
           {text}
           {wheel ? (
