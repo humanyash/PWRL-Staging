@@ -223,7 +223,7 @@ export function FormBlock({ block }: { block: FormBlockType }) {
         {block.body?.length ? (
           <div className="max-w-80 text-balance text-center font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.375] text-white md:text-[20px] lg:max-w-[420px] lg:text-left">
             {block.body.map((p, i) => (
-              <p key={i} data-mo="" style={{ "--mo-i": i } as React.CSSProperties}>
+              <p key={i} className="-ml-[30px]" data-mo="" style={{ "--mo-i": i } as React.CSSProperties}>
                 {p}
               </p>
             ))}

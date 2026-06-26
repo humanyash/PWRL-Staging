@@ -31,14 +31,14 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
           className={`lg:w-[855px] ${navy ? "text-white" : "text-charcoal"}`}
         >
           <h2
-            className="font-display text-[40px] font-light leading-[1.1] md:text-[64px]"
+            className="font-display text-[40px] font-normal leading-[1.1] md:text-[64px]"
             data-mo=""
           >
             {renderRich(block.heading)}
           </h2>
           {block.intro ? (
             <p
-              className="mt-6 font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] md:text-[20px]"
+              className="mt-6 font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] md:text-[20px] md:leading-[25px]"
               data-mo=""
               style={{ "--mo-i": 1 } as React.CSSProperties}
             >
@@ -58,7 +58,7 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
               <div
                 key={i}
                 // Live `border-gray-200` resolves to the site theme's #aaa.
-                className={`faq-row w-full border-b-2 px-2 py-3 transition-colors duration-300 ${
+                className={`faq-row w-full border-b-2 px-2 py-5 transition-colors duration-300 ${
                   navy ? "border-[#aaa]" : "border-charcoal/15"
                 } ${i === 0 ? "border-t-2" : ""}`}
               >
@@ -70,7 +70,7 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
                 >
                   <div className="flex items-center justify-between gap-2 hover:cursor-pointer">
                     <h4
-                      className={`text-left font-[family-name:var(--font-franklin)] text-[18px] font-light md:text-[24px] ${
+                      className={`text-left font-[family-name:var(--font-franklin)] text-[18px] font-light leading-[25px] md:text-[24px] ${
                         navy ? "text-white" : "text-charcoal"
                       }`}
                     >
@@ -98,8 +98,8 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
                   }`}
                 >
                   <p
-                    className={`font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.2] md:text-[18px] ${
-                      navy ? "text-white" : "text-charcoal/85"
+                    className={`mt-3 font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.4] md:text-[18px] md:leading-[25px] ${
+                      navy ? "text-white/80" : "text-charcoal/70"
                     }`}
                   >
                     {renderRich(faq.a)}

@@ -134,7 +134,7 @@ export function StatsBlock({ block }: { block: StatsBlockType }) {
           ) : null}
           {block.intro ? (
             <p
-              className="font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] text-white md:text-[20px]"
+              className="font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] text-white md:text-[20px] md:leading-[25px]"
               data-mo=""
               style={moStyle({ "--mo-i": 1 })}
             >
