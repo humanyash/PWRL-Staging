@@ -66,7 +66,7 @@ export function Intro({ block }: { block: IntroBlock }) {
       id="introducing-powerlaw-corp"
       className="bg-blue-white-gradient pb-[40px] pt-[40px] md:pb-[80px]"
     >
-      <div className="mx-auto w-full max-w-6xl px-4" style={{ marginLeft: '115px' }}>
+      <div className="mx-auto w-full max-w-6xl px-4">
         {/* Mint divider — live leads the portfolio band. */}
         <div className={`pt-0 pb-0 ${whiteTextbox}`}>
           <div className="mx-auto w-full max-w-6xl px-4 md:px-0!">
