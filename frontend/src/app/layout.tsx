@@ -59,6 +59,13 @@ export const metadata: Metadata = {
   description: "18 leading private tech companies. One Nasdaq-listed stock.",
 };
 
+/**
+ * Google Analytics 4 measurement ID. Override per environment by setting
+ * `NEXT_PUBLIC_GA_ID`; falls back to the PWRL production property.
+ */
+const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_ID ?? "G-S620CRDB9D";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -88,6 +95,23 @@ export default function RootLayout({
             nothing is ever hidden — all pre-states gate on html[data-mo-on],
             which only this script sets. */}
         <Script src="/pwrl-motion.js" strategy="afterInteractive" />
+
+        {GA_MEASUREMENT_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        ) : null}
       </body>
     </html>
   );
