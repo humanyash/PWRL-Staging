@@ -62,7 +62,7 @@ function Card({
           {entry.title}
         </p>
         <div className="leading-relaxed">
-          <p className="font-[family-name:var(--font-franklin)] text-[18px] font-light text-[#242424]">
+          <p className="font-[family-name:var(--font-franklin)] text-[18px] font-light text-[#242424] [&_b]:font-bold">
             {renderRich(entry.body)}
           </p>
         </div>
