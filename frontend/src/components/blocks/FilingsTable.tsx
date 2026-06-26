@@ -43,7 +43,7 @@ export function FilingsTable({ filings }: { filings: EdgarFiling[] }) {
 
   return (
     <>
-      <div className="flex justify-between gap-6 pb-8 md:justify-start">
+      <div className="-ml-6 flex justify-between gap-6 pb-8 md:-ml-8 md:justify-start">
         <div className="flex items-center">
           <label
             htmlFor="year-selector"
@@ -88,7 +88,7 @@ export function FilingsTable({ filings }: { filings: EdgarFiling[] }) {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="-ml-6 w-[calc(100%+3rem)] overflow-x-auto md:-ml-8 md:w-[calc(100%+4rem)]">
         <div className="min-w-[720px]">
           <div className="flex w-full items-center gap-[36px] bg-[#E4F7FD] px-[24px] py-[8px] font-[family-name:var(--font-franklin)] text-[14px] font-semibold leading-[18.5px] text-[#060B35]">
             <p className="w-[112px] shrink-0">Date</p>

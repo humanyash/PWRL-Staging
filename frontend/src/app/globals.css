@@ -101,19 +101,24 @@ body {
   font-weight: 300;
 }
 
-/* Live ivypresto-headline Light (300). The dev Typekit kit (usg7ynr) ships
-   Regular/Bold only; without this face, font-light resolves to weight 400. */
+/* IvyPresto Headline Light (300) — local file takes priority over Typekit CDN
+   so the correct weight always loads in dev. */
 @font-face {
   font-family: "ivypresto-headline";
-  src:
-    url("https://use.typekit.net/af/4e4a98/00000000000000007735e5ac/31/l?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n3&v=3")
-      format("woff2"),
-    url("https://use.typekit.net/af/4e4a98/00000000000000007735e5ac/31/d?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n3&v=3")
-      format("woff"),
-    url("https://use.typekit.net/af/4e4a98/00000000000000007735e5ac/31/a?primer=7fa3915bdafdf03041871920a205bef951d72bf64dd4c4460fb992e3ecc3a862&fvd=n3&v=3")
-      format("opentype");
+  src: url("/fonts/IvyPresto-Headline-Light.otf") format("opentype");
   font-display: auto;
   font-style: normal;
+  font-weight: 300;
+  font-stretch: normal;
+}
+
+/* IvyPresto Headline Light Italic (300) — previously missing, caused the
+   browser to synthesise a heavier slanted form. */
+@font-face {
+  font-family: "ivypresto-headline";
+  src: url("/fonts/IvyPresto-Headline-Light-Italic.otf") format("opentype");
+  font-display: auto;
+  font-style: italic;
   font-weight: 300;
   font-stretch: normal;
 }
@@ -295,14 +300,16 @@ body {
 }
 
 /* Live h1 — ivypresto 55px mobile, 90px from xl (80rem). */
-h1 {
-  font-family: var(--font-ivy);
-  font-size: var(--text-h1-mob);
-  line-height: 1.3em;
-}
-@media (min-width: 80rem) {
+@layer base {
   h1 {
-    font-size: var(--text-h1-desk);
+    font-family: var(--font-ivy);
+    font-size: var(--text-h1-mob);
+    line-height: 1.3em;
+  }
+  @media (min-width: 80rem) {
+    h1 {
+      font-size: var(--text-h1-desk);
+    }
   }
 }
 

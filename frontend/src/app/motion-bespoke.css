@@ -275,20 +275,6 @@ html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .faq-q:hover .icon 
    inside a [data-mo-stagger] grid. Deep pop + a mint baseline that draws
    under each figure after it lands. */
 .mo-stat { --mo-pop: 0.92; position: relative; }
-html[data-mo-on]:not([data-mo-reduced]) .mo-stat::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -10px;
-  height: 3px;
-  background: var(--mint, #23fbc5);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--mo-dur-draw) var(--mo-ease-inout);
-  transition-delay: calc(var(--mo-i, 0) * var(--mo-stagger) + 250ms);
-}
-html[data-mo-on]:not([data-mo-reduced]) .mo-stat.mo-in::after {
-  transform: scaleX(1);
-}
 
 /* Team / board bio cards — white at rest; ice blue fill + name underline on hover. */
 .mo-photo { overflow: hidden; }
@@ -370,11 +356,15 @@ html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .platform-tile.mo-card--q
   transform: none;
   box-shadow: none;
 }
-html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile:hover span,
-html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .platform-tile:active span {
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile:hover .platform-label,
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .platform-tile:active .platform-label {
   text-decoration: underline;
   text-decoration-color: #000;
   text-underline-offset: 3px;
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .platform-tile:hover .mo-arrow,
+html[data-mo-on][data-mo-touch]:not([data-mo-reduced]) .platform-tile:active .mo-arrow {
+  text-decoration: none;
 }
 
 /* News cards — thumbnail breathes inside its 16:9 crop on hover
@@ -386,14 +376,20 @@ html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .news-card:hover .n
   transform: scale(1.05);
 }
 
-/* Fund-document rows — the "View PDF" affordance slides into emphasis. */
-html[data-mo-on] .doc-row .pdf {
-  display: inline-flex;
-  align-items: center;
-  transition: transform var(--mo-dur-tap) var(--mo-ease-out);
+/* Education cards — same thumbnail breathe as news cards. */
+html[data-mo-on] .education-card .news-thumb img {
+  transition: transform calc(420ms * var(--mo-speed)) var(--mo-ease-out);
 }
-html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .doc-row:hover .pdf {
-  transform: translateX(-3px);
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .education-card:hover .news-thumb img {
+  transform: scale(1.05);
+}
+
+/* Event cards — thumbnail breathes on hover (same scale as news). */
+html[data-mo-on] .event-card .event-thumb img {
+  transition: transform calc(420ms * var(--mo-speed)) var(--mo-ease-out);
+}
+html[data-mo-on]:not([data-mo-reduced]):not([data-mo-touch]) .event-card:hover .event-thumb img {
+  transform: scale(1.05);
 }
 
 /* SEC filings table: NO treatment (legal surface) — deliberately absent. */
@@ -770,8 +766,9 @@ html[data-mo-reduced][data-mo-on] .mo-btn.mo-confirm::after { animation: none !i
   html[data-mo-on] .wheel-disc,
   html[data-mo-on] .platform-tile img,
   html[data-mo-on] .news-card .news-thumb img,
+  html[data-mo-on] .education-card .news-thumb img,
+  html[data-mo-on] .event-card .event-thumb img,
   html[data-mo-on] .mo-photo img,
-  html[data-mo-on] .doc-row .pdf,
   html[data-mo-on] .faq-q .icon svg,
   html[data-mo-on] .mo-dropdown .nav-dropdown-panel a {
     transition: none !important;
@@ -780,13 +777,11 @@ html[data-mo-reduced][data-mo-on] .mo-btn.mo-confirm::after { animation: none !i
   }
   html[data-mo-on] .stockinfo-row::before,
   html[data-mo-on] .ice-panel::before,
-  html[data-mo-on] .mo-stat::after,
   html[data-mo-on] .mo-field::after {
     transition: none !important;
   }
   html[data-mo-on] .stockinfo-row::before,
   html[data-mo-on] .ice-panel::before { transform: scaleX(0) !important; }
-  html[data-mo-on] .mo-stat::after { transform: scaleX(1) !important; }
 }
 
 html[data-mo-reduced][data-mo-on] .mo-settle,
@@ -803,8 +798,9 @@ html[data-mo-reduced][data-mo-on] .tl-year,
 html[data-mo-reduced][data-mo-on] .wheel-disc,
 html[data-mo-reduced][data-mo-on] .platform-tile img,
 html[data-mo-reduced][data-mo-on] .news-card .news-thumb img,
+html[data-mo-reduced][data-mo-on] .education-card .news-thumb img,
+html[data-mo-reduced][data-mo-on] .event-card .event-thumb img,
 html[data-mo-reduced][data-mo-on] .mo-photo img,
-html[data-mo-reduced][data-mo-on] .doc-row .pdf,
 html[data-mo-reduced][data-mo-on] .faq-q .icon svg,
 html[data-mo-reduced][data-mo-on] .mo-dropdown .nav-dropdown-panel a {
   transition: none !important;
@@ -813,10 +809,8 @@ html[data-mo-reduced][data-mo-on] .mo-dropdown .nav-dropdown-panel a {
 }
 html[data-mo-reduced][data-mo-on] .stockinfo-row::before,
 html[data-mo-reduced][data-mo-on] .ice-panel::before,
-html[data-mo-reduced][data-mo-on] .mo-stat::after,
 html[data-mo-reduced][data-mo-on] .mo-field::after {
   transition: none !important;
 }
 html[data-mo-reduced][data-mo-on] .stockinfo-row::before,
 html[data-mo-reduced][data-mo-on] .ice-panel::before { transform: scaleX(0) !important; }
-html[data-mo-reduced][data-mo-on] .mo-stat::after { transform: scaleX(1) !important; }

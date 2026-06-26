@@ -141,7 +141,7 @@ export function Intro({ block }: { block: IntroBlock }) {
                           (line, i) => (
                             <span
                               key={i}
-                              className={`block${i === 0 ? " w-[650px]" : ""}`}
+                              className={`block${i === 0 ? " w-[650px]" : ""}${i === 1 ? " italic" : ""}`}
                             >
                               {renderRich(line)}
                             </span>

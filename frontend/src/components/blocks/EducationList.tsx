@@ -22,7 +22,7 @@ export function EducationList({ block }: { block: EducationListBlock }) {
     <Section tone="light" id="learn" className="!py-[100px]">
       <div className="flex items-end justify-between">
         <h2
-          className="font-display text-[32px] font-light leading-[1.1] text-black md:text-[48px]"
+          className="font-display text-[32px] font-normal leading-[1.1] text-black md:text-[48px]"
           data-mo=""
         >
           {block.heading}
@@ -30,7 +30,7 @@ export function EducationList({ block }: { block: EducationListBlock }) {
         {block.viewAllHref ? (
           <Link
             href={block.viewAllHref}
-            className="mb-1 font-[family-name:var(--font-franklin)] text-xs font-semibold uppercase tracking-[0.2em] text-[#0023EC] no-underline hover:underline"
+            className="mb-1 h-[19px] font-[family-name:var(--font-franklin)] text-[18px] font-semibold uppercase tracking-[1px] text-[#0023EC] underline"
             data-mo=""
             style={{ "--mo-i": 1 } as React.CSSProperties}
           >

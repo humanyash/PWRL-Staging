@@ -169,7 +169,7 @@ export interface EventItem {
 
 export const EVENT_ITEMS: EventItem[] = [
   {
-    dateTime: "07/15/2026, 12:00 PM",
+    dateTime: "07/15/2026, 1:00 PM",
     title:
       "Join the Webinar: Private markets are opening up – but what are you actually buying?",
     ctaLabel: "Sign Up to Watch Live",
@@ -182,7 +182,7 @@ export const EVENT_ITEMS: EventItem[] = [
     },
   },
   {
-    dateTime: "06/05/2026, 10:00 AM",
+    dateTime: "06/05/2026, 11:00 AM",
     title: "Virtual Roadshow",
     ctaLabel: "Watch the Recording",
     ctaHref: "https://youtu.be/oRKAE4_4G74?si=KhjXn83maYOIQnFD",

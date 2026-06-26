@@ -105,7 +105,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
           {block.heading}
         </h4>
         <div
-          className="flex items-center gap-3 pr-2"
+          className="flex items-center gap-3 -mr-[14px] md:-mr-[22px]"
           data-mo=""
           style={{ "--mo-i": 1 } as React.CSSProperties}
         >
@@ -132,7 +132,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
 
       <div
         ref={strip}
-        className="news-strip no-scrollbar mt-6 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-clip overscroll-x-contain will-change-contents"
+        className="news-strip no-scrollbar mt-6 flex w-[calc(100%+1.5rem)] snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-clip overscroll-x-contain will-change-contents md:w-[calc(100%+2rem)]"
         data-mo-stagger=""
       >
         {block.items.map((item) => (

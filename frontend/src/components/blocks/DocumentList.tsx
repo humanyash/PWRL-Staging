@@ -37,8 +37,9 @@ export async function DocumentList({ block }: { block: DocumentListBlock }) {
         tone="navy"
         id={anchorId}
         className="!pb-[20px] !pt-[54px] lg:!pt-[108px]"
+        containerClassName="!max-w-[1260px]"
       >
-        {heading("mb-[32px] text-left")}
+        {heading("mb-[32px] -ml-6 text-left md:-ml-8")}
         {edgarFilings.length > 0 ? (
           <div data-mo="fade" style={{ "--mo-i": 1 } as React.CSSProperties}>
             <FilingsTable filings={edgarFilings} />
@@ -56,10 +57,10 @@ export async function DocumentList({ block }: { block: DocumentListBlock }) {
   }
 
   return (
-    <Section tone="navy" id={anchorId} className="!py-[81px]">
-      {heading("mb-10 text-left")}
+    <Section tone="navy" id={anchorId} className="!py-[81px]" containerClassName="!max-w-[1260px]">
+      {heading("mb-10 -ml-6 text-left md:-ml-8")}
       <div
-        className="docs-panel mx-auto w-full overflow-hidden bg-white text-black"
+        className="docs-panel -ml-6 w-[calc(100%+3rem)] overflow-hidden bg-white text-black md:-ml-8 md:w-[calc(100%+4rem)]"
         data-mo=""
         style={{ "--mo-i": 1 } as React.CSSProperties}
       >
@@ -68,7 +69,7 @@ export async function DocumentList({ block }: { block: DocumentListBlock }) {
           {block.documents.map((doc) => (
             <li
               key={doc.href}
-              className="doc-row mo-card mo-card--quiet flex h-[60px] items-center justify-between gap-6 overflow-hidden px-6 sm:px-[112.5px]"
+              className="doc-row flex h-[60px] items-center justify-between gap-6 overflow-hidden px-6 sm:px-[112.5px]"
               data-mo=""
             >
               <span className="min-w-0 truncate text-sm leading-snug">
@@ -82,7 +83,7 @@ export async function DocumentList({ block }: { block: DocumentListBlock }) {
                   aria-label={`Open PDF: ${doc.label}`}
                   className="pdf pdf-link inline-flex items-center gap-2 text-black"
                 >
-                  <span className="text-base underline">View PDF</span>
+                  <span className="text-sm underline">View PDF</span>
                   <PdfIcon className="h-6 w-6" />
                 </a>
               </div>

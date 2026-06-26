@@ -106,7 +106,7 @@ export function PlatformTabs({ block }: { block: PlatformTabsBlock }) {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="platform-tile mo-card mo-card--quiet flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-gray-900 no-underline hover:underline hover:decoration-black hover:underline-offset-[3px]"
+                className="platform-tile mo-card mo-card--quiet flex items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-gray-900 no-underline"
                 data-mo=""
               >
                 {item.logo?.src ? (
@@ -120,7 +120,7 @@ export function PlatformTabs({ block }: { block: PlatformTabsBlock }) {
                   />
                 ) : null}
                 <span className="flex-1 font-[family-name:var(--font-franklin)] text-[18px] font-bold md:text-[24px]">
-                  {item.label} <span className="mo-arrow">→</span>
+                  <span className="platform-label">{item.label}</span>{" "}<span className="mo-arrow">→</span>
                 </span>
               </a>
             ))}

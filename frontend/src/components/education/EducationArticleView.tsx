@@ -35,34 +35,36 @@ export function EducationArticleView({ article }: { article: EducationArticle })
 
   return (
     <>
-      <section className="relative h-[415px] min-h-[415px] max-h-[415px] overflow-hidden bg-navy text-white">
+      <section data-mo-hero="" className="relative h-[415px] min-h-[415px] max-h-[415px] overflow-hidden bg-navy text-white">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={hero.src}
             alt=""
             aria-hidden
-            className="h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-navy/70" aria-hidden />
+          {/* Transparent at top so the image shows; navy at bottom where text sits */}
+          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/10" aria-hidden />
         </div>
 
-        <Container className="relative flex h-full flex-col justify-end pb-10 pt-28 md:pb-12">
+        <Container className="relative flex h-full flex-col justify-between pb-10 pt-28 md:pb-12">
           <Link
             href="/learn"
-            className="inline-flex items-center gap-2 font-[family-name:var(--font-franklin)] text-lg font-light uppercase tracking-wide text-white no-underline hover:underline"
+            className="mt-[25px] inline-flex items-center gap-2 font-[family-name:var(--font-franklin)] text-sm font-semibold uppercase tracking-[0.12em] text-white no-underline hover:opacity-75"
           >
             <ArticleNavChevron direction="left" />
             All Articles
           </Link>
 
-          <h1 className="mt-8 max-w-5xl font-display text-[40px] font-light leading-[1.1] md:text-[64px]">
-            {article.title}
-          </h1>
-
-          <p className="mt-6 font-[family-name:var(--font-franklin)] text-lg font-light text-white/90">
-            {article.publishedLabel}
-          </p>
+          <div>
+            <h1 className="whitespace-nowrap font-display text-[40px] font-light leading-[1.1] md:text-[64px]">
+              {article.title}
+            </h1>
+            <p className="mt-3 font-[family-name:var(--font-franklin)] text-sm font-normal text-white/70">
+              {article.publishedLabel}
+            </p>
+          </div>
         </Container>
       </section>
 
@@ -104,7 +106,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
                   className="group flex max-w-[45%] items-center gap-3 font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
                 >
                   <ArticleNavChevron direction="left" />
-                  <span className="line-clamp-2 normal-case tracking-normal md:uppercase md:tracking-[0.08em]">
+                  <span className="line-clamp-2 normal-case tracking-normal px-[13px] md:uppercase md:tracking-[0.08em]">
                     {prev.title}
                   </span>
                 </Link>
@@ -115,7 +117,7 @@ export function EducationArticleView({ article }: { article: EducationArticle })
               {next ? (
                 <Link
                   href={`/learn/${next.slug}`}
-                  className="group flex max-w-[45%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
+                  className="group flex max-w-[38%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-xl font-normal uppercase tracking-[0.08em] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
                 >
                   <span className="line-clamp-2 normal-case tracking-normal md:uppercase md:tracking-[0.08em]">
                     {next.title}
