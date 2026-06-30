@@ -3,8 +3,6 @@ import Script from "next/script";
 import {
   Inter,
   Cormorant_Garamond,
-  Playfair_Display,
-  DM_Serif_Display,
   Libre_Franklin,
 } from "next/font/google";
 import { MotionRouter } from "@/components/layout/MotionRouter";
@@ -40,20 +38,6 @@ const franklin = Libre_Franklin({
   weight: ["300", "400", "600", "700"],
 });
 
-/** Comparison candidates for /font-compare (not used in the main build). */
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
-
-const dmSerif = DM_Serif_Display({
-  variable: "--font-dm-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
-
 export const metadata: Metadata = {
   title: "PWRL — Private Tech, Nasdaq Listed.",
   description: "18 leading private tech companies. One Nasdaq-listed stock.",
@@ -66,6 +50,13 @@ export const metadata: Metadata = {
 const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_ID ?? "G-S620CRDB9D";
 
+/**
+ * Adobe Fonts (Typekit) kit ID. Defaults to the client-owned production kit
+ * `xyr7qcs` (serves `ivypresto-headline`). Override per environment with
+ * `NEXT_PUBLIC_TYPEKIT_ID` if a different kit is needed.
+ */
+const TYPEKIT_ID = process.env.NEXT_PUBLIC_TYPEKIT_ID ?? "xyr7qcs";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -77,15 +68,19 @@ export default function RootLayout({
       // data-mo-router: tells public/pwrl-motion.js the App Router adapter
       // (MotionRouter) owns page transitions — see the kinetic-layer handoff.
       data-mo-router=""
-      className={`${inter.variable} ${cormorant.variable} ${franklin.variable} ${playfair.variable} ${dmSerif.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${franklin.variable} h-full antialiased`}
     >
       <head>
-        {/* Adobe Fonts (Typekit) kit "pwrl" — serves the real
-            ivypresto-headline display face (Regular/Italic/Bold/Bold Italic).
-            globals.css --font-display already prefers "ivypresto-headline"
-            with Cormorant Garamond as the fallback. */}
+        {/* Adobe Fonts (Typekit) — serves the real ivypresto-headline
+            display face (Regular/Italic/Bold/Bold Italic). globals.css
+            `--font-display` prefers "ivypresto-headline" with Cormorant
+            Garamond as the fallback. Kit ID is env-driven so dev/staging/
+            prod can each point at their own kit without a code change. */}
         <link rel="preconnect" href="https://use.typekit.net" />
-        <link rel="stylesheet" href="https://use.typekit.net/usg7ynr.css" />
+        <link
+          rel="stylesheet"
+          href={`https://use.typekit.net/${TYPEKIT_ID}.css`}
+        />
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-inter)]">
         {children}

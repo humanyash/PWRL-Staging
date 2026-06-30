@@ -39,15 +39,15 @@ Provider plugin: `@strapi/provider-upload-cloudinary`.
 
 | Field | Value |
 |---|---|
-| Web project | `pwrl` (dedicated; the user's existing `portfolio`/Gelica kit was left untouched) |
-| Kit ID | `usg7ynr` |
-| Embed | `<link rel="stylesheet" href="https://use.typekit.net/usg7ynr.css">` (in `app/layout.tsx` head) |
+| Production kit ID | `xyr7qcs` (client-owned) |
+| Embed | `<link rel="stylesheet" href={`https://use.typekit.net/${TYPEKIT_ID}.css`}>` in `app/layout.tsx` head |
+| Env override | `NEXT_PUBLIC_TYPEKIT_ID` (defaults to `xyr7qcs`) |
 | Family | `ivypresto-headline` (display) — Regular 400, Italic 400, Bold 700, Bold Italic 700 |
 | Body font | Inter (Google, self-hosted via next/font) |
 | Fallback | `globals.css --font-display` = `"ivypresto-headline", var(--font-cormorant), …` so Cormorant covers any load gap |
-| Domains | Works cross-domain (modern Adobe kit, no allowlist). Add the Vercel domain to the project only if Adobe later enforces it. |
+| Domains | Domain-locked. Before production cutover, the client must authorize `www.pwrl.com` (and any staging domain) on the `xyr7qcs` kit. |
 
-Account note: the kit lives on the user's personal Adobe account. Before production, consider recreating `pwrl` on a client-owned Adobe account so the site doesn't depend on the personal account.
+Account history: an earlier dev kit (`usg7ynr`, personal account) was used during the build and replaced as part of go-live prep. The kit ID is now env-driven so no code change is needed if the client ever rotates kits.
 
 ## Hosting plan — ALL LIVE
 
@@ -59,6 +59,7 @@ Account note: the kit lives on the user's personal Adobe account. Before product
 | Media | Cloudinary `djf4okl19` | ✅ serving team/board headshots |
 | Forms | HubSpot portal 243469173 (Forms API) | ✅ wired (NAV + contact); needs one supervised live test |
 | Filings | SEC EDGAR (CIK 2052053, ISR 1h) | ✅ live, 33 filings rendering |
+| Analytics | Google Analytics 4 (`G-S620CRDB9D`) | ✅ wired in root layout via `next/script`; env override `NEXT_PUBLIC_GA_ID` |
 
 ### Content/editing flow
 - Editors work in Strapi admin (roles: Admin, Editor, Legal Reviewer — disclaimers gated to Legal Reviewer).
@@ -66,11 +67,21 @@ Account note: the kit lives on the user's personal Adobe account. Before product
 - Frontend merge strategy: CMS values win; fixture baseline fills fields the schema doesn't carry yet (hero rotator config, hero media, form definitions).
 
 ### Before production cutover (pwrl.com DNS)
-1. Recreate the Adobe Fonts kit on a client-owned account (currently personal kit `usg7ynr`).
-2. One supervised HubSpot form submission as acceptance.
-3. Client's InvestingChannel unit snippet for the Stock Info widget.
+1. Authorize the production domain on the client's Adobe Fonts kit `xyr7qcs` (kits are domain-locked).
+2. One supervised HubSpot form submission per form (NAV signup + contact) as acceptance.
+3. Client-owned Cloudinary creds set on Render (`CLOUDINARY_NAME/KEY/SECRET`).
 4. Consider Render paid tier (free tier admin cold-starts ~50s; public site unaffected).
 5. Delete the `content-ingest` API token in Strapi (self-expires 7 days from 2026-06-09).
+6. Set Vercel env vars per `DEPLOY.md` (`NEXT_PUBLIC_STRAPI_URL`; remove `NEXT_PUBLIC_STRAPI_DISABLED`).
+
+### Go-live changes already in code
+- InvestingChannel stock widget was removed (`StockInfoBlock.widgetId` field deleted, `InvestingChannelWidget.tsx` deleted). Stock Info renders only the static rows in `fixtures.ts`. If a live-data widget is ever needed, reintroduce a CMS-driven block.
+- All previously Contentful-hosted assets are now bundled in `frontend/public/`:
+  - 9 PDFs → `frontend/public/documents/*.pdf`
+  - 18 portfolio-company logos → `frontend/public/remote-assets/logos/*.{png,svg}`
+  - 1 news image → `frontend/public/remote-assets/news/7vyvWX-bloomberg-interview.png`
+- `next.config.ts` `images.remotePatterns` no longer allows `assets.ctfassets.net` / `images.ctfassets.net`.
+- Dev-only `/font-compare` route was deleted.
 
 ## Source control
 

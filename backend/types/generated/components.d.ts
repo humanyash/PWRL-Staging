@@ -1,5 +1,16 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SectionsAnchorNav extends Struct.ComponentSchema {
+  collectionName: 'components_sections_anchor_navs';
+  info: {
+    description: 'In-page anchor sub-navigation band (e.g. /vision STRATEGY\u2026FAQ)';
+    displayName: 'Anchor Nav';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'shared.footer-link', true>;
+  };
+}
+
 export interface SectionsBoardGrid extends Struct.ComponentSchema {
   collectionName: 'components_sections_board_grids';
   info: {
@@ -50,9 +61,12 @@ export interface SectionsDocumentList extends Struct.ComponentSchema {
     displayName: 'Document List';
   };
   attributes: {
+    documents: Schema.Attribute.Component<'shared.footer-link', true>;
+    emptyText: Schema.Attribute.String;
     heading: Schema.Attribute.String;
     kind: Schema.Attribute.Enumeration<['filings', 'fund-docs']> &
       Schema.Attribute.Required;
+    note: Schema.Attribute.Text;
   };
 }
 
@@ -78,7 +92,7 @@ export interface SectionsFormBlock extends Struct.ComponentSchema {
     body: Schema.Attribute.Text;
     form: Schema.Attribute.Relation<'oneToOne', 'api::form.form'>;
     heading: Schema.Attribute.String;
-    theme: Schema.Attribute.Enumeration<['light', 'dark']> &
+    theme: Schema.Attribute.Enumeration<['light', 'dark', 'deep']> &
       Schema.Attribute.DefaultTo<'light'>;
   };
 }
@@ -112,6 +126,21 @@ export interface SectionsIntro extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsNewsItem extends Struct.ComponentSchema {
+  collectionName: 'components_sections_news_items';
+  info: {
+    description: 'A press/news card (date + title + link + thumbnail)';
+    displayName: 'News Item';
+  };
+  attributes: {
+    date: Schema.Attribute.String;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    source: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SectionsNewsList extends Struct.ComponentSchema {
   collectionName: 'components_sections_news_lists';
   info: {
@@ -120,6 +149,7 @@ export interface SectionsNewsList extends Struct.ComponentSchema {
   };
   attributes: {
     heading: Schema.Attribute.String;
+    items: Schema.Attribute.Component<'sections.news-item', true>;
     limit: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -144,6 +174,38 @@ export interface SectionsPhilosophy extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsPlatformItem extends Struct.ComponentSchema {
+  collectionName: 'components_sections_platform_items';
+  info: {
+    description: 'A brokerage platform link (logo + label + group)';
+    displayName: 'Platform Item';
+  };
+  attributes: {
+    group: Schema.Attribute.Enumeration<['self-directed', 'advisor']> &
+      Schema.Attribute.DefaultTo<'self-directed'>;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    logo: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface SectionsPlatformTabs extends Struct.ComponentSchema {
+  collectionName: 'components_sections_platform_tabs';
+  info: {
+    description: 'Tabbed brokerage platform grid (/trade: Self Directed / Advisor Managed)';
+    displayName: 'Platform Tabs';
+  };
+  attributes: {
+    advisorLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Financial Advisor Managed'>;
+    heading: Schema.Attribute.String;
+    intro: Schema.Attribute.Text;
+    items: Schema.Attribute.Component<'sections.platform-item', true>;
+    selfDirectedLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Self Directed Brokerage'>;
+  };
+}
+
 export interface SectionsPortfolioBlock extends Struct.ComponentSchema {
   collectionName: 'components_sections_portfolio_blocks';
   info: {
@@ -153,6 +215,8 @@ export interface SectionsPortfolioBlock extends Struct.ComponentSchema {
   attributes: {
     heading: Schema.Attribute.String;
     intro: Schema.Attribute.Text;
+    panelBody: Schema.Attribute.Text;
+    panelHeading: Schema.Attribute.String;
     portfolioSnapshot: Schema.Attribute.Relation<
       'oneToOne',
       'api::portfolio-snapshot.portfolio-snapshot'
@@ -207,6 +271,7 @@ export interface SectionsRichText extends Struct.ComponentSchema {
   attributes: {
     body: Schema.Attribute.RichText & Schema.Attribute.Required;
     heading: Schema.Attribute.String;
+    sideItems: Schema.Attribute.Component<'shared.key-value', true>;
   };
 }
 
@@ -233,19 +298,23 @@ export interface SectionsStatsBlock extends Struct.ComponentSchema {
     heading: Schema.Attribute.String;
     intro: Schema.Attribute.Text;
     stats: Schema.Attribute.Component<'sections.stat-item', true>;
+    subheading: Schema.Attribute.Text;
   };
 }
 
 export interface SectionsStockInfo extends Struct.ComponentSchema {
   collectionName: 'components_sections_stock_infos';
   info: {
-    description: 'InvestingChannel stock widget embed';
+    description: 'Stock Info: static labelled rows + notes (widget optional)';
     displayName: 'Stock Info';
   };
   attributes: {
-    theme: Schema.Attribute.Enumeration<['light', 'dark']> &
+    heading: Schema.Attribute.String;
+    notes: Schema.Attribute.RichText;
+    rows: Schema.Attribute.Component<'shared.key-value', true>;
+    theme: Schema.Attribute.Enumeration<['light', 'dark', 'deep']> &
       Schema.Attribute.DefaultTo<'light'>;
-    widgetId: Schema.Attribute.String & Schema.Attribute.Required;
+    widgetId: Schema.Attribute.String;
   };
 }
 
@@ -291,6 +360,34 @@ export interface SectionsTimelineEntry extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsTruthItem extends Struct.ComponentSchema {
+  collectionName: 'components_sections_truth_items';
+  info: {
+    description: 'Numbered principle row (number graphic + title + body)';
+    displayName: 'Truth Item';
+  };
+  attributes: {
+    body: Schema.Attribute.Text;
+    icon: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsTruths extends Struct.ComponentSchema {
+  collectionName: 'components_sections_truths';
+  info: {
+    description: 'Numbered principles + supporting graphic with footnoted caption (/vision)';
+    displayName: 'Truths';
+  };
+  attributes: {
+    caption: Schema.Attribute.Text;
+    heading: Schema.Attribute.String;
+    items: Schema.Attribute.Component<'sections.truth-item', true>;
+    sourceHref: Schema.Attribute.String;
+    sourceLabel: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsValuePropItem extends Struct.ComponentSchema {
   collectionName: 'components_sections_value_prop_items';
   info: {
@@ -326,7 +423,7 @@ export interface SharedCta extends Struct.ComponentSchema {
     href: Schema.Attribute.String & Schema.Attribute.Required;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     variant: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'link', 'underline']
+      ['primary', 'secondary', 'link', 'underline', 'mint']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'primary'>;
@@ -395,6 +492,18 @@ export interface SharedImageWithAlt extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedKeyValue extends Struct.ComponentSchema {
+  collectionName: 'components_shared_key_values';
+  info: {
+    description: 'A labelled value row (e.g. Stock Info: Ticker \u2192 PWRL)';
+    displayName: 'Key Value';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -412,6 +521,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'sections.anchor-nav': SectionsAnchorNav;
       'sections.board-grid': SectionsBoardGrid;
       'sections.cta-group': SectionsCtaGroup;
       'sections.disclosures': SectionsDisclosures;
@@ -420,8 +530,11 @@ declare module '@strapi/strapi' {
       'sections.form-block': SectionsFormBlock;
       'sections.hero': SectionsHero;
       'sections.intro': SectionsIntro;
+      'sections.news-item': SectionsNewsItem;
       'sections.news-list': SectionsNewsList;
       'sections.philosophy': SectionsPhilosophy;
+      'sections.platform-item': SectionsPlatformItem;
+      'sections.platform-tabs': SectionsPlatformTabs;
       'sections.portfolio-block': SectionsPortfolioBlock;
       'sections.process-step': SectionsProcessStep;
       'sections.process-steps': SectionsProcessSteps;
@@ -433,6 +546,8 @@ declare module '@strapi/strapi' {
       'sections.team-grid': SectionsTeamGrid;
       'sections.timeline': SectionsTimeline;
       'sections.timeline-entry': SectionsTimelineEntry;
+      'sections.truth-item': SectionsTruthItem;
+      'sections.truths': SectionsTruths;
       'sections.value-prop-item': SectionsValuePropItem;
       'sections.value-props': SectionsValueProps;
       'shared.cta': SharedCta;
@@ -441,6 +556,7 @@ declare module '@strapi/strapi' {
       'shared.footer-link': SharedFooterLink;
       'shared.holding': SharedHolding;
       'shared.image-with-alt': SharedImageWithAlt;
+      'shared.key-value': SharedKeyValue;
       'shared.seo': SharedSeo;
     }
   }

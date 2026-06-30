@@ -758,6 +758,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.rich-text',
         'sections.form-block',
         'sections.disclosures',
+        'sections.anchor-nav',
+        'sections.truths',
+        'sections.platform-tabs',
       ]
     >;
     seo: Schema.Attribute.Component<'shared.seo', false>;

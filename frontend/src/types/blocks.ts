@@ -331,7 +331,6 @@ export interface PullQuoteBlock {
 export interface StockInfoBlock {
   __component: "sections.stock-info";
   heading: string;
-  widgetId?: string;
   theme?: string;
   notes?: string[];
   rows?: { label: string; value: string }[];

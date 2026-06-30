@@ -1,6 +1,5 @@
 import { Section } from "@/components/ui/Section";
 import { countup } from "@/lib/motion";
-import { InvestingChannelWidget } from "./InvestingChannelWidget";
 import type { StockInfoBlock } from "@/types/blocks";
 
 /**
@@ -10,8 +9,6 @@ import type { StockInfoBlock } from "@/types/blocks";
  *    gap-y-[16px] mt-10; rows `border-t border-[#085CF0] pt-[16px]
  *    flex justify-between` with <strong> label + plain value;
  *  - notes mt-[24px], 14px light #757575.
- * The InvestingChannel mount is kept as a fallback for a future live-data
- * widget when `widgetId` is set and no rows exist.
  */
 export function StockInfo({ block }: { block: StockInfoBlock }) {
   const rows = block.rows ?? [];
@@ -44,8 +41,6 @@ export function StockInfo({ block }: { block: StockInfoBlock }) {
               </div>
             ))}
           </div>
-        ) : block.widgetId ? (
-          <InvestingChannelWidget widgetId={block.widgetId} />
         ) : null}
 
         {block.notes && block.notes.length > 0 ? (

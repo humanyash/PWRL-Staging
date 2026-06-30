@@ -14,15 +14,25 @@ This repo is a **monorepo**. Only `frontend/` is the Next.js app that belongs on
 
 If Root Directory is blank or `.`, Vercel builds the repo root (which has no Next.js app). The deploy may show "Success" but every URL returns **404 NOT_FOUND**.
 
-## Environment variables (staging)
+## Environment variables
 
-Until Strapi is deployed:
+### Production (Vercel)
+
+| Name | Value | Notes |
+|---|---|---|
+| `NEXT_PUBLIC_STRAPI_URL` | `https://pwrl-cms.onrender.com` | Required for CMS-driven content. |
+| `NEXT_PUBLIC_TYPEKIT_ID` | `xyr7qcs` | Client-owned Adobe Fonts kit. Optional — defaults to `xyr7qcs` in `app/layout.tsx`. |
+| `NEXT_PUBLIC_GA_ID` | `G-S620CRDB9D` | Optional — defaults to the PWRL production property in `app/layout.tsx`. |
+
+`NEXT_PUBLIC_STRAPI_DISABLED` MUST be unset (or `false`) on production. When `true`, the frontend serves only the in-repo fixture data and ignores Strapi.
+
+### Staging (Vercel) — before CMS is wired
 
 | Name | Value |
 |---|---|
 | `NEXT_PUBLIC_STRAPI_DISABLED` | `true` |
 
-When CMS is live, set `NEXT_PUBLIC_STRAPI_URL` to your Strapi URL and remove `NEXT_PUBLIC_STRAPI_DISABLED`.
+Once Strapi is live, replace `NEXT_PUBLIC_STRAPI_DISABLED=true` with `NEXT_PUBLIC_STRAPI_URL=<strapi url>`.
 
 ## After changing settings
 
