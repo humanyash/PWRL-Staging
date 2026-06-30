@@ -20,7 +20,7 @@ If Root Directory is blank or `.`, Vercel builds the repo root (which has no Nex
 
 | Name | Value | Notes |
 |---|---|---|
-| `NEXT_PUBLIC_STRAPI_URL` | `https://pwrl-cms.onrender.com` | Required for CMS-driven content. |
+| `NEXT_PUBLIC_STRAPI_URL` | `__STRAPI_URL_TBD__` (planned: `https://pwrl-cms-humandesign.onrender.com`) | Required for CMS-driven content. Fill in once the Render service is up. |
 | `NEXT_PUBLIC_TYPEKIT_ID` | `xyr7qcs` | Client-owned Adobe Fonts kit. Optional — defaults to `xyr7qcs` in `app/layout.tsx`. |
 | `NEXT_PUBLIC_GA_ID` | `G-S620CRDB9D` | Optional — defaults to the PWRL production property in `app/layout.tsx`. |
 
@@ -42,4 +42,4 @@ Once Strapi is live, replace `NEXT_PUBLIC_STRAPI_DISABLED=true` with `NEXT_PUBLI
 
 ## Backend (separate host)
 
-`backend/` is Strapi. Deploy it on Render (or similar), not Vercel. See `INFRA.md`.
+`backend/` is Strapi. Deploy it on Render via the [`render.yaml`](render.yaml) blueprint. See [`INFRA.md`](INFRA.md) for current URLs and [`backend/README.md`](backend/README.md) for the CMS data model.

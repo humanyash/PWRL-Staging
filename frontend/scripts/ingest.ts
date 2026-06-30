@@ -116,7 +116,7 @@ async function upsertCollection(
   uid: string,
   keyField: string,
   keyValue: string,
-  data: Record<string, unknown>,
+  data: object,
 ) {
   const found = await api(
     `/${uid}?filters[${keyField}][$eq]=${encodeURIComponent(keyValue)}&fields[0]=${keyField}`,
