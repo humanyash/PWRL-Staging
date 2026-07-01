@@ -47,8 +47,8 @@ function HamburgerIcon({ className = "h-5 w-5" }: { className?: string }) {
  *  - Nav row: gradient over the hero (`from-black via-black/65 to-transparent`);
  *    switches to solid black once scrolled past the hero. The row hides on
  *    scroll-down and returns on scroll-up (live translates the wrapper).
- *  - Links: The Fund, How to Trade, Investor Relations, Learn (primary row).
- *  - Our Vision + Contact live in the utility hamburger (Figma 2.0).
+ *  - Links: Our Vision, The Fund, How to Trade, Investor Relations (primary row).
+ *  - Contact lives in the utility hamburger (Figma 2.0).
  */
 export function Header({ settings }: { settings: GlobalSettings }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -67,7 +67,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
     pathname === href || pathname.startsWith(href + "/");
 
   /** Primary header row — everything except hamburger-only items. */
-  const UTILITY_NAV_LABELS = new Set(["Our Vision", "Contact"]);
+  const UTILITY_NAV_LABELS = new Set(["Contact"]);
   const primaryNav = settings.nav.filter((n) => !UTILITY_NAV_LABELS.has(n.label));
   const utilityNav = settings.nav.filter((n) => UTILITY_NAV_LABELS.has(n.label));
   useEffect(() => {
@@ -224,7 +224,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
               </ul>
             </nav>
 
-            {/* Desktop utility hamburger — Our Vision + Contact (Figma 2.0). */}
+            {/* Desktop utility hamburger — Contact (Figma 2.0). */}
             <div className="relative hidden md:block">
               <button
                 type="button"

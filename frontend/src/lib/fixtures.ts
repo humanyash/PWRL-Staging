@@ -1105,6 +1105,18 @@ export const GLOBAL_SETTINGS: GlobalSettings = {
   },
   nav: [
     {
+      label: "Our Vision",
+      href: "/vision",
+      children: [
+        { label: "Strategy", href: "/vision#strategy" },
+        { label: "Difference", href: "/vision#difference" },
+        { label: "Team", href: "/vision#team" },
+        { label: "Heritage", href: "/vision#heritage" },
+        { label: "Investing", href: "/vision#investing" },
+        { label: "FAQ", href: "/vision#faq" },
+      ],
+    },
+    {
       label: "The Fund",
       href: "/fund",
       children: [
@@ -1132,18 +1144,6 @@ export const GLOBAL_SETTINGS: GlobalSettings = {
         { label: "SEC Filings", href: "/investor-relations#sec-filings" },
         { label: "Fund Documents", href: "/investor-relations#fund-documents" },
         { label: "Learn", href: "/learn" },
-      ],
-    },
-    {
-      label: "Our Vision",
-      href: "/vision",
-      children: [
-        { label: "Strategy", href: "/vision#strategy" },
-        { label: "Difference", href: "/vision#difference" },
-        { label: "Team", href: "/vision#team" },
-        { label: "Heritage", href: "/vision#heritage" },
-        { label: "Investing", href: "/vision#investing" },
-        { label: "FAQ", href: "/vision#faq" },
       ],
     },
     { label: "Contact", href: "/contact" },
