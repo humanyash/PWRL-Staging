@@ -1134,7 +1134,6 @@ export const GLOBAL_SETTINGS: GlobalSettings = {
         { label: "Learn", href: "/learn" },
       ],
     },
-    { label: "Learn", href: "/learn" },
     {
       label: "Our Vision",
       href: "/vision",
