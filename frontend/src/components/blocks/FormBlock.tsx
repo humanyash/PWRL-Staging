@@ -256,7 +256,7 @@ export function FormBlock({ block }: { block: FormBlockType }) {
               type={field.type === "email" ? "email" : "text"}
               required={field.required}
               placeholder={field.placeholder ?? field.label}
-              className="h-9 w-[240px] rounded-md border border-white bg-transparent px-[18px] text-[15.75px] text-white placeholder:text-white outline-none focus:border-sky md:h-11"
+              className="h-9 w-[280px] rounded-md border border-white bg-transparent px-[18px] text-[15.75px] text-white placeholder:text-white outline-none focus:border-sky md:h-11"
             />
           ))}
           <button
