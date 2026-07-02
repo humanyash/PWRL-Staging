@@ -67,7 +67,7 @@ const TEAM_IMAGES: Record<string, string> = {
     "/remote-assets/619a563f-Ben.png",
   "Vivian Chow":
     "/remote-assets/256407df-vivian.webp",
-  "Nicholas Earl":
+  "Nick Earl":
     "/remote-assets/23c13005-nicholas.webp",
   "Lars Leckie":
     "/remote-assets/b421a5fb-lars.webp",
@@ -144,7 +144,7 @@ const CHOW_BIO =
   "Vivian Chow spent eight years as SVP Chief Accounting Officer at DocuSign (NASDAQ: DOCU), a cloud-based platform for electronic signatures. While there, she was responsible for accounting, sales compensation, internal audit, tax and treasury.\n\nPrior to joining DocuSign in 2013, Ms. Chow served five years as VP of Finance Worldwide Controller at Electronic Arts Inc. (NASDAQ: EA), a leading publisher of video games. Prior to Electronic Arts, she held VP and Corporate Controller positions at companies in the retail, medical device and financial services industries.\n\nMs. Chow started her career in public accounting at Arthur Andersen & Co., a public accounting partnership. She is an inactive Certified Public Accountant in the State of California.\n\nMs. Chow holds a BS in Accounting from Lehigh University. She is a Board Member of LiveRamp (NYSE: RAMP), a data collaboration platform for consumer data.\n\nMs. Chow’s extensive accounting and financial background and her executive experience, including serving as a chief accounting officer and controller, make her qualified to serve on the Board.";
 
 const EARL_BIO =
-  "Nicholas Earl is a 29-year game industry veteran. He served as Glu Mobile's President and CEO and held a seat on the company's Board of Directors. In 2021, Electronic Arts purchased Glu Mobile for $2.4 billion, the 7th largest acquisition in video gaming history.\n\nPrior to Glu, Mr. Earl was President of Worldwide Studios at Kabam, presiding over such games as Marvel: Contest of Champions. Mr. Earl served as SVP of EA Mobile at Electronic Arts, overseeing hits such as The Simpsons: Tapped Out, The Sims FreePlay and Real Racing 3. While there, he also led the company's transition from the premium to freemium model.\n\nPrior to EA Mobile, Mr. Earl was SVP of EA Games launching such console and PC franchises as Knockout Kings, James Bond, Tiger Woods PGA Tour, The Godfather, The Sims, The Simpsons, Lord of the Rings and Dead Space.\n\nMr. Earl holds a BA in Economics from the University of California, Berkeley. He served as a Board Member and head of the Compensation Committee of SciPlay (SCPL), a leading developer and publisher of digital games, until its sale to Light & Wonder in 2023.\n\nMr. Earl’s service on multiple boards, and his extensive executive experience, including as a CEO make him qualified to serve on the Board.";
+  "Nick Earl is a 29-year game industry veteran. He served as Glu Mobile's President and CEO and held a seat on the company's Board of Directors. In 2021, Electronic Arts purchased Glu Mobile for $2.4 billion, the 7th largest acquisition in video gaming history.\n\nPrior to Glu, Mr. Earl was President of Worldwide Studios at Kabam, presiding over such games as Marvel: Contest of Champions. Mr. Earl served as SVP of EA Mobile at Electronic Arts, overseeing hits such as The Simpsons: Tapped Out, The Sims FreePlay and Real Racing 3. While there, he also led the company's transition from the premium to freemium model.\n\nPrior to EA Mobile, Mr. Earl was SVP of EA Games launching such console and PC franchises as Knockout Kings, James Bond, Tiger Woods PGA Tour, The Godfather, The Sims, The Simpsons, Lord of the Rings and Dead Space.\n\nMr. Earl holds a BA in Economics from the University of California, Berkeley. He served as a Board Member and head of the Compensation Committee of SciPlay (SCPL), a leading developer and publisher of digital games, until its sale to Light & Wonder in 2023.\n\nMr. Earl’s service on multiple boards, and his extensive executive experience, including as a CEO make him qualified to serve on the Board.";
 
 const LECKIE_BIO =
   "Lars Leckie has a wealth of experience in technology investment as a former technology founder and twenty year career in venture capital. As a Co-founder of Aspenwood Ventures and a long-standing Managing Director at Hummer Winblad Venture Partners, Mr. Leckie has a track record of identifying and nurturing founders of disruptive software companies.\n\nBefore his venture capital career, Mr. Leckie co-founded AutoFarm, a company focused on GPS and robotics. As a Managing Director at Aspenwood Ventures, Mr. Leckie continues to focus on early-stage B2B software companies. His firm's prior successes include exited category winning companies like Mulesoft and Five9, as well as emerging companies like Arkose Labs, Amberdata and Aria Systems.\n\nMr. Leckie holds a MS (Engineering) from Stanford University and an MBA from the Stanford Graduate School of Business.\n\nMr. Leckie’s depth of experience in venture capital investing, and his experience as an executive make him qualified to serve on the Board.";
@@ -164,7 +164,7 @@ const BOARD_DIRECTORS: PersonCard[] = [
     bio: CHOW_BIO,
     bioFormat: "prose",
   }),
-  person("Nicholas Earl", "Independent Director", {
+  person("Nick Earl", "Independent Director", {
     bio: EARL_BIO,
     bioFormat: "prose",
   }),
@@ -875,6 +875,17 @@ const IR: PageData = {
       heading: "News",
       items: [
         {
+          date: "June 16, 2026",
+          title:
+            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
+          href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
+          source: "Bloomberg",
+          image: img(
+            "/remote-assets/news/7vyvWX-bloomberg-interview.png",
+            "Bloomberg interview",
+          ),
+        },
+        {
           date: "June 9, 2026",
           title: "Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
           href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
@@ -894,13 +905,6 @@ const IR: PageData = {
           href: "https://www.businesswire.com/news/home/20260604841313/en/Powerlaw-Corp.-Nasdaq-PWRL-to-Host-Virtual-Investor-Roadshow",
           source: "Business Wire",
           image: img("/remote-assets/news/7pPCOR.png", "PWRL news"),
-        },
-        {
-          date: "May 27, 2026",
-          title: "Powerlaw Corp. Begins Trading on Nasdaq as PWRL",
-          href: "https://www.businesswire.com/news/home/20260527046646/en/Powerlaw-Corp.-Begins-Trading-on-Nasdaq-as-PWRL",
-          source: "Business Wire",
-          image: img("/remote-assets/news/43FjJS.png", "PWRL news"),
         },
         {
           date: "May 27, 2026",
@@ -937,8 +941,8 @@ const IR: PageData = {
       heading: "Learn",
       viewAllHref: "/learn",
       items: [
-        { slug: "how-to-measure-pwrls-progress" },
-        { slug: "how-pwrl-manages-its-portfolio" },
+        { slug: "meet-pwrl-high-growth-private-tech-in-one-ticker" },
+        { slug: "how-pwrl-is-curated-and-built" },
         { slug: "how-pwrl-accesses-the-best-in-private-tech" },
       ],
     },
@@ -964,6 +968,10 @@ const IR: PageData = {
       heading: "Fund Documents",
       kind: "fund-docs",
       documents: [
+        {
+          label: "PWRL - May 2026 Monthly NAV Shareholder Letter",
+          href: "/documents/pwrl-may-2026-monthly-nav-shareholder-letter.pdf",
+        },
         {
           label: "Powerlaw Corp. FAQs (06.04.26)",
           href: "/documents/powerlaw-corp-faqs-06.04.26.pdf",
@@ -1099,10 +1107,7 @@ export function getFixturePage(slug: string): PageData | null {
 /* ------------------------------------------------------------------ */
 
 export const GLOBAL_SETTINGS: GlobalSettings = {
-  banner: {
-    text: "__**Bloomberg**__**: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment**",
-    href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
-  },
+  // banner removed to match prod — no top blue callout on any page
   nav: [
     {
       label: "Our Vision",
@@ -1139,11 +1144,11 @@ export const GLOBAL_SETTINGS: GlobalSettings = {
       href: "/investor-relations",
       children: [
         { label: "News", href: "/investor-relations#news" },
+        { label: "Learn", href: "/learn" },
         { label: "Events", href: "/investor-relations#events" },
         { label: "Board of Directors", href: "/investor-relations#directors" },
         { label: "SEC Filings", href: "/investor-relations#sec-filings" },
         { label: "Fund Documents", href: "/investor-relations#fund-documents" },
-        { label: "Learn", href: "/learn" },
       ],
     },
     { label: "Contact", href: "/contact" },
