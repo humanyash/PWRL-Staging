@@ -3,16 +3,11 @@ import type { EducationArticle } from "@/lib/education";
 
 type EducationCardProps = {
   article: EducationArticle;
-  /** IR strip uses news-like sizing; education index uses larger cards. */
+  /** Kept for API compatibility; both variants now share prod's text-lg. */
   variant?: "compact" | "featured";
 };
 
-export function EducationCard({
-  article,
-  variant = "compact",
-}: EducationCardProps) {
-  const featured = variant === "featured";
-
+export function EducationCard({ article }: EducationCardProps) {
   return (
     <article className="education-card h-full">
       <Link
@@ -28,19 +23,11 @@ export function EducationCard({
           />
         </span>
         <div className="flex flex-col gap-2 bg-[#E4F7FD] p-4 text-black">
-          <span
-            className={`font-normal text-[#0023EC] ${
-              featured
-                ? "text-sm tracking-[0.05em]"
-                : "text-xs"
-            }`}
-          >
+          <span className="text-xs font-normal text-[#0023EC]">
             {article.date}
           </span>
           <h3
-            className={`line-clamp-3 text-pretty font-[family-name:var(--font-franklin)] font-semibold leading-snug ${
-              featured ? "text-[26px]" : "text-lg"
-            }`}
+            className="line-clamp-3 text-pretty font-[family-name:var(--font-franklin)] text-lg font-semibold leading-snug"
           >
             {article.title}
           </h3>
