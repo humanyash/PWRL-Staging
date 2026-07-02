@@ -384,14 +384,14 @@ body {
 }
 /* Home hero portfolio strip — company list (secondary) + tagline (primary). */
 .hero-wysiwyg p.hero-body-companies {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
   line-height: 1.45;
   letter-spacing: 0.01em;
 }
 @media (min-width: 48rem) {
   .hero-wysiwyg p.hero-body-companies {
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1.5;
   }
 }
