@@ -271,7 +271,7 @@ const HOME: PageData = {
       heading: "Only for everyone.",
       // Live renders the home hero body inside <b> — ** markers → bold.
       body: [
-        "SpaceX • OpenAI • Kalshi • Deel • Stripe • Kraken • Vast Data • Databricks • Tether •\nColossal • Mercor • Perplexity • Canva • Groq • Rippling • Saronic • Figma • Waymo",
+        "SpaceX • OpenAI • Kalshi • Deel • Stripe • Kraken • Vast Data • Databricks • Tether • Colossal • Mercor • Perplexity • Canva • Groq • Rippling • Saronic • Figma • Waymo",
         "**All in one Nasdaq-listed stock. Only for Everyone.**",
       ],
       headlineSlides: ["Powerlaw Corp.", "Nasdaq: PWRL"],
@@ -314,8 +314,8 @@ const HOME: PageData = {
       cta: { label: "EXPLORE THE FUND", href: "/fund", variant: "mint" },
       tailHeading: "Private Tech. Nasdaq Listed.\nOnly for everyone.",
       tailParagraphs: [
-        "Powerlaw Corp. offers the access you've been wanting with the\nwisdom you've been waiting for. As more of the world's most\nconsequential technology companies stay private longer, an entire\ngeneration of investors has been locked out of the value creation those\ncompanies represent.",
-        "Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-\nlisted fund offering exposure to leading private technology companies\nthrough a single ticker. Powerlaw Corp. is the first product on Powerlaw\nCapital Group's platform.",
+        "Powerlaw Corp. offers the access you've been wanting with the wisdom you've been waiting for. As more of the world's most consequential technology companies stay private longer, an entire generation of investors has been locked out of the value creation those companies represent.",
+        "Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-listed fund offering exposure to leading private technology companies through a single ticker. Powerlaw Corp. is the first product on Powerlaw Capital Group's platform.",
       ],
       tailCta: {
         label: "READ OUR PROSPECTUS",
@@ -335,9 +335,9 @@ const HOME: PageData = {
     {
       __component: "sections.pull-quote",
       quote:
-        "We believe the world's most transformative\ncompanies should be within everyone's reach.",
+        "We believe the world's most transformative companies should be within everyone's reach.",
       subheading:
-        "Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to\nleading private technology companies through a single Nasdaq-listed security.",
+        "Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to leading private technology companies through a single Nasdaq-listed security.",
       cta: {
         label: "LEARN MORE",
         href: "/investor-relations",
@@ -650,7 +650,7 @@ const FUND: PageData = {
       heading:
         "A focused portfolio of leading private technology companies.",
       intro:
-        "PWRL invests across the sectors driving the next generation of value creation in technology: artificial intelligence, next-generation software,\nmodern aerospace and defense, and leading consumer technology platforms. The portfolio is advised by Powerlaw Fund Adviser, LLC.",
+        "PWRL invests across the sectors driving the next generation of value creation in technology: artificial intelligence, next-generation software, modern aerospace and defense, and leading consumer technology platforms. The portfolio is advised by Powerlaw Fund Adviser, LLC.",
       // Live: ice panel with #085CF0 top border between intro and tables.
       panelHeading: "How the portfolio gets built.",
       panelBody:
@@ -1108,7 +1108,7 @@ export function getFixturePage(slug: string): PageData | null {
 
 export const GLOBAL_SETTINGS: GlobalSettings = {
   banner: {
-    text: "**RSVP**: Public Venture Capital 101 Webinar on 7.15 with Finimize & PWRL",
+    text: "**RSVP: Public Venture Capital 101 Webinar on 7.15 with Finimize & PWRL**",
     href: "https://moderninvestorsummit.webflow.io/2026/modern-investor-community-series/modern-investor-podcast",
   },
   nav: [
