@@ -125,8 +125,9 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
         </div>
 
         {/* Verbatim disclaimers — do not paraphrase. Live: pt-[36px],
-            12→14px, #B0E9FD, three bold paragraphs (** markers). */}
-        <div className="pt-[36px] text-[12px] font-light leading-[1.4] text-[#B0E9FD] md:text-[14px]">
+            12→14px, #B0E9FD, three bold paragraphs (** markers).
+            leading-[1.8] matches prod's computed 25.2px line-height. */}
+        <div className="pt-[36px] text-[12px] font-light leading-[1.8] text-[#B0E9FD] md:text-[14px]">
           {settings.disclaimers.map((para, i) => (
             <p key={i} className="mb-3 mt-0 last:mb-0">
               {renderRich(para)}
