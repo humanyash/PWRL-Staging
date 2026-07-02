@@ -6,27 +6,6 @@ import {
   type EducationArticle,
 } from "@/lib/education";
 
-/**
- * Prod inlines each section's heading as a bold sentence lead-in at the start
- * of the section's first paragraph (sentence case + trailing period). Acronyms
- * like PWRL, NAV, IPO, SPVs are preserved.
- */
-const KEEP_UPPER = /^(PWRL|NAV|IPO|SPV|SPVs|CEF|SEC|EDGAR|VC|LP|GP|CFO|CEO|AI|US|IRS)$/;
-
-function sentenceLeadIn(heading: string): string {
-  const trimmed = heading.trim().replace(/[.!?]+$/, "");
-  const words = trimmed.split(/\s+/);
-  const cased = words
-    .map((word, i) => {
-      if (KEEP_UPPER.test(word)) return word;
-      if (i === 0) return word[0].toUpperCase() + word.slice(1).toLowerCase();
-      return word.toLowerCase();
-    })
-    .join(" ");
-  const endsWithQuestion = /\?$/.test(heading.trim());
-  return cased + (endsWithQuestion ? "?" : ".");
-}
-
 function ArticleNavChevron({ direction }: { direction: "left" | "right" }) {
   return (
     <svg
@@ -92,28 +71,25 @@ export function EducationArticleView({ article }: { article: EducationArticle })
 
       <section className="bg-white py-16 md:py-24">
         <Container>
-          <div className="mx-auto max-w-[800px] font-[family-name:var(--font-franklin)] text-xl font-light leading-[1.4] text-charcoal">
+          <div className="font-[family-name:var(--font-franklin)] text-[18px] font-light leading-[1.6] text-charcoal">
             {article.body.map((p, i) => (
               <p key={i} className="mb-5">
                 {renderRich(p)}
               </p>
             ))}
 
-            {article.sections?.map((section, sectionIndex) => {
-              const leadIn = sentenceLeadIn(section.heading);
-              return (
-                <div key={`${section.heading}-${sectionIndex}`}>
-                  {section.paragraphs.map((p, i) => {
-                    const text = i === 0 ? `**${leadIn}** ${p}` : p;
-                    return (
-                      <p key={i} className="mb-5">
-                        {renderRich(text)}
-                      </p>
-                    );
-                  })}
-                </div>
-              );
-            })}
+            {article.sections?.map((section, sectionIndex) => (
+              <div key={`${section.heading}-${sectionIndex}`} className="mt-8">
+                <h2 className="mb-5 font-display text-[32px] font-light leading-[1.1] text-charcoal md:text-[42px]">
+                  {section.heading}
+                </h2>
+                {section.paragraphs.map((p, i) => (
+                  <p key={i} className="mb-5">
+                    {renderRich(p)}
+                  </p>
+                ))}
+              </div>
+            ))}
           </div>
         </Container>
       </section>

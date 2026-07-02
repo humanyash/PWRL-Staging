@@ -91,10 +91,10 @@ export const spacing = {
 } as const;
 
 export const fonts = {
-  /** Body / UI — Inter (var set in layout.tsx). */
-  body: "var(--font-inter)",
-  /** Display — Cormorant Garamond, substitute for paid ivypresto-headline. */
-  display: "var(--font-cormorant)",
+  /** Body / UI — Libre Franklin (var set in layout.tsx). */
+  body: "var(--font-franklin-sans)",
+  /** Display — Adobe Typekit's ivypresto-headline (loaded via <link> in layout.tsx). */
+  display: "\"ivypresto-headline\"",
 } as const;
 
 export const tokens = {

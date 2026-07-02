@@ -1,36 +1,14 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import {
-  Inter,
-  Cormorant_Garamond,
-  Libre_Franklin,
-} from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 import { MotionRouter } from "@/components/layout/MotionRouter";
 import { ExternalLinkGuard } from "@/components/layout/ExternalLinkGuard";
 import "./globals.css";
 
-/** Body / UI face — matches the bundled Inter on the live site. */
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
 /**
- * Display face — free substitute for the live site's paid Adobe
- * `ivypresto-headline`. Chosen for its high-contrast Didone character.
- * Used for all headings, hero copy, and italic accents.
- */
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-/**
- * Secondary body face — the live site pairs Inter with Libre Franklin
- * (`--font-franklin`); the timeline entry titles and several body blocks
- * use it.
+ * Libre Franklin is the site's sole body / UI face. Combined with Adobe
+ * Typekit's ivypresto-headline (loaded via the <link> below) this pairing
+ * matches production exactly — no Inter, no Cormorant fallbacks.
  */
 const franklin = Libre_Franklin({
   variable: "--font-franklin-sans",
@@ -68,7 +46,7 @@ export default function RootLayout({
       // data-mo-router: tells public/pwrl-motion.js the App Router adapter
       // (MotionRouter) owns page transitions — see the kinetic-layer handoff.
       data-mo-router=""
-      className={`${inter.variable} ${cormorant.variable} ${franklin.variable} h-full antialiased`}
+      className={`${franklin.variable} h-full antialiased`}
     >
       <head>
         {/* Adobe Fonts (Typekit) — serves the real ivypresto-headline
@@ -82,7 +60,7 @@ export default function RootLayout({
           href={`https://use.typekit.net/${TYPEKIT_ID}.css`}
         />
       </head>
-      <body className="min-h-full flex flex-col font-[family-name:var(--font-inter)]">
+      <body className="min-h-full flex flex-col font-[family-name:var(--font-franklin)]">
         {children}
         <MotionRouter />
         <ExternalLinkGuard />

@@ -38,9 +38,9 @@
   --color-gray-mid: #333333; /* live --color-gray-500 */
   --color-gray-100: #f1f1f1; /* live --color-gray-100 (timeline section bg) */
 
-  /* Fonts */
-  --font-display: "ivypresto-headline", var(--font-cormorant), Georgia, serif;
-  --font-body: var(--font-inter), "Libre Franklin", sans-serif;
+  /* Fonts — only Libre Franklin and Adobe Typekit's ivypresto-headline */
+  --font-display: "ivypresto-headline", Georgia, serif;
+  --font-body: var(--font-franklin-sans), "Libre Franklin", sans-serif;
   --font-franklin: var(--font-franklin-sans), "Libre Franklin", sans-serif;
 
   /* Radii (live) */
@@ -61,7 +61,7 @@
   --text-p1-desk: 24px;
   --text-p2-mob: 16px;
   --text-p2-desk: 20px;
-  --font-ivy: "ivypresto-headline", var(--font-cormorant), Georgia, serif;
+  --font-ivy: "ivypresto-headline", Georgia, serif;
 }
 
 :root {
@@ -88,14 +88,12 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), "Libre Franklin", Arial, sans-serif;
+  font-family: var(--font-franklin-sans), "Libre Franklin", Arial, sans-serif;
 }
 
 /* Display face for headings/hero — prefers the real ivypresto-headline. */
 .font-display {
-  font-family:
-    "ivypresto-headline", var(--font-cormorant), Georgia, "Times New Roman",
-    serif;
+  font-family: "ivypresto-headline", Georgia, "Times New Roman", serif;
 }
 .font-display.font-light {
   font-weight: 300;
@@ -123,7 +121,7 @@ body {
   font-stretch: normal;
 }
 .font-body {
-  font-family: var(--font-inter), "Libre Franklin", Arial, sans-serif;
+  font-family: var(--font-franklin-sans), "Libre Franklin", Arial, sans-serif;
 }
 
 /* Live signature gradients (verbatim from the live stylesheet). */
