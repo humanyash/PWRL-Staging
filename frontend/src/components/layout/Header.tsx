@@ -176,7 +176,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
             </Link>
 
             <nav className="hidden md:block">
-              <ul className="flex items-center justify-center gap-x-8 py-3 uppercase lg:gap-x-16">
+              <ul className="flex items-center justify-center gap-x-8 py-3 font-[family-name:var(--font-franklin)] uppercase lg:gap-x-16">
                 {primaryNav.map((item) => (
                   <li
                     key={item.href}
@@ -303,7 +303,7 @@ export function Header({ settings }: { settings: GlobalSettings }) {
                 </button>
               </div>
 
-              <nav className="px-12">
+              <nav className="px-12 font-[family-name:var(--font-franklin)]">
                 <ul className="border-t border-white/15">
                   {primaryNav.map((item) => {
                     const hasChildren =
