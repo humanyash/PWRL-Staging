@@ -39,7 +39,7 @@ export function EducationCard({
           </span>
           <h3
             className={`line-clamp-3 text-pretty font-[family-name:var(--font-franklin)] font-semibold leading-snug ${
-              featured ? "text-2xl" : "text-lg"
+              featured ? "text-[26px]" : "text-lg"
             }`}
           >
             {article.title}

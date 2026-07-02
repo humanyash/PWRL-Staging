@@ -418,7 +418,7 @@ const HOME: PageData = {
             "Powerlaw Corp.(Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
           href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
           source: "Yahoo Finance",
-          image: img("/remote-assets/news/yahoo-finance.png", "Yahoo Finance"),
+          image: img("/remote-assets/news/7pPCOR.png", "PWRL"),
         },
         {
           date: "May 27, 2026",
@@ -893,7 +893,7 @@ const IR: PageData = {
           title: "Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
           href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
           source: "Yahoo Finance",
-          image: img("/remote-assets/news/yahoo-finance.png", "Yahoo Finance"),
+          image: img("/remote-assets/news/7pPCOR.png", "PWRL"),
         },
         {
           date: "June 5, 2026",
