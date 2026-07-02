@@ -49,7 +49,7 @@ export function Hero({ block }: { block: HeroBlock }) {
         <div className="mo-settle absolute inset-0 z-0">
           {hasVideo ? (
             <video
-              className="mo-parallax absolute inset-0 h-full w-full object-cover"
+              className="mo-parallax absolute inset-0 h-full w-full object-cover [object-position:center_25%]"
               src={block.backgroundVideo!}
               autoPlay
               loop
