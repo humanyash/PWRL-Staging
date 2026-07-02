@@ -104,12 +104,10 @@ export function EducationArticleView({ article }: { article: EducationArticle })
               {prev ? (
                 <Link
                   href={`/learn/${prev.slug}`}
-                  className="group flex max-w-[45%] items-center gap-3 font-[family-name:var(--font-franklin)] text-xl font-normal uppercase leading-[30px] tracking-[1px] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
+                  className="group flex max-w-[45%] items-center gap-3 font-[family-name:var(--font-franklin)] text-[18px] font-normal uppercase leading-snug text-charcoal no-underline hover:text-[#0023EC]"
                 >
                   <ArticleNavChevron direction="left" />
-                  <span className="line-clamp-2 normal-case leading-[30px] tracking-normal px-[13px] md:uppercase md:tracking-[1px]">
-                    {prev.title}
-                  </span>
+                  <span className="line-clamp-2">{prev.title}</span>
                 </Link>
               ) : (
                 <span />
@@ -118,11 +116,9 @@ export function EducationArticleView({ article }: { article: EducationArticle })
               {next ? (
                 <Link
                   href={`/learn/${next.slug}`}
-                  className="group flex max-w-[38%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-xl font-normal uppercase leading-[30px] tracking-[1px] text-charcoal no-underline hover:text-[#0023EC] md:text-[26px]"
+                  className="group flex max-w-[45%] items-center justify-end gap-3 text-right font-[family-name:var(--font-franklin)] text-[18px] font-normal uppercase leading-snug text-charcoal no-underline hover:text-[#0023EC]"
                 >
-                  <span className="line-clamp-2 normal-case leading-[30px] tracking-normal md:uppercase md:tracking-[1px]">
-                    {next.title}
-                  </span>
+                  <span className="line-clamp-2">{next.title}</span>
                   <ArticleNavChevron direction="right" />
                 </Link>
               ) : (
