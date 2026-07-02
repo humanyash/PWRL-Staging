@@ -400,8 +400,8 @@ const HOME: PageData = {
           href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
           source: "Bloomberg",
           image: img(
-            "/remote-assets/news/7vyvWX-bloomberg-interview.png",
-            "Bloomberg interview",
+            "/remote-assets/news/bloomberg-ceo-interview.png",
+            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
           ),
         },
         {
@@ -410,7 +410,7 @@ const HOME: PageData = {
             "CNBC: Powerlaw Capital Group CEO: We're bringing access to private companies to everyone",
           href: "https://www.cnbc.com/video/2026/05/27/powerlaw-capital-group-ceo-were-bringing-access-to-private-companies-to-everyone.html",
           source: "CNBC",
-          image: img("/remote-assets/news/6XX9eN.png", "CNBC interview"),
+          image: img("/remote-assets/news/cnbc.png", "CNBC"),
         },
         {
           date: "June 9, 2026",
@@ -418,14 +418,17 @@ const HOME: PageData = {
             "Powerlaw Corp.(Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
           href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
           source: "Yahoo Finance",
-          image: img("/remote-assets/news/7pPCOR.png", "PWRL news"),
+          image: img("/remote-assets/news/yahoo-finance.png", "Yahoo Finance"),
         },
         {
           date: "May 27, 2026",
           title: "Powerlaw Corp. Begins Trading on Nasdaq as PWRL",
           href: "https://www.businesswire.com/news/home/20260527046646/en/Powerlaw-Corp.-Begins-Trading-on-Nasdaq-as-PWRL",
           source: "Business Wire",
-          image: img("/remote-assets/news/43FjJS.png", "PWRL news"),
+          image: img(
+            "/remote-assets/news/powerlaw-052726-4.jpg",
+            "Powerlaw Corp. (Nasdaq: PWRL)",
+          ),
         },
       ],
     },
@@ -881,8 +884,8 @@ const IR: PageData = {
           href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
           source: "Bloomberg",
           image: img(
-            "/remote-assets/news/7vyvWX-bloomberg-interview.png",
-            "Bloomberg interview",
+            "/remote-assets/news/bloomberg-ceo-interview.png",
+            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
           ),
         },
         {
@@ -890,7 +893,7 @@ const IR: PageData = {
           title: "Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
           href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
           source: "Yahoo Finance",
-          image: img("/remote-assets/news/7pPCOR.png", "PWRL news"),
+          image: img("/remote-assets/news/yahoo-finance.png", "Yahoo Finance"),
         },
         {
           date: "June 5, 2026",
@@ -911,7 +914,7 @@ const IR: PageData = {
           title: "Powerlaw Capital Group CEO: We’re bringing access to private companies to everyone",
           href: "https://www.cnbc.com/video/2026/05/27/powerlaw-capital-group-ceo-were-bringing-access-to-private-companies-to-everyone.html",
           source: "CNBC",
-          image: img("/remote-assets/news/6XX9eN.png", "PWRL news"),
+          image: img("/remote-assets/news/cnbc.png", "CNBC"),
         },
         {
           date: "May 27, 2026",
