@@ -256,13 +256,13 @@ export function FormBlock({ block }: { block: FormBlockType }) {
               type={field.type === "email" ? "email" : "text"}
               required={field.required}
               placeholder={field.placeholder ?? field.label}
-              className="h-9 w-[220px] rounded-md border border-white bg-transparent px-[18px] text-[15.75px] text-white placeholder:text-white outline-none focus:border-sky md:h-11 sm:w-[200px] lg:w-[210px]"
+              className="h-9 w-[260px] rounded-md border border-white bg-transparent px-[18px] text-[15.75px] text-white placeholder:text-white outline-none focus:border-sky md:h-11"
             />
           ))}
           <button
             type="submit"
             disabled={state === "submitting"}
-            className={`mo-btn h-9 shrink-0 rounded-md bg-mint px-6 font-[family-name:var(--font-franklin)] text-[15px] font-bold text-black transition disabled:opacity-60 md:h-11 ${submitted ? "mo-confirm" : ""}`}
+            className={`mo-btn h-9 shrink-0 rounded-md bg-mint px-7 font-[family-name:var(--font-franklin)] text-[15px] font-bold text-black transition disabled:opacity-60 md:h-11 ${submitted ? "mo-confirm" : ""}`}
           >
             {state === "submitting"
               ? "Sending…"

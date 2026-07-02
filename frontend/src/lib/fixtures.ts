@@ -1107,7 +1107,10 @@ export function getFixturePage(slug: string): PageData | null {
 /* ------------------------------------------------------------------ */
 
 export const GLOBAL_SETTINGS: GlobalSettings = {
-  // banner removed to match prod — no top blue callout on any page
+  banner: {
+    text: "**RSVP**: Public Venture Capital 101 Webinar on 7.15 with Finimize & PWRL",
+    href: "https://moderninvestorsummit.webflow.io/2026/modern-investor-community-series/modern-investor-podcast",
+  },
   nav: [
     {
       label: "Our Vision",

@@ -36,7 +36,7 @@ export function Hero({ block }: { block: HeroBlock }) {
 
   const sectionSpacing = block.compact
     ? "h-[415px] min-h-[415px] max-h-[415px]"
-    : "pb-19 pt-43 lg:pb-29 lg:pt-68 lg:min-h-[785px] xl:min-h-[785px]";
+    : "pb-19 pt-43 lg:pb-29 lg:pt-68 xl:min-h-[730px]";
 
   return (
     <section
