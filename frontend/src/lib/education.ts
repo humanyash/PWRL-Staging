@@ -145,12 +145,12 @@ export const EDUCATION_ARTICLES: EducationArticle[] = [
         ],
       },
       {
-        heading: "How Those Shares End Up Inside a Public Fund",
+        heading: "So how do those shares end up inside a public fund?",
         paragraphs: [
           "Unlike public shares, private shares are restricted and hard to move, you generally can't transact private shares without jumping through hoops, so PWRL gains its exposure through a few different structures:",
-          "Direct secondary purchases. In some cases, the fund buys shares directly from existing holders through a negotiated secondary transaction.",
-          "Special purpose vehicles (SPVs). Often, the fund invests through an SPV, a one-off arrangement formed directly with a counterparty who owns the private shares to gain exposure to the underlying private company. PWRL puts money into the SPV, and the SPV holds the underlying shares, giving the fund indirect economic exposure to that company.",
-          "Forward contracts and call rights. Where shares can't yet be transferred, because of lock-ups or transfer restrictions, the fund may use forward agreements, advancing the purchase price now with the actual shares delivered later, once restrictions are lifted.",
+          "**Direct secondary purchases.** In some cases, the fund buys shares directly from existing holders through a negotiated secondary transaction.",
+          "**Special purpose vehicles (SPVs).** Often, the fund invests through an SPV, a one-off arrangement formed directly with a counterparty who owns the private shares to gain exposure to the underlying private company. PWRL puts money into the SPV, and the SPV holds the underlying shares, giving the fund indirect economic exposure to that company.",
+          "**Forward contracts and call rights.** Where shares can't yet be transferred, because of lock-ups or transfer restrictions, the fund may use forward agreements, advancing the purchase price now with the actual shares delivered later, once restrictions are lifted.",
         ],
       },
       {
