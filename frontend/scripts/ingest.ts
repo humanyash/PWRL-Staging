@@ -12,7 +12,11 @@
  * Idempotency: collections are looked up by their natural key (name/slug)
  * and updated if present, created otherwise. Single types are plain PUTs.
  * Images upload from /public (skipped if an upload with the same name
- * already exists).
+ * already exists and points at Cloudinary).
+ *
+ * Flags:
+ *   --media-only       Skip content upserts; upload files only.
+ *   --force-reupload   Delete existing Strapi media (same filename) and upload fresh.
  */
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, basename, extname } from "node:path";
@@ -34,18 +38,142 @@ if (!TOKEN) {
 
 const H = { Authorization: `Bearer ${TOKEN}` };
 const JH = { ...H, "Content-Type": "application/json" };
+const MEDIA_ONLY = process.argv.includes("--media-only");
+const FORCE_REUPLOAD = process.argv.includes("--force-reupload");
+const RETRY_STATUSES = new Set([429, 502, 503, 504]);
+const UPLOAD_DELAY_MS = 600;
+const LARGE_FILE_BYTES = 2 * 1024 * 1024;
+const LARGE_UPLOAD_DELAY_MS = 1500;
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+function fetchTimed(url: string, init?: RequestInit, ms = 120_000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, { ...init, signal: ctrl.signal }).finally(() => clearTimeout(timer));
+}
+
+async function parseJson(res: Response, label: string) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text) as unknown;
+  } catch {
+    throw new Error(
+      `${label} → ${res.status} (expected JSON, got HTML/text): ${text.slice(0, 200)}`,
+    );
+  }
+}
+
+/** Retry Render cold-starts / gateway timeouts. */
+async function fetchWithRetry(url: string, init?: RequestInit, retries = 5): Promise<Response> {
+  let last: Response | undefined;
+  for (let i = 0; i <= retries; i++) {
+    try {
+      last = await fetchTimed(url, init);
+    } catch (e) {
+      if (i === retries) throw e;
+      const wait = 1500 * 2 ** i;
+      console.log(`  … retry ${i + 1}/${retries} after network error, waiting ${wait}ms`);
+      await sleep(wait);
+      continue;
+    }
+    if (last.ok || !RETRY_STATUSES.has(last.status) || i === retries) return last;
+    const wait = 1500 * 2 ** i;
+    console.log(`  … retry ${i + 1}/${retries} after ${last.status}, waiting ${wait}ms`);
+    await sleep(wait);
+  }
+  return last!;
+}
+
+async function warmup() {
+  console.log("Warming up Strapi…");
+  for (let i = 0; i < 6; i++) {
+    try {
+      const res = await fetch(`${STRAPI_URL}/_health`);
+      if (res.ok) {
+        console.log("  Strapi is up.");
+        return;
+      }
+    } catch {
+      /* ignore */
+    }
+    await sleep(5000);
+  }
+  console.warn("  Warmup timed out — continuing anyway.");
+}
 
 async function api(path: string, init?: RequestInit) {
-  const res = await fetch(`${STRAPI_URL}/api${path}`, init);
+  const res = await fetchWithRetry(`${STRAPI_URL}/api${path}`, init);
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`${init?.method ?? "GET"} ${path} → ${res.status}: ${body.slice(0, 300)}`);
   }
-  return res.json();
+  return parseJson(res, `${init?.method ?? "GET"} ${path}`);
 }
 
 // --- media ----------------------------------------------------------
-const uploadCache = new Map<string, number>();
+interface UploadRecord {
+  id: number;
+  name: string;
+  url?: string;
+}
+
+const uploadCache = new Map<string, UploadRecord>();
+let uploadCacheLoaded = false;
+
+function isCloudinaryUrl(url?: string) {
+  return !!url && url.includes("res.cloudinary.com/");
+}
+
+async function deleteUpload(record: UploadRecord) {
+  // Strapi v5 upload delete accepts numeric id; skip if referenced entries block delete.
+  const res = await fetchWithRetry(`${STRAPI_URL}/api/upload/files/${record.id}`, {
+    method: "DELETE",
+    headers: H,
+  }, 2);
+  if (!res.ok && res.status !== 404) {
+    const body = await res.text();
+    throw new Error(`delete ${record.name} (id ${record.id}) → ${res.status}: ${body.slice(0, 200)}`);
+  }
+  uploadCache.delete(record.name);
+}
+
+async function preloadUploadCache() {
+  if (uploadCacheLoaded) return;
+  if (FORCE_REUPLOAD) {
+    console.log("Skipping media index (force reupload).");
+    uploadCacheLoaded = true;
+    return;
+  }
+  console.log("Loading existing media index…");
+  let page = 1;
+  let total = 0;
+  for (;;) {
+    const res = await fetchWithRetry(
+      `${STRAPI_URL}/api/upload/files?pagination[page]=${page}&pagination[pageSize]=100&sort=createdAt:desc`,
+      { headers: H },
+      3,
+    );
+    if (!res.ok) {
+      console.warn(`  Could not load media index (page ${page}): ${res.status}`);
+      break;
+    }
+    const batch = (await parseJson(res, "upload/files index")) as UploadRecord[];
+    if (!Array.isArray(batch) || batch.length === 0) break;
+    for (const f of batch) {
+      if (!f.name || !f.id) continue;
+      // Keep the newest entry per filename (sorted desc).
+      if (!uploadCache.has(f.name)) uploadCache.set(f.name, f);
+    }
+    total += batch.length;
+    if (batch.length < 100) break;
+    page++;
+    await sleep(400);
+  }
+  uploadCacheLoaded = true;
+  const broken = [...uploadCache.values()].filter((f) => !isCloudinaryUrl(f.url)).length;
+  console.log(`  ${uploadCache.size} unique filenames indexed (${total} total rows, ${broken} non-Cloudinary).`);
+}
 
 // Strapi cares about MIME for routing files/images. Map by extension so PDFs,
 // SVGs, WEBP, etc. all upload correctly.
@@ -61,26 +189,59 @@ const MIME: Record<string, string> = {
   ".webm": "video/webm",
 };
 
+async function findExistingByName(name: string): Promise<UploadRecord[]> {
+  const res = await fetchWithRetry(
+    `${STRAPI_URL}/api/upload/files?filters[name][$eq]=${encodeURIComponent(name)}&pagination[pageSize]=20`,
+    { headers: H },
+    3,
+  );
+  if (!res.ok) return [];
+  const batch = (await parseJson(res, `upload lookup ${name}`)) as UploadRecord[];
+  return Array.isArray(batch) ? batch : [];
+}
+
 async function uploadFile(localPath: string): Promise<number | null> {
   if (!localPath?.startsWith("/")) return null;
   const file = join(root, "public", localPath);
   if (!existsSync(file)) return null;
   const name = basename(localPath);
-  if (uploadCache.has(name)) return uploadCache.get(name)!;
+  const size = statSync(file).size;
 
-  // reuse an existing upload with the same name
-  const existing = await api(`/upload/files?filters[name][$eq]=${encodeURIComponent(name)}`, { headers: H });
-  if (Array.isArray(existing) && existing[0]?.id) {
-    uploadCache.set(name, existing[0].id);
-    return existing[0].id;
+  const cached = uploadCache.get(name);
+  if (cached && !FORCE_REUPLOAD && isCloudinaryUrl(cached.url)) {
+    return cached.id;
   }
+
+  const matches = await findExistingByName(name);
+  const best = matches[0];
+  if (best && !FORCE_REUPLOAD && isCloudinaryUrl(best.url)) {
+    uploadCache.set(name, best);
+    return best.id;
+  }
+
+  for (const rec of matches) {
+    if (!FORCE_REUPLOAD) break;
+    try {
+      await deleteUpload(rec);
+    } catch (e) {
+      // Deleting in-use media often 500s; upload a fresh copy instead.
+      console.warn(`  ! delete skipped ${name}: ${(e as Error).message}`);
+    }
+  }
+
   const fd = new FormData();
   const mime = MIME[extname(name).toLowerCase()] ?? "application/octet-stream";
   fd.append("files", new Blob([readFileSync(file)], { type: mime }), name);
-  const res = await fetch(`${STRAPI_URL}/api/upload`, { method: "POST", headers: H, body: fd });
-  if (!res.ok) throw new Error(`upload ${name} → ${res.status}`);
-  const [up] = await res.json();
-  uploadCache.set(name, up.id);
+  const res = await fetchWithRetry(`${STRAPI_URL}/api/upload`, { method: "POST", headers: H, body: fd }, 8);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`upload ${name} → ${res.status}: ${body.slice(0, 200)}`);
+  }
+  const parsed = (await parseJson(res, `upload ${name}`)) as UploadRecord[];
+  const [up] = parsed;
+  if (!up?.id) throw new Error(`upload ${name} → empty response`);
+  uploadCache.set(name, { id: up.id, name: up.name ?? name, url: up.url });
+  await sleep(size >= LARGE_FILE_BYTES ? LARGE_UPLOAD_DELAY_MS : UPLOAD_DELAY_MS);
   return up.id;
 }
 
@@ -98,17 +259,32 @@ async function bulkUploadDir(publicDir: string, log: (m: string) => void) {
     }
     return out;
   };
-  const files = walk(abs, `/${publicDir}`);
+  const files = walk(abs, `/${publicDir}`).sort(
+    (a, b) => statSync(a.abs).size - statSync(b.abs).size,
+  );
   let uploaded = 0;
   let reused = 0;
+  let failed = 0;
+  const failures: string[] = [];
   for (const f of files) {
-    const before = uploadCache.size;
-    const id = await uploadFile(f.rel);
-    if (id == null) continue;
-    if (uploadCache.size > before) uploaded++;
-    else reused++;
+    const name = basename(f.rel);
+    const had = uploadCache.get(name);
+    const hadCloudinary = had && isCloudinaryUrl(had.url);
+    try {
+      const id = await uploadFile(f.rel);
+      if (id == null) continue;
+      if (!FORCE_REUPLOAD && hadCloudinary) reused++;
+      else uploaded++;
+    } catch (e) {
+      failed++;
+      failures.push(f.rel);
+      console.warn(`  ! upload failed ${f.rel}: ${(e as Error).message}`);
+    }
   }
-  log(`media ${publicDir}: ${uploaded} new, ${reused} reused`);
+  log(
+    `media ${publicDir}: ${uploaded} uploaded, ${reused} reused${failed ? `, ${failed} failed` : ""}`,
+  );
+  if (failures.length) log(`  failed: ${failures.join(", ")}`);
 }
 
 // --- helpers --------------------------------------------------------
@@ -137,9 +313,70 @@ async function putSingle(uid: string, data: Record<string, unknown>) {
 }
 
 // --- main -----------------------------------------------------------
+async function bulkUploadAll(log: (m: string) => void) {
+  console.log("Bulk media upload:");
+  await bulkUploadDir("documents", log);
+  await bulkUploadDir("remote-assets", log);
+  await bulkUploadDir("stats_icons", log);
+  await bulkUploadDir("brand", log);
+  await bulkUploadDir("events", log);
+  await bulkUploadDir("media", log);
+}
+
+async function verifyMedia(log: (m: string) => void) {
+  const dirs = ["documents", "remote-assets", "stats_icons", "brand", "events", "media"];
+  const missing: string[] = [];
+  const broken: string[] = [];
+  let checked = 0;
+
+  for (const dir of dirs) {
+    const abs = join(root, "public", dir);
+    if (!existsSync(abs)) continue;
+    const stack = [abs];
+    while (stack.length) {
+      const current = stack.pop()!;
+      for (const entry of readdirSync(current)) {
+        const p = join(current, entry);
+        if (statSync(p).isDirectory()) stack.push(p);
+        else {
+          checked++;
+          const name = basename(p);
+          let rec = uploadCache.get(name);
+          if (!rec || !isCloudinaryUrl(rec.url)) {
+            const found = await findExistingByName(name);
+            rec = found.find((f) => isCloudinaryUrl(f.url)) ?? found[0];
+            if (rec) uploadCache.set(name, rec);
+          }
+          if (!rec) missing.push(name);
+          else if (!isCloudinaryUrl(rec.url)) broken.push(name);
+        }
+      }
+    }
+  }
+
+  if (missing.length === 0 && broken.length === 0) {
+    log(`verify: ${checked} local files OK on Cloudinary`);
+    return true;
+  }
+  if (missing.length) log(`verify: missing uploads (${missing.length}): ${missing.slice(0, 10).join(", ")}${missing.length > 10 ? "…" : ""}`);
+  if (broken.length) log(`verify: broken urls (${broken.length}): ${broken.slice(0, 10).join(", ")}${broken.length > 10 ? "…" : ""}`);
+  return false;
+}
+
 async function main() {
-  console.log(`Ingesting into ${STRAPI_URL}`);
+  console.log(
+    `${MEDIA_ONLY ? "Media-only ingest" : "Ingesting"} into ${STRAPI_URL}${FORCE_REUPLOAD ? " (force reupload)" : ""}`,
+  );
+  await warmup();
+  await preloadUploadCache();
   const log = (m: string) => console.log("  •", m);
+
+  if (MEDIA_ONLY) {
+    await bulkUploadAll(log);
+    const ok = await verifyMedia(log);
+    console.log(ok ? "Done." : "Done with gaps — re-run failed uploads.");
+    process.exit(ok ? 0 : 1);
+  }
 
   const {
     teamMembers,
@@ -154,6 +391,9 @@ async function main() {
     forms,
     legalPages,
   } = await import("./ingest-data").then((m) => m.buildPayloads());
+
+  // Upload all static assets first so headshots/PDFs resolve to Cloudinary ids.
+  await bulkUploadAll(log);
 
   for (const t of teamMembers) {
     const image = t.imagePath ? await uploadFile(t.imagePath) : null;
@@ -197,15 +437,12 @@ async function main() {
     log(await upsertCollection("legal-pages", "slug", lp.slug, lp.data));
   }
 
-  // Bulk-upload every PDF/image/GIF in public/documents and public/remote-assets
-  // so the Strapi Media Library mirrors the site's full asset inventory.
-  console.log("Bulk media upload:");
-  await bulkUploadDir("documents", log);
-  await bulkUploadDir("remote-assets", log);
-  await bulkUploadDir("stats_icons", log);
-  await bulkUploadDir("brand", log);
-  await bulkUploadDir("events", log);
-  await bulkUploadDir("media", log);
+  if (!FORCE_REUPLOAD) {
+    uploadCacheLoaded = false;
+    uploadCache.clear();
+    await preloadUploadCache();
+  }
+  await verifyMedia(log);
 
   console.log("Done.");
 }

@@ -79,6 +79,32 @@ See [`../render.yaml`](../render.yaml) for the Render Blueprint, and
 - **Cloudinary** for media via `CLOUDINARY_NAME/KEY/SECRET`
 - Auto-deploys from `main` branch on push
 
+### Wire Cloudinary on Render (required for media)
+
+Strapi stores uploads on **ephemeral disk** without Cloudinary — files disappear on
+redeploy and the Media Library breaks. Set these on the `pwrl-cms-humandesign`
+Render service → **Environment**:
+
+| Key | Value | Notes |
+|---|---|---|
+| `CLOUDINARY_NAME` | **`qgrvy7ii`** | **Cloud name** — short id at top-left of Cloudinary dashboard. **Not** the API key label (e.g. `PWRL_Strapi`). |
+| `CLOUDINARY_KEY` | *(from Cloudinary dashboard)* | API Key |
+| `CLOUDINARY_SECRET` | *(your secret)* | API Secret |
+
+Then **Manual Deploy → Deploy latest commit** (env changes require a restart).
+
+Verify locally before saving on Render:
+
+```bash
+cd frontend
+CLOUDINARY_NAME=your-cloud CLOUDINARY_KEY=... CLOUDINARY_SECRET=... npx tsx scripts/verify-cloudinary.ts
+```
+
+After deploy, upload one test image in Strapi admin → Media Library. The asset URL
+should start with `https://res.cloudinary.com/<cloud>/…`.
+
+**Finding your cloud name:** Cloudinary → Dashboard — the **Product environment** name at the top-left (e.g. `qgrvy7ii`). On the API Keys page, **Key Name** (`PWRL_Strapi`) is only a label; do **not** put that in `CLOUDINARY_NAME`. Or open any asset URL: `https://res.cloudinary.com/qgrvy7ii/…`.
+
 ## Populating content (ingest script)
 
 The frontend ships a one-shot ingest at

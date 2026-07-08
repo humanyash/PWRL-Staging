@@ -18,7 +18,7 @@ accounts to HumanDesign-owned accounts. Two stacks are described below.
 | Frontend | Next.js → Vercel (HumanDesign team) | PENDING | `__VERCEL_URL_TBD__` |
 | Backend | Strapi v5 → Render (HumanDesign account) | PENDING | `__STRAPI_URL_TBD__` (planned: `https://pwrl-cms-humandesign.onrender.com`) |
 | Database | Neon Postgres (HumanDesign account) | PENDING | `__NEON_PROJECT_TBD__` (planned: `pwrl-humandesign`, US East) |
-| Media | Cloudinary (HumanDesign account) | PENDING | `__CLOUDINARY_CLOUD_TBD__` |
+| Media | Cloudinary (HumanDesign account) | LIVE | Cloud name: **`qgrvy7ii`** (Render `CLOUDINARY_NAME` — not the API key label `PWRL_Strapi`) |
 | Analytics | Google Analytics 4 (`G-S620CRDB9D`) | LIVE | Wired in `frontend/src/app/layout.tsx` via `next/script`; env override `NEXT_PUBLIC_GA_ID` |
 | Forms | HubSpot portal `243469173` (Forms API) | LIVE | Client-owned; NAV + contact wired |
 | Filings | SEC EDGAR (CIK `2052053`, ISR 1h) | LIVE | |
