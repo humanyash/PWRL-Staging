@@ -1,4 +1,3 @@
-import { Section } from "@/components/ui/Section";
 import { AnimatedSphere } from "@/components/ui/AnimatedSphere";
 import { countup, moStyle } from "@/lib/motion";
 import type { TruthsBlock } from "@/types/blocks";
@@ -16,77 +15,76 @@ import type { TruthsBlock } from "@/types/blocks";
  */
 export function Truths({ block }: { block: TruthsBlock }) {
   return (
-    <Section
-      tone="light"
-      className="!pb-[20px] !pt-[40px] md:!pb-[40px] md:!pt-[80px]"
-    >
-      <div className="mb-[40px] md:max-w-[65%]">
-        <h2
-          className="font-display text-[36px] font-light leading-[1.1] text-[#0023EC] md:text-[55px]"
-          data-mo=""
-        >
-          {block.heading}
-        </h2>
-      </div>
+    <section className="pt-[40px] pb-[20px] md:pt-[80px] md:pb-[40px]">
+      <div className="mx-auto w-full max-w-6xl px-4">
+        <div className="mb-[40px] md:max-w-[65%]">
+          <h3
+            className="font-display text-[36px] font-light leading-[1.1] text-[#0023EC] md:text-[55px] md:leading-[55px]"
+            data-mo=""
+          >
+            {block.heading}
+          </h3>
+        </div>
 
-      <div className="md:flex md:flex-row md:items-center md:gap-[40px] md:[&>*]:flex-1">
-        <div className="grid grid-cols-1 gap-[36px]" data-mo-stagger="">
-          {block.items.map((item) => (
-            <div
-              key={item.title}
-              className="truth-row flex flex-row items-start text-left"
-              data-mo=""
-            >
-              <div className="num relative mr-[16px] h-[60px] w-[60px] shrink-0 md:mr-[32px]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.icon.src}
-                  alt={item.icon.alt}
-                  className="h-full w-full object-contain"
-                />
+        <div className="md:flex md:flex-row md:items-center md:gap-[40px] md:[&>*]:flex-1">
+          <div className="grid grid-cols-1 gap-[36px]" data-mo-stagger="">
+            {block.items.map((item) => (
+              <div
+                key={item.title}
+                className="truth-row flex flex-row items-start text-left"
+                data-mo=""
+              >
+                <div className="num relative mr-[16px] h-[60px] w-[60px] shrink-0 md:mr-[32px]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.icon.src}
+                    alt={item.icon.alt}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 text-black">
+                  <h4 className="font-display text-[32px] font-light leading-[1.1] md:text-[48px] md:leading-[48px]">
+                    {item.title}
+                  </h4>
+                  <p className="my-[8px] font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] md:text-[20px] md:leading-[25.2px]">
+                    {item.body}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1 text-black">
-                <h3 className="font-display text-[32px] font-light leading-[1.1] md:text-[42px]">
-                  {item.title}
-                </h3>
-                <p className="my-[8px] font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] md:text-[20px]">
-                  {item.body}
+            ))}
+          </div>
+
+          <div data-mo="" style={moStyle({ "--mo-d": "150ms" })}>
+            {/* Live animates this build client-side (AUDIT R10-2). */}
+            <AnimatedSphere revealDelayMs={250} />
+            {block.caption ? (
+              <div className="mx-auto mt-[24px] max-w-[220px] text-center font-[family-name:var(--font-franklin)] text-[16px] font-bold leading-[1.4] text-charcoal md:max-w-[320px] md:text-[20px] md:leading-[25.2px]">
+                <p className="m-0">
+                  {/* E5 — the 97% counts up on reveal. */}
+                  {countup(block.caption)}
+                  {block.sourceHref ? <sup>1</sup> : null}
                 </p>
               </div>
-            </div>
-          ))}
+            ) : null}
+          </div>
         </div>
 
-        <div data-mo="" style={moStyle({ "--mo-d": "150ms" })}>
-          {/* Live animates this build client-side (AUDIT R10-2). */}
-          <AnimatedSphere revealDelayMs={250} />
-          {block.caption ? (
-            <div className="mx-auto mt-[24px] max-w-[220px] text-center font-[family-name:var(--font-franklin)] text-[16px] font-bold text-charcoal md:max-w-[320px] md:text-[20px]">
-              <p className="m-0">
-                {/* E5 — the 97% counts up on reveal. */}
-                {countup(block.caption)}
-                {block.sourceHref ? <sup>1</sup> : null}
-              </p>
-            </div>
-          ) : null}
-        </div>
+        {block.sourceHref ? (
+          <div className="mt-[40px]" data-mo="fade">
+            <p className="text-[14px] font-light text-[#757575]">
+              1.{" "}
+              <a
+                href={block.sourceHref}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <u>{block.sourceLabel ?? "Source"}</u>
+              </a>
+            </p>
+          </div>
+        ) : null}
       </div>
-
-      {block.sourceHref ? (
-        <div className="mt-[40px]" data-mo="fade">
-          <p className="text-[14px] font-light text-[#757575]">
-            1.{" "}
-            <a
-              href={block.sourceHref}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <u>{block.sourceLabel ?? "Source"}</u>
-            </a>
-          </p>
-        </div>
-      ) : null}
-    </Section>
+    </section>
   );
 }
 

@@ -219,11 +219,11 @@ export function FormBlock({ block }: { block: FormBlockType }) {
       id="email"
       className="!py-9"
     >
-      <div className="flex flex-col items-center gap-9 lg:flex-row lg:justify-center">
+      <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center">
         {block.body?.length ? (
-          <div className="max-w-80 text-balance text-center font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.375] text-white md:text-[20px] lg:max-w-[420px] lg:text-left">
+          <div className="max-w-80 text-balance text-center font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.375] text-white md:text-[20px] md:leading-[27.5px] lg:max-w-[420px] lg:text-left">
             {block.body.map((p, i) => (
-              <p key={i} className="-ml-[30px]" data-mo="" style={{ "--mo-i": i } as React.CSSProperties}>
+              <p key={i} data-mo="" style={{ "--mo-i": i } as React.CSSProperties}>
                 {p}
               </p>
             ))}
@@ -256,13 +256,13 @@ export function FormBlock({ block }: { block: FormBlockType }) {
               type={field.type === "email" ? "email" : "text"}
               required={field.required}
               placeholder={field.placeholder ?? field.label}
-              className="h-9 w-[280px] rounded-md border border-white bg-transparent px-[18px] text-[15.75px] text-white placeholder:text-white outline-none focus:border-sky md:h-11"
+              className="h-9 w-[288px] rounded-md border border-white bg-transparent px-[18px] text-[15.75px] leading-[22.5px] text-white placeholder:text-white outline-none focus:border-sky md:h-11"
             />
           ))}
           <button
             type="submit"
             disabled={state === "submitting"}
-            className={`mo-btn h-9 shrink-0 rounded-md bg-mint px-6 font-[family-name:var(--font-franklin)] text-[15px] font-bold text-black transition disabled:opacity-60 md:h-11 ${submitted ? "mo-confirm" : ""}`}
+            className={`mo-btn h-9 shrink-0 rounded-md bg-mint px-9 font-[family-name:var(--font-franklin)] text-[15.75px] font-bold leading-[22.5px] text-black transition disabled:opacity-60 md:h-11 ${submitted ? "mo-confirm" : ""}`}
           >
             {state === "submitting"
               ? "Sending…"

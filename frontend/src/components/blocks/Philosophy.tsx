@@ -42,7 +42,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
           {block.paragraphs.map((p, i) => (
             <p
               key={i}
-              className="font-[family-name:var(--font-franklin)] text-[16px] leading-[1.4] md:text-[20px]"
+              className="font-[family-name:var(--font-franklin)] text-[16px] leading-[1.4] md:text-[20px] md:leading-[25.2px]"
               data-mo=""
             >
               {p}
@@ -111,7 +111,8 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
   const slides = block.backgroundSlides ?? [];
 
   return (
-    <Section tone="light" id="strategy" className="!py-8" containerClassName="h-[422px] !px-[17px]">
+    <section id="strategy" className="py-8">
+      <div className="mx-auto w-full max-w-6xl px-4">
       <div className="relative flex flex-col justify-center overflow-hidden rounded-xl bg-black p-8 text-center text-white md:aspect-[3/1]">
         {/* Static base slide so the panel is never black at t=0. */}
         {slides.length > 0 ? (
@@ -142,7 +143,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
 
         <div className="relative z-20 mx-auto lg:max-w-[80%]">
           <h2
-            className="font-display text-[40px] font-light leading-[1.2] md:text-[64px]"
+            className="font-display text-[40px] font-light leading-[1.2] md:text-[64px] md:leading-[76.8px]"
             data-mo=""
           >
             {block.heading}
@@ -156,7 +157,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
 
           {/* Live panel copy: Franklin font-medium, p2 (16 → 20 at xl). */}
           <div
-            className="mx-auto mt-6 max-w-[764px] space-y-5 font-[family-name:var(--font-franklin)] text-[16px] font-medium leading-[1.4] text-white xl:text-[20px]"
+            className="mx-auto mt-[18px] max-w-[764px] font-[family-name:var(--font-franklin)] text-[16px] font-medium leading-[1.4] text-white md:leading-[25.2px] xl:text-[20px]"
             data-mo=""
             style={moStyle({ "--mo-i": 1 })}
           >
@@ -166,7 +167,8 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
           </div>
         </div>
       </div>
-    </Section>
+      </div>
+    </section>
   );
 }
 

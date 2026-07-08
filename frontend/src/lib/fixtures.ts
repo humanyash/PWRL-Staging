@@ -18,6 +18,7 @@ import type {
   PageData,
   PersonCard,
 } from "@/types/blocks";
+import { HOME_NEWS_ITEMS, IR_NEWS_ITEMS } from "@/lib/news";
 
 /**
  * The live site serves images through Next's image proxy:
@@ -183,7 +184,7 @@ const FAQ_BLOCK: Block = {
   // Live: "Questions." is italic (<em>); the email is an underlined mailto.
   heading: "Frequently Asked _Questions._",
   intro:
-    "We want to bring as much transparency as possible to accessing private market investing. If you're not finding the answers you're looking for, contact us at: [Info@PWRL.com](mailto:Info@PWRL.com)",
+    "We want to bring as much transparency as possible\nto accessing private market investing. If you're not\nfinding the answers you're looking for, contact us\nat: [Info@PWRL.com](mailto:Info@PWRL.com)",
   contactEmail: CONTACT_EMAIL,
   // Live renders the FAQ on the navy band (verified on /vision).
   theme: "navy",
@@ -314,8 +315,8 @@ const HOME: PageData = {
       cta: { label: "EXPLORE THE FUND", href: "/fund", variant: "mint" },
       tailHeading: "Private Tech. Nasdaq Listed.\nOnly for everyone.",
       tailParagraphs: [
-        "Powerlaw Corp. offers the access you've been wanting with the wisdom you've been waiting for. As more of the world's most consequential technology companies stay private longer, an entire generation of investors has been locked out of the value creation those companies represent.",
-        "Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-listed fund offering exposure to leading private technology companies through a single ticker. Powerlaw Corp. is the first product on Powerlaw Capital Group's platform.",
+        "Powerlaw Corp. offers the access you've been wanting with the\nwisdom you've been waiting for. As more of the world's most\nconsequential technology companies stay private longer, an entire\ngeneration of investors has been locked out of the value creation those\ncompanies represent.",
+        "Powerlaw Corp. (Nasdaq: PWRL) is built to change that as a Nasdaq-\nlisted fund offering exposure to leading private technology companies\nthrough a single ticker. Powerlaw Corp. is the first product on\nPowerlaw Capital Group's platform.",
       ],
       tailCta: {
         label: "READ OUR PROSPECTUS",
@@ -326,18 +327,18 @@ const HOME: PageData = {
         { label: "Ticker*", value: "PWRL" },
         { label: "Listing Venue*", value: "Nasdaq" },
         { label: "Adviser", value: "Powerlaw Fund Adviser, LLC." },
-        { label: "Net Asset Value (NAV)", value: "$662.0M" },
-        { label: "NAV Per Share", value: "$15.31" },
+        { label: "Net Asset Value (NAV)", value: "$700.9M" },
+        { label: "NAV Per Share", value: "$16.21" },
         { label: "Annual Management Fee*", value: "2.5%" },
       ],
-      fundDetailsFootnote: "Updated monthly. Last updated 05/31/2026.",
+      fundDetailsFootnote: "Updated monthly. Last updated 06/30/2026.",
     },
     {
       __component: "sections.pull-quote",
       quote:
         "We believe the world's most transformative companies should be within everyone's reach.",
       subheading:
-        "Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to leading private technology companies through a single Nasdaq-listed security.",
+        "Powerlaw Corp. (Nasdaq: PWRL) seeks to provide investors with exposure to\nleading private technology companies through a single Nasdaq-listed security.",
       cta: {
         label: "LEARN MORE",
         href: "/investor-relations",
@@ -392,45 +393,7 @@ const HOME: PageData = {
     {
       __component: "sections.news-list",
       heading: "News",
-      items: [
-        {
-          date: "June 16, 2026",
-          title:
-            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
-          href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
-          source: "Bloomberg",
-          image: img(
-            "/remote-assets/news/bloomberg-ceo-interview.png",
-            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
-          ),
-        },
-        {
-          date: "June 9, 2026",
-          title:
-            "CNBC: Powerlaw Capital Group CEO: We're bringing access to private companies to everyone",
-          href: "https://www.cnbc.com/video/2026/05/27/powerlaw-capital-group-ceo-were-bringing-access-to-private-companies-to-everyone.html",
-          source: "CNBC",
-          image: img("/remote-assets/news/cnbc.png", "CNBC"),
-        },
-        {
-          date: "June 9, 2026",
-          title:
-            "Powerlaw Corp.(Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
-          href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
-          source: "Yahoo Finance",
-          image: img("/remote-assets/news/7pPCOR.png", "PWRL"),
-        },
-        {
-          date: "May 27, 2026",
-          title: "Powerlaw Corp. Begins Trading on Nasdaq as PWRL",
-          href: "https://www.businesswire.com/news/home/20260527046646/en/Powerlaw-Corp.-Begins-Trading-on-Nasdaq-as-PWRL",
-          source: "Business Wire",
-          image: img(
-            "/remote-assets/news/powerlaw-052726-4.jpg",
-            "Powerlaw Corp. (Nasdaq: PWRL)",
-          ),
-        },
-      ],
+      items: HOME_NEWS_ITEMS,
     },
     {
       __component: "sections.timeline",
@@ -601,12 +564,12 @@ const VISION: PageData = {
       subheading:
         "More than 875 secondary transactions across 16 years of private technology investing.",
       intro:
-        "Akkadian Ventures is an venture secondary firm in the private technology market, providing liquidity to founders, employees, and investors since 2010, building a deep origination engine inside the private-technology economy. Powerlaw Corp. (Nasdaq: PWRL) is advised by Powerlaw Fund Adviser, LLC a registered investment adviser. Akkadian's heritage informs Powerlaw's investment approach.",
+        "Akkadian Ventures is an venture secondary firm in the private technology market, providing liquidity to founders, employees, and investors since 2010, building a deep origination engine inside the private-technology economy.\nPowerlaw Corp. (Nasdaq: PWRL) is advised by Powerlaw Fund Adviser, LLC a registered investment adviser. Akkadian's heritage informs Powerlaw's investment approach.",
       stats: [
-        { value: "$1.36B", label: "Assets under management*" },
-        { value: "134", label: "portfolio companies*" },
+        { value: "$1.36B", label: "Assets under\nmanagement*" },
+        { value: "134", label: "portfolio \ncompanies*" },
         { value: "57", label: "portfolio exits*" },
-        { value: "5,000+", label: "raise global community" },
+        { value: "5,000+", label: "raise global\ncommunity" },
       ],
       footnote: "*As of March 30, 2026",
     },
@@ -699,13 +662,13 @@ const FUND: PageData = {
       rows: [
         { label: "Ticker", value: "PWRL" },
         { label: "Listing Venue", value: "Nasdaq" },
-        { label: "Net Asset Value (NAV)", value: "$662.0M" },
-        { label: "NAV Per Share", value: "$15.31" },
+        { label: "Net Asset Value (NAV)", value: "$700.9M" },
+        { label: "NAV Per Share", value: "$16.21" },
         { label: "Adviser", value: "Powerlaw Fund Adviser, LLC." },
         { label: "Annual Management Fee", value: "2.5%" },
       ],
       notes: [
-        "Stock Info section above updated monthly. Last updated 5/31/26.",
+        "Stock Info section above updated monthly. Last updated 6/30/26.",
         "*Exposure and Sector Allocations based on Portfolio Company's fair value as a percentage of the Fund's net assets as of May 13, 2026.",
       ],
     },
@@ -876,68 +839,7 @@ const IR: PageData = {
     {
       __component: "sections.news-list",
       heading: "News",
-      items: [
-        {
-          date: "June 16, 2026",
-          title:
-            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
-          href: "https://www.bloomberg.com/news/videos/2026-06-16/spacex-investor-powerlaw-debuts-amid-ipo-race-video",
-          source: "Bloomberg",
-          image: img(
-            "/remote-assets/news/bloomberg-ceo-interview.png",
-            "Bloomberg: Powerlaw CEO Mike Dinsdale Discusses SpaceX, Private Markets, and the IPO Environment",
-          ),
-        },
-        {
-          date: "June 9, 2026",
-          title: "Powerlaw Corp. (Nasdaq: PWRL) Reports Net Asset Value (NAV) and NAV per Share for May 2026",
-          href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-reports-100000851.html",
-          source: "Yahoo Finance",
-          image: img("/remote-assets/news/7pPCOR.png", "PWRL"),
-        },
-        {
-          date: "June 5, 2026",
-          title: "SpaceX Announced as Powerlaw Corp. (Nasdaq: PWRL) Largest Holding",
-          href: "https://finance.yahoo.com/markets/stocks/articles/powerlaw-corp-nasdaq-pwrl-announces-134600213.html",
-          source: "Yahoo Finance",
-          image: img("/remote-assets/news/46gItP.png", "PWRL news"),
-        },
-        {
-          date: "June 4, 2026",
-          title: "Powerlaw Corp. (Nasdaq: PWRL) to Host Virtual Investor Roadshow",
-          href: "https://www.businesswire.com/news/home/20260604841313/en/Powerlaw-Corp.-Nasdaq-PWRL-to-Host-Virtual-Investor-Roadshow",
-          source: "Business Wire",
-          image: img("/remote-assets/news/7pPCOR.png", "PWRL news"),
-        },
-        {
-          date: "May 27, 2026",
-          title: "Powerlaw Capital Group CEO: We’re bringing access to private companies to everyone",
-          href: "https://www.cnbc.com/video/2026/05/27/powerlaw-capital-group-ceo-were-bringing-access-to-private-companies-to-everyone.html",
-          source: "CNBC",
-          image: img("/remote-assets/news/cnbc.png", "CNBC"),
-        },
-        {
-          date: "May 27, 2026",
-          title: "SpaceX Investor Powerlaw to Debut on Nasdaq as IPO Race Heats Up",
-          href: "https://www.bloomberg.com/news/articles/2026-05-27/spacex-investor-powerlaw-to-debut-on-nasdaq-as-ipo-race-heats-up?srnd=undefined&embedded-checkout=true",
-          source: "Bloomberg",
-          image: img("/remote-assets/news/3bMNnp.png", "PWRL news"),
-        },
-        {
-          date: "March 10, 2026",
-          title: "It’s easy for everyday investors to get a piece of Stripe, Revolut and OpenAI — here’s how",
-          href: "https://www.businesspost.ie/markets/its-easy-for-everyday-investors-to-get-a-piece-of-stripe-revolut-and-openai-heres-how/",
-          source: "Business Post",
-          image: img("/remote-assets/news/7rwF8Q.png", "PWRL news"),
-        },
-        {
-          date: "February 17, 2026",
-          title: "Akkadian Ventures Announces Powerlaw Capital Group",
-          href: "https://pwrl.com/media/powerlaw-capital-launch.pdf",
-          source: "Powerlaw",
-          image: img("/remote-assets/news/7pPCOR.png", "PWRL news"),
-        },
-      ],
+      items: IR_NEWS_ITEMS,
     },
     {
       __component: "sections.education-list",

@@ -33,10 +33,13 @@ export function Hero({ block }: { block: HeroBlock }) {
     block.headlinePrefix &&
     block.headlineSuffixes &&
     block.headlineSuffixes.length > 0;
+  const staticHero = hasImage && !hasVideo && !rotator;
 
   const sectionSpacing = block.compact
-    ? "h-[415px] min-h-[415px] max-h-[415px]"
-    : "pb-19 pt-43 lg:pb-29 lg:pt-[336px] xl:min-h-[830px]";
+    ? "min-h-[300px] md:min-h-[415px] lg:min-h-[415px] xl:min-h-[415px] pt-37 pb-24 lg:pt-50 lg:pb-[83px]"
+    : staticHero
+      ? "pb-19 pt-43 lg:pb-29 lg:pt-68 xl:min-h-[730px]"
+      : "pb-19 pt-43 lg:pb-29 lg:pt-[336px] xl:min-h-[810px]";
 
   return (
     <section
@@ -63,20 +66,18 @@ export function Hero({ block }: { block: HeroBlock }) {
               src={block.backgroundImage!.src}
               alt={block.backgroundImage!.alt}
               className={`absolute inset-0 h-full w-full object-cover${
-                block.compact ? "" : " mo-parallax"
+                block.compact || staticHero ? "" : " mo-parallax"
               }`}
             />
           )}
         </div>
       ) : null}
 
-      <Container
-        className={`relative z-20 flex flex-col !px-4 ${
-          block.compact
-            ? "h-full justify-end pb-10 pt-28 md:px-8 md:pb-12"
-            : "justify-center"
-        }`}
-      >
+      {staticHero || (block.compact && hasImage) ? (
+        <div aria-hidden className="absolute inset-0 z-10" />
+      ) : null}
+
+      <Container className="relative z-20 flex flex-col justify-center !px-4">
         {block.eyebrow ? (
           <p
             className={`mb-5 text-xs font-semibold uppercase tracking-[0.2em] ${
@@ -98,6 +99,10 @@ export function Hero({ block }: { block: HeroBlock }) {
               suffixes={block.headlineSuffixes!}
             />
           </h1>
+        ) : block.compact ? (
+          <div className="hero-wysiwyg [&_h1]:font-light max-w-240 leading-8">
+            <h1 className="font-light text-white">{block.heading}</h1>
+          </div>
         ) : (
           <h1 className="relative font-light text-white">
             <span className="mo-mask">
@@ -120,9 +125,11 @@ export function Hero({ block }: { block: HeroBlock }) {
 
         {block.body?.length || (block.ctas && block.ctas.length > 0) ? (
           <div
-            className={`hero-wysiwyg [&_h1]:font-light [&>p:first-child]:mt-4 md:[&>p:first-child]:mt-6 max-w-240 leading-8 ${
-              onDark ? "hero-wysiwyg--on-dark" : "text-charcoal/80"
-            }`}
+            className={`hero-wysiwyg [&_h1]:font-light max-w-240 leading-8 ${
+              staticHero
+                ? "[&>p:first-child]:mt-[18px] md:[&>p:first-child]:mt-[18px] md:[&>p]:leading-[36px]"
+                : "[&>p:first-child]:mt-4 md:[&>p:first-child]:mt-6"
+            } ${onDark ? "hero-wysiwyg--on-dark" : "text-charcoal/80"}`}
             data-mo=""
             style={moStyle({ "--mo-d": "380ms" })}
           >

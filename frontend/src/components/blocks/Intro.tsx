@@ -132,17 +132,14 @@ export function Intro({ block }: { block: IntroBlock }) {
               <div className={`pb-0 pt-[40px] md:pt-[80px] ${charcoalTextbox}`}>
                 <div className="mx-auto w-full max-w-6xl px-4 md:px-0!">
                   <div className="mx-auto w-full max-w-6xl">
-                    <div className="flex flex-col items-start gap-y-[24px] md:gap-y-[40px] [&>*]:my-0">
+                    <div className="textbox-content flex flex-col items-start gap-y-[24px] md:-mt-[20px] md:ml-[25px] md:gap-y-[40px] [&>*]:my-0">
                       <h3
-                        className="flex flex-col font-display text-[36px] font-light leading-[1.1] md:text-[55px]"
+                        className="flex flex-col font-display text-[36px] font-light leading-[1.1] md:text-[55px] md:leading-[55px]"
                         data-mo="fade"
                       >
                         {introTailHeadingLines(block.tailHeading).map(
                           (line, i) => (
-                            <span
-                              key={i}
-                              className={`block${i === 0 ? " w-[650px]" : ""}${i === 1 ? " italic" : ""}`}
-                            >
+                            <span key={i} className="block">
                               {renderRich(line)}
                             </span>
                           ),
@@ -151,7 +148,7 @@ export function Intro({ block }: { block: IntroBlock }) {
                       {block.tailParagraphs?.map((p, i) => (
                         <p
                           key={i}
-                          className="max-w-[650px] font-[family-name:var(--font-franklin)] text-[14px] font-normal leading-[1.2] md:text-[18px]"
+                          className="max-w-[592px] font-[family-name:var(--font-franklin)] text-[14px] font-normal leading-[1.4] md:text-[18px] md:leading-[25.2px]"
                           data-mo=""
                         >
                           {renderLines(p)}
@@ -169,16 +166,16 @@ export function Intro({ block }: { block: IntroBlock }) {
             ) : null}
 
             {block.fundDetails && block.fundDetails.length > 0 ? (
-              <div className="py-0">
+              <div className="py-0 md:-ml-[30px] md:-mt-[20px]">
                 <div className="mx-auto ml-auto mr-0 mt-[100px] w-full max-w-[500px]! px-0!">
-                  <h6 className="pb-0 font-[family-name:var(--font-franklin)] text-[26px] font-normal uppercase tracking-[0.2em] text-black">
+                  <h6 className="pb-0 font-[family-name:var(--font-franklin)] text-[26px] font-normal uppercase leading-[33.8px] text-black">
                     FUND DETAILS
                   </h6>
                   <div className="mt-[14px] flex flex-col" data-mo-stagger="">
                     {block.fundDetails.map((row) => (
                       <div
                         key={row.label}
-                        className="flex justify-between gap-4 border-t border-[#085CF0] py-[16px] last:border-b"
+                        className="flex justify-between gap-4 border-t border-[#085CF0] py-[16px] text-[18px] leading-[25.2px] last:border-b"
                         data-mo=""
                       >
                         <span className="whitespace-nowrap font-[family-name:var(--font-franklin)]">
@@ -191,7 +188,7 @@ export function Intro({ block }: { block: IntroBlock }) {
                     ))}
                   </div>
                   {block.fundDetailsFootnote ? (
-                    <div className="mt-[16px] text-right font-[family-name:var(--font-franklin)] text-[14px] font-light text-[#757575] [&_p]:my-0">
+                    <div className="mt-[16px] text-right font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[25.2px] text-[#757575] [&_p]:my-0">
                       <p>{block.fundDetailsFootnote}</p>
                     </div>
                   ) : null}

@@ -18,9 +18,11 @@ import type {
   Block,
   AnchorNavBlock,
   FormBlock,
+  FAQBlock,
   GlobalSettings,
   HeroBlock,
   IntroBlock,
+  NewsListBlock,
   PageData,
   PersonCard,
   PullQuoteBlock,
@@ -187,6 +189,15 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     out.backgroundSlides = quoteFixture.backgroundSlides;
   }
 
+  // FAQ intro line breaks live in fixtures until CMS stores explicit breaks.
+  if (
+    cms.__component === "sections.faq-block" &&
+    fixture?.__component === "sections.faq-block"
+  ) {
+    const faqFixture = fixture as FAQBlock;
+    if (faqFixture.intro?.includes("\n")) out.intro = faqFixture.intro;
+  }
+
   // IR anchor tabs are tied to on-page section ids; fixtures carry the
   // current nav (Education, Events, …) until Strapi schema catches up.
   if (
@@ -195,6 +206,16 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
   ) {
     const navFixture = fixture as AnchorNavBlock;
     if (navFixture.items?.length) out.items = navFixture.items;
+  }
+
+  // News articles + thumbnails are maintained in lib/news.ts until CMS carries
+  // the full production set with matching media.
+  if (
+    cms.__component === "sections.news-list" &&
+    fixture?.__component === "sections.news-list"
+  ) {
+    const newsFixture = fixture as NewsListBlock;
+    if (newsFixture.items?.length) out.items = newsFixture.items;
   }
 
   return out as unknown as Block;

@@ -105,11 +105,10 @@ html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dr
 html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:hover .nav-dropdown-panel a:nth-child(6),
 html[data-mo-on]:not([data-mo-reduced]) .mo-dropdown-parent:focus-within .nav-dropdown-panel a:nth-child(6) { transition-delay: 125ms; }
 
-/* Anchor-nav — bold label on hover and scroll-spied active (no underline). */
-.anchor-nav a .nav-swap { position: relative; }
-.anchor-nav a:hover .real,
-.anchor-nav a.is-active .real {
-  font-weight: 700;
+/* Anchor-nav — semibold label on hover and scroll-spied active (no underline). */
+.anchor-nav a:hover span.absolute,
+.anchor-nav a.is-active span.absolute {
+  font-weight: 600;
 }
 
 /* ==========================================================================

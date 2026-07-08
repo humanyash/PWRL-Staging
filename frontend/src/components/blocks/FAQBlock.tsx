@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Section } from "@/components/ui/Section";
-import { renderRich } from "@/lib/rich";
+import { renderRich, renderLines } from "@/lib/rich";
 import type { FAQBlock as FAQBlockType } from "@/types/blocks";
 
 /**
@@ -24,25 +24,24 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
     <Section
       tone={navy ? "navy" : "light"}
       id="faq"
-      className="!py-[67.5px] md:!py-[99px]"
+      className="flex justify-center !py-[67.5px] md:!py-[99px]"
+      containerClassName="!px-4"
     >
       <div className="flex flex-col gap-x-20 lg:flex-row">
-        <div
-          className={`lg:w-[855px] ${navy ? "text-white" : "text-charcoal"}`}
-        >
+        <div className={`lg:w-190 ${navy ? "text-white" : "text-charcoal"}`}>
           <h2
-            className="font-display text-[40px] font-normal leading-[1.1] md:text-[64px]"
+            className="font-display text-[40px] font-light leading-[1.1] md:text-[64px] md:leading-[64px]"
             data-mo=""
           >
             {renderRich(block.heading)}
           </h2>
           {block.intro ? (
             <p
-              className="mt-6 font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] md:text-[20px] md:leading-[25px]"
+              className="mb-[18px] mt-[23px] max-w-[500px] font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] md:text-[20px] md:leading-[25.2px] [&_a]:underline"
               data-mo=""
               style={{ "--mo-i": 1 } as React.CSSProperties}
             >
-              {renderRich(block.intro)}
+              {renderLines(block.intro)}
             </p>
           ) : null}
         </div>
@@ -57,20 +56,19 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
             return (
               <div
                 key={i}
-                // Live `border-gray-200` resolves to the site theme's #aaa.
-                className={`faq-row w-full border-b-2 px-2 py-5 transition-colors duration-300 ${
-                  navy ? "border-[#aaa]" : "border-charcoal/15"
+                className={`faq-row w-full border-b-2 px-2 py-3 transition-colors duration-300 ${
+                  navy ? "border-gray-200" : "border-charcoal/15"
                 } ${i === 0 ? "border-t-2" : ""}`}
               >
                 <button
                   type="button"
-                  className="faq-q w-full"
+                  className="faq-q w-full leading-none"
                   onClick={() => setOpenIndex(open ? null : i)}
                   aria-expanded={open}
                 >
                   <div className="flex items-center justify-between gap-2 hover:cursor-pointer">
                     <h4
-                      className={`text-left font-[family-name:var(--font-franklin)] text-[18px] font-light leading-[25px] md:text-[24px] ${
+                      className={`text-left font-franklin text-p1-mob font-light leading-[18px] md:text-p1-desk md:leading-[24px] ${
                         navy ? "text-white" : "text-charcoal"
                       }`}
                     >
@@ -79,7 +77,8 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
                     <span className="icon mo-arrow w-6 shrink-0" aria-hidden>
                       <svg
                         viewBox="0 0 24 24"
-                        className="h-6 w-6"
+                        width="24"
+                        height="24"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -91,17 +90,13 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
                   </div>
                 </button>
                 <div
-                  className={`overflow-hidden transition-[max-height,opacity] lg:pr-6 ${
+                  className={`overflow-hidden text-p3-mob transition-[max-height,opacity] md:text-p3-desk lg:pr-6 [&_p]:my-[18px] [&_p]:font-light [&_p]:leading-[19.6px] md:[&_p]:leading-[25.2px] ${
                     open
                       ? "max-h-96 opacity-100 duration-700"
                       : "max-h-0 opacity-30 duration-300"
                   }`}
                 >
-                  <p
-                    className={`mt-3 font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.4] md:text-[18px] md:leading-[25px] ${
-                      navy ? "text-white/80" : "text-charcoal/70"
-                    }`}
-                  >
+                  <p className={navy ? "text-white" : "text-charcoal/70"}>
                     {renderRich(faq.a)}
                   </p>
                 </div>

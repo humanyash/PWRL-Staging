@@ -14,12 +14,12 @@ export function TeamGrid({ block }: { block: TeamGridBlock }) {
   return (
     <Section tone="light" id="team" className="my-9 !py-[36px]">
       <div className="mx-auto text-center">
-        <h2
-          className="font-display text-[32px] font-light leading-[1.1] text-charcoal md:text-[48px]"
+        <h4
+          className="font-display text-[32px] font-light leading-[1.1] text-charcoal md:text-[48px] md:leading-[48px]"
           data-mo=""
         >
           {block.heading}
-        </h2>
+        </h4>
         {block.subheading ? (
           <p className="mt-4 font-[family-name:var(--font-franklin)] text-xl font-normal text-charcoal md:text-[27px]">
             {block.subheading}

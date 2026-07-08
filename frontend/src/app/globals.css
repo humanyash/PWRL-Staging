@@ -61,6 +61,8 @@
   --text-p1-desk: 24px;
   --text-p2-mob: 16px;
   --text-p2-desk: 20px;
+  --text-p3-mob: 14px;
+  --text-p3-desk: 18px;
   --font-ivy: "ivypresto-headline", Georgia, serif;
 }
 
@@ -94,6 +96,9 @@ body {
 /* Display face for headings/hero — prefers the real ivypresto-headline. */
 .font-display {
   font-family: "ivypresto-headline", Georgia, "Times New Roman", serif;
+}
+.font-ivy {
+  font-family: var(--font-ivy);
 }
 .font-display.font-light {
   font-weight: 300;
@@ -422,6 +427,14 @@ body {
 }
 .max-w-185 {
   max-width: calc(var(--spacing) * 185);
+}
+.w-190 {
+  width: calc(var(--spacing) * 190);
+}
+@media (min-width: 1024px) {
+  .lg\:w-190 {
+    width: calc(var(--spacing) * 190);
+  }
 }
 
 /* Legal pages (/legal, /terms) — live typography hierarchy. */

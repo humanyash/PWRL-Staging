@@ -7,17 +7,17 @@ import type { NewsListBlock } from "@/types/blocks";
 function NewsChevron({ direction }: { direction: "left" | "right" }) {
   return (
     <svg
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
+      width="13"
+      height="22"
+      viewBox="0 0 13 22"
       fill="none"
       aria-hidden
-      className={direction === "left" ? "mr-px" : "ml-px"}
+      className="inline-block"
     >
       <path
-        d={direction === "left" ? "M9 2L4 7l5 5" : "M5 2l5 5-5 5"}
+        d={direction === "left" ? "M12 1L1 11L12 21" : "M1 1L12 11L1 21"}
         stroke="currentColor"
-        strokeWidth="1.25"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -49,7 +49,12 @@ export function NewsList({ block }: { block: NewsListBlock }) {
   }, []);
 
   const scrollBy = (dir: number) => {
-    strip.current?.scrollBy({ left: dir * 420, behavior: "smooth" });
+    const el = strip.current;
+    if (!el) return;
+    const card = el.querySelector<HTMLElement>(".news-card");
+    if (!card) return;
+    const gap = parseFloat(getComputedStyle(el).columnGap || "24");
+    el.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: "smooth" });
   };
 
   // Kinetic layer E12: one-time nudge on first view (skipped for reduced
@@ -96,7 +101,12 @@ export function NewsList({ block }: { block: NewsListBlock }) {
   }, [updateScrollState]);
 
   return (
-    <Section tone="light" id="news" className="!py-[54px]">
+    <Section
+      tone="light"
+      id="news"
+      className="!pt-[91px] !pb-[84px]"
+      containerClassName="!px-[24.5px]"
+    >
       <div className="flex items-end justify-between">
         <h4
           className="font-display text-[32px] font-normal leading-[1.1] text-black md:text-[48px] md:leading-none"
@@ -105,7 +115,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
           {block.heading}
         </h4>
         <div
-          className="flex items-center gap-3 -mr-[14px] md:-mr-[22px]"
+          className="flex items-center gap-7"
           data-mo=""
           style={{ "--mo-i": 1 } as React.CSSProperties}
         >
@@ -114,7 +124,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
             aria-label="navigate back"
             onClick={() => scrollBy(-1)}
             disabled={!canScrollLeft}
-            className="news-nav-btn"
+            className="flex items-center justify-center text-charcoal transition disabled:cursor-not-allowed disabled:opacity-30"
           >
             <NewsChevron direction="left" />
           </button>
@@ -123,24 +133,25 @@ export function NewsList({ block }: { block: NewsListBlock }) {
             aria-label="navigate forward"
             onClick={() => scrollBy(1)}
             disabled={!canScrollRight}
-            className="news-nav-btn"
+            className="flex items-center justify-center text-charcoal transition disabled:cursor-not-allowed disabled:opacity-30"
           >
             <NewsChevron direction="right" />
           </button>
         </div>
       </div>
 
-      <div
-        ref={strip}
-        className="news-strip no-scrollbar mt-6 flex w-[calc(100%+1.5rem)] snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-clip overscroll-x-contain will-change-contents md:w-[calc(100%+2rem)]"
-        data-mo-stagger=""
-      >
-        {block.items.map((item) => (
-          <article
-            key={item.href + item.title}
-            className="news-card w-[280px] flex-none snap-start md:w-[396px]"
-            data-mo=""
-          >
+      <div className="mt-6 w-full overflow-hidden">
+        <div
+          ref={strip}
+          className="news-strip no-scrollbar flex w-full snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-clip overscroll-x-contain will-change-contents"
+          data-mo-stagger=""
+        >
+          {block.items.map((item) => (
+            <article
+              key={item.href + item.title}
+              className="news-card w-[280px] flex-none snap-start md:w-[calc((100%-3rem)/3)]"
+              data-mo=""
+            >
             <a
               href={item.href}
               target="_blank"
@@ -172,6 +183,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
             </a>
           </article>
         ))}
+        </div>
       </div>
     </Section>
   );

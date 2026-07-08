@@ -57,16 +57,16 @@ export function PullQuote({ block }: { block: PullQuoteBlock }) {
         />
       ) : null}
 
-      <blockquote className="relative z-20 mx-auto flex w-full max-w-[1675px] flex-col items-center px-6 text-center">
+      <blockquote className="relative z-20 mx-auto flex w-full max-w-[2344px] flex-col items-center px-6 text-center">
         <h2
-          className="max-w-[1627px] text-balance font-display text-[40px] font-light leading-[1.1] text-white md:text-[63px]"
+          className="w-full max-w-none text-balance font-display text-[40px] font-light leading-[1.1] text-white md:text-[64px] md:leading-[76.8px]"
           data-mo="fade"
         >
           {renderLines(block.quote)}
         </h2>
         {block.subheading ? (
           <p
-            className="mt-6 max-w-[91.667%] font-[family-name:var(--font-franklin)] text-[17px] font-light leading-snug text-white md:text-[19px]"
+            className="mt-6 max-w-[860px] font-[family-name:var(--font-franklin)] text-[17px] font-normal leading-[1.4] text-white md:text-[18px] md:leading-[25.2px]"
             data-mo=""
             style={moStyle({ "--mo-i": 1 })}
           >

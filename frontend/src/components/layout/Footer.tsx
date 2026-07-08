@@ -76,18 +76,18 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
                 className="h-auto w-[170px] md:w-[292px]"
               />
             </Link>
-            <div className="hidden pt-8 text-[14px] font-light text-[#B0E9FD] md:block">
+            <div className="hidden pt-8 text-[14px] font-light leading-[25.2px] text-[#B0E9FD] md:block">
               {copyright}
             </div>
           </div>
 
           <div className="flex flex-col md:pl-3">
-            <ul className="grid grid-cols-[auto_auto] gap-x-10 gap-y-3 whitespace-nowrap pt-10 font-semibold md:pt-0">
+            <ul className="grid grid-cols-[auto_auto] gap-x-10 gap-y-3 whitespace-nowrap pt-10 text-[18px] font-semibold leading-[25.2px] md:pt-0">
               {navOrder.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="uppercase no-underline"
+                    className="uppercase underline"
                   >
                     {link.label}
                   </Link>
@@ -118,7 +118,7 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
                 </ul>
               </li>
             </ul>
-            <div className="mt-10 text-[10px] font-light text-[#B0E9FD] md:hidden">
+            <div className="mt-10 text-[10px] font-light leading-[15px] text-[#B0E9FD] md:hidden">
               {copyright}
             </div>
           </div>
@@ -127,9 +127,9 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
         {/* Verbatim disclaimers — do not paraphrase. Live: pt-[36px],
             12→14px, #B0E9FD, three bold paragraphs (** markers).
             leading-[1.8] matches prod's computed 25.2px line-height. */}
-        <div className="pt-[36px] text-[12px] font-light leading-[1.8] text-[#B0E9FD] md:text-[14px]">
+        <div className="pt-[36px] text-[12px] font-light leading-[1.8] text-[#B0E9FD] md:text-[14px] md:leading-[25.2px]">
           {settings.disclaimers.map((para, i) => (
-            <p key={i} className="mb-3 mt-0 last:mb-0">
+            <p key={i} className="mb-[13.5px] mt-0 last:mb-0">
               {renderRich(para)}
             </p>
           ))}
