@@ -9,8 +9,8 @@ This repo is a **monorepo**. Only `frontend/` is the Next.js app that belongs on
 | **Root Directory** | `frontend` |
 | **Framework Preset** | Next.js |
 | **Build Command** | `npm run build` (default) |
-| **Output Directory** | *(leave empty — Next.js default)* |
-| **Install Command** | `npm install` (default) |
+| **Output Directory** | *(leave empty — Next.js default; do not set to `public`)* |
+| **Install Command** | `npm ci` (declared in `frontend/vercel.json`) |
 
 If Root Directory is blank or `.`, Vercel builds the repo root (which has no Next.js app). The deploy may show "Success" but every URL returns **404 NOT_FOUND**.
 
