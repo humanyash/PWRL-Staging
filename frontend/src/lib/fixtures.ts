@@ -222,9 +222,8 @@ const FAQ_BLOCK: Block = {
 
 const NAV_FORM_BLOCK: Block = {
   __component: "sections.form-block",
-  heading: "Get the latest.",
   body: [
-    "Sign up to receive NAV alerts, fund updates and portfolio news.",
+    "Sign up for monthly NAV updates, quarterly portfolio disclosures, and fund-related news.",
   ],
   portalId: "243469173",
   formId: "ce5f73ec-b4cd-4529-805f-6e7bdb03960a",
@@ -234,15 +233,8 @@ const NAV_FORM_BLOCK: Block = {
     {
       name: "firstname",
       type: "text",
-      label: "First Name",
-      placeholder: "First Name*",
-      required: true,
-    },
-    {
-      name: "lastname",
-      type: "text",
-      label: "Last Name",
-      placeholder: "Last Name*",
+      label: "Full Name",
+      placeholder: "Full Name*",
       required: true,
     },
     {
@@ -335,8 +327,8 @@ const HOME: PageData = {
         { label: "Ticker*", value: "PWRL" },
         { label: "Listing Venue*", value: "Nasdaq" },
         { label: "Adviser", value: "Powerlaw Fund Adviser, LLC." },
-        { label: "Net Asset Value (NAV)", value: "$662.0M" },
-        { label: "NAV Per Share", value: "$15.31" },
+        { label: "Net Asset Value (NAV)", value: "$700.9M" },
+        { label: "NAV Per Share", value: "$16.21" },
         { label: "Annual Management Fee*", value: "2.5%" },
       ],
       fundDetailsFootnote: "Updated monthly. Last updated 06/30/2026.",
@@ -670,13 +662,13 @@ const FUND: PageData = {
       rows: [
         { label: "Ticker", value: "PWRL" },
         { label: "Listing Venue", value: "Nasdaq" },
-        { label: "Net Asset Value (NAV)", value: "$662.0M" },
-        { label: "NAV Per Share", value: "$15.31" },
+        { label: "Net Asset Value (NAV)", value: "$700.9M" },
+        { label: "NAV Per Share", value: "$16.21" },
         { label: "Adviser", value: "Powerlaw Fund Adviser, LLC." },
         { label: "Annual Management Fee", value: "2.5%" },
       ],
       notes: [
-        "Stock Info section above updated monthly. Last updated 5/31/26.",
+        "Stock Info section above updated monthly. Last updated 6/30/26.",
         "*Exposure and Sector Allocations based on Portfolio Company's fair value as a percentage of the Fund's net assets as of May 13, 2026.",
       ],
     },

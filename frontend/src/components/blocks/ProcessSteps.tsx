@@ -1,82 +1,73 @@
 import React from "react";
-import { Section } from "@/components/ui/Section";
+import { moStyle } from "@/lib/motion";
 import type { ProcessStepsBlock } from "@/types/blocks";
 
 /**
- * ProcessSteps — rebuilt from live /trade "How to Invest in PWRL"
- * (AUDIT.md R6-3):
- *  - section id=where-how, pt/pb 40 → 80;
- *  - heading block mb-40, LEFT-aligned: h4 32/48 charcoal + p2 16/20 light;
- *  - grid gap-36 md:grid-cols-4 (3 cols for 3 steps); each step:
- *    numbered-circle image 60×60 mb-24, BOLD p3 title (14/18) + p3 light
- *    body, left-aligned, black text.
+ * ProcessSteps — live /trade "How to Invest in PWRL" (AUDIT.md R6-3).
+ * Matches production DOM: plain section, px-4/md:px-0 container, h4
+ * heading block, 4-col grid, bold title in <p><b>…</b></p>.
  */
+
+const sectionClass =
+  "pt-[40px] pb-[40px] text-left md:pt-[80px] md:pb-[80px] [&_h1]:font-light [&_h2]:font-light [&_h3]:font-light [&_h4]:font-light [&_h5]:font-light [&_p]:text-charcoal [&_li]:text-charcoal";
+
+const headingBlockClass =
+  "mb-[40px] [&_h1]:text-charcoal [&_h2]:text-charcoal [&_h3]:text-charcoal [&_h4]:text-charcoal [&_h5]:text-charcoal [&_h6]:text-charcoal [&_li]:text-p2-mob [&_li]:md:text-p2-desk [&_p]:text-p2-mob [&_p]:md:text-p2-desk";
+
+const stepBodyClass =
+  "flex-1 text-black [&_b]:font-bold [&_h1]:font-franklin [&_h1]:text-black [&_h2]:font-franklin [&_h2]:text-black [&_h3]:font-franklin [&_h3]:text-black [&_h4]:font-franklin [&_h4]:text-black [&_h5]:font-franklin [&_h5]:text-black [&_h6]:text-black [&_li]:font-light [&_li]:text-black [&_li]:text-p3-mob [&_li]:md:text-p3-desk [&_p]:my-[8px] [&_p]:font-light [&_p]:text-black [&_p]:text-p3-mob [&_p]:md:text-p3-desk [&_strong]:font-bold";
+
 export function ProcessSteps({ block }: { block: ProcessStepsBlock }) {
   const cols = block.steps.length === 4 ? "md:grid-cols-4" : "md:grid-cols-3";
 
   return (
-    <Section tone="light" id="where-how" className="!pt-[40px] !pb-[80px]">
-      <div className="mb-[40px]">
-        <h2
-          className="font-display text-[32px] font-light leading-[1.1] text-charcoal md:text-[48px]"
-          data-mo=""
-        >
-          {block.heading}
-        </h2>
-        {block.intro ? (
-          <p
-            className="mt-4 font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] text-charcoal md:text-[20px]"
+    <section id="where-how" className={sectionClass}>
+      <div className="mx-auto w-full max-w-6xl px-4 md:px-0">
+        <div className={headingBlockClass}>
+          <h4
+            className="font-display text-h4-mob font-light leading-[1.1] text-charcoal md:text-h4-desk"
             data-mo=""
-            style={{ "--mo-i": 1 } as React.CSSProperties}
           >
-            {block.intro}
-          </p>
-        ) : null}
-      </div>
+            {block.heading}
+          </h4>
+          {block.intro ? (
+            <p data-mo="" style={moStyle({ "--mo-i": 1 })}>
+              {block.intro}
+            </p>
+          ) : null}
+        </div>
 
-      <div
-        className={`steps-grid relative grid grid-cols-1 gap-[36px] ${cols}`}
-        data-mo-stagger=""
-      >
-        {block.steps.map((step) => (
-          <div
-            key={step.title}
-            className="intro-item flex flex-col items-start text-left"
-            data-mo=""
-          >
-            {step.icon?.src ? (
-              <div className="icon relative mb-[24px] h-[60px] w-[60px] shrink-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={step.icon.src}
-                  alt={step.icon.alt}
-                  className="h-full w-full object-contain"
-                />
+        <div
+          className={`grid grid-cols-1 gap-[36px] ${cols}`}
+          data-mo-stagger=""
+        >
+          {block.steps.map((step) => (
+            <div
+              key={step.title}
+              className="flex flex-col items-start text-left md:items-start md:text-left"
+              data-mo=""
+            >
+              {step.icon?.src ? (
+                <div className="relative mb-[24px] h-[60px] w-[60px] shrink-0 md:mb-[24px] md:mr-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={step.icon.src}
+                    alt={step.icon.alt}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              ) : null}
+              <div className={stepBodyClass}>
+                <p>
+                  <b>{step.title}</b>
+                </p>
+                <p>{step.body}</p>
               </div>
-            ) : null}
-            <div className="flex-1 text-black">
-              <p className="my-[8px] font-[family-name:var(--font-franklin)] text-[14px] font-bold leading-[1.2] md:text-[18px]">
-                {step.title}
-              </p>
-              <p className="my-[8px] font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.2] md:text-[18px]">
-                {step.body}
-              </p>
             </div>
-          </div>
-        ))}
-        <span
-          className="steps-line"
-          data-mo="draw-x"
-          aria-hidden="true"
-          style={
-            {
-              "--mo-d": "150ms",
-              "--mo-dur-draw": "1400ms",
-            } as React.CSSProperties
-          }
-        />
+          ))}
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }
 

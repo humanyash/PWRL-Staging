@@ -11,13 +11,12 @@ import type {
  * PortfolioBlock — rebuilt from live /fund (AUDIT.md R5-3). Live renders:
  *  1. Intro textbox section (id=portfolio, pt 40/80 pb 20/40): h2 blue-400
  *     40/64 + p2 charcoal, gap-y 24/40, centered.
- *  2. "Exposure" — section-spacing, container capped max-w-4xl, grid
- *     md:grid-cols-2 gap-10: LEFT h3 + scrollable table (max-h 300/340,
- *     sky scrollbar, sticky "Allocation*" header, #B0E9FD row borders,
- *     text-base charcoal) + footnotes (incl. the Portfolio Schedule PDF
- *     link); RIGHT donut chart.
- *  3. "Sectors" — mirrored (donut left via order classes), same table.
+ *  2. Ice origination panel — section-spacing py-15/22, h4 ivy + p3 body.
+ *  3. "Exposure" / "Sectors" — section-spacing, max-w-4xl grid + donuts.
  */
+
+const portfolioIntroSection =
+  "bg-white pb-[20px] pt-[40px] text-center md:pb-[40px] md:pt-[80px] [&_h1]:font-light [&_h2]:font-light [&_h3]:font-light [&_h4]:font-light [&_h5]:font-light [&_h6]:font-light [&_h1]:text-blue-400 [&_h2]:text-blue-400 [&_h3]:text-blue-400 [&_h4]:text-blue-400 [&_h5]:text-blue-400 [&_h6]:text-blue-400 [&_p]:text-charcoal [&_li]:text-charcoal [&_p]:text-p2-mob [&_p]:md:text-p2-desk [&_li]:text-p2-mob [&_li]:md:text-p2-desk [&_hr]:hidden";
 
 function pct(v: string): number {
   return parseFloat(v.replace("%", "")) || 0;
@@ -73,9 +72,6 @@ function AllocationTable({
 }
 
 export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
-  // Live table keeps the fixture order (desc with "Other Net Assets" last);
-  // the donut sorts purely descending (Other Net Assets becomes the active
-  // #085CF0 slice).
   const holdings = block.holdings;
   const donutData = holdings
     .map((h) => ({ name: h.name, value: pct(h.allocation) }))
@@ -86,26 +82,14 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
 
   return (
     <>
-      {/* 1. Intro textbox. */}
-      <section
-        id="portfolio"
-        className="bg-white pb-[20px] pt-[40px] text-center md:pb-[40px] md:pt-[80px]"
-      >
-        <div className="mx-auto w-full max-w-6xl px-4">
-          <div className="mx-auto w-full max-w-[1320px]">
-            <div className="flex flex-col items-center gap-y-[24px] md:gap-y-[40px]">
-              <h2
-                className="max-w-[1199px] font-display text-[40px] font-light leading-[1.1] text-[#0023EC] md:text-[64px]"
-                data-mo=""
-              >
-                {block.heading}
-              </h2>
+      {/* 1. Intro textbox — live DOM structure. */}
+      <section id="portfolio" className={portfolioIntroSection}>
+        <div className="mx-auto w-full max-w-6xl px-4 md:px-0">
+          <div className="mx-auto w-full max-w-6xl">
+            <div className="textbox-content flex flex-col items-center gap-y-[24px] md:gap-y-[40px] [&>*]:my-0">
+              <h2 data-mo="">{block.heading}</h2>
               {block.intro ? (
-                <p
-                  className="font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.4] text-charcoal md:text-[20px]"
-                  data-mo=""
-                  style={moStyle({ "--mo-i": 1 })}
-                >
+                <p data-mo="" style={moStyle({ "--mo-i": 1 })}>
                   {renderLines(block.intro)}
                 </p>
               ) : null}
@@ -114,26 +98,28 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
         </div>
       </section>
 
-      {/* 2. Ice origination panel between intro and tables (AUDIT R5-4). */}
+      {/* 2. Ice origination panel (AUDIT R5-4). */}
       {block.panelHeading ? (
-        <Section tone="light" className="!py-[67.5px] md:!py-[99px]">
-          <div
-            className="ice-panel grid grid-cols-1 gap-[24px] border-t-2 border-[#085CF0] bg-[#E4F7FD] p-[48px] md:grid-cols-2 md:gap-[40px]"
-            data-mo=""
-          >
-            <h2 className="font-display text-[32px] font-light leading-[1.1] text-black md:text-[48px]">
-              {block.panelHeading}
-            </h2>
-            <div className="font-[family-name:var(--font-franklin)] text-[14px] font-light leading-[1.2] text-black md:text-[18px]">
-              <p className="my-0">{block.panelBody}</p>
+        <section className="section-spacing py-15 md:py-22">
+          <div className="mx-auto w-full max-w-6xl px-4">
+            <div
+              className="grid grid-cols-1 gap-[24px] border-t-2 border-[#085CF0] bg-[#E4F7FD] p-[48px] md:grid-cols-2 md:gap-[40px]"
+              data-mo=""
+            >
+              <h4 className="font-ivy font-light text-black text-h4-mob md:text-h4-desk">
+                {block.panelHeading}
+              </h4>
+              <div className="font-franklin text-p3-mob md:text-p3-desk text-black [&_li]:font-light [&_p]:my-0 [&_p]:font-light">
+                <p>{block.panelBody}</p>
+              </div>
             </div>
           </div>
-        </Section>
+        </section>
       ) : null}
 
       {/* 3. Exposure. */}
-      <Section tone="light" className="!py-[36px]">
-        <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 md:grid-cols-2 md:items-stretch">
+      <section className="section-spacing">
+        <div className="mx-auto grid w-full max-w-6xl max-w-4xl! grid-cols-1 gap-10 px-4 md:grid-cols-2">
           <div>
             <h3
               className="mb-4 inline-flex items-end font-display text-[36px] font-light leading-[1.1] text-charcoal md:text-[55px]"
@@ -170,12 +156,12 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
             />
           </div>
         </div>
-      </Section>
+      </section>
 
-      {/* 3. Sectors — table right, donut left at md. */}
+      {/* 4. Sectors — table right, donut left at md. */}
       {block.sectors && block.sectors.length > 0 ? (
-        <Section tone="light" className="!py-[36px]">
-          <div className="mx-auto grid max-w-4xl grid-cols-1 items-start gap-10 md:grid-cols-2 md:items-stretch">
+        <section className="section-spacing">
+          <div className="mx-auto grid w-full max-w-6xl max-w-4xl! grid-cols-1 gap-10 px-4 md:grid-cols-2">
             <div className="order-1 md:order-2">
               <h3
                 className="mb-4 inline-flex items-end text-center font-display text-[36px] font-light leading-[1.1] text-charcoal md:text-left md:text-[55px]"
@@ -200,7 +186,7 @@ export function PortfolioBlock({ block }: { block: PortfolioBlockType }) {
               />
             </div>
           </div>
-        </Section>
+        </section>
       ) : null}
     </>
   );

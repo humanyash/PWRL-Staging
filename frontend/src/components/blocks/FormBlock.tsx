@@ -217,50 +217,52 @@ export function FormBlock({ block }: { block: FormBlockType }) {
   const hasBody = Boolean(block.body?.length);
 
   return (
-    <Section
-      tone={block.theme === "deep" ? "deep" : dark ? "navy" : "ice"}
+    <section
       id="email"
-      className="!py-9"
+      className={`section-spacing py-9 text-white ${
+        block.theme === "deep" ? "bg-[#00158D]" : dark ? "bg-navy" : "bg-ice"
+      }`}
     >
-      <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center">
-        {hasHeading || hasBody ? (
-          <div className="max-w-80 text-balance text-center lg:max-w-[420px] lg:text-left">
-            {hasHeading ? (
-              <h2
-                className="font-display text-[32px] font-light tracking-tight text-white"
-                data-mo=""
-              >
-                {block.heading}
-              </h2>
-            ) : null}
-            {hasBody ? (
-              <div
-                className={`font-[family-name:var(--font-franklin)] text-[16px] font-medium leading-[1.375] text-white md:text-[20px] md:leading-[27.5px] ${hasHeading ? "mt-6" : ""}`}
-              >
-                {block.body!.map((p, i) => (
-                  <p
-                    key={i}
-                    data-mo=""
-                    style={{ "--mo-i": i + (hasHeading ? 1 : 0) } as React.CSSProperties}
-                  >
-                    {p}
-                  </p>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        ) : null}
+      <div className="mx-auto w-full max-w-6xl px-4">
+        <div className="flex flex-col items-center gap-[36px] lg:flex-row lg:justify-center">
+          {hasHeading || hasBody ? (
+            <div className="max-w-80 shrink-0 text-balance text-center leading-snug text-p2-mob md:text-p2-desk lg:max-w-[420px] lg:text-left">
+              {hasHeading ? (
+                <h2
+                  className="font-display text-[32px] font-light tracking-tight text-white"
+                  data-mo=""
+                >
+                  {block.heading}
+                </h2>
+              ) : null}
+              {hasBody ? (
+                <div
+                  className={`text-white/90 [&_p]:m-0 [&_p]:font-light [&_p]:text-p2-mob [&_p]:md:text-p2-desk ${hasHeading ? "mt-6" : ""}`}
+                >
+                  {block.body!.map((p, i) => (
+                    <p
+                      key={i}
+                      data-mo=""
+                      style={
+                        { "--mo-i": i + (hasHeading ? 1 : 0) } as React.CSSProperties
+                      }
+                    >
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
 
-        {/* Live .hubspot-signup-form: column + centered on mobile with
-            260px fields, row with 288px fields at md; 17px gaps (R9b). */}
-        <form
-          className="flex w-full flex-col items-center justify-center gap-[17px] sm:flex-row lg:w-auto"
-          data-mo=""
-          style={{ "--mo-i": 2 } as React.CSSProperties}
-          onSubmit={onSubmit}
-          data-hubspot-portal={block.portalId}
-          data-hubspot-form={block.formId}
-        >
+          <form
+            className="flex w-full flex-col flex-wrap items-center justify-center gap-[17px] sm:flex-row lg:w-auto lg:shrink-0"
+            data-mo=""
+            style={{ "--mo-i": 2 } as React.CSSProperties}
+            onSubmit={onSubmit}
+            data-hubspot-portal={block.portalId}
+            data-hubspot-form={block.formId}
+          >
           {(block.fields ?? []).map((field) => (
             <input
               key={field.name}
@@ -283,19 +285,20 @@ export function FormBlock({ block }: { block: FormBlockType }) {
                 : "Sign Up"}
           </button>
         </form>
-      </div>
+        </div>
 
-      {submitted ? (
-        <p className="mx-auto mt-4 max-w-2xl text-center font-[family-name:var(--font-franklin)] text-sm text-sky">
-          Thank you — your submission has been received.
-        </p>
-      ) : state === "error" ? (
-        <p className="mx-auto mt-4 max-w-2xl text-center font-[family-name:var(--font-franklin)] text-sm text-red-400">
-          Something went wrong submitting the form. Please try again, or email
-          Info@PWRL.com.
-        </p>
-      ) : null}
-    </Section>
+        {submitted ? (
+          <p className="mx-auto mt-4 max-w-2xl text-center font-[family-name:var(--font-franklin)] text-sm text-sky">
+            Thank you — your submission has been received.
+          </p>
+        ) : state === "error" ? (
+          <p className="mx-auto mt-4 max-w-2xl text-center font-[family-name:var(--font-franklin)] text-sm text-red-400">
+            Something went wrong submitting the form. Please try again, or email
+            Info@PWRL.com.
+          </p>
+        ) : null}
+      </div>
+    </section>
   );
 }
 

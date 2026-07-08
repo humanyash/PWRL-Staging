@@ -1,27 +1,17 @@
-import { Section } from "@/components/ui/Section";
 import { countup } from "@/lib/motion";
 import type { StockInfoBlock } from "@/types/blocks";
 
 /**
  * StockInfo — rebuilt from live /fund (AUDIT.md R5-5). Live is a STATIC
- * grid, not a third-party widget:
- *  - container max-w-4xl; h2 (40/64); grid md:grid-cols-2 gap-x-5
- *    gap-y-[16px] mt-10; rows `border-t border-[#085CF0] pt-[16px]
- *    flex justify-between` with <strong> label + plain value;
- *  - notes mt-[24px], 14px light #757575.
+ * grid inside section-spacing + max-w-4xl container (px-4).
  */
 export function StockInfo({ block }: { block: StockInfoBlock }) {
   const rows = block.rows ?? [];
 
   return (
-    <Section tone="light" id="stock-info" className="!py-[36px]">
-      <div className="mx-auto max-w-4xl">
-        <h2
-          className="font-display text-[40px] font-light leading-[1.1] text-charcoal md:text-[64px]"
-          data-mo=""
-        >
-          {block.heading}
-        </h2>
+    <section id="stock-info" className="section-spacing">
+      <div className="mx-auto w-full max-w-6xl px-4 max-w-4xl!">
+        <h2 data-mo="">{block.heading}</h2>
 
         {rows.length > 0 ? (
           <div
@@ -31,7 +21,7 @@ export function StockInfo({ block }: { block: StockInfoBlock }) {
             {rows.map((row) => (
               <div
                 key={row.label}
-                className="stockinfo-row flex justify-between border-t border-[#085CF0] pt-[16px]"
+                className="flex justify-between border-t border-[#085CF0] pt-[16px]"
                 data-mo=""
               >
                 <span className="whitespace-nowrap">
@@ -53,7 +43,7 @@ export function StockInfo({ block }: { block: StockInfoBlock }) {
           </div>
         ) : null}
       </div>
-    </Section>
+    </section>
   );
 }
 
