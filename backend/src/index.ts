@@ -26,7 +26,7 @@ const PUBLIC_READ_ACTIONS = [
 
 async function enablePublicReadPermissions(strapi: Core.Strapi) {
   const store = strapi.store({ type: 'plugin', name: 'users-permissions' });
-  const flag = await store.get<{ enabled: boolean }>({ key: 'pwrl-public-read' });
+  const flag = (await store.get({ key: 'pwrl-public-read' })) as { enabled?: boolean } | null;
   if (flag?.enabled) return;
 
   const publicRole = await strapi.db.query('plugin::users-permissions.role').findOne({
