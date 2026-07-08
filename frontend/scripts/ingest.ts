@@ -288,16 +288,20 @@ async function bulkUploadDir(publicDir: string, log: (m: string) => void) {
 }
 
 // --- helpers --------------------------------------------------------
+interface StrapiListResponse {
+  data?: { documentId?: string }[];
+}
+
 async function upsertCollection(
   uid: string,
   keyField: string,
   keyValue: string,
   data: object,
 ) {
-  const found = await api(
+  const found = (await api(
     `/${uid}?filters[${keyField}][$eq]=${encodeURIComponent(keyValue)}&fields[0]=${keyField}`,
     { headers: H },
-  );
+  )) as StrapiListResponse;
   const docId = found?.data?.[0]?.documentId;
   if (docId) {
     await api(`/${uid}/${docId}?status=published`, { method: "PUT", headers: JH, body: JSON.stringify({ data }) });
