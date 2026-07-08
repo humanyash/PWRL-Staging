@@ -213,6 +213,9 @@ export function FormBlock({ block }: { block: FormBlockType }) {
   /* ------------------------------------------------------------ */
   /* NAV signup band (live .hubspot-signup-form)                   */
   /* ------------------------------------------------------------ */
+  const hasHeading = Boolean(block.heading);
+  const hasBody = Boolean(block.body?.length);
+
   return (
     <Section
       tone={block.theme === "deep" ? "deep" : dark ? "navy" : "ice"}
@@ -220,22 +223,31 @@ export function FormBlock({ block }: { block: FormBlockType }) {
       className="!py-9"
     >
       <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center">
-        {block.body?.length ? (
-          <div className="max-w-80 text-balance text-center font-[family-name:var(--font-franklin)] text-[16px] font-light leading-[1.375] text-white md:text-[20px] md:leading-[27.5px] lg:max-w-[420px] lg:text-left">
-            {block.body.map((p, i) => (
-              <p key={i} data-mo="" style={{ "--mo-i": i } as React.CSSProperties}>
-                {p}
-              </p>
-            ))}
-          </div>
-        ) : block.heading ? (
-          <div className="max-w-2xl text-center lg:text-left">
-            <h2
-              className="font-display text-[32px] font-light tracking-tight text-white"
-              data-mo=""
-            >
-              {block.heading}
-            </h2>
+        {hasHeading || hasBody ? (
+          <div className="max-w-80 text-balance text-center lg:max-w-[420px] lg:text-left">
+            {hasHeading ? (
+              <h2
+                className="font-display text-[32px] font-light tracking-tight text-white"
+                data-mo=""
+              >
+                {block.heading}
+              </h2>
+            ) : null}
+            {hasBody ? (
+              <div
+                className={`font-[family-name:var(--font-franklin)] text-[16px] font-medium leading-[1.375] text-white md:text-[20px] md:leading-[27.5px] ${hasHeading ? "mt-6" : ""}`}
+              >
+                {block.body!.map((p, i) => (
+                  <p
+                    key={i}
+                    data-mo=""
+                    style={{ "--mo-i": i + (hasHeading ? 1 : 0) } as React.CSSProperties}
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+            ) : null}
           </div>
         ) : null}
 

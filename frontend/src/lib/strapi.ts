@@ -172,7 +172,8 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     const formFixture = fixture as FormBlock;
     if (formFixture.fields) out.fields = formFixture.fields;
     if (formFixture.body) out.body = formFixture.body;
-    if (!formFixture.heading) out.heading = undefined;
+    if (formFixture.heading) out.heading = formFixture.heading;
+    else if (!formFixture.heading) out.heading = undefined;
   }
 
   // Home manifesto pull-quote (2026-06): CMS still carries the old quote/CTA.

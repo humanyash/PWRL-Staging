@@ -19,7 +19,7 @@ export function EducationList({ block }: { block: EducationListBlock }) {
     .filter((a): a is (typeof EDUCATION_ARTICLES)[number] => Boolean(a));
 
   return (
-    <Section tone="light" id="learn" className="!py-[100px]">
+    <Section tone="light" id="learn" className="!pt-[54px] !pb-[100px]">
       <div className="flex items-end justify-between">
         <h2
           className="font-display text-[32px] font-normal leading-[1.1] text-black md:text-[48px]"

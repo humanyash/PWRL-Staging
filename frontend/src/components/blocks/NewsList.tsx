@@ -104,7 +104,7 @@ export function NewsList({ block }: { block: NewsListBlock }) {
     <Section
       tone="light"
       id="news"
-      className="!pt-[91px] !pb-[84px]"
+      className="!pt-[100px] !pb-[54px]"
       containerClassName="!px-[24.5px]"
     >
       <div className="flex items-end justify-between">

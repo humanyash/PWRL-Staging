@@ -56,14 +56,7 @@ export function Philosophy({ block }: { block: PhilosophyBlock }) {
       <Section
         tone={tone}
         id={block.anchor ?? "investment_strategy"}
-        className={
-          sphere
-            ? "!py-[67.5px] md:!py-[99px]"
-            : "!py-[67.5px] md:!py-[144px] h-[690px]"
-        }
-        containerClassName={
-          wheel ? "!px-0 h-[494px] -mt-[54px] -mb-[54px]" : ""
-        }
+        className="!px-2 !py-[67.5px] md:!py-[81px]"
       >
         <div
           className={`grid items-center gap-10 pt-0 ${
