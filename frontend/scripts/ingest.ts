@@ -149,6 +149,7 @@ async function preloadUploadCache() {
   let page = 1;
   let total = 0;
   for (;;) {
+    process.stdout.write(`  … media index page ${page}…\n`);
     const res = await fetchWithRetry(
       `${STRAPI_URL}/api/upload/files?pagination[page]=${page}&pagination[pageSize]=100&sort=createdAt:desc`,
       { headers: H },
@@ -311,6 +312,29 @@ async function upsertCollection(
   return `created ${uid}/${keyValue}`;
 }
 
+/** Replace {__upload:"/path"} placeholders (emitted by ingest-data for media
+ *  inside components) with uploaded Cloudinary ids; drops files not found. */
+async function resolveUploads(node: unknown): Promise<unknown> {
+  if (Array.isArray(node)) {
+    const out: unknown[] = [];
+    for (const item of node) {
+      const r = await resolveUploads(item);
+      if (r !== null && r !== undefined) out.push(r);
+    }
+    return out;
+  }
+  if (node && typeof node === "object") {
+    if ("__upload" in (node as Record<string, unknown>)) {
+      const path = (node as { __upload?: unknown }).__upload;
+      return typeof path === "string" ? await uploadFile(path) : null;
+    }
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(node)) out[k] = await resolveUploads(v);
+    return out;
+  }
+  return node;
+}
+
 async function putSingle(uid: string, data: Record<string, unknown>) {
   await api(`/${uid}?status=published`, { method: "PUT", headers: JH, body: JSON.stringify({ data }) });
   return `set ${uid}`;
@@ -394,6 +418,7 @@ async function main() {
     newsItems,
     forms,
     legalPages,
+    educationArticles,
   } = await import("./ingest-data").then((m) => m.buildPayloads());
 
   // Upload all static assets first so headshots/PDFs resolve to Cloudinary ids.
@@ -413,7 +438,9 @@ async function main() {
   log(await putSingle("portfolio-snapshot", portfolio));
 
   for (const p of pages) {
-    log(await upsertCollection("pages", "slug", p.slug, p.data));
+    // Resolve media placeholders inside section components to Cloudinary ids.
+    const data = (await resolveUploads(p.data)) as Record<string, unknown>;
+    log(await upsertCollection("pages", "slug", p.slug, data));
   }
 
   // Fund documents: upload the PDF, then upsert by title.
@@ -458,6 +485,19 @@ async function main() {
   // Legal pages: dedupe key = slug
   for (const lp of legalPages) {
     log(await upsertCollection("legal-pages", "slug", lp.slug, lp.data));
+  }
+
+  // Learn articles: upload card/hero images, upsert by slug
+  for (const a of educationArticles) {
+    const cardImage = a.cardPath ? await uploadFile(a.cardPath) : null;
+    const heroImage = a.heroPath ? await uploadFile(a.heroPath) : null;
+    log(
+      await upsertCollection("education-articles", "slug", a.data.slug as string, {
+        ...a.data,
+        cardImage,
+        heroImage,
+      }),
+    );
   }
 
   if (!FORCE_REUPLOAD) {

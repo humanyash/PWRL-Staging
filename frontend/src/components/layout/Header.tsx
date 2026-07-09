@@ -165,12 +165,12 @@ export function Header({ settings }: { settings: GlobalSettings }) {
             }`}
           >
             <Link href="/" aria-label="Go to homepage" className="leading-none">
-              {/* Real brand wordmark extracted from the live site's inline SVG
-                (includes the "Private Tech. Nasdaq Listed." tagline paths). */}
+              {/* CMS logo (Site Banner & Footer → Logo) with the bundled SVG as
+                fallback so the header never renders empty. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/pwrl-logo.svg"
-                alt="PWRL — Private Tech. Nasdaq Listed."
+                src={settings.logo?.src ?? "/brand/pwrl-logo.svg"}
+                alt={settings.logo?.alt || "PWRL — Private Tech. Nasdaq Listed."}
                 className="h-auto w-[116px] lg:w-[178px]"
               />
             </Link>

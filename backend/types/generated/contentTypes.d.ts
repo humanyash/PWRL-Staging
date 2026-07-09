@@ -526,6 +526,50 @@ export interface ApiDisclaimersDisclaimers extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiEducationArticleEducationArticle
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'education_articles';
+  info: {
+    description: 'Articles on /learn. Each has a card image, hero image, intro, and sub-sections.';
+    displayName: 'Learn Articles';
+    pluralName: 'education-articles';
+    singularName: 'education-article';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    'import-export-entries': {
+      idField: 'slug';
+    };
+  };
+  attributes: {
+    body: Schema.Attribute.RichText;
+    cardImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    excerpt: Schema.Attribute.Text;
+    heroImage: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::education-article.education-article'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    publishedLabel: Schema.Attribute.String;
+    sections: Schema.Attribute.Component<'sections.article-section', true>;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFaqFaq extends Struct.SingleTypeSchema {
   collectionName: 'faqs';
   info: {
@@ -659,6 +703,7 @@ export interface ApiGlobalSettingsGlobalSettings
     > &
       Schema.Attribute.Private;
     logo: Schema.Attribute.Media<'images'>;
+    nav: Schema.Attribute.Component<'shared.nav-item', true>;
     publishedAt: Schema.Attribute.DateTime;
     socialLinks: Schema.Attribute.Component<'shared.footer-link', true>;
     topBanner: Schema.Attribute.String;
@@ -751,7 +796,7 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
-    description: 'Marketing pages: slug + seo + sections dynamic zone';
+    description: 'A marketing page (Home, Vision, Fund, etc.). Build the page by adding Sections; each section is a block of content that appears in order.';
     displayName: 'Page';
     pluralName: 'pages';
     singularName: 'page';
@@ -791,6 +836,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.anchor-nav',
         'sections.truths',
         'sections.platform-tabs',
+        'sections.education-list',
+        'sections.education-grid',
+        'sections.events-list',
       ]
     >;
     seo: Schema.Attribute.Component<'shared.seo', false>;
@@ -806,7 +854,7 @@ export interface ApiPortfolioSnapshotPortfolioSnapshot
   extends Struct.SingleTypeSchema {
   collectionName: 'portfolio_snapshots';
   info: {
-    description: 'Holdings table on /fund. Update asOfDate and holdings each month.';
+    description: "Holdings table on /fund. Update the 'As of date' and holdings each month.";
     displayName: 'Fund Portfolio';
     pluralName: 'portfolio-snapshots';
     singularName: 'portfolio-snapshot';
@@ -839,13 +887,21 @@ export interface ApiPortfolioSnapshotPortfolioSnapshot
 export interface ApiSecFilingSecFiling extends Struct.CollectionTypeSchema {
   collectionName: 'sec_filings';
   info: {
-    description: 'Auto-synced from EDGAR; read-only in admin';
-    displayName: 'SEC Filing';
+    description: 'SEC filings shown on /investor-relations are pulled live from the SEC EDGAR database automatically. This list is not used by the website; you do not need to edit it.';
+    displayName: 'SEC Filings (managed automatically \u2014 do not edit)';
     pluralName: 'sec-filings';
     singularName: 'sec-filing';
   };
   options: {
     draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
   };
   attributes: {
     accessionNumber: Schema.Attribute.String &
@@ -888,7 +944,7 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    bioBullets: Schema.Attribute.JSON;
+    bioBullets: Schema.Attribute.Component<'shared.bullet', true>;
     bioFormat: Schema.Attribute.Enumeration<['prose', 'bullets']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'prose'>;
@@ -1474,6 +1530,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::board-director.board-director': ApiBoardDirectorBoardDirector;
       'api::disclaimers.disclaimers': ApiDisclaimersDisclaimers;
+      'api::education-article.education-article': ApiEducationArticleEducationArticle;
       'api::faq.faq': ApiFaqFaq;
       'api::form.form': ApiFormForm;
       'api::fund-document.fund-document': ApiFundDocumentFundDocument;

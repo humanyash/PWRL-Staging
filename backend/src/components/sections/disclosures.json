@@ -9,7 +9,8 @@
     "disclaimers": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::disclaimers.disclaimers"
+      "target": "api::disclaimers.disclaimers",
+      "description": "Which disclaimers to show (usually the single shared Disclaimers entry)."
     }
   }
 }

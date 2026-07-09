@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_sections_form_fields",
+  "info": {
+    "displayName": "Form Field",
+    "description": "One input in a form (name, email, message, etc.)."
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Internal field name sent to HubSpot, e.g. firstname, email."
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["text", "email", "textarea", "select"],
+      "default": "text",
+      "required": true,
+      "description": "Input type: text, email, textarea (multi-line), or select (dropdown)."
+    },
+    "label": {
+      "type": "string",
+      "required": true,
+      "description": "Label shown above the field, e.g. First name."
+    },
+    "placeholder": {
+      "type": "string",
+      "description": "Grey hint text shown inside the empty field (optional)."
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "description": "Tick if the visitor must fill this in."
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.bullet",
+      "description": "For 'select' dropdowns only: the choices, one per row."
+    }
+  }
+}

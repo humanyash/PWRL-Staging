@@ -2,31 +2,68 @@
   "collectionName": "components_sections_heroes",
   "info": {
     "displayName": "Hero",
-    "description": "Page hero with optional rotating phrases and CTAs"
+    "description": "Large banner at the top of a page: headline, optional rotating words, background image or video, and buttons."
   },
   "options": {},
   "attributes": {
+    "eyebrow": {
+      "type": "string",
+      "description": "Small label above the headline, e.g. 'Powerlaw Corp. · Nasdaq: PWRL'."
+    },
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Main headline. On the home page the rotating words below are used instead."
     },
     "subheading": {
-      "type": "text"
+      "type": "text",
+      "description": "Supporting line shown under the headline."
     },
     "body": {
-      "type": "richtext"
+      "type": "richtext",
+      "description": "Paragraph(s) of intro copy. Separate paragraphs with a blank line."
+    },
+    "headlineSlides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.bullet",
+      "description": "Home hero only: full headline phrases shown one at a time (e.g. 'Powerlaw Corp.', 'Nasdaq: PWRL'). One phrase per row."
+    },
+    "headlinePrefix": {
+      "type": "string",
+      "description": "Home hero only: fixed text that stays on screen while the words after it rotate, e.g. 'Only for'."
+    },
+    "headlineSuffixes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.bullet",
+      "description": "Home hero only: the rotating words after the prefix (e.g. 'big thinkers.', 'Mars seekers.', 'everyone.'). One per row."
     },
     "rotatingPhrases": {
-      "type": "json"
+      "type": "json",
+      "description": "Legacy field — leave empty. Use Headline slides / suffixes instead."
+    },
+    "compact": {
+      "type": "boolean",
+      "default": false,
+      "description": "Use a shorter hero band (used on Investor Relations and Contact)."
     },
     "backgroundImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Background image behind the hero (used if no background video is set)."
+    },
+    "backgroundVideo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["videos"],
+      "description": "Full-screen looping background video. Takes priority over the background image."
     },
     "ctas": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.cta"
+      "component": "shared.cta",
+      "description": "Buttons shown in the hero."
     }
   }
 }

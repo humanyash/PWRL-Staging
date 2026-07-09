@@ -8,14 +8,17 @@
   "attributes": {
     "label": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Text shown for the link (for social links, use the platform name so the right icon appears)."
     },
     "href": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Where the link goes. Use /page for internal pages or a full https:// address for external."
     },
     "group": {
-      "type": "string"
+      "type": "string",
+      "description": "Optional grouping label (leave empty unless a developer asks)."
     }
   }
 }

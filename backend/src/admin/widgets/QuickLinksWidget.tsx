@@ -36,6 +36,14 @@ const LINKS = [
     href: '/content-manager/collection-types/api::page.page',
   },
   {
+    label: 'Legal Page',
+    href: '/content-manager/collection-types/api::legal-page.legal-page',
+  },
+  {
+    label: 'Disclaimers',
+    href: '/content-manager/single-types/api::disclaimers.disclaimers',
+  },
+  {
     label: 'Full content guide',
     href: '/plugins/pwrl-editor-guide',
   },
@@ -50,7 +58,8 @@ const QuickLinksWidget = () => (
     </Typography>
     <Typography variant="omega" textColor="neutral600">
       Save drafts freely — only Publish goes live (~60s). Unpublish or History to
-      roll back.
+      roll back. Don&apos;t see your change? Confirm you clicked Publish, then
+      hard-refresh the page.
     </Typography>
     <Flex direction="column" gap={2} marginTop={3}>
       {LINKS.map((item) => (

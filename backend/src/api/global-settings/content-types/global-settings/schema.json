@@ -15,7 +15,8 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Site logo shown in the header and footer. Upload an SVG or PNG."
     },
     "topBanner": {
       "type": "string",
@@ -30,18 +31,27 @@
       "default": false,
       "description": "Turn the home-page banner on or off."
     },
+    "nav": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.nav-item",
+      "description": "The main navigation menu shown in the header and footer. Reorder rows to reorder the menu."
+    },
     "footerLinks": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.footer-link"
+      "component": "shared.footer-link",
+      "description": "Links shown in the footer (e.g. Privacy Policy, Terms)."
     },
     "socialLinks": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.footer-link"
+      "component": "shared.footer-link",
+      "description": "Social media links. Use the platform name (LinkedIn, Instagram, YouTube, X, Seeking Alpha, StockTwits) as the Label so the correct icon shows."
     },
     "copyright": {
-      "type": "text"
+      "type": "text",
+      "description": "Copyright line shown at the bottom of every page."
     }
   }
 }

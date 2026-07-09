@@ -7,13 +7,16 @@
   "options": {},
   "attributes": {
     "year": {
-      "type": "string"
+      "type": "string",
+      "description": "Year for this milestone (optional), e.g. 2010."
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Milestone title."
     },
     "body": {
-      "type": "text"
+      "type": "text",
+      "description": "Short description of the milestone."
     }
   }
 }

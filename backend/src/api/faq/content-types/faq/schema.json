@@ -13,13 +13,15 @@
   "pluginOptions": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Optional heading shown above the questions."
     },
     "items": {
       "type": "component",
       "repeatable": true,
       "component": "shared.faq-item",
-      "required": true
+      "required": true,
+      "description": "The list of questions and answers. Add one row per question."
     }
   }
 }

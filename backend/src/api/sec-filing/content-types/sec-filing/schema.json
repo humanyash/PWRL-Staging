@@ -4,33 +4,45 @@
   "info": {
     "singularName": "sec-filing",
     "pluralName": "sec-filings",
-    "displayName": "SEC Filing",
-    "description": "Auto-synced from EDGAR; read-only in admin"
+    "displayName": "SEC Filings (managed automatically — do not edit)",
+    "description": "SEC filings shown on /investor-relations are pulled live from the SEC EDGAR database automatically. This list is not used by the website; you do not need to edit it."
   },
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
   "attributes": {
     "formType": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "SEC form type, e.g. 424B3, 10-K."
     },
     "accessionNumber": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "description": "SEC accession number (unique filing ID)."
     },
     "filedDate": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": "Date filed with the SEC."
     },
     "url": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Link to the filing on sec.gov."
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "description": "Optional description of the filing."
     }
   }
 }

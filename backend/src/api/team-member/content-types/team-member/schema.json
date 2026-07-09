@@ -18,21 +18,25 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Full name shown on the card, e.g. Mike Dinsdale."
     },
     "role": {
-      "type": "string"
+      "type": "string",
+      "description": "Job title shown under the name, e.g. Chief Executive Officer."
     },
     "headshot": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Headshot photo. Square images look best."
     },
     "bioFormat": {
       "type": "enumeration",
       "enum": ["prose", "bullets"],
       "default": "prose",
-      "required": true
+      "required": true,
+      "description": "How the bio is displayed: 'prose' = paragraphs (fill in Bio prose), 'bullets' = a bulleted list (fill in Bio bullets)."
     },
     "bioProse": {
       "type": "customField",
@@ -41,14 +45,19 @@
         "preset": "light",
         "output": "HTML",
         "licenseKey": "GPL"
-      }
+      },
+      "description": "Paragraph-style biography. Used when Bio format is 'prose'."
     },
     "bioBullets": {
-      "type": "json"
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.bullet",
+      "description": "Bulleted biography — one bullet per row. Used when Bio format is 'bullets'."
     },
     "order": {
       "type": "integer",
-      "default": 0
+      "default": 0,
+      "description": "Display order on the page (lower numbers show first)."
     }
   }
 }

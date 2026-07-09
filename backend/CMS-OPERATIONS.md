@@ -61,6 +61,27 @@ If **Add widgets** shows an empty list, that picker only lists **optional custom
 
 ---
 
+## Rollback and drafts
+
+All editorial content types use **Save** (draft) vs **Publish** (live). The
+website only reads **published** content — drafts never appear on the staging
+site until you publish.
+
+To undo:
+
+- **Unpublish** an entry to remove it from the site
+- **History** (⋯ menu) to restore a previous version
+- **Settings → Import Export** for full backup/restore before big edits
+
+After enabling draft/publish on a content type, run the ingest script once to
+republish existing content:
+
+```bash
+cd frontend && npx tsx scripts/ingest.ts
+```
+
+---
+
 ## Config sync (roles and admin layout)
 
 After changing roles or Content Manager layout in admin:
@@ -79,6 +100,50 @@ crashes. Editor permissions are applied automatically via `src/index.ts` on each
 boot instead.
 
 ---
+
+## What is editable in the CMS
+
+Almost the entire site is now CMS-editable. The frontend is CMS-first and falls
+back to the baked-in fixtures per field, so an empty field never blanks the site.
+
+| Area | Where in Strapi |
+|------|-----------------|
+| Top banner, logo, **navigation menu**, footer/social links, copyright | Site Banner & Footer (single) |
+| Every page's sections, headlines, copy, buttons | Pages → *(page)* → Sections |
+| Home hero **rotating words** (prefix + suffixes), background **image/video** | Pages → Home → Hero |
+| Home **portfolio grid** (name, %, ticker, IPO, logo) + **fund-details table** | Pages → Home → Intro |
+| Stats (numbers, labels, icons, footnote, theme) | Pages → *(page)* → Stats Block |
+| Timeline (entries, years beam, caption, graphic) | Pages → Vision → Timeline |
+| Fund holdings + **sectors** table, footnotes | Pages → Fund → Portfolio Block, or Fund Portfolio (single) |
+| FAQ intro/contact/theme + questions | FAQ (single) + Pages → FAQ Block |
+| Forms (heading, fields, HubSpot ids) | Pages → Form Block (+ HubSpot Forms) |
+| **Learn articles** (card/hero image, body, sub-sections) | Learn Articles (collection) |
+| **Events / webcasts** | Pages → Investor Relations → Events List |
+| Team, Board, News, Fund Documents, Legal, Disclaimers | Their own content types |
+
+Every field carries a plain-English description in the edit form. Technical
+fields (order, slug, HubSpot ids) also get friendly labels via
+`src/bootstrap-content-manager.ts`.
+
+## Adding/seeding new schema fields (deploy order matters)
+
+The frontend fills any field the CMS doesn't carry from fixtures, and a few
+legacy home sections keep a guarded fixture override that self-disables once the
+CMS is re-seeded. So when schema changes ship, follow this order to avoid a
+window of stale content:
+
+1. Merge the schema change and **deploy the backend to Render** (migrates on boot).
+2. Run the ingest so the CMS holds the current live content, **including media**
+   inside components (hero video, logos, stat icons, background slides) which the
+   ingest now uploads and links automatically:
+
+   ```bash
+   cd frontend && npx tsx scripts/ingest.ts
+   ```
+
+3. Deploy the frontend. Verify each page against the previous live output
+   (home hero rotator, portfolio grid, fund tables, stats, timeline, nav, Learn,
+   Events) before considering it done.
 
 ## Related docs
 

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_article_sections",
+  "info": {
+    "displayName": "Article Section",
+    "description": "A sub-heading and its paragraphs within a Learn article."
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "description": "Sub-heading within the article."
+    },
+    "body": {
+      "type": "richtext",
+      "required": true,
+      "description": "Paragraphs under this sub-heading. Separate paragraphs with a blank line."
+    }
+  }
+}

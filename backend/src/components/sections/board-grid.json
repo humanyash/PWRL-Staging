@@ -7,15 +7,18 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "subheading": {
-      "type": "text"
+      "type": "text",
+      "description": "Supporting line under the heading (optional)."
     },
     "directors": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::board-director.board-director"
+      "target": "api::board-director.board-director",
+      "description": "Board members shown here. Manage each person in Board of Directors."
     }
   }
 }

@@ -112,7 +112,16 @@ function EventCard({ event }: { event: EventItemBlock }) {
  * EventsList — ice band with event cards (Figma IR 06.24.26).
  */
 export function EventsList({ block }: { block: EventsListBlock }) {
-  const events = block.items.length > 0 ? block.items : EVENT_ITEMS;
+  // CMS-first; when the CMS event has no image yet (media not uploaded),
+  // borrow the matching fixture image/brand panel by title so cards stay whole.
+  const events =
+    block.items.length > 0
+      ? block.items.map((e) => {
+          if (e.image || e.brandPanel) return e;
+          const fx = EVENT_ITEMS.find((f) => f.title === e.title);
+          return fx ? { ...e, image: fx.image, brandPanel: fx.brandPanel } : e;
+        })
+      : EVENT_ITEMS;
 
   return (
     <Section tone="ice" id="events" className="!py-[80px] md:!py-[100px]">

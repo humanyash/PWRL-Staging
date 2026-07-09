@@ -10,11 +10,13 @@
       "type": "media",
       "multiple": false,
       "allowedTypes": ["images"],
-      "required": true
+      "required": true,
+      "description": "The image to show."
     },
     "alt": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Short description of the image for screen readers and SEO, e.g. 'PWRL team at Nasdaq'."
     }
   }
 }

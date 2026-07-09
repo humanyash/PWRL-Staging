@@ -7,19 +7,23 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "rows": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.key-value"
+      "component": "shared.key-value",
+      "description": "Rows of stock info, e.g. Ticker → PWRL, NAV → $700.9M."
     },
     "notes": {
-      "type": "richtext"
+      "type": "richtext",
+      "description": "Small print beneath the rows (optional)."
     },
     "widgetId": {
       "type": "string",
-      "required": false
+      "required": false,
+      "description": "Optional third-party stock-widget id (leave empty unless a developer provides one)."
     },
     "theme": {
       "type": "enumeration",
@@ -28,7 +32,8 @@
         "dark",
         "deep"
       ],
-      "default": "light"
+      "default": "light",
+      "description": "Colour style: light, dark, or deep."
     }
   }
 }

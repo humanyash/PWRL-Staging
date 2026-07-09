@@ -5,7 +5,7 @@
     "singularName": "page",
     "pluralName": "pages",
     "displayName": "Page",
-    "description": "Marketing pages: slug + seo + sections dynamic zone"
+    "description": "A marketing page (Home, Vision, Fund, etc.). Build the page by adding Sections; each section is a block of content that appears in order."
   },
   "options": {
     "draftAndPublish": true
@@ -14,20 +14,24 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Internal page name (also used to build the web address)."
     },
     "slug": {
       "type": "uid",
       "targetField": "title",
-      "required": true
+      "required": true,
+      "description": "Web address for this page (the part after the domain). 'home' is the front page. Changing this changes the page's URL."
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "description": "Search-engine and social-share settings (page title and description)."
     },
     "sections": {
       "type": "dynamiczone",
+      "description": "The content blocks that make up this page, in the order they appear. Add, remove, or drag to reorder.",
       "components": [
         "sections.hero",
         "sections.intro",
@@ -50,7 +54,10 @@
         "sections.disclosures",
         "sections.anchor-nav",
         "sections.truths",
-        "sections.platform-tabs"
+        "sections.platform-tabs",
+        "sections.education-list",
+        "sections.education-grid",
+        "sections.events-list"
       ]
     }
   }

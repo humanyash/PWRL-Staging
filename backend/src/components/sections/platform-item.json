@@ -8,21 +8,25 @@
   "attributes": {
     "label": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Platform name, e.g. Fidelity."
     },
     "href": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Link to the platform (full https:// address)."
     },
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Platform logo."
     },
     "group": {
       "type": "enumeration",
       "enum": ["self-directed", "advisor"],
-      "default": "self-directed"
+      "default": "self-directed",
+      "description": "Which tab this platform belongs to."
     }
   }
 }

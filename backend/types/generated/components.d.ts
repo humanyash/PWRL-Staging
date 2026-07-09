@@ -11,6 +11,18 @@ export interface SectionsAnchorNav extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsArticleSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_article_sections';
+  info: {
+    description: 'A sub-heading and its paragraphs within a Learn article.';
+    displayName: 'Article Section';
+  };
+  attributes: {
+    body: Schema.Attribute.RichText & Schema.Attribute.Required;
+    heading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsBoardGrid extends Struct.ComponentSchema {
   collectionName: 'components_sections_board_grids';
   info: {
@@ -30,13 +42,16 @@ export interface SectionsBoardGrid extends Struct.ComponentSchema {
 export interface SectionsCtaGroup extends Struct.ComponentSchema {
   collectionName: 'components_sections_cta_groups';
   info: {
-    description: 'Heading + subheading + a group of CTAs';
+    description: 'A closing band with a heading and one or more buttons.';
     displayName: 'CTA Group';
   };
   attributes: {
+    body: Schema.Attribute.RichText;
     ctas: Schema.Attribute.Component<'shared.cta', true>;
     heading: Schema.Attribute.String;
     subheading: Schema.Attribute.Text;
+    theme: Schema.Attribute.Enumeration<['navy', 'ice', 'light']> &
+      Schema.Attribute.DefaultTo<'ice'>;
   };
 }
 
@@ -70,44 +85,141 @@ export interface SectionsDocumentList extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsEducationGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_education_grids';
+  info: {
+    description: 'The full grid of all Learn articles (used on the Learn page).';
+    displayName: 'Learn Grid';
+  };
+  attributes: {
+    heading: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsEducationList extends Struct.ComponentSchema {
+  collectionName: 'components_sections_education_lists';
+  info: {
+    description: 'A row of the most recent Learn articles (used on Investor Relations).';
+    displayName: 'Learn List';
+  };
+  attributes: {
+    heading: Schema.Attribute.String;
+    limit: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<3>;
+    viewAllHref: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsEventItem extends Struct.ComponentSchema {
+  collectionName: 'components_sections_event_items';
+  info: {
+    description: 'A single event or webcast card.';
+    displayName: 'Event Item';
+  };
+  attributes: {
+    brandLabel: Schema.Attribute.String;
+    brandSublabel: Schema.Attribute.String;
+    ctaHref: Schema.Attribute.String & Schema.Attribute.Required;
+    ctaLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    dateTime: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['webcast', 'recording']> &
+      Schema.Attribute.DefaultTo<'webcast'>;
+  };
+}
+
+export interface SectionsEventsList extends Struct.ComponentSchema {
+  collectionName: 'components_sections_events_lists';
+  info: {
+    description: 'A list of events and webcasts (used on Investor Relations).';
+    displayName: 'Events List';
+  };
+  attributes: {
+    events: Schema.Attribute.Component<'sections.event-item', true>;
+    heading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsFaqBlock extends Struct.ComponentSchema {
   collectionName: 'components_sections_faq_blocks';
   info: {
-    description: 'Heading + relation to the FAQ singleton';
+    description: 'Frequently asked questions section. Questions come from the FAQ single type.';
     displayName: 'FAQ Block';
   };
   attributes: {
+    contactEmail: Schema.Attribute.String;
     faq: Schema.Attribute.Relation<'oneToOne', 'api::faq.faq'>;
     heading: Schema.Attribute.String;
+    intro: Schema.Attribute.Text;
+    theme: Schema.Attribute.Enumeration<['light', 'navy']> &
+      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
 export interface SectionsFormBlock extends Struct.ComponentSchema {
   collectionName: 'components_sections_form_blocks';
   info: {
-    description: 'Relation to a Form + optional heading/body/theme';
+    description: 'A form section (newsletter signup or contact). Uses HubSpot ids either from the linked Form or typed directly below.';
     displayName: 'Form Block';
   };
   attributes: {
     body: Schema.Attribute.Text;
+    fields: Schema.Attribute.Component<'sections.form-field', true>;
     form: Schema.Attribute.Relation<'oneToOne', 'api::form.form'>;
+    formId: Schema.Attribute.String;
     heading: Schema.Attribute.String;
+    portalId: Schema.Attribute.String;
     theme: Schema.Attribute.Enumeration<['light', 'dark', 'deep']> &
       Schema.Attribute.DefaultTo<'light'>;
+    variant: Schema.Attribute.Enumeration<['inline', 'stacked']> &
+      Schema.Attribute.DefaultTo<'stacked'>;
+  };
+}
+
+export interface SectionsFormField extends Struct.ComponentSchema {
+  collectionName: 'components_sections_form_fields';
+  info: {
+    description: 'One input in a form (name, email, message, etc.).';
+    displayName: 'Form Field';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    options: Schema.Attribute.Component<'shared.bullet', true>;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    type: Schema.Attribute.Enumeration<
+      ['text', 'email', 'textarea', 'select']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'text'>;
   };
 }
 
 export interface SectionsHero extends Struct.ComponentSchema {
   collectionName: 'components_sections_heroes';
   info: {
-    description: 'Page hero with optional rotating phrases and CTAs';
+    description: 'Large banner at the top of a page: headline, optional rotating words, background image or video, and buttons.';
     displayName: 'Hero';
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images'>;
+    backgroundVideo: Schema.Attribute.Media<'videos'>;
     body: Schema.Attribute.RichText;
+    compact: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     ctas: Schema.Attribute.Component<'shared.cta', true>;
+    eyebrow: Schema.Attribute.String;
     heading: Schema.Attribute.String;
+    headlinePrefix: Schema.Attribute.String;
+    headlineSlides: Schema.Attribute.Component<'shared.bullet', true>;
+    headlineSuffixes: Schema.Attribute.Component<'shared.bullet', true>;
     rotatingPhrases: Schema.Attribute.JSON;
     subheading: Schema.Attribute.Text;
   };
@@ -116,13 +228,24 @@ export interface SectionsHero extends Struct.ComponentSchema {
 export interface SectionsIntro extends Struct.ComponentSchema {
   collectionName: 'components_sections_intros';
   info: {
-    description: 'Kicker + heading + body intro block';
+    description: 'Introduction block. On the home page this also holds the interactive portfolio grid and the fund-details table.';
     displayName: 'Intro';
   };
   attributes: {
     body: Schema.Attribute.RichText;
+    cta: Schema.Attribute.Component<'shared.cta', false>;
+    fundDetails: Schema.Attribute.Component<'shared.key-value', true>;
+    fundDetailsFootnote: Schema.Attribute.Text;
     heading: Schema.Attribute.String;
     kicker: Schema.Attribute.String;
+    portfolioItems: Schema.Attribute.Component<
+      'sections.portfolio-grid-item',
+      true
+    >;
+    subheading: Schema.Attribute.Text;
+    tailCta: Schema.Attribute.Component<'shared.cta', false>;
+    tailHeading: Schema.Attribute.String;
+    tailParagraphs: Schema.Attribute.RichText;
   };
 }
 
@@ -163,13 +286,21 @@ export interface SectionsNewsList extends Struct.ComponentSchema {
 export interface SectionsPhilosophy extends Struct.ComponentSchema {
   collectionName: 'components_sections_philosophies';
   info: {
-    description: 'Heading + paragraphs + supporting images';
+    description: "A statement block: heading + paragraphs, shown either as a slideshow card ('panel') or a two-column band ('band').";
     displayName: 'Philosophy';
   };
   attributes: {
+    anchor: Schema.Attribute.String;
+    backgroundSlides: Schema.Attribute.Component<'shared.image-with-alt', true>;
+    graphic: Schema.Attribute.Enumeration<['sector-wheel', 'dotted-sphere']>;
+    graphicCaption: Schema.Attribute.Text;
     heading: Schema.Attribute.String;
     paragraphs: Schema.Attribute.RichText;
     supportingImages: Schema.Attribute.Component<'shared.image-with-alt', true>;
+    tone: Schema.Attribute.Enumeration<['ice', 'light']> &
+      Schema.Attribute.DefaultTo<'ice'>;
+    variant: Schema.Attribute.Enumeration<['panel', 'band']> &
+      Schema.Attribute.DefaultTo<'panel'>;
   };
 }
 
@@ -208,11 +339,13 @@ export interface SectionsPlatformTabs extends Struct.ComponentSchema {
 export interface SectionsPortfolioBlock extends Struct.ComponentSchema {
   collectionName: 'components_sections_portfolio_blocks';
   info: {
-    description: 'Heading + intro + relation to the PortfolioSnapshot singleton';
+    description: 'The /fund holdings section: exposure table, sectors table, and an origination panel. Holdings can also be pulled from the Fund Portfolio single type.';
     displayName: 'Portfolio Block';
   };
   attributes: {
+    footnotes: Schema.Attribute.RichText;
     heading: Schema.Attribute.String;
+    holdings: Schema.Attribute.Component<'shared.holding', true>;
     intro: Schema.Attribute.Text;
     panelBody: Schema.Attribute.Text;
     panelHeading: Schema.Attribute.String;
@@ -220,6 +353,24 @@ export interface SectionsPortfolioBlock extends Struct.ComponentSchema {
       'oneToOne',
       'api::portfolio-snapshot.portfolio-snapshot'
     >;
+    scheduleHref: Schema.Attribute.String;
+    sectors: Schema.Attribute.Component<'shared.holding', true>;
+    sectorsFootnote: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsPortfolioGridItem extends Struct.ComponentSchema {
+  collectionName: 'components_sections_portfolio_grid_items';
+  info: {
+    description: 'One company tile in the home-page portfolio grid.';
+    displayName: 'Portfolio Grid Item';
+  };
+  attributes: {
+    allocation: Schema.Attribute.String & Schema.Attribute.Required;
+    ipo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    logo: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    ticker: Schema.Attribute.String;
   };
 }
 
@@ -243,6 +394,7 @@ export interface SectionsProcessSteps extends Struct.ComponentSchema {
     displayName: 'Process Steps';
   };
   attributes: {
+    centered: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     heading: Schema.Attribute.String;
     intro: Schema.Attribute.Text;
     steps: Schema.Attribute.Component<'sections.process-step', true>;
@@ -252,36 +404,46 @@ export interface SectionsProcessSteps extends Struct.ComponentSchema {
 export interface SectionsPullQuote extends Struct.ComponentSchema {
   collectionName: 'components_sections_pull_quotes';
   info: {
-    description: 'A large pull quote with an optional CTA';
+    description: 'A large quote band with optional supporting copy, a button, and background imagery.';
     displayName: 'Pull Quote';
   };
   attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    backgroundSlides: Schema.Attribute.Component<'shared.image-with-alt', true>;
     cta: Schema.Attribute.Component<'shared.cta', false>;
     quote: Schema.Attribute.Text & Schema.Attribute.Required;
+    subheading: Schema.Attribute.Text;
   };
 }
 
 export interface SectionsRichText extends Struct.ComponentSchema {
   collectionName: 'components_sections_rich_texts';
   info: {
-    description: 'Fallback heading + rich text body';
+    description: 'A flexible prose section with an optional side list of key/value rows.';
     displayName: 'Rich Text';
   };
   attributes: {
     body: Schema.Attribute.RichText & Schema.Attribute.Required;
+    ctas: Schema.Attribute.Component<'shared.cta', true>;
     heading: Schema.Attribute.String;
+    headingStyle: Schema.Attribute.Enumeration<['blue', 'dark']> &
+      Schema.Attribute.DefaultTo<'dark'>;
     sideItems: Schema.Attribute.Component<'shared.key-value', true>;
+    subheading: Schema.Attribute.Text;
+    tone: Schema.Attribute.Enumeration<['light', 'panel', 'gradient']> &
+      Schema.Attribute.DefaultTo<'light'>;
   };
 }
 
 export interface SectionsStatItem extends Struct.ComponentSchema {
   collectionName: 'components_sections_stat_items';
   info: {
-    description: 'A single statistic';
+    description: 'A single statistic (big number + label).';
     displayName: 'Stat Item';
   };
   attributes: {
     footnote: Schema.Attribute.Text;
+    icon: Schema.Attribute.Media<'images'>;
     label: Schema.Attribute.String;
     value: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -290,14 +452,19 @@ export interface SectionsStatItem extends Struct.ComponentSchema {
 export interface SectionsStatsBlock extends Struct.ComponentSchema {
   collectionName: 'components_sections_stats_blocks';
   info: {
-    description: 'Heading + intro + a row of statistics';
+    description: 'A band of headline statistics (e.g. AUM, portfolio companies, exits).';
     displayName: 'Stats Block';
   };
   attributes: {
+    body: Schema.Attribute.RichText;
+    cta: Schema.Attribute.Component<'shared.cta', false>;
+    footnote: Schema.Attribute.Text;
     heading: Schema.Attribute.String;
     intro: Schema.Attribute.Text;
     stats: Schema.Attribute.Component<'sections.stat-item', true>;
     subheading: Schema.Attribute.Text;
+    theme: Schema.Attribute.Enumeration<['navy', 'light']> &
+      Schema.Attribute.DefaultTo<'navy'>;
   };
 }
 
@@ -336,13 +503,16 @@ export interface SectionsTeamGrid extends Struct.ComponentSchema {
 export interface SectionsTimeline extends Struct.ComponentSchema {
   collectionName: 'components_sections_timelines';
   info: {
-    description: 'Heading + intro + chronological entries';
+    description: 'A chronological history section with a year beam and entries.';
     displayName: 'Timeline';
   };
   attributes: {
+    backgroundGraphic: Schema.Attribute.Media<'images'>;
+    beamCaption: Schema.Attribute.Text;
     entries: Schema.Attribute.Component<'sections.timeline-entry', true>;
     heading: Schema.Attribute.String;
     intro: Schema.Attribute.Text;
+    years: Schema.Attribute.Component<'shared.bullet', true>;
   };
 }
 
@@ -409,6 +579,17 @@ export interface SectionsValueProps extends Struct.ComponentSchema {
   attributes: {
     heading: Schema.Attribute.String;
     items: Schema.Attribute.Component<'sections.value-prop-item', true>;
+  };
+}
+
+export interface SharedBullet extends Struct.ComponentSchema {
+  collectionName: 'components_shared_bullets';
+  info: {
+    description: 'A single bullet-point line.';
+    displayName: 'Bullet';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -512,6 +693,31 @@ export interface SharedKeyValue extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedNavItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_nav_items';
+  info: {
+    description: 'A top-level navigation menu item, with optional dropdown links.';
+    displayName: 'Nav Item';
+  };
+  attributes: {
+    children: Schema.Attribute.Component<'shared.nav-link', true>;
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedNavLink extends Struct.ComponentSchema {
+  collectionName: 'components_shared_nav_links';
+  info: {
+    description: 'A dropdown sub-link under a main navigation item.';
+    displayName: 'Nav Link';
+  };
+  attributes: {
+    href: Schema.Attribute.String & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -530,12 +736,18 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'sections.anchor-nav': SectionsAnchorNav;
+      'sections.article-section': SectionsArticleSection;
       'sections.board-grid': SectionsBoardGrid;
       'sections.cta-group': SectionsCtaGroup;
       'sections.disclosures': SectionsDisclosures;
       'sections.document-list': SectionsDocumentList;
+      'sections.education-grid': SectionsEducationGrid;
+      'sections.education-list': SectionsEducationList;
+      'sections.event-item': SectionsEventItem;
+      'sections.events-list': SectionsEventsList;
       'sections.faq-block': SectionsFaqBlock;
       'sections.form-block': SectionsFormBlock;
+      'sections.form-field': SectionsFormField;
       'sections.hero': SectionsHero;
       'sections.intro': SectionsIntro;
       'sections.news-item': SectionsNewsItem;
@@ -544,6 +756,7 @@ declare module '@strapi/strapi' {
       'sections.platform-item': SectionsPlatformItem;
       'sections.platform-tabs': SectionsPlatformTabs;
       'sections.portfolio-block': SectionsPortfolioBlock;
+      'sections.portfolio-grid-item': SectionsPortfolioGridItem;
       'sections.process-step': SectionsProcessStep;
       'sections.process-steps': SectionsProcessSteps;
       'sections.pull-quote': SectionsPullQuote;
@@ -558,6 +771,7 @@ declare module '@strapi/strapi' {
       'sections.truths': SectionsTruths;
       'sections.value-prop-item': SectionsValuePropItem;
       'sections.value-props': SectionsValueProps;
+      'shared.bullet': SharedBullet;
       'shared.cta': SharedCta;
       'shared.disclaimer-paragraph': SharedDisclaimerParagraph;
       'shared.faq-item': SharedFaqItem;
@@ -565,6 +779,8 @@ declare module '@strapi/strapi' {
       'shared.holding': SharedHolding;
       'shared.image-with-alt': SharedImageWithAlt;
       'shared.key-value': SharedKeyValue;
+      'shared.nav-item': SharedNavItem;
+      'shared.nav-link': SharedNavLink;
       'shared.seo': SharedSeo;
     }
   }

@@ -7,15 +7,18 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Step title."
     },
     "body": {
-      "type": "text"
+      "type": "text",
+      "description": "Step description."
     },
     "icon": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Icon shown for this step (optional)."
     }
   }
 }

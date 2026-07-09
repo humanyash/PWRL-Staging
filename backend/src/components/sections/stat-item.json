@@ -2,19 +2,28 @@
   "collectionName": "components_sections_stat_items",
   "info": {
     "displayName": "Stat Item",
-    "description": "A single statistic"
+    "description": "A single statistic (big number + label)."
   },
   "options": {},
   "attributes": {
     "value": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "The big number, e.g. $1.36B or 134."
     },
     "label": {
-      "type": "string"
+      "type": "string",
+      "description": "Caption under the number, e.g. 'Assets under management'."
     },
     "footnote": {
-      "type": "text"
+      "type": "text",
+      "description": "Optional small note for this stat."
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Optional icon shown above the number."
     }
   }
 }

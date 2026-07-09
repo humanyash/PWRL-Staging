@@ -8,11 +8,13 @@
   "attributes": {
     "label": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Button text, e.g. VIEW PORTFOLIO."
     },
     "href": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Where the button goes. Use /page for internal pages or a full https:// address."
     },
     "variant": {
       "type": "enumeration",
@@ -24,7 +26,8 @@
         "mint"
       ],
       "default": "primary",
-      "required": true
+      "required": true,
+      "description": "Button style: primary (solid), secondary (outline), mint (green), link or underline (text link)."
     }
   }
 }

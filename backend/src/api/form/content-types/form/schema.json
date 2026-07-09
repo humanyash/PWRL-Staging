@@ -14,25 +14,30 @@
   "attributes": {
     "label": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Friendly name so you can tell forms apart, e.g. 'Contact page inquiry form'."
     },
     "identifier": {
       "type": "uid",
       "targetField": "label",
-      "required": true
+      "required": true,
+      "description": "Internal code used by the website to find this form. Generated from the Label — do not change unless a developer asks you to."
     },
     "portalId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "HubSpot Portal ID (from your HubSpot account). Ask HubSpot admin if unsure."
     },
     "formId": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "HubSpot Form ID for this specific form."
     },
     "theme": {
       "type": "enumeration",
       "enum": ["light", "dark"],
-      "default": "light"
+      "default": "light",
+      "description": "Colour style of the embedded form: light or dark."
     }
   }
 }

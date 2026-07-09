@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "education_articles",
+  "info": {
+    "singularName": "education-article",
+    "pluralName": "education-articles",
+    "displayName": "Learn Articles",
+    "description": "Articles on /learn. Each has a card image, hero image, intro, and sub-sections."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "import-export-entries": {
+      "idField": "slug"
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Article title."
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "description": "Web address for the article (the part after /learn/)."
+    },
+    "date": {
+      "type": "date",
+      "description": "Publication date (newest first)."
+    },
+    "publishedLabel": {
+      "type": "string",
+      "description": "Date label shown on the article, e.g. 'Published June 29, 2026'."
+    },
+    "excerpt": {
+      "type": "text",
+      "description": "Short summary shown on the card (optional)."
+    },
+    "cardImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Image shown on the article card in lists and grids."
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Large image at the top of the article page (defaults to the card image)."
+    },
+    "body": {
+      "type": "richtext",
+      "description": "Opening paragraph(s). Separate paragraphs with a blank line."
+    },
+    "sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.article-section",
+      "description": "The body sub-sections, each with a sub-heading and paragraphs."
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "description": "Display order in lists (lower numbers show first)."
+    }
+  }
+}

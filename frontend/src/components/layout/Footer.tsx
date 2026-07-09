@@ -71,8 +71,8 @@ export function Footer({ settings }: { settings: GlobalSettings }) {
             <Link href="/" aria-label="PWRL home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/pwrl-logo.svg"
-                alt="PWRL — Private Tech. Nasdaq Listed."
+                src={settings.logo?.src ?? "/brand/pwrl-logo.svg"}
+                alt={settings.logo?.alt || "PWRL — Private Tech. Nasdaq Listed."}
                 className="h-auto w-[170px] md:w-[292px]"
               />
             </Link>

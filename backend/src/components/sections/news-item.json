@@ -7,23 +7,28 @@
   "options": {},
   "attributes": {
     "date": {
-      "type": "string"
+      "type": "string",
+      "description": "Display date for the card."
     },
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Article title."
     },
     "href": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Link to the full article."
     },
     "source": {
-      "type": "string"
+      "type": "string",
+      "description": "Publisher name (optional)."
     },
     "image": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Card image (optional)."
     }
   }
 }

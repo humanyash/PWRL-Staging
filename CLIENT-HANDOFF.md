@@ -70,16 +70,21 @@ As an **Editor**, you have full access to all website content:
 
 | Menu in Strapi | What it changes on the site |
 |---|---|
-| **Site Banner & Footer** | Home-page top banner (text, link, on/off) |
+| **Site Banner & Footer** | Top banner, **logo**, **navigation menu**, footer + social links, copyright |
+| **Pages** | Every page's sections, headlines, copy, buttons, images and background **video**, home hero **rotating words**, portfolio grid, fund tables, stats, timeline, events |
+| **Learn Articles** | Articles on `/learn` (card image, hero image, intro, sub-sections) |
 | **Press & News** | News cards on home and Investor Relations |
 | **FAQ** | FAQ accordion on `/vision` and `/fund` |
 | **Leadership Team** | Team grid on `/vision` |
 | **Board of Directors** | Board grid on `/investor-relations` |
 | **Fund Portfolio** | Holdings table on `/fund` |
 | **Fund Documents (PDFs)** | PDF list on `/investor-relations` |
-| **Page** | Full page layout and sections |
 | **HubSpot Forms** | Contact and newsletter form IDs |
 | **Legal Page** / **Disclaimers** | Legal copy and footer disclaimers |
+
+Every field has a short help note in the edit form explaining what it does.
+When editing a **Page**, the content is built from stacked **Sections** — open
+the section you want (e.g. Hero, Intro, Stats Block) and edit its fields.
 
 If you cannot save or publish an entry, contact HumanDesign — your account may
 need the **Editor** role assigned.

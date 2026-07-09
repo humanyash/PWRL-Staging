@@ -13,16 +13,27 @@ export async function GET() {
   const cmsBanner = settings?.topBanner ?? null;
   const usingFixtures = !settings;
 
+  const strapiUrlSource = process.env.NEXT_PUBLIC_STRAPI_URL
+    ? "NEXT_PUBLIC_STRAPI_URL"
+    : process.env.STRAPI_URL
+      ? "STRAPI_URL"
+      : "default";
+  const isLocalhostDefault = STRAPI_URL === "http://localhost:1337";
+
   return Response.json({
-    ok: !usingFixtures && !strapiDisabled,
+    ok: !usingFixtures && !strapiDisabled && !isLocalhostDefault,
     strapiUrl: STRAPI_URL,
+    strapiUrlSource,
+    isLocalhostDefault,
     strapiDisabled,
     usingFixtures,
     cmsBannerPreview: cmsBanner?.slice(0, 120) ?? null,
     fixtureBannerPreview: fixtureBanner?.slice(0, 120) ?? null,
     cmsPublishedAt: settings?.publishedAt ?? null,
-    hint: usingFixtures
-      ? "Set NEXT_PUBLIC_STRAPI_URL on Vercel to https://pwrl-cms-humandesign.onrender.com, remove NEXT_PUBLIC_STRAPI_DISABLED, then Redeploy."
-      : "CMS is connected. After Publish in Strapi, wait up to 60s or call POST /api/revalidate.",
+    hint: isLocalhostDefault
+      ? "No Strapi URL in this build. Set NEXT_PUBLIC_STRAPI_URL (or STRAPI_URL) on Vercel to https://pwrl-cms-humandesign.onrender.com, then Redeploy WITHOUT build cache."
+      : usingFixtures
+        ? "Strapi URL is set but the CMS request failed (fell back to fixtures). Check the URL is reachable and NEXT_PUBLIC_STRAPI_DISABLED is unset."
+        : "CMS is connected. After Publish in Strapi, wait up to 60s or call POST /api/revalidate.",
   });
 }

@@ -7,21 +7,26 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "items": {
       "type": "component",
       "repeatable": true,
-      "component": "sections.truth-item"
+      "component": "sections.truth-item",
+      "description": "The numbered principles/statements."
     },
     "caption": {
-      "type": "text"
+      "type": "text",
+      "description": "Caption under the supporting graphic (optional)."
     },
     "sourceLabel": {
-      "type": "string"
+      "type": "string",
+      "description": "Citation label, e.g. 'Source: PitchBook' (optional)."
     },
     "sourceHref": {
-      "type": "string"
+      "type": "string",
+      "description": "Link for the citation (optional)."
     }
   }
 }

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_bullets",
+  "info": {
+    "displayName": "Bullet",
+    "description": "A single bullet-point line."
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "description": "One bullet point of text."
+    }
+  }
+}

@@ -7,12 +7,14 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "items": {
       "type": "component",
       "repeatable": true,
-      "component": "sections.value-prop-item"
+      "component": "sections.value-prop-item",
+      "description": "The individual value propositions."
     }
   }
 }

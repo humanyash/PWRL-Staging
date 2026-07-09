@@ -1,22 +1,23 @@
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { EducationCard } from "@/components/blocks/EducationCard";
-import { EDUCATION_ARTICLES } from "@/lib/education";
+import { getEducationArticles } from "@/lib/strapi";
 import type { EducationListBlock } from "@/types/blocks";
 
 /**
  * EducationList — IR page education band (Figma 06.24.26):
- * heading + VIEW ALL, three article cards linking to /education/[slug].
+ * heading + VIEW ALL, three article cards linking to /learn/[slug].
+ * Articles come from the CMS (Learn Articles) with fixture fallback.
  */
-export function EducationList({ block }: { block: EducationListBlock }) {
-  const slugs =
-    block.items.length > 0
-      ? block.items.map((item) => item.slug)
-      : EDUCATION_ARTICLES.map((a) => a.slug);
-
-  const cards = slugs
-    .map((slug) => EDUCATION_ARTICLES.find((a) => a.slug === slug))
-    .filter((a): a is (typeof EDUCATION_ARTICLES)[number] => Boolean(a));
+export async function EducationList({ block }: { block: EducationListBlock }) {
+  const articles = await getEducationArticles();
+  const picked =
+    block.items && block.items.length > 0
+      ? block.items
+          .map((item) => articles.find((a) => a.slug === item.slug))
+          .filter((a): a is (typeof articles)[number] => Boolean(a))
+      : articles.slice(0, block.limit ?? 3);
+  const cards = picked;
 
   return (
     <Section tone="light" id="learn" className="!pt-[54px] !pb-[100px]">

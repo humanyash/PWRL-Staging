@@ -1,10 +1,11 @@
 import { Section } from "@/components/ui/Section";
 import { EducationCard } from "@/components/blocks/EducationCard";
-import { EDUCATION_ARTICLES } from "@/lib/education";
+import { getEducationArticles } from "@/lib/strapi";
 import type { EducationGridBlock } from "@/types/blocks";
 
-/** Full Learn index — 3×3 article grid (Figma Learn Page). */
-export function EducationGrid({ block }: { block: EducationGridBlock }) {
+/** Full Learn index — 3×3 article grid (Figma Learn Page). CMS-first. */
+export async function EducationGrid({ block }: { block: EducationGridBlock }) {
+  const articles = await getEducationArticles();
   return (
     <Section tone="light" className="!pb-[100px] !pt-[60px] md:!pt-[80px]">
       {block.heading ? (
@@ -20,7 +21,7 @@ export function EducationGrid({ block }: { block: EducationGridBlock }) {
         className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         data-mo-stagger=""
       >
-        {EDUCATION_ARTICLES.map((article) => (
+        {articles.map((article) => (
           <div key={article.slug} data-mo="">
             <EducationCard article={article} variant="featured" />
           </div>

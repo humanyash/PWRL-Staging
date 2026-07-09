@@ -8,12 +8,14 @@
   "attributes": {
     "question": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "The question, e.g. 'What is Powerlaw Corp.?'"
     },
     "answer": {
       "type": "customField",
       "customField": "plugin::ckeditor.CKEditor",
       "required": true,
+      "description": "The answer. To add a link, select text and use the link button — do not type [text](url).",
       "options": {
         "preset": "standard",
         "output": "HTML",

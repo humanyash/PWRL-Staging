@@ -9,7 +9,8 @@
     "items": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.footer-link"
+      "component": "shared.footer-link",
+      "description": "The in-page tabs. Label = tab text; Link = #section-id on the same page."
     }
   }
 }

@@ -7,15 +7,18 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Value proposition title."
     },
     "body": {
-      "type": "text"
+      "type": "text",
+      "description": "Short supporting text."
     },
     "icon": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Icon shown with this item (optional)."
     }
   }
 }

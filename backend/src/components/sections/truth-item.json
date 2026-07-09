@@ -7,15 +7,18 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Statement title."
     },
     "body": {
-      "type": "text"
+      "type": "text",
+      "description": "Supporting text."
     },
     "icon": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Number or icon graphic shown beside the statement."
     }
   }
 }

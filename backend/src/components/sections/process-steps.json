@@ -7,15 +7,23 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading, e.g. 'How to Invest'."
     },
     "intro": {
-      "type": "text"
+      "type": "text",
+      "description": "Short intro paragraph (optional)."
     },
     "steps": {
       "type": "component",
       "repeatable": true,
-      "component": "sections.process-step"
+      "component": "sections.process-step",
+      "description": "The ordered steps."
+    },
+    "centered": {
+      "type": "boolean",
+      "default": false,
+      "description": "Centre the heading (used on /trade). Leave off for left-aligned (used on /fund)."
     }
   }
 }

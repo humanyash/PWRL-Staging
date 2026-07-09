@@ -8,6 +8,7 @@ import { join } from "node:path";
 import { PAGE_FIXTURES, GLOBAL_SETTINGS } from "../src/lib/fixtures";
 import { HOME_NEWS_ITEMS, IR_NEWS_ITEMS } from "../src/lib/news";
 import { LEGAL_FIXTURES } from "../src/lib/legal-fixtures";
+import { EDUCATION_ARTICLES, EVENT_ITEMS } from "../src/lib/education";
 import type { Block, PersonCard } from "../src/types/blocks";
 
 type Payload = Record<string, unknown>;
@@ -18,6 +19,7 @@ const COMPONENTS_DIR = join(import.meta.dirname, "../../backend/src/components")
 interface AttrDef {
   type: string;
   component?: string;
+  multiple?: boolean;
 }
 
 function loadAttrDefs(): Map<string, Map<string, AttrDef>> {
@@ -31,9 +33,13 @@ function loadAttrDefs(): Map<string, Map<string, AttrDef>> {
       const uid = `${cat}.${f.replace(/\.json$/, "")}`;
       const attrs = new Map<string, AttrDef>();
       for (const [attr, def] of Object.entries<any>(schema.attributes ?? {})) {
-        // skip media + relations (those need upload/document ids)
-        if (def.type === "media" || def.type === "relation") continue;
-        attrs.set(attr, { type: def.type, component: def.component });
+        // skip relations (need document ids); media is seeded via {__upload}
+        if (def.type === "relation") continue;
+        attrs.set(attr, {
+          type: def.type,
+          component: def.component,
+          multiple: def.multiple,
+        });
       }
       map.set(uid, attrs);
     }
@@ -43,27 +49,73 @@ function loadAttrDefs(): Map<string, Map<string, AttrDef>> {
 const ATTR_DEFS = loadAttrDefs();
 const STRINGISH = new Set(["string", "text", "richtext", "email", "uid"]);
 
-/** Recursively keep only schema-known, non-media, non-relation keys. */
+/** First string-ish attribute of a component — used to wrap primitive list
+ *  items (e.g. ["a","b"]) into component rows ([{text:"a"},{text:"b"}]). */
+function firstStringAttr(componentUid: string): string | null {
+  const attrs = ATTR_DEFS.get(componentUid);
+  if (!attrs) return null;
+  for (const [attr, def] of attrs.entries()) {
+    if (STRINGISH.has(def.type)) return attr;
+  }
+  return null;
+}
+
+/** Fixture media ({src,alt}, string path, or arrays) → upload placeholders the
+ *  ingest runner resolves to Cloudinary ids. Non-media values → null. */
+function toUploadPlaceholder(v: unknown): unknown {
+  if (v === null || v === undefined) return null;
+  if (typeof v === "string") return v ? { __upload: v } : null;
+  if (Array.isArray(v)) {
+    const arr = v.map(toUploadPlaceholder).filter(Boolean);
+    return arr.length ? arr : null;
+  }
+  if (typeof v === "object") {
+    const src = (v as { src?: unknown }).src;
+    if (typeof src === "string") return { __upload: src };
+  }
+  return null;
+}
+
+/**
+ * Recursively keep only schema-known keys, coercing:
+ *  - prose arrays → one richtext string
+ *  - primitive list items → component rows keyed by the single string attr
+ *  - media (and fixture {src,alt} for image-with-alt) → {__upload} placeholders
+ */
 function sanitizeByComponent(value: unknown, componentUid: string): unknown {
   const attrs = ATTR_DEFS.get(componentUid);
-  if (!attrs || typeof value !== "object" || value === null) return value;
-  const sanitizeOne = (obj: Record<string, unknown>) => {
+  if (!attrs || value === null || value === undefined) return value;
+  const key = firstStringAttr(componentUid);
+  const coerce = (item: unknown): Record<string, unknown> =>
+    item !== null && typeof item === "object"
+      ? (item as Record<string, unknown>)
+      : key
+        ? { [key]: item }
+        : {};
+  const one = (obj: Record<string, unknown>) => {
     const out: Payload = {};
     for (const [k, v] of Object.entries(obj)) {
       if (!attrs.has(k)) continue;
       const def = attrs.get(k)!;
-      if (Array.isArray(v) && STRINGISH.has(def.type)) {
-        out[k] = v.join("\n\n"); // prose arrays → one richtext string
+      if (def.type === "media") {
+        const up = toUploadPlaceholder(v);
+        if (up) out[k] = up;
+      } else if (Array.isArray(v) && STRINGISH.has(def.type)) {
+        out[k] = v.join("\n\n");
       } else if (def.type === "component" && def.component) {
         out[k] = sanitizeByComponent(v, def.component);
       } else {
         out[k] = v;
       }
     }
+    // image-with-alt fixtures use {src,alt}; map the `src` into the media slot.
+    if (attrs.has("media") && !("media" in out) && typeof obj.src === "string") {
+      out.media = { __upload: obj.src };
+    }
     return out;
   };
-  if (Array.isArray(value)) return value.map((item) => sanitizeOne(item as Record<string, unknown>));
-  return sanitizeOne(value as Record<string, unknown>);
+  if (Array.isArray(value)) return value.map((item) => one(coerce(item)));
+  return one(coerce(value));
 }
 
 function sanitizeSection(block: Block): Payload | null {
@@ -73,6 +125,27 @@ function sanitizeSection(block: Block): Payload | null {
     __component,
     ...(sanitizeByComponent(rest, __component) as Payload),
   };
+}
+
+/** Inject list content the fixtures render from separate modules (events)
+ *  into the section object so the schema-driven sanitizer can seed it. */
+function seedSectionExtras(block: Block): Block {
+  if (block.__component === "sections.events-list") {
+    return {
+      ...block,
+      // events-list schema stores rows under `events`
+      events: EVENT_ITEMS.map((ev) => ({
+        dateTime: ev.dateTime,
+        title: ev.title,
+        ctaLabel: ev.ctaLabel,
+        ctaHref: ev.ctaHref,
+        type: ev.type,
+        brandLabel: ev.brandPanel?.label ?? null,
+        brandSublabel: ev.brandPanel?.sublabel ?? null,
+      })),
+    } as unknown as Block;
+  }
+  return block;
 }
 
 function findBlocks<T extends Block["__component"]>(component: T) {
@@ -265,7 +338,9 @@ export function buildPayloads() {
         role: p.role,
         bioFormat: p.bioFormat ?? "prose",
         bioProse: p.bio ?? null,
-        bioBullets: p.bioBullets ?? null,
+        bioBullets: p.bioBullets?.length
+          ? p.bioBullets.map((text) => ({ text }))
+          : null,
         order: i + 1,
       },
     })),
@@ -301,6 +376,14 @@ export function buildPayloads() {
       topBanner: GLOBAL_SETTINGS.banner?.text ?? null,
       topBannerLink: GLOBAL_SETTINGS.banner?.href ?? null,
       topBannerEnabled: Boolean(GLOBAL_SETTINGS.banner),
+      nav: GLOBAL_SETTINGS.nav.map((n) => ({
+        label: n.label,
+        href: n.href,
+        children: (n.children ?? []).map((c) => ({
+          label: c.label,
+          href: c.href,
+        })),
+      })),
       footerLinks: GLOBAL_SETTINGS.footerLinks.map((l) => ({
         label: l.label,
         href: l.href,
@@ -333,8 +416,27 @@ export function buildPayloads() {
         title: p.title,
         seo: { title: p.title, description: p.metaDescription ?? null },
         sections: p.sections
+          .map(seedSectionExtras)
           .map(sanitizeSection)
           .filter((s): s is Payload => s !== null),
+      },
+    })),
+
+    // education-article: title, slug, date, publishedLabel, body, sections, images
+    educationArticles: EDUCATION_ARTICLES.map((a, i) => ({
+      cardPath: a.image?.src ?? null,
+      heroPath: a.heroImage?.src ?? a.image?.src ?? null,
+      data: {
+        title: a.title,
+        slug: a.slug,
+        date: parseLongDate(a.date),
+        publishedLabel: a.publishedLabel ?? null,
+        body: a.body.join("\n\n"),
+        sections: (a.sections ?? []).map((s) => ({
+          heading: s.heading,
+          body: s.paragraphs.join("\n\n"),
+        })),
+        order: i + 1,
       },
     })),
 

@@ -7,19 +7,23 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Title shown in the browser tab and in Google search results."
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "description": "One- or two-sentence summary shown under the title in Google and link previews."
     },
     "ogImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": ["images"],
+      "description": "Preview image shown when the page is shared on social media."
     },
     "noindex": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Tick to hide this page from Google search. Leave off for normal pages."
     }
   }
 }

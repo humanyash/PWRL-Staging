@@ -2,23 +2,47 @@
   "collectionName": "components_sections_stats_blocks",
   "info": {
     "displayName": "Stats Block",
-    "description": "Heading + intro + a row of statistics"
+    "description": "A band of headline statistics (e.g. AUM, portfolio companies, exits)."
   },
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading, e.g. 'Decades of VC Expertise'."
     },
     "subheading": {
-      "type": "text"
+      "type": "text",
+      "description": "Lead-in line above the stats (optional)."
     },
     "intro": {
-      "type": "text"
+      "type": "text",
+      "description": "Short intro paragraph (optional)."
+    },
+    "body": {
+      "type": "richtext",
+      "description": "Longer body copy beneath the subheading. Separate paragraphs with a blank line."
     },
     "stats": {
       "type": "component",
       "repeatable": true,
-      "component": "sections.stat-item"
+      "component": "sections.stat-item",
+      "description": "The individual statistics shown in the row."
+    },
+    "footnote": {
+      "type": "text",
+      "description": "Small print under the stats, e.g. '*As of March 30, 2026'."
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta",
+      "description": "Optional button beneath the stats."
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["navy", "light"],
+      "default": "navy",
+      "description": "Colour style: 'navy' (dark band) or 'light' (white band with ice tiles)."
     }
   }
 }

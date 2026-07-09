@@ -14,25 +14,30 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Page title, e.g. Privacy Policy or Terms & Conditions."
     },
     "slug": {
       "type": "uid",
       "targetField": "title",
-      "required": true
+      "required": true,
+      "description": "Web address for this page ('legal' = Privacy, 'terms' = Terms)."
     },
     "body": {
       "type": "richtext",
-      "required": true
+      "required": true,
+      "description": "The full legal text. Legal Reviewer only."
     },
     "effectiveDate": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": "Date this version takes effect. Legal Reviewer only."
     },
     "seo": {
       "type": "component",
       "repeatable": false,
-      "component": "shared.seo"
+      "component": "shared.seo",
+      "description": "Search-engine and social-share settings."
     }
   }
 }

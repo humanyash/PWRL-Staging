@@ -268,7 +268,9 @@ export interface EducationListBlock {
   __component: "sections.education-list";
   heading: string;
   viewAllHref?: string;
-  items: EducationListItem[];
+  /** Explicit article picks (fixtures). When absent, the most recent `limit`. */
+  items?: EducationListItem[];
+  limit?: number;
 }
 
 export interface EventItemBlock {
@@ -477,6 +479,8 @@ export interface FooterLink {
 
 export interface GlobalSettings {
   banner?: { text: string; href?: string } | null;
+  /** Optional CMS logo; components fall back to the bundled SVG when absent. */
+  logo?: ImageWithAlt | null;
   nav: NavItem[];
   footerLinks: FooterLink[];
   socials: SocialLink[];

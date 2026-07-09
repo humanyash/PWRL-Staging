@@ -16,11 +16,13 @@
       "type": "component",
       "repeatable": true,
       "component": "shared.disclaimer-paragraph",
-      "required": true
+      "required": true,
+      "description": "The disclaimer paragraphs shown in the footer, in order. Legal Reviewer only."
     },
     "effectiveDate": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": "Date this version takes effect. Legal Reviewer only."
     }
   }
 }

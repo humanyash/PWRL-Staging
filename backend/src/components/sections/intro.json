@@ -2,18 +2,61 @@
   "collectionName": "components_sections_intros",
   "info": {
     "displayName": "Intro",
-    "description": "Kicker + heading + body intro block"
+    "description": "Introduction block. On the home page this also holds the interactive portfolio grid and the fund-details table."
   },
   "options": {},
   "attributes": {
     "kicker": {
-      "type": "string"
+      "type": "string",
+      "description": "Small label above the heading (optional)."
     },
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
+    },
+    "subheading": {
+      "type": "text",
+      "description": "Supporting line under the heading (optional)."
     },
     "body": {
-      "type": "richtext"
+      "type": "richtext",
+      "description": "Body copy. Separate paragraphs with a blank line."
+    },
+    "portfolioItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.portfolio-grid-item",
+      "description": "Home page: the grid of portfolio company tiles."
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta",
+      "description": "Button under the portfolio grid, e.g. EXPLORE THE FUND."
+    },
+    "tailHeading": {
+      "type": "string",
+      "description": "Heading for the two-column section below the grid (left column)."
+    },
+    "tailParagraphs": {
+      "type": "richtext",
+      "description": "Paragraphs in the left column below the grid. Separate paragraphs with a blank line."
+    },
+    "tailCta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.cta",
+      "description": "Button in the left column, e.g. READ OUR PROSPECTUS."
+    },
+    "fundDetails": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.key-value",
+      "description": "Right-column fund-details table (Ticker, NAV, etc.). One row per line."
+    },
+    "fundDetailsFootnote": {
+      "type": "text",
+      "description": "Small print under the fund-details table, e.g. 'Updated monthly. Last updated 06/30/2026.'"
     }
   }
 }

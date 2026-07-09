@@ -7,15 +7,18 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "subheading": {
-      "type": "text"
+      "type": "text",
+      "description": "Supporting line under the heading (optional)."
     },
     "members": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::team-member.team-member"
+      "target": "api::team-member.team-member",
+      "description": "People shown here. Manage each person in Leadership Team."
     }
   }
 }

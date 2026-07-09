@@ -7,23 +7,28 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "intro": {
-      "type": "text"
+      "type": "text",
+      "description": "Short intro paragraph (optional)."
     },
     "selfDirectedLabel": {
       "type": "string",
-      "default": "Self Directed Brokerage"
+      "default": "Self Directed Brokerage",
+      "description": "Label for the first tab."
     },
     "advisorLabel": {
       "type": "string",
-      "default": "Financial Advisor Managed"
+      "default": "Financial Advisor Managed",
+      "description": "Label for the second tab."
     },
     "items": {
       "type": "component",
       "repeatable": true,
-      "component": "sections.platform-item"
+      "component": "sections.platform-item",
+      "description": "The brokerage platforms shown under the tabs."
     }
   }
 }

@@ -2,20 +2,33 @@
   "collectionName": "components_sections_cta_groups",
   "info": {
     "displayName": "CTA Group",
-    "description": "Heading + subheading + a group of CTAs"
+    "description": "A closing band with a heading and one or more buttons."
   },
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Band heading."
     },
     "subheading": {
-      "type": "text"
+      "type": "text",
+      "description": "Supporting line under the heading (optional)."
+    },
+    "body": {
+      "type": "richtext",
+      "description": "Body copy shown in the band. Separate paragraphs with a blank line (optional)."
+    },
+    "theme": {
+      "type": "enumeration",
+      "enum": ["navy", "ice", "light"],
+      "default": "ice",
+      "description": "Band colour style."
     },
     "ctas": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.cta"
+      "component": "shared.cta",
+      "description": "Buttons shown in the band."
     }
   }
 }

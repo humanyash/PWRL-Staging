@@ -8,11 +8,13 @@
   "attributes": {
     "label": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Row label, e.g. Ticker or Net Asset Value."
     },
     "value": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Row value, e.g. PWRL or $700.9M."
     }
   }
 }

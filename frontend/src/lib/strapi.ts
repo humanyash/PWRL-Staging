@@ -16,10 +16,7 @@
 
 import type {
   Block,
-  AnchorNavBlock,
   DocumentListBlock,
-  FormBlock,
-  FAQBlock,
   GlobalSettings,
   HeroBlock,
   IntroBlock,
@@ -31,9 +28,12 @@ import type {
 } from "@/types/blocks";
 import { GLOBAL_SETTINGS, PAGE_SLUGS, getFixturePage } from "@/lib/fixtures";
 import { isPreviewDraft } from "@/lib/preview";
+import { EDUCATION_ARTICLES, type EducationArticle } from "@/lib/education";
 
 export const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+  process.env.NEXT_PUBLIC_STRAPI_URL ??
+  process.env.STRAPI_URL ??
+  "http://localhost:1337";
 
 const STRAPI_DISABLED = process.env.NEXT_PUBLIC_STRAPI_DISABLED === "true";
 const REVALIDATE_SECONDS = 60;
@@ -89,9 +89,204 @@ const fromCmsSlug = (slug: string) => (slug === "home" ? "/" : `/${slug}`);
 /* ------------------------------------------------------------------ */
 
 /** Fields the fixtures store as paragraph arrays but the CMS as one string. */
-const PARAGRAPH_ARRAY_FIELDS = new Set(["body", "paragraphs", "notes"]);
+const PARAGRAPH_ARRAY_FIELDS = new Set([
+  "body",
+  "paragraphs",
+  "notes",
+  "tailParagraphs",
+]);
 
 type CmsSection = { __component: string; [k: string]: unknown };
+
+/* ------------------------------------------------------------------ */
+/* CMS component/media shapes → frontend primitive shapes              */
+/* ------------------------------------------------------------------ */
+
+type MediaLike = { url?: string; alternativeText?: string | null } | null | undefined;
+
+function mediaToImage(m: MediaLike): { src: string; alt: string } | undefined {
+  return m?.url ? { src: m.url, alt: m.alternativeText ?? "" } : undefined;
+}
+function mediaToUrl(m: MediaLike): string | undefined {
+  return m?.url ?? undefined;
+}
+
+/** [{text}] or ["a","b"] → ["a","b"]; empty/absent → undefined. */
+function toTextList(v: unknown): string[] | undefined {
+  if (!Array.isArray(v)) return undefined;
+  const out = v
+    .map((it) =>
+      typeof it === "string"
+        ? it
+        : it && typeof it === "object" && "text" in it
+          ? String((it as { text?: unknown }).text ?? "")
+          : "",
+    )
+    .filter((s) => s.length > 0);
+  return out.length ? out : undefined;
+}
+
+/** [{media,alt}] → [{src,alt}]; empty/absent → undefined. */
+function toImageList(v: unknown): { src: string; alt: string }[] | undefined {
+  if (!Array.isArray(v)) return undefined;
+  const out = v
+    .map((it) => {
+      const o = it as { media?: MediaLike; alt?: string; src?: string };
+      const src = o?.media?.url ?? o?.src;
+      return src ? { src, alt: o?.alt ?? o?.media?.alternativeText ?? "" } : null;
+    })
+    .filter((x): x is { src: string; alt: string } => x !== null);
+  return out.length ? out : undefined;
+}
+
+/** [{media,alt}] → ["url", …]; empty/absent → undefined. */
+function toImageUrlList(v: unknown): string[] | undefined {
+  return toImageList(v)?.map((i) => i.src);
+}
+
+interface CmsNavItem {
+  label?: string;
+  href?: string;
+  children?: { label?: string; href?: string }[];
+}
+
+/** CMS nav component rows → NavItem[]; drops rows missing label/href. */
+function toNavItems(v: unknown): { label: string; href: string; children?: { label: string; href: string }[] }[] | undefined {
+  if (!Array.isArray(v)) return undefined;
+  const out = (v as CmsNavItem[])
+    .filter((n) => n?.label && n?.href)
+    .map((n) => {
+      const children = Array.isArray(n.children)
+        ? n.children
+            .filter((c) => c?.label && c?.href)
+            .map((c) => ({ label: c.label as string, href: c.href as string }))
+        : undefined;
+      return {
+        label: n.label as string,
+        href: n.href as string,
+        ...(children && children.length ? { children } : {}),
+      };
+    });
+  return out.length ? out : undefined;
+}
+
+function mapItemIcon<T extends { icon?: unknown }>(items: unknown): T[] | undefined {
+  if (!Array.isArray(items)) return undefined;
+  return items.map((it) => {
+    const copy = { ...(it as Record<string, unknown>) };
+    const icon = mediaToImage(copy.icon as MediaLike);
+    if (icon) copy.icon = icon;
+    else delete copy.icon;
+    return copy as T;
+  });
+}
+
+/**
+ * Convert a raw CMS section's component/media fields into the primitive shapes
+ * the frontend renders (string lists, {src,alt} images, video URLs). Fields
+ * that resolve to nothing are dropped so mergeSection fills them from fixtures.
+ */
+function normalizeCmsSection(section: CmsSection): CmsSection {
+  const s: CmsSection = { ...section };
+  const setOrDrop = (key: string, val: unknown) => {
+    if (val === undefined) delete s[key];
+    else s[key] = val;
+  };
+
+  switch (section.__component) {
+    case "sections.hero":
+      if ("headlineSlides" in s) setOrDrop("headlineSlides", toTextList(s.headlineSlides));
+      if ("headlineSuffixes" in s) setOrDrop("headlineSuffixes", toTextList(s.headlineSuffixes));
+      if ("backgroundImage" in s) setOrDrop("backgroundImage", mediaToImage(s.backgroundImage as MediaLike));
+      if ("backgroundVideo" in s) setOrDrop("backgroundVideo", mediaToUrl(s.backgroundVideo as MediaLike));
+      break;
+    case "sections.timeline":
+      if ("years" in s) setOrDrop("years", toTextList(s.years));
+      if ("backgroundGraphic" in s) setOrDrop("backgroundGraphic", mediaToUrl(s.backgroundGraphic as MediaLike));
+      break;
+    case "sections.intro":
+      if (Array.isArray(s.portfolioItems)) {
+        s.portfolioItems = (s.portfolioItems as Record<string, unknown>[]).map((it) => {
+          const copy = { ...it };
+          const logo = mediaToImage(copy.logo as MediaLike);
+          if (logo) copy.logo = logo;
+          else delete copy.logo;
+          return copy;
+        });
+      }
+      break;
+    case "sections.philosophy":
+      if ("backgroundSlides" in s) setOrDrop("backgroundSlides", toImageUrlList(s.backgroundSlides));
+      if ("supportingImages" in s) setOrDrop("supportingImages", toImageList(s.supportingImages));
+      break;
+    case "sections.pull-quote":
+      if ("backgroundImage" in s) setOrDrop("backgroundImage", mediaToImage(s.backgroundImage as MediaLike));
+      if ("backgroundSlides" in s) setOrDrop("backgroundSlides", toImageUrlList(s.backgroundSlides));
+      break;
+    case "sections.stats-block":
+      if (Array.isArray(s.stats)) s.stats = mapItemIcon(s.stats);
+      break;
+    case "sections.value-props":
+      if (Array.isArray(s.items)) s.items = mapItemIcon(s.items);
+      break;
+    case "sections.truths":
+      if (Array.isArray(s.items)) s.items = mapItemIcon(s.items);
+      break;
+    case "sections.process-steps":
+      if (Array.isArray(s.steps)) s.steps = mapItemIcon(s.steps);
+      break;
+    case "sections.platform-tabs":
+      if (Array.isArray(s.items)) {
+        s.items = (s.items as Record<string, unknown>[]).map((it) => {
+          const copy = { ...it };
+          const logo = mediaToImage(copy.logo as MediaLike);
+          if (logo) copy.logo = logo;
+          else delete copy.logo;
+          return copy;
+        });
+      }
+      break;
+    case "sections.events-list":
+      if (Array.isArray(s.events)) {
+        s.items = (s.events as Record<string, unknown>[]).map((e) => {
+          const image = mediaToImage(e.image as MediaLike);
+          const brandLabel = e.brandLabel as string | undefined;
+          const brandSublabel = e.brandSublabel as string | undefined;
+          return {
+            dateTime: e.dateTime,
+            title: e.title,
+            ctaLabel: e.ctaLabel,
+            ctaHref: e.ctaHref,
+            type: e.type,
+            ...(image ? { image } : {}),
+            ...(brandLabel
+              ? { brandPanel: { label: brandLabel, sublabel: brandSublabel } }
+              : {}),
+          };
+        });
+        delete s.events;
+      }
+      break;
+    case "sections.form-block": {
+      // Resolve HubSpot ids from the linked Form when not typed directly.
+      const rel = s.form as { portalId?: string; formId?: string } | null | undefined;
+      if (rel?.portalId && !s.portalId) s.portalId = rel.portalId;
+      if (rel?.formId && !s.formId) s.formId = rel.formId;
+      delete s.form;
+      if (Array.isArray(s.fields)) {
+        s.fields = (s.fields as Record<string, unknown>[]).map((f) => {
+          const copy = { ...f };
+          const options = toTextList(copy.options);
+          if (options) copy.options = options;
+          else delete copy.options;
+          return copy;
+        });
+      }
+      break;
+    }
+  }
+  return s;
+}
 
 /**
  * Merge one CMS section over its fixture counterpart. CMS values win when
@@ -182,18 +377,6 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     out.tailCta = introFixture.tailCta;
   }
 
-  // Home NAV band (2026-06): CMS still has the old heading / first+last fields.
-  if (
-    cms.__component === "sections.form-block" &&
-    fixture?.__component === "sections.form-block"
-  ) {
-    const formFixture = fixture as FormBlock;
-    if (formFixture.fields) out.fields = formFixture.fields;
-    if (formFixture.body) out.body = formFixture.body;
-    if (formFixture.heading) out.heading = formFixture.heading;
-    else if (!formFixture.heading) out.heading = undefined;
-  }
-
   // Home manifesto pull-quote (2026-06): CMS still carries the old quote/CTA.
   if (
     cms.__component === "sections.pull-quote" &&
@@ -208,25 +391,6 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     out.backgroundSlides = quoteFixture.backgroundSlides;
   }
 
-  // FAQ intro line breaks live in fixtures until CMS stores explicit breaks.
-  if (
-    cms.__component === "sections.faq-block" &&
-    fixture?.__component === "sections.faq-block"
-  ) {
-    const faqFixture = fixture as FAQBlock;
-    if (faqFixture.intro?.includes("\n")) out.intro = faqFixture.intro;
-  }
-
-  // IR anchor tabs are tied to on-page section ids; fixtures carry the
-  // current nav (Education, Events, …) until Strapi schema catches up.
-  if (
-    cms.__component === "sections.anchor-nav" &&
-    fixture?.__component === "sections.anchor-nav"
-  ) {
-    const navFixture = fixture as AnchorNavBlock;
-    if (navFixture.items?.length) out.items = navFixture.items;
-  }
-
   return out as unknown as Block;
 }
 
@@ -235,7 +399,7 @@ interface CmsPerson {
   role: string;
   bioFormat?: "prose" | "bullets";
   bioProse?: string | null;
-  bioBullets?: string[] | null;
+  bioBullets?: ({ text?: string | null } | string)[] | null;
   bio?: string | null;
   order?: number;
   headshot?: { url?: string; alternativeText?: string | null } | null;
@@ -247,15 +411,21 @@ function cmsPersonToCard(p: CmsPerson): PersonCard {
     p.bio && p.bio.startsWith("- ")
       ? p.bio.split("\n").map((l) => l.replace(/^- /, ""))
       : null;
+  // bioBullets is now a repeatable component ([{text}]); tolerate legacy string[]
+  const cmsBullets = Array.isArray(p.bioBullets)
+    ? p.bioBullets
+        .map((b) => (typeof b === "string" ? b : (b?.text ?? "")))
+        .filter((s) => s.length > 0)
+    : null;
   return {
     name: p.name,
     role: p.role,
     image: p.headshot?.url
       ? { src: p.headshot.url, alt: p.headshot.alternativeText ?? p.name }
       : null,
-    bioFormat: p.bioFormat ?? (bulletBio ? "bullets" : "prose"),
+    bioFormat: p.bioFormat ?? (cmsBullets?.length || bulletBio ? "bullets" : "prose"),
     bio: p.bioProse ?? (bulletBio ? undefined : (p.bio ?? undefined)),
-    bioBullets: p.bioBullets ?? bulletBio ?? undefined,
+    bioBullets: (cmsBullets?.length ? cmsBullets : bulletBio) ?? undefined,
   };
 }
 
@@ -264,6 +434,7 @@ function cmsPersonToCard(p: CmsPerson): PersonCard {
 async function fetchTeam(): Promise<PersonCard[] | null> {
   const data = await strapiFetch<CmsPerson[]>("/api/team-members", {
     "populate[headshot]": "true",
+    "populate[bioBullets]": "true",
     sort: "order",
     "pagination[pageSize]": "50",
     status: "published",
@@ -467,7 +638,7 @@ export async function getPage(slug: string): Promise<PageData | null> {
       (f) => f.__component === section.__component,
     );
     const counterpart = idx >= 0 ? fixturePool.splice(idx, 1)[0] : undefined;
-    return mergeSection(section, counterpart);
+    return mergeSection(normalizeCmsSection(section), counterpart);
   });
 
   // CMS may not yet carry newer home sections (stats, news). Insert any
@@ -505,10 +676,14 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
       topBanner?: string | null;
       topBannerLink?: string | null;
       topBannerEnabled?: boolean;
+      logo?: MediaLike;
+      nav?: CmsNavItem[];
       footerLinks?: { label: string; href: string }[];
       socialLinks?: { label: string; href: string }[];
       copyright?: string | null;
     }>("/api/global-settings", {
+      "populate[logo]": "true",
+      "populate[nav][populate]": "children",
       "populate[footerLinks]": "true",
       "populate[socialLinks]": "true",
       status: "published",
@@ -525,6 +700,8 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
   const bannerText = settings.topBanner?.trim();
   const bannerHref = settings.topBannerLink?.trim();
 
+  const cmsNav = toNavItems(settings.nav);
+
   return {
     ...GLOBAL_SETTINGS,
     banner:
@@ -534,6 +711,8 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
             href: bannerHref || undefined,
           }
         : undefined,
+    logo: mediaToImage(settings.logo) ?? GLOBAL_SETTINGS.logo,
+    nav: cmsNav?.length ? cmsNav : GLOBAL_SETTINGS.nav,
     footerLinks: settings.footerLinks?.length
       ? settings.footerLinks
       : GLOBAL_SETTINGS.footerLinks,
@@ -545,6 +724,103 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
       ? disclaimers.paragraphs.map((p) => p.body)
       : GLOBAL_SETTINGS.disclaimers,
   };
+}
+
+/* ------------------------------------------------------------------ */
+/* Learn articles (CMS-first, fixture fill)                            */
+/* ------------------------------------------------------------------ */
+
+interface CmsArticle {
+  title: string;
+  slug: string;
+  date?: string | null;
+  publishedLabel?: string | null;
+  excerpt?: string | null;
+  body?: string | null;
+  cardImage?: MediaLike;
+  heroImage?: MediaLike;
+  sections?: { heading?: string | null; body?: string | null }[];
+}
+
+/** Split a richtext/plain string into paragraphs (blank-line separated). */
+function splitParagraphs(v: string | null | undefined): string[] {
+  if (!v) return [];
+  return v
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+function formatArticleDate(iso: string | null | undefined): string | undefined {
+  if (!iso) return undefined;
+  const t = Date.parse(iso);
+  if (Number.isNaN(t)) return undefined;
+  return new Date(t).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+/** Merge one CMS article over its fixture twin (by slug) so images/body that
+ *  the CMS doesn't carry yet still render. */
+function cmsArticleToEducation(a: CmsArticle): EducationArticle {
+  const fixture = EDUCATION_ARTICLES.find((f) => f.slug === a.slug);
+  const card = mediaToImage(a.cardImage);
+  const hero = mediaToImage(a.heroImage);
+  const body = splitParagraphs(a.body);
+  const sections = (a.sections ?? [])
+    .map((s) => ({
+      heading: s.heading ?? "",
+      paragraphs: splitParagraphs(s.body),
+    }))
+    .filter((s) => s.heading || s.paragraphs.length);
+  const displayDate = a.publishedLabel?.replace(/^Published\s+/i, "").trim();
+  return {
+    slug: a.slug,
+    title: a.title || fixture?.title || a.slug,
+    date: displayDate || formatArticleDate(a.date) || fixture?.date || "",
+    publishedLabel:
+      a.publishedLabel ||
+      (formatArticleDate(a.date)
+        ? `Published ${formatArticleDate(a.date)}`
+        : (fixture?.publishedLabel ?? "")),
+    image: card ?? fixture?.image ?? { src: "", alt: a.title },
+    heroImage: hero ?? card ?? fixture?.heroImage ?? fixture?.image,
+    body: body.length ? body : (fixture?.body ?? []),
+    sections: sections.length ? sections : fixture?.sections,
+  };
+}
+
+/** All Learn articles: CMS-first, fixtures on failure/empty. */
+export async function getEducationArticles(): Promise<EducationArticle[]> {
+  const data = await strapiFetch<CmsArticle[]>("/api/education-articles", {
+    "populate[cardImage]": "true",
+    "populate[heroImage]": "true",
+    "populate[sections]": "true",
+    sort: "order",
+    "pagination[pageSize]": "100",
+    status: "published",
+  });
+  if (!data || data.length === 0) return EDUCATION_ARTICLES;
+  return data.map(cmsArticleToEducation);
+}
+
+/** One Learn article by slug: CMS-first, fixture on failure. */
+export async function getEducationArticleCms(
+  slug: string,
+): Promise<EducationArticle | null> {
+  const data = await strapiFetch<CmsArticle[]>("/api/education-articles", {
+    "filters[slug][$eq]": slug,
+    "populate[cardImage]": "true",
+    "populate[heroImage]": "true",
+    "populate[sections]": "true",
+    status: "published",
+  });
+  const cms = data?.[0];
+  if (cms) return cmsArticleToEducation(cms);
+  return EDUCATION_ARTICLES.find((a) => a.slug === slug) ?? null;
 }
 
 /** All page slugs for static generation (frontend-form slugs). */

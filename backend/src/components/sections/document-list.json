@@ -7,7 +7,8 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "string"
+      "type": "string",
+      "description": "Section heading."
     },
     "kind": {
       "type": "enumeration",
@@ -15,18 +16,22 @@
         "filings",
         "fund-docs"
       ],
-      "required": true
+      "required": true,
+      "description": "Which list to show: 'filings' = SEC filings (pulled automatically from EDGAR) or 'fund-docs' = the Fund Documents (PDFs) you upload."
     },
     "documents": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.footer-link"
+      "component": "shared.footer-link",
+      "description": "Manual document links (only used if not pulling from Fund Documents)."
     },
     "note": {
-      "type": "text"
+      "type": "text",
+      "description": "Small note under the list (optional)."
     },
     "emptyText": {
-      "type": "string"
+      "type": "string",
+      "description": "Message shown if the list is empty (optional)."
     }
   }
 }
