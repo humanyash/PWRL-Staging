@@ -1,4 +1,5 @@
-import { Box, Flex, Link, Typography } from '@strapi/design-system';
+import { Box, Flex, Typography } from '@strapi/design-system';
+import { Link as RouterLink } from 'react-router-dom';
 import { ArrowRight } from '@strapi/icons';
 
 const LINKS = [
@@ -43,14 +44,28 @@ const LINKS = [
 const QuickLinksWidget = () => (
   <Box padding={2}>
     <Typography variant="omega" textColor="neutral600">
+      If other homepage widgets say &quot;Loading widget content&quot;, Render is
+      still waking up (up to ~60s on the free tier). Use the links below — they
+      work immediately.
+    </Typography>
+    <Typography variant="omega" textColor="neutral600">
       Save drafts freely — only Publish goes live (~60s). Unpublish or History to
       roll back.
     </Typography>
     <Flex direction="column" gap={2} marginTop={3}>
       {LINKS.map((item) => (
-        <Link key={item.href} to={item.href} endIcon={<ArrowRight />}>
-          {item.label}
-        </Link>
+        <RouterLink
+          key={item.href}
+          to={item.href}
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <Flex alignItems="center" gap={1}>
+            <Typography variant="omega" textColor="primary600">
+              {item.label}
+            </Typography>
+            <ArrowRight />
+          </Flex>
+        </RouterLink>
       ))}
     </Flex>
   </Box>

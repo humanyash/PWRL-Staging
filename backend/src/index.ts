@@ -1,4 +1,5 @@
 import type { Core } from '@strapi/strapi';
+import { bootstrapContentManagerListViews } from './bootstrap-content-manager';
 
 /** Content types the Next.js frontend reads without an API token. */
 const PUBLIC_READ_ACTIONS = [
@@ -164,6 +165,11 @@ export default {
       await bootstrapUnlockedEditorRole(strapi);
     } catch (err) {
       strapi.log.error('Failed to bootstrap editor role permissions', err);
+    }
+    try {
+      await bootstrapContentManagerListViews(strapi);
+    } catch (err) {
+      strapi.log.error('Failed to bootstrap Content Manager list views', err);
     }
   },
 };

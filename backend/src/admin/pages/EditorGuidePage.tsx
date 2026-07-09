@@ -1,5 +1,5 @@
-import { Box, Flex, Link, Typography } from '@strapi/design-system';
-import { ArrowRight } from '@strapi/icons';
+import { Box, Flex, Typography } from '@strapi/design-system';
+import ContentGuideLink from '../components/ContentGuideLink';
 
 const CONTENT_LINKS = [
   {
@@ -66,13 +66,9 @@ const EditorGuidePage = () => (
     </Typography>
     <Box marginTop={4} marginBottom={6}>
       <Typography variant="omega" textColor="neutral600">
-        Edit at{' '}
-        <Link href="https://pwrl-cms-humandesign.onrender.com/admin" isExternal>
-          pwrl-cms-humandesign.onrender.com
-        </Link>
-        . Save drafts freely — only <strong>Publish</strong> pushes changes to
-        the website (~60 seconds). Use preview buttons to check the staging site
-        before publishing.
+        Edit at pwrl-cms-humandesign.onrender.com. Save drafts freely — only{' '}
+        <strong>Publish</strong> pushes changes to the website (~60 seconds). Use
+        preview buttons to check the staging site before publishing.
       </Typography>
     </Box>
 
@@ -81,16 +77,7 @@ const EditorGuidePage = () => (
     </Typography>
     <Flex direction="column" gap={4} marginTop={3} marginBottom={8}>
       {CONTENT_LINKS.map((item) => (
-        <Box key={item.href} padding={4} background="neutral100" hasRadius>
-          <Link to={item.href} endIcon={<ArrowRight />}>
-            <Typography variant="delta">{item.label}</Typography>
-          </Link>
-          <Box marginTop={1}>
-            <Typography variant="pi" textColor="neutral600">
-              {item.hint}
-            </Typography>
-          </Box>
-        </Box>
+        <ContentGuideLink key={item.href} {...item} />
       ))}
     </Flex>
 
