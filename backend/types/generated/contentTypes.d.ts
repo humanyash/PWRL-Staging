@@ -450,7 +450,7 @@ export interface ApiBoardDirectorBoardDirector
     singularName: 'board-director';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   pluginOptions: {
     'import-export-entries': {
@@ -535,7 +535,7 @@ export interface ApiFaqFaq extends Struct.SingleTypeSchema {
     singularName: 'faq';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -595,7 +595,7 @@ export interface ApiFundDocumentFundDocument
     singularName: 'fund-document';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   pluginOptions: {
     'import-export-entries': {
@@ -812,7 +812,7 @@ export interface ApiPortfolioSnapshotPortfolioSnapshot
     singularName: 'portfolio-snapshot';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     asOfDate: Schema.Attribute.Date & Schema.Attribute.Required;
@@ -880,7 +880,7 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     singularName: 'team-member';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   pluginOptions: {
     'import-export-entries': {

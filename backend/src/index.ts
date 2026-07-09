@@ -96,15 +96,15 @@ async function upsertAdminPermission(
 }
 
 /**
- * Editors with admin login can change all site content (no field-level locks).
+ * Editors and authors with admin login can change all site content.
  * Super Admin still required for plugins, users, and Content-Type Builder.
  */
-async function bootstrapUnlockedEditorRole(strapi: Core.Strapi) {
-  const editorRole = await strapi.db.query('admin::role').findOne({
-    where: { code: 'strapi-editor' },
+async function bootstrapUnlockedContentRole(strapi: Core.Strapi, roleCode: string) {
+  const role = await strapi.db.query('admin::role').findOne({
+    where: { code: roleCode },
   });
-  if (!editorRole) {
-    strapi.log.warn('Editor role missing — skip editor role bootstrap');
+  if (!role) {
+    strapi.log.warn(`${roleCode} role missing — skip permissions bootstrap`);
     return;
   }
 
@@ -112,8 +112,7 @@ async function bootstrapUnlockedEditorRole(strapi: Core.Strapi) {
   let cleared = 0;
   let added = 0;
 
-  // Drop legacy field-scoped permissions from the daily-content-only setup.
-  const existing = await permQuery.findMany({ where: { role: editorRole.id } });
+  const existing = await permQuery.findMany({ where: { role: role.id } });
   for (const p of existing) {
     const props = p.properties as Record<string, unknown> | null;
     if (props && Array.isArray(props.fields) && props.fields.length > 0) {
@@ -131,19 +130,25 @@ async function bootstrapUnlockedEditorRole(strapi: Core.Strapi) {
 
   for (const uid of contentTypeUids) {
     for (const action of CM_EXPLORER_ACTIONS) {
-      await upsertAdminPermission(strapi, editorRole.id, action, uid, {});
+      await upsertAdminPermission(strapi, role.id, action, uid, {});
       added++;
     }
   }
 
   for (const action of UPLOAD_ACTIONS) {
-    await upsertAdminPermission(strapi, editorRole.id, action, null);
+    await upsertAdminPermission(strapi, role.id, action, null);
     added++;
   }
 
   strapi.log.info(
-    `Editor role unlocked for all content (${cleared} field locks cleared, ${added} permissions upserted).`,
+    `${roleCode} unlocked for all content (${cleared} field locks cleared, ${added} permissions upserted).`,
   );
+}
+
+async function bootstrapUnlockedEditorRole(strapi: Core.Strapi) {
+  for (const code of ['strapi-editor', 'strapi-author'] as const) {
+    await bootstrapUnlockedContentRole(strapi, code);
+  }
 }
 
 export default {

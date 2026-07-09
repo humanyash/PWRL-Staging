@@ -8,7 +8,7 @@
     "description": "Frequently asked questions on /vision and /fund. Use the link button in the answer editor — do not type [text](url)."
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {

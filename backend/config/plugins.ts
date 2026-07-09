@@ -110,6 +110,18 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
               ...previewOpen,
             },
           },
+          {
+            uid: 'api::page.page',
+            published: {
+              url: STAGING_SITE,
+              ...previewOpen,
+            },
+            draft: {
+              url: STAGING_SITE,
+              ...previewOpen,
+              alwaysVisible: true,
+            },
+          },
         ],
       },
     },
@@ -141,12 +153,18 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
     'strapi-import-export': {
       enabled: true,
       config: {
-        /** Export/import for daily content collections (Settings → Import Export). */
+        /** Backup/restore for editorial content (Settings → Import Export). */
         contentTypes: [
+          'api::global-settings.global-settings',
           'api::news-item.news-item',
+          'api::faq.faq',
           'api::team-member.team-member',
           'api::board-director.board-director',
+          'api::portfolio-snapshot.portfolio-snapshot',
           'api::fund-document.fund-document',
+          'api::page.page',
+          'api::legal-page.legal-page',
+          'api::disclaimers.disclaimers',
         ],
       },
     },

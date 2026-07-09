@@ -8,7 +8,7 @@
     "description": "PDF list on /investor-relations. Upload the PDF in each entry's File field."
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {
     "import-export-entries": {

@@ -8,7 +8,7 @@
     "description": "Holdings table on /fund. Update asOfDate and holdings each month."
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {

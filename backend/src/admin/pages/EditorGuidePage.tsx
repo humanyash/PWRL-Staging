@@ -37,6 +37,26 @@ const CONTENT_LINKS = [
     href: '/content-manager/collection-types/api::fund-document.fund-document',
     hint: 'PDF list on /investor-relations',
   },
+  {
+    label: 'Pages',
+    href: '/content-manager/collection-types/api::page.page',
+    hint: 'Full page layout and section content',
+  },
+  {
+    label: 'HubSpot Forms',
+    href: '/content-manager/collection-types/api::form.form',
+    hint: 'Contact and newsletter form IDs (nav-signup, contact)',
+  },
+  {
+    label: 'Legal Page',
+    href: '/content-manager/collection-types/api::legal-page.legal-page',
+    hint: 'Privacy policy and terms of use',
+  },
+  {
+    label: 'Disclaimers',
+    href: '/content-manager/single-types/api::disclaimers.disclaimers',
+    hint: 'Footer disclaimer paragraphs',
+  },
 ] as const;
 
 const EditorGuidePage = () => (
@@ -46,14 +66,18 @@ const EditorGuidePage = () => (
     </Typography>
     <Box marginTop={4} marginBottom={6}>
       <Typography variant="omega" textColor="neutral600">
-        Use Content Manager to update the site. Save, then Publish. Changes appear
-        on the staging site within about one minute. Use the preview buttons on
-        each entry to open the live site.
+        Edit at{' '}
+        <Link href="https://pwrl-cms-humandesign.onrender.com/admin" isExternal>
+          pwrl-cms-humandesign.onrender.com
+        </Link>
+        . Save drafts freely — only <strong>Publish</strong> pushes changes to
+        the website (~60 seconds). Use preview buttons to check the staging site
+        before publishing.
       </Typography>
     </Box>
 
     <Typography variant="beta" as="h2">
-      What you can edit
+      Content shortcuts
     </Typography>
     <Flex direction="column" gap={4} marginTop={3} marginBottom={8}>
       {CONTENT_LINKS.map((item) => (
@@ -71,14 +95,31 @@ const EditorGuidePage = () => (
     </Flex>
 
     <Typography variant="beta" as="h2">
+      Roll back a mistake
+    </Typography>
+    <Flex direction="column" gap={2} marginTop={2} marginBottom={8}>
+      <Typography variant="omega" textColor="neutral600">
+        <strong>Still a draft?</strong> Don&apos;t click Publish — the live site
+        stays unchanged.
+      </Typography>
+      <Typography variant="omega" textColor="neutral600">
+        <strong>Already published?</strong> Open the entry → Unpublish to remove
+        it from the site, or use ⋯ → History to restore a previous version.
+      </Typography>
+      <Typography variant="omega" textColor="neutral600">
+        <strong>Full backup?</strong> Settings → Import Export → export before
+        big edits, import to restore.
+      </Typography>
+    </Flex>
+
+    <Typography variant="beta" as="h2">
       Production mode (this is normal)
     </Typography>
     <Box marginTop={2}>
       <Typography variant="omega" textColor="neutral600">
-        The live CMS runs in production mode. Content-Type Builder and schema
-        editing are disabled on purpose — that keeps the site stable. Editors
-        never need Content-Type Builder. To change page layout or add fields,
-        HumanDesign updates schema files in the codebase and redeploys.
+        The live CMS runs in production mode. Content-Type Builder is disabled
+        on purpose — that keeps the site stable. To add new fields or section
+        types, HumanDesign updates schema files in the codebase and redeploys.
       </Typography>
     </Box>
   </Box>

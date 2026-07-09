@@ -147,7 +147,12 @@ automatically — useful for webinar banners or timed announcements.
 
 ### Undo a mistake
 
-`…` menu (top right) → **History** → revert to a previous version.
+1. **Draft not published yet** — the live site is unchanged. Close the entry or keep editing.
+2. **Already published** — open the entry and click **Unpublish**, or use **⋯ → History** to restore a previous version.
+3. **Banner or news timing** — use the **Publisher** section to schedule unpublish.
+4. **Full restore** — **Settings → Import Export**: export a backup before big edits; import the file to roll back.
+
+HumanDesign can also re-run the content ingest from the codebase if needed.
 
 ---
 

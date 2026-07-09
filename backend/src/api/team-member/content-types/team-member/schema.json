@@ -8,7 +8,7 @@
     "description": "Leadership grid on /vision. Upload a headshot and bio for each person."
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {
     "import-export-entries": {

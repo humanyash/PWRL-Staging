@@ -250,6 +250,7 @@ async function fetchTeam(): Promise<PersonCard[] | null> {
     "populate[headshot]": "true",
     sort: "order",
     "pagination[pageSize]": "50",
+    status: "published",
   });
   return data && data.length > 0 ? data.map(cmsPersonToCard) : null;
 }
@@ -259,6 +260,7 @@ async function fetchBoard(): Promise<PersonCard[] | null> {
     "populate[headshot]": "true",
     sort: "order",
     "pagination[pageSize]": "50",
+    status: "published",
   });
   return data && data.length > 0 ? data.map(cmsPersonToCard) : null;
 }
@@ -267,7 +269,7 @@ async function fetchFaqItems(): Promise<{ q: string; a: string }[] | null> {
   const data = await strapiFetch<{
     heading?: string;
     items?: { question: string; answer: string }[];
-  }>("/api/faq", { "populate[items]": "true" });
+  }>("/api/faq", { "populate[items]": "true", status: "published" });
   return data?.items?.length
     ? data.items.map((i) => ({ q: i.question, a: i.answer }))
     : null;
@@ -332,6 +334,7 @@ async function fetchFundDocuments(): Promise<
     "populate[file]": "true",
     sort: "order",
     "pagination[pageSize]": "100",
+    status: "published",
   });
   const docs = data
     ?.filter((d) => d.file?.url)
@@ -346,6 +349,7 @@ async function fetchPortfolio(): Promise<{
 } | null> {
   return strapiFetch("/api/portfolio-snapshot", {
     "populate[holdings]": "true",
+    status: "published",
   });
 }
 
@@ -430,6 +434,7 @@ export async function getPage(slug: string): Promise<PageData | null> {
     "filters[slug][$eq]": toCmsSlug(normalized),
     "populate[sections][populate]": "*",
     "populate[seo]": "true",
+    status: "published",
   });
   const cms = data?.[0];
   if (!cms || !Array.isArray(cms.sections) || cms.sections.length === 0) {
@@ -494,6 +499,7 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
     }),
     strapiFetch<{ paragraphs?: { body: string }[] }>("/api/disclaimers", {
       "populate[paragraphs]": "true",
+      status: "published",
     }),
   ]);
 

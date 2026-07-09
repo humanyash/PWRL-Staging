@@ -30,13 +30,21 @@ const LINKS = [
     label: 'Fund Documents (PDFs)',
     href: '/content-manager/collection-types/api::fund-document.fund-document',
   },
+  {
+    label: 'Pages',
+    href: '/content-manager/collection-types/api::page.page',
+  },
+  {
+    label: 'Full content guide',
+    href: '/plugins/pwrl-editor-guide',
+  },
 ] as const;
 
 const QuickLinksWidget = () => (
   <Box padding={2}>
     <Typography variant="omega" textColor="neutral600">
-      Jump to common content. Save, then Publish — changes appear on the site
-      within about a minute.
+      Save drafts freely — only Publish goes live (~60s). Unpublish or History to
+      roll back.
     </Typography>
     <Flex direction="column" gap={2} marginTop={3}>
       {LINKS.map((item) => (

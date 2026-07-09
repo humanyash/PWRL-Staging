@@ -8,7 +8,7 @@
     "description": "Board grid on /investor-relations. Upload a headshot and bio for each director."
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {
     "import-export-entries": {
