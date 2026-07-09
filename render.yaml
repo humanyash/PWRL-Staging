@@ -18,7 +18,9 @@ services:
     region: oregon
     branch: main
     rootDir: backend
-    buildCommand: npm install && npm run build
+    # Drop stale config/sync/*.json left on Render disk — they are not in git but can
+    # crash boot when importOnBootstrap was previously enabled.
+    buildCommand: rm -f config/sync/*.json 2>/dev/null; npm install && npm run build
     startCommand: npm run start
     # No healthCheckPath: Strapi v5 has no built-in JSON health endpoint, so we
     # rely on Render's default TCP probe on $PORT. If you add a custom
@@ -65,3 +67,9 @@ services:
         sync: false
       - key: CLOUDINARY_SECRET
         sync: false
+
+      # Preview button plugin — opens the Vercel staging site from Content Manager.
+      - key: STRAPI_PREVIEW_SITE_URL
+        value: https://pwrl-staging-website-y.vercel.app
+      - key: FRONTEND_URL
+        value: https://pwrl-staging-website-y.vercel.app

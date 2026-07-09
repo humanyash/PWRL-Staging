@@ -1,13 +1,14 @@
 # PWRL Website — Editor Guide
 
-*Prepared by HumanDesign for the PWRL editorial team (Elle & Rachel).*
+*Prepared by HumanDesign for the PWRL editorial team.*
 
-This guide is everything you need to update **daily content** on the PWRL
-website. You only log into **Strapi** — changes go live on the staging site
-in about one minute after you click **Publish**.
+This guide is everything you need to update content on the PWRL website. You
+only log into **Strapi** — changes go live on the staging site in about one
+minute after you click **Publish**.
 
-You do **not** edit page layout (hero text, section order, etc.). HumanDesign
-maintains that. You edit the seven content areas below.
+You can edit all content in **Content Manager** (banner, news, FAQ, team,
+pages, legal text, and more). Super Admin access is only needed for plugins,
+users, and schema — not for everyday edits.
 
 ---
 
@@ -29,12 +30,13 @@ You do **not** need Vercel, Render, GitHub, or Cloudinary accounts.
 2. Sign in with the email and password HumanDesign sent you.
 3. First load after idle (~15 min) can take **~50 seconds** — the server wakes
    on demand. **Wait; do not refresh.** After that, it is fast.
+4. Open **Content guide** in the left sidebar for shortcuts to common content.
 
 ---
 
 ## What you can edit (Content Manager sidebar)
 
-These are the **only** menus you should see as an **Editor**:
+As an **Editor**, you have full access to all website content:
 
 | Menu in Strapi | What it changes on the site |
 |---|---|
@@ -45,9 +47,12 @@ These are the **only** menus you should see as an **Editor**:
 | **Board of Directors** | Board grid on `/investor-relations` |
 | **Fund Portfolio** | Holdings table on `/fund` |
 | **Fund Documents (PDFs)** | PDF list on `/investor-relations` |
+| **Page** | Full page layout and sections |
+| **HubSpot Forms** | Contact and newsletter form IDs |
+| **Legal Page** / **Disclaimers** | Legal copy and footer disclaimers |
 
-You should **not** see **Page**, **Form**, or **HubSpot Forms**. If you do,
-contact HumanDesign — your account may have the wrong role.
+If you cannot save or publish an entry, contact HumanDesign — your account may
+need the **Editor** role assigned.
 
 ---
 
@@ -186,6 +191,17 @@ After HumanDesign wires your account, run through this once:
 ---
 
 ## FAQ
+
+**Q: “Strapi is in production mode, editing content types is disabled.”**
+That message is **normal** on the live CMS. Production mode disables Content-Type
+Builder on purpose — editors update **content** in Content Manager, not schema.
+Open **Content guide** in the left sidebar for shortcuts. Layout or field changes
+are handled by HumanDesign via the codebase.
+
+**Q: “Add widgets” shows nothing to add.**
+The picker only lists optional custom widgets. Default widgets (recent entries,
+profile) are already on the homepage. After the latest deploy, look for **Daily
+content shortcuts** in the widget list, or use **Content guide** in the sidebar.
 
 **Q: I edited something and the site still shows the old version.**
 Wait 60 seconds and hard-refresh. Still wrong? Email HumanDesign.

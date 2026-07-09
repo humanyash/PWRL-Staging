@@ -200,19 +200,23 @@ function collectNewsItems(): NewsItemInput[] {
 }
 
 interface FormInput {
+  label: string;
   identifier: string;
   portalId: string;
   formId: string;
   theme?: string | null;
 }
 
-// Friendly identifiers for the known HubSpot forms. Falls back to the formId
-// itself when a new form is added. Schema theme enum only allows light/dark,
-// so anything else (e.g. the "deep" cosmetic variant on /vision) collapses to
-// the closest valid value.
-const FORM_IDENTIFIER_BY_FORM_ID: Record<string, string> = {
-  "ce5f73ec-b4cd-4529-805f-6e7bdb03960a": "nav-signup",
-  "2b83c383-c728-4cc1-b08c-70545c64d73c": "contact",
+/** Stable slug + human label for each HubSpot formId (never page-slug based). */
+const FORM_BY_HUBSPOT_ID: Record<string, { identifier: string; label: string }> = {
+  "ce5f73ec-b4cd-4529-805f-6e7bdb03960a": {
+    identifier: "nav-signup",
+    label: "Newsletter signup (site-wide nav)",
+  },
+  "2b83c383-c728-4cc1-b08c-70545c64d73c": {
+    identifier: "contact",
+    label: "Contact page inquiry form",
+  },
 };
 const VALID_FORM_THEMES = new Set(["light", "dark"]);
 
@@ -225,8 +229,10 @@ function collectForms(): FormInput[] {
       if (!b.portalId || !b.formId) continue;
       if (byFormId.has(b.formId)) continue; // dedupe — same form referenced on multiple pages
       const rawTheme = (b.theme ?? "light") as string;
+      const known = FORM_BY_HUBSPOT_ID[b.formId];
       byFormId.set(b.formId, {
-        identifier: FORM_IDENTIFIER_BY_FORM_ID[b.formId] ?? `form-${b.formId.slice(0, 8)}`,
+        label: known?.label ?? `HubSpot form ${b.formId.slice(0, 8)}`,
+        identifier: known?.identifier ?? `form-${b.formId.slice(0, 8)}`,
         portalId: String(b.portalId),
         formId: String(b.formId),
         theme: VALID_FORM_THEMES.has(rawTheme) ? rawTheme : "dark",

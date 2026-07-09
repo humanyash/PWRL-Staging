@@ -13,7 +13,6 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
   const cloudName = env('CLOUDINARY_NAME');
   const apiKey = env('CLOUDINARY_KEY');
   const apiSecret = env('CLOUDINARY_SECRET');
-  const isProduction = env('NODE_ENV') === 'production';
 
   const upload =
     cloudName && apiKey && apiSecret
@@ -118,8 +117,13 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
       enabled: true,
       config: {
         syncDir: 'config/sync/',
-        importOnBootstrap: isProduction,
+        // Off by default — auto-import crashed Render when stale sync JSON on disk
+        // referenced admin actions removed in Strapi 5.47 (admin::admin-tokens.read).
+        // Permissions are bootstrapped in src/index.ts instead. To import manually:
+        // Settings → Config Sync, or set CONFIG_SYNC_IMPORT_ON_BOOTSTRAP=true on deploy.
+        importOnBootstrap: env.bool('CONFIG_SYNC_IMPORT_ON_BOOTSTRAP', false),
         minify: true,
+        excludedConfig: ['admin-role', 'user-role', 'core-store'],
       },
     },
     publisher: {
@@ -137,7 +141,7 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
     'strapi-import-export': {
       enabled: true,
       config: {
-        /** Elle-friendly export/import for daily content collections. */
+        /** Export/import for daily content collections (Settings → Import Export). */
         contentTypes: [
           'api::news-item.news-item',
           'api::team-member.team-member',

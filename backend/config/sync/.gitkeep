@@ -3,5 +3,5 @@
 # Export from a configured Strapi instance:
 #   npm run strapi config-sync export -- --yes
 #
-# On Render (production), importOnBootstrap applies files here on deploy.
-# Do not export in development if importOnBootstrap is off locally.
+# Import is manual (Settings → Config Sync). Auto-import on boot is disabled on
+# Render — see backend/config/plugins.ts and CMS-OPERATIONS.md.

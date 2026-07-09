@@ -51,4 +51,4 @@ Deploy via [`render.yaml`](render.yaml). See [`INFRA.md`](INFRA.md) and [`backen
 
 ## Editor handoff
 
-See [`CLIENT-HANDOFF.md`](CLIENT-HANDOFF.md) for Elle's daily-content workflow.
+See [`CLIENT-HANDOFF.md`](CLIENT-HANDOFF.md) for the editor workflow and [`backend/CMS-OPERATIONS.md`](backend/CMS-OPERATIONS.md) for production vs development mode.

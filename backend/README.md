@@ -32,7 +32,7 @@ components in [`src/components/`](src/components/).
 | `faq` | FAQ accordion across the site |
 | `portfolio-snapshot` | Holdings table on `/fund` |
 
-## Editor plugins (Elle-friendly)
+## Editor plugins
 
 Installed community plugins in [`config/plugins.ts`](config/plugins.ts):
 
@@ -44,15 +44,12 @@ Installed community plugins in [`config/plugins.ts`](config/plugins.ts):
 | `strapi-plugin-config-sync` | Version-control admin roles/CM layout via `config/sync/` |
 | `strapi-import-export` | CSV/JSON export-import for daily content collections |
 
-Set `STRAPI_PREVIEW_SITE_URL` (default: staging Vercel URL) for preview buttons.
+Custom admin UI in [`src/admin/`](src/admin/):
 
-After configuring roles/layout in admin, export config sync once:
+- **Content guide** — sidebar page with links to all daily content types
+- **Daily content shortcuts** — homepage widget (Strapi 5.13+)
 
-```bash
-npm run strapi config-sync export -- --yes
-```
-
-Commit `config/sync/*.json` so Render applies them on deploy (`importOnBootstrap`).
+See [`CMS-OPERATIONS.md`](CMS-OPERATIONS.md) for production vs development mode and schema change workflow.
 
 ## Local development
 

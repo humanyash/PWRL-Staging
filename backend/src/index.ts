@@ -24,28 +24,6 @@ const PUBLIC_READ_ACTIONS = [
   'api::sec-filing.sec-filing.findOne',
 ] as const;
 
-/** Daily-content types Elle may edit. Page layout stays admin-only. */
-const EDITOR_WRITE_SUBJECTS: { subject: string; fields?: string[] }[] = [
-  {
-    subject: 'api::global-settings.global-settings',
-    fields: ['topBanner', 'topBannerLink', 'topBannerEnabled'],
-  },
-  { subject: 'api::faq.faq' },
-  { subject: 'api::news-item.news-item' },
-  { subject: 'api::team-member.team-member' },
-  { subject: 'api::board-director.board-director' },
-  { subject: 'api::portfolio-snapshot.portfolio-snapshot' },
-  { subject: 'api::fund-document.fund-document' },
-];
-
-const EDITOR_DENIED_SUBJECTS = [
-  'api::page.page',
-  'api::form.form',
-  'api::sec-filing.sec-filing',
-  'api::legal-page.legal-page',
-  'api::disclaimers.disclaimers',
-] as const;
-
 const CM_EXPLORER_ACTIONS = [
   'plugin::content-manager.explorer.create',
   'plugin::content-manager.explorer.read',
@@ -117,8 +95,11 @@ async function upsertAdminPermission(
   }
 }
 
-/** Restrict built-in Editor role to daily content only (no Pages). */
-async function bootstrapEditorRole(strapi: Core.Strapi) {
+/**
+ * Editors with admin login can change all site content (no field-level locks).
+ * Super Admin still required for plugins, users, and Content-Type Builder.
+ */
+async function bootstrapUnlockedEditorRole(strapi: Core.Strapi) {
   const editorRole = await strapi.db.query('admin::role').findOne({
     where: { code: 'strapi-editor' },
   });
@@ -128,23 +109,29 @@ async function bootstrapEditorRole(strapi: Core.Strapi) {
   }
 
   const permQuery = strapi.db.query('admin::permission');
-  let removed = 0;
+  let cleared = 0;
   let added = 0;
 
-  for (const subject of EDITOR_DENIED_SUBJECTS) {
-    const perms = await permQuery.findMany({
-      where: { role: editorRole.id, subject },
-    });
-    for (const p of perms) {
-      await permQuery.delete({ where: { id: p.id } });
-      removed++;
+  // Drop legacy field-scoped permissions from the daily-content-only setup.
+  const existing = await permQuery.findMany({ where: { role: editorRole.id } });
+  for (const p of existing) {
+    const props = p.properties as Record<string, unknown> | null;
+    if (props && Array.isArray(props.fields) && props.fields.length > 0) {
+      await permQuery.update({
+        where: { id: p.id },
+        data: { properties: {} },
+      });
+      cleared++;
     }
   }
 
-  for (const { subject, fields } of EDITOR_WRITE_SUBJECTS) {
-    const properties = fields?.length ? { fields } : {};
+  const contentTypeUids = Object.keys(strapi.contentTypes).filter((uid) =>
+    uid.startsWith('api::'),
+  );
+
+  for (const uid of contentTypeUids) {
     for (const action of CM_EXPLORER_ACTIONS) {
-      await upsertAdminPermission(strapi, editorRole.id, action, subject, properties);
+      await upsertAdminPermission(strapi, editorRole.id, action, uid, {});
       added++;
     }
   }
@@ -155,7 +142,7 @@ async function bootstrapEditorRole(strapi: Core.Strapi) {
   }
 
   strapi.log.info(
-    `Editor role synced for daily content (${removed} denied removed, ${added} permissions upserted).`,
+    `Editor role unlocked for all content (${cleared} field locks cleared, ${added} permissions upserted).`,
   );
 }
 
@@ -169,7 +156,7 @@ export default {
       strapi.log.error('Failed to bootstrap public read permissions', err);
     }
     try {
-      await bootstrapEditorRole(strapi);
+      await bootstrapUnlockedEditorRole(strapi);
     } catch (err) {
       strapi.log.error('Failed to bootstrap editor role permissions', err);
     }

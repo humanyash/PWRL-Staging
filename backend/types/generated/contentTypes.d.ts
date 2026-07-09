@@ -557,8 +557,8 @@ export interface ApiFaqFaq extends Struct.SingleTypeSchema {
 export interface ApiFormForm extends Struct.CollectionTypeSchema {
   collectionName: 'forms';
   info: {
-    description: 'Technical HubSpot form IDs \u2014 do not edit. Contact HumanDesign for form changes.';
-    displayName: 'HubSpot Forms (Admin only)';
+    description: 'HubSpot portal and form IDs used by contact and newsletter sections on the site.';
+    displayName: 'HubSpot Forms';
     pluralName: 'forms';
     singularName: 'form';
   };
@@ -570,9 +570,8 @@ export interface ApiFormForm extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     formId: Schema.Attribute.String & Schema.Attribute.Required;
-    identifier: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    identifier: Schema.Attribute.UID<'label'> & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::form.form'> &
       Schema.Attribute.Private;

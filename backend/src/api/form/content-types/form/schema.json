@@ -4,18 +4,22 @@
   "info": {
     "singularName": "form",
     "pluralName": "forms",
-    "displayName": "HubSpot Forms (Admin only)",
-    "description": "Technical HubSpot form IDs — do not edit. Contact HumanDesign for form changes."
+    "displayName": "HubSpot Forms",
+    "description": "HubSpot portal and form IDs used by contact and newsletter sections on the site."
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "identifier": {
+    "label": {
       "type": "string",
-      "required": true,
-      "unique": true
+      "required": true
+    },
+    "identifier": {
+      "type": "uid",
+      "targetField": "label",
+      "required": true
     },
     "portalId": {
       "type": "string",

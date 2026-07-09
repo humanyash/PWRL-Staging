@@ -289,7 +289,7 @@ async function bulkUploadDir(publicDir: string, log: (m: string) => void) {
 
 // --- helpers --------------------------------------------------------
 interface StrapiListResponse {
-  data?: { documentId?: string }[];
+  data?: { documentId?: string; identifier?: string }[];
 }
 
 async function upsertCollection(
@@ -437,7 +437,20 @@ async function main() {
     );
   }
 
-  // Forms: dedupe key = identifier (Strapi uid)
+  // Forms: sync by identifier; remove orphans from bad partial ingests (e.g. /-form)
+  const validIds = new Set(forms.map((f) => f.identifier));
+  const existingForms = (await api(
+    "/forms?pagination[pageSize]=100&fields[0]=identifier",
+    { headers: H },
+  )) as StrapiListResponse;
+  for (const row of existingForms?.data ?? []) {
+    const id = row.identifier;
+    const docId = row.documentId;
+    if (id && docId && !validIds.has(id)) {
+      await api(`/forms/${docId}`, { method: "DELETE", headers: H });
+      log(`deleted orphan form/${id}`);
+    }
+  }
   for (const f of forms) {
     log(await upsertCollection("forms", "identifier", f.identifier, f));
   }
