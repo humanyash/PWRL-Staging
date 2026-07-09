@@ -37,7 +37,30 @@ ignores Strapi and serves fixture data only.
    value as `STRAPI_PREVIEW_SECRET` on **both** Vercel and Render.
 4. Redeploy Vercel and Render.
 
-### Production (Vercel)
+**Verify CMS wiring:**
+
+Open https://pwrl-staging-website-y.vercel.app/api/cms-status — you want
+`"ok": true` and `usingFixtures: false`. If `usingFixtures` is true, the site
+is showing baked-in copy, not Strapi (Publish will never appear on staging).
+
+**Instant updates after Publish (optional webhook):**
+
+1. Use the same secret as `REVALIDATION_SECRET` or `STRAPI_PREVIEW_SECRET`.
+2. In Strapi → **Settings → Webhooks** → Create:
+   - URL: `https://pwrl-staging-website-y.vercel.app/api/revalidate?secret=YOUR_SECRET`
+   - Events: `Entry` → `Publish** (and `Unpublish` if desired)
+3. After Publish in Strapi, staging updates within seconds instead of waiting 60s.
+
+### Strapi admin “Failed to fetch dynamically imported module”
+
+After a Render deploy, the admin JS filename changes. Your browser may still
+request an old chunk (e.g. `App-B1lh77m0.js`). Fix:
+
+1. Hard refresh: **Cmd+Shift+R** (Mac) or **Ctrl+Shift+R** (Windows)
+2. Or clear site data for `pwrl-cms-humandesign.onrender.com`
+3. Or open admin in an incognito window
+
+---
 
 | Name | Value | Notes |
 |---|---|---|

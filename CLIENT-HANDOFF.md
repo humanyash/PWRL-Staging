@@ -17,6 +17,7 @@ users, and schema — not for everyday edits.
 | | URL | What it does |
 |---|---|---|
 | Staging website | https://pwrl-staging-website-y.vercel.app | Preview site — check your edits here |
+| **CMS wiring check** | https://pwrl-staging-website-y.vercel.app/api/cms-status | Must show `"ok": true` — if not, staging ignores Strapi |
 | Editor login | https://pwrl-cms-humandesign.onrender.com/admin | Where you edit content |
 | Help | yash@humandesign.com | Anything broken, unclear, or new |
 
@@ -31,6 +32,11 @@ You do **not** need Vercel, Render, GitHub, or Cloudinary accounts.
 3. First load after idle (~15 min) can take **~50 seconds** — the server wakes
    on demand. **Wait; do not refresh.** After that, it is fast.
 4. Open **Content guide** in the left sidebar for shortcuts to common content.
+
+If the homepage widgets say **“Loading widget content”**, wait up to 60 seconds
+(Render free tier waking up) or click **Content Manager** / **Content guide** in
+the sidebar — those pages load right away. Chrome or Safari works more reliably
+than embedded browsers for the admin panel.
 
 ---
 

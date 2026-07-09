@@ -37,7 +37,13 @@ export async function GET(request: Request) {
   const expected = process.env.STRAPI_PREVIEW_SECRET;
 
   if (!expected || secret !== expected) {
-    return new Response("Invalid preview secret", { status: 401 });
+    return Response.json(
+      {
+        error: "Invalid preview secret",
+        hint: "Set the same STRAPI_PREVIEW_SECRET on Vercel and Render, then redeploy both. Preview links from Strapi include ?secret= automatically.",
+      },
+      { status: 401 },
+    );
   }
 
   const type = searchParams.get("type") ?? "";
