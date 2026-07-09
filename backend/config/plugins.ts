@@ -7,6 +7,18 @@ const STAGING_SITE =
 
 const previewOpen = { openTarget: '_blank' as const, copy: true };
 
+/** Draft preview opens staging /api/preview (Next.js draft mode + unpublished CMS data). */
+const draftPreview = (env: Core.Config.Shared.ConfigParams['env'], type: string, extra: Record<string, string> = {}) => ({
+  url: `${STAGING_SITE}/api/preview`,
+  query: {
+    type,
+    secret: env('STRAPI_PREVIEW_SECRET'),
+    ...extra,
+  },
+  ...previewOpen,
+  alwaysVisible: true,
+});
+
 // Use Cloudinary in production (when credentials are present) and the
 // default local-disk provider for local dev.
 const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => {
@@ -46,81 +58,77 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin =>
         contentTypes: [
           {
             uid: 'api::global-settings.global-settings',
-            published: {
-              url: STAGING_SITE,
-              ...previewOpen,
-            },
-            draft: {
-              url: STAGING_SITE,
-              ...previewOpen,
-              alwaysVisible: true,
-            },
+            published: { url: STAGING_SITE, ...previewOpen },
+            draft: draftPreview(env, 'global-settings'),
           },
           {
             uid: 'api::news-item.news-item',
             published: {
               url: `${STAGING_SITE}/investor-relations`,
-              query: { preview: 'news' },
               ...previewOpen,
             },
-            draft: {
-              url: `${STAGING_SITE}/investor-relations`,
-              query: { preview: 'news' },
-              ...previewOpen,
-              alwaysVisible: true,
-            },
+            draft: draftPreview(env, 'news'),
           },
           {
             uid: 'api::faq.faq',
             published: {
-              url: `${STAGING_SITE}/vision`,
-              query: { preview: 'faq' },
+              url: `${STAGING_SITE}/vision#faq`,
               ...previewOpen,
             },
+            draft: draftPreview(env, 'faq'),
           },
           {
             uid: 'api::team-member.team-member',
             published: {
               url: `${STAGING_SITE}/vision`,
-              query: { preview: 'team' },
               ...previewOpen,
             },
+            draft: draftPreview(env, 'team'),
           },
           {
             uid: 'api::board-director.board-director',
             published: {
               url: `${STAGING_SITE}/investor-relations`,
-              query: { preview: 'directors' },
               ...previewOpen,
             },
+            draft: draftPreview(env, 'directors'),
           },
           {
             uid: 'api::portfolio-snapshot.portfolio-snapshot',
             published: {
               url: `${STAGING_SITE}/fund`,
-              query: { preview: 'portfolio' },
               ...previewOpen,
             },
+            draft: draftPreview(env, 'portfolio'),
           },
           {
             uid: 'api::fund-document.fund-document',
             published: {
               url: `${STAGING_SITE}/investor-relations`,
-              query: { preview: 'fund-documents' },
               ...previewOpen,
             },
+            draft: draftPreview(env, 'fund-documents'),
           },
           {
             uid: 'api::page.page',
             published: {
-              url: STAGING_SITE,
+              url: `${STAGING_SITE}/{slug}`,
               ...previewOpen,
             },
-            draft: {
-              url: STAGING_SITE,
+            draft: draftPreview(env, 'page', { slug: '{slug}' }),
+          },
+          {
+            uid: 'api::disclaimers.disclaimers',
+            published: { url: STAGING_SITE, ...previewOpen },
+            draft: draftPreview(env, 'disclaimers'),
+          },
+          {
+            uid: 'api::legal-page.legal-page',
+            published: {
+              url: `${STAGING_SITE}/{slug}`,
               ...previewOpen,
-              alwaysVisible: true,
             },
+            draft: draftPreview(env, 'legal', { slug: '{slug}' }),
           },
         ],
       },

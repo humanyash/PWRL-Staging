@@ -95,6 +95,24 @@ const EditorGuidePage = () => (
     </Flex>
 
     <Typography variant="beta" as="h2">
+      Content looks locked?
+    </Typography>
+    <Flex direction="column" gap={2} marginTop={2} marginBottom={8}>
+      <Typography variant="omega" textColor="neutral600">
+        <strong>“Production mode… content types disabled”</strong> — only applies to
+        Content-Type Builder (schema). Use <strong>Content Manager</strong> instead.
+      </Typography>
+      <Typography variant="omega" textColor="neutral600">
+        <strong>Greyed-out fields</strong> — click <strong>Edit</strong> (top right),
+        then Save (draft) or Publish (live).
+      </Typography>
+      <Typography variant="omega" textColor="neutral600">
+        <strong>Preview drafts</strong> — Save without Publish, then click{' '}
+        <strong>Open preview</strong> in the sidebar (yellow banner on staging site).
+      </Typography>
+    </Flex>
+
+    <Typography variant="beta" as="h2">
       Roll back a mistake
     </Typography>
     <Flex direction="column" gap={2} marginTop={2} marginBottom={8}>

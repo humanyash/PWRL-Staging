@@ -30,6 +30,7 @@ import type {
   PullQuoteBlock,
 } from "@/types/blocks";
 import { GLOBAL_SETTINGS, PAGE_SLUGS, getFixturePage } from "@/lib/fixtures";
+import { isPreviewDraft } from "@/lib/preview";
 
 export const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
@@ -46,11 +47,26 @@ export async function strapiFetch<T>(
   query: Record<string, string> = {},
 ): Promise<T | null> {
   if (STRAPI_DISABLED) return null;
+  const draft = await isPreviewDraft();
   const url = new URL(path.startsWith("/") ? path : `/${path}`, STRAPI_URL);
-  for (const [k, v] of Object.entries(query)) url.searchParams.set(k, v);
+  const params = { ...query };
+  if (draft) {
+    params.status = "draft";
+  }
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+
+  const headers: HeadersInit = {};
+  const previewToken = process.env.STRAPI_PREVIEW_TOKEN;
+  if (draft && previewToken) {
+    headers.Authorization = `Bearer ${previewToken}`;
+  }
+
   try {
     const res = await fetch(url.toString(), {
-      next: { revalidate: REVALIDATE_SECONDS },
+      headers,
+      ...(draft
+        ? { cache: "no-store" as const }
+        : { next: { revalidate: REVALIDATE_SECONDS } }),
     });
     if (!res.ok) return null;
     const json = (await res.json()) as { data?: T };

@@ -34,6 +34,30 @@ You do **not** need Vercel, Render, GitHub, or Cloudinary accounts.
 
 ---
 
+## “Locked” content or production mode message?
+
+These are **two different things**:
+
+### “Strapi is in production mode… editing content types is disabled”
+
+This appears only in **Content-Type Builder** (schema editor). That is
+**normal on Render** — you cannot add new fields there in production.
+
+**To edit website content**, use **Content Manager** in the left sidebar
+(Site Banner & Footer, Press & News, FAQ, Pages, etc.). Super Admin and Editor
+roles can edit everything there.
+
+### Fields look greyed out / read-only
+
+In Strapi 5, published entries open in **view mode** first. Click the **Edit**
+button (top right) to unlock the fields. Then **Save** (draft) or **Publish**
+(live).
+
+Do **not** confuse Content-Type Builder (locked in production) with Content
+Manager (where you edit copy, images, and pages).
+
+---
+
 ## What you can edit (Content Manager sidebar)
 
 As an **Editor**, you have full access to all website content:
@@ -58,12 +82,22 @@ need the **Editor** role assigned.
 
 ## Helpful tools built into Strapi
 
-### Preview on the staging site
+### Preview on the staging site (before Publish)
+
+1. Edit an entry in Content Manager → **Save** (do not Publish yet).
+2. In the right sidebar, click **Open preview** (draft). This opens the staging
+   site with a yellow **Preview mode** banner — you see your unpublished changes.
+3. When it looks good, return to Strapi and click **Publish**.
+
+**View live** shows what is already published on the staging site (same as any
+visitor sees after Publish).
+
+If preview shows the old content, ask HumanDesign to confirm
+`STRAPI_PREVIEW_SECRET` and `STRAPI_PREVIEW_TOKEN` are set on Vercel and Render.
 
 Every entry has **Open preview** / **View live** buttons in the right sidebar
 while you edit. They open https://pwrl-staging-website-y.vercel.app at the
-right section (home banner, news, FAQ, team, etc.) so you can confirm changes
-before or after publishing.
+right section (home banner, news, FAQ, team, etc.).
 
 In list views (e.g. Press & News), use the **preview** icon in each row for a
 quick link.

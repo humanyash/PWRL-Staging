@@ -23,9 +23,19 @@ If Root Directory is blank or `.`, Vercel builds the repo root (which has no Nex
 | `NEXT_PUBLIC_STRAPI_URL` | `https://pwrl-cms-humandesign.onrender.com` | Required — daily content from Strapi |
 | `NEXT_PUBLIC_TYPEKIT_ID` | `xyr7qcs` | Optional — defaults in `app/layout.tsx` |
 | `NEXT_PUBLIC_GA_ID` | `G-S620CRDB9D` | Optional — defaults in `app/layout.tsx` |
+| `STRAPI_PREVIEW_SECRET` | *(same random string on Vercel + Render)* | Required for draft preview from Strapi |
+| `STRAPI_PREVIEW_TOKEN` | *(Strapi API token, Full Access)* | Server-only — lets preview fetch unpublished drafts |
 
 Do **not** set `NEXT_PUBLIC_STRAPI_DISABLED` on staging. When `true`, the site
 ignores Strapi and serves fixture data only.
+
+**Preview setup (one time):**
+
+1. In Strapi admin → **Settings → API Tokens** → Create token (Full Access).
+2. Copy the token to Vercel env `STRAPI_PREVIEW_TOKEN` (no `NEXT_PUBLIC_` prefix).
+3. Generate a random secret (e.g. `openssl rand -hex 32`) and set the **same**
+   value as `STRAPI_PREVIEW_SECRET` on **both** Vercel and Render.
+4. Redeploy Vercel and Render.
 
 ### Production (Vercel)
 

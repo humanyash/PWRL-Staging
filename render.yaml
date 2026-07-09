@@ -73,3 +73,7 @@ services:
         value: https://pwrl-staging-website-y.vercel.app
       - key: FRONTEND_URL
         value: https://pwrl-staging-website-y.vercel.app
+
+      # Draft preview — same secret as Vercel STRAPI_PREVIEW_SECRET
+      - key: STRAPI_PREVIEW_SECRET
+        sync: false
