@@ -148,6 +148,11 @@ async function preloadUploadCache() {
   console.log("Loading existing media index…");
   let page = 1;
   let total = 0;
+  // Hard safety cap: this Strapi's /api/upload/files ignores pagination[page]
+  // and returns the full list every time, so relying on `batch.length < 100`
+  // alone loops forever (it once ran 14k+ pages and wedged the instance).
+  // We also break as soon as a page adds no NEW unique filenames.
+  const MAX_PAGES = 50;
   for (;;) {
     process.stdout.write(`  … media index page ${page}…\n`);
     const res = await fetchWithRetry(
@@ -161,6 +166,7 @@ async function preloadUploadCache() {
     }
     const batch = (await parseJson(res, "upload/files index")) as UploadRecord[];
     if (!Array.isArray(batch) || batch.length === 0) break;
+    const sizeBefore = uploadCache.size;
     for (const f of batch) {
       if (!f.name || !f.id) continue;
       // Keep the newest entry per filename (sorted desc).
@@ -168,6 +174,12 @@ async function preloadUploadCache() {
     }
     total += batch.length;
     if (batch.length < 100) break;
+    // No new unique filenames -> endpoint is not paginating; stop.
+    if (uploadCache.size === sizeBefore) break;
+    if (page >= MAX_PAGES) {
+      console.warn(`  Reached media index page cap (${MAX_PAGES}); stopping.`);
+      break;
+    }
     page++;
     await sleep(400);
   }
