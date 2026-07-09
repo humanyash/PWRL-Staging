@@ -11,8 +11,14 @@
       "required": true
     },
     "answer": {
-      "type": "richtext",
-      "required": true
+      "type": "customField",
+      "customField": "plugin::ckeditor.CKEditor",
+      "required": true,
+      "options": {
+        "preset": "standard",
+        "output": "HTML",
+        "licenseKey": "GPL"
+      }
     }
   }
 }

@@ -4,28 +4,55 @@
   "info": {
     "singularName": "news-item",
     "pluralName": "news-items",
-    "displayName": "News Item",
-    "description": "Headline + date + external URL + source"
+    "displayName": "Press & News",
+    "description": "News cards on the home page and Investor Relations page. Add a photo, then Publish."
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "import-export-entries": {
+      "idField": "url"
+    },
+    "preview-button": {
+      "listViewColumn": true
+    }
+  },
   "attributes": {
     "headline": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Article title shown on the news card."
     },
     "date": {
       "type": "date",
-      "required": true
+      "required": true,
+      "description": "Publication date (newest items appear first)."
     },
     "url": {
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "Link to the full article (opens in a new tab)."
     },
     "source": {
-      "type": "string"
+      "type": "string",
+      "description": "Publisher name, e.g. Yahoo Finance or Bloomberg."
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Card image — upload here or pick from Media Library."
+    },
+    "showOnHome": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show this item in the home page news section."
+    },
+    "showOnInvestorRelations": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show this item on the Investor Relations news section."
     }
   }
 }

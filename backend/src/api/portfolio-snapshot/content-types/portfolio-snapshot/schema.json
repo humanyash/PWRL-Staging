@@ -4,8 +4,8 @@
   "info": {
     "singularName": "portfolio-snapshot",
     "pluralName": "portfolio-snapshots",
-    "displayName": "Portfolio Snapshot",
-    "description": "Latest holdings table + asOfDate + footnotes; replaced atomically each month"
+    "displayName": "Fund Portfolio",
+    "description": "Holdings table on /fund. Update asOfDate and holdings each month."
   },
   "options": {
     "draftAndPublish": false

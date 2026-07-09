@@ -4,13 +4,17 @@
   "info": {
     "singularName": "board-director",
     "pluralName": "board-directors",
-    "displayName": "Board Director",
-    "description": "Board directors. alsoOnTeam relation when applicable (Black, Dinsdale)"
+    "displayName": "Board of Directors",
+    "description": "Board grid on /investor-relations. Upload a headshot and bio for each director."
   },
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "import-export-entries": {
+      "idField": "name"
+    }
+  },
   "attributes": {
     "name": {
       "type": "string",
@@ -25,7 +29,13 @@
       "allowedTypes": ["images"]
     },
     "bio": {
-      "type": "richtext"
+      "type": "customField",
+      "customField": "plugin::ckeditor.CKEditor",
+      "options": {
+        "preset": "light",
+        "output": "HTML",
+        "licenseKey": "GPL"
+      }
     },
     "independent": {
       "type": "boolean",

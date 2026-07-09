@@ -4,13 +4,17 @@
   "info": {
     "singularName": "team-member",
     "pluralName": "team-members",
-    "displayName": "Team Member",
-    "description": "Team members. Supports prose bio OR bullet bio (bioFormat enum)"
+    "displayName": "Leadership Team",
+    "description": "Leadership grid on /vision. Upload a headshot and bio for each person."
   },
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "import-export-entries": {
+      "idField": "name"
+    }
+  },
   "attributes": {
     "name": {
       "type": "string",
@@ -31,7 +35,13 @@
       "required": true
     },
     "bioProse": {
-      "type": "richtext"
+      "type": "customField",
+      "customField": "plugin::ckeditor.CKEditor",
+      "options": {
+        "preset": "light",
+        "output": "HTML",
+        "licenseKey": "GPL"
+      }
     },
     "bioBullets": {
       "type": "json"

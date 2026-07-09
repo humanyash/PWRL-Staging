@@ -17,11 +17,13 @@
 import type {
   Block,
   AnchorNavBlock,
+  DocumentListBlock,
   FormBlock,
   FAQBlock,
   GlobalSettings,
   HeroBlock,
   IntroBlock,
+  NewsItem,
   NewsListBlock,
   PageData,
   PersonCard,
@@ -209,16 +211,6 @@ function mergeSection(cms: CmsSection, fixture: Block | undefined): Block {
     if (navFixture.items?.length) out.items = navFixture.items;
   }
 
-  // News articles + thumbnails are maintained in lib/news.ts until CMS carries
-  // the full production set with matching media.
-  if (
-    cms.__component === "sections.news-list" &&
-    fixture?.__component === "sections.news-list"
-  ) {
-    const newsFixture = fixture as NewsListBlock;
-    if (newsFixture.items?.length) out.items = newsFixture.items;
-  }
-
   return out as unknown as Block;
 }
 
@@ -281,6 +273,72 @@ async function fetchFaqItems(): Promise<{ q: string; a: string }[] | null> {
     : null;
 }
 
+function formatNewsDate(iso: string): string {
+  const d = new Date(`${iso}T12:00:00`);
+  return d.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+interface CmsNewsRow {
+  headline: string;
+  date: string;
+  url: string;
+  source?: string | null;
+  showOnHome?: boolean;
+  showOnInvestorRelations?: boolean;
+  thumbnail?: { url?: string; alternativeText?: string | null } | null;
+}
+
+async function fetchNewsItems(
+  placement: "home" | "investor-relations",
+): Promise<NewsItem[] | null> {
+  const data = await strapiFetch<CmsNewsRow[]>("/api/news-items", {
+    "populate[thumbnail]": "true",
+    sort: "date:desc",
+    "pagination[pageSize]": "50",
+    status: "published",
+  });
+  if (!data?.length) return null;
+
+  const filtered = data.filter((row) =>
+    placement === "home"
+      ? row.showOnHome !== false
+      : row.showOnInvestorRelations !== false,
+  );
+
+  return filtered.map((row) => ({
+    title: row.headline,
+    href: row.url,
+    date: row.date ? formatNewsDate(row.date) : undefined,
+    source: row.source ?? undefined,
+    image: row.thumbnail?.url
+      ? {
+          src: row.thumbnail.url,
+          alt: row.thumbnail.alternativeText ?? row.headline,
+        }
+      : undefined,
+  }));
+}
+
+async function fetchFundDocuments(): Promise<
+  { label: string; href: string }[] | null
+> {
+  const data = await strapiFetch<
+    { title: string; file?: { url?: string } | null; order?: number }[]
+  >("/api/fund-documents", {
+    "populate[file]": "true",
+    sort: "order",
+    "pagination[pageSize]": "100",
+  });
+  const docs = data
+    ?.filter((d) => d.file?.url)
+    .map((d) => ({ label: d.title, href: d.file!.url! }));
+  return docs?.length ? docs : null;
+}
+
 async function fetchPortfolio(): Promise<{
   asOfDate?: string;
   intro?: string;
@@ -292,7 +350,17 @@ async function fetchPortfolio(): Promise<{
 }
 
 /** Hydrate relation-backed blocks from their own CMS collections. */
-async function hydrateSections(sections: Block[]): Promise<Block[]> {
+async function hydrateSections(
+  sections: Block[],
+  pageSlug: string,
+): Promise<Block[]> {
+  const newsPlacement =
+    pageSlug === "/" || pageSlug === "home"
+      ? ("home" as const)
+      : pageSlug === "/investor-relations"
+        ? ("investor-relations" as const)
+        : null;
+
   const out: Block[] = [];
   for (const s of sections) {
     if (s.__component === "sections.team-grid") {
@@ -315,6 +383,22 @@ async function hydrateSections(sections: Block[]): Promise<Block[]> {
             } as Block)
           : s,
       );
+    } else if (s.__component === "sections.news-list" && newsPlacement) {
+      const block = s as NewsListBlock;
+      const items = await fetchNewsItems(newsPlacement);
+      const limit = block.limit ?? (newsPlacement === "home" ? 6 : 8);
+      out.push(
+        items?.length
+          ? ({ ...block, items: items.slice(0, limit) } as Block)
+          : s,
+      );
+    } else if (
+      s.__component === "sections.document-list" &&
+      (s as DocumentListBlock).kind === "fund-docs"
+    ) {
+      const block = s as DocumentListBlock;
+      const documents = await fetchFundDocuments();
+      out.push(documents ? ({ ...block, documents } as Block) : s);
     } else {
       out.push(s);
     }
@@ -389,7 +473,7 @@ export async function getPage(slug: string): Promise<PageData | null> {
     title: cms.seo?.title ?? cms.title ?? fixture?.title ?? "PWRL",
     metaDescription:
       cms.seo?.description ?? fixture?.metaDescription ?? undefined,
-    sections: await hydrateSections(merged),
+    sections: await hydrateSections(merged, normalized),
   };
 }
 
@@ -398,6 +482,7 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
   const [settings, disclaimers] = await Promise.all([
     strapiFetch<{
       topBanner?: string | null;
+      topBannerLink?: string | null;
       topBannerEnabled?: boolean;
       footerLinks?: { label: string; href: string }[];
       socialLinks?: { label: string; href: string }[];
@@ -405,6 +490,7 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
     }>("/api/global-settings", {
       "populate[footerLinks]": "true",
       "populate[socialLinks]": "true",
+      status: "published",
     }),
     strapiFetch<{ paragraphs?: { body: string }[] }>("/api/disclaimers", {
       "populate[paragraphs]": "true",
@@ -413,11 +499,19 @@ export async function getGlobalSettings(): Promise<GlobalSettings> {
 
   if (!settings) return GLOBAL_SETTINGS;
 
+  const bannerEnabled = settings.topBannerEnabled !== false;
+  const bannerText = settings.topBanner?.trim();
+  const bannerHref = settings.topBannerLink?.trim();
+
   return {
-    ...GLOBAL_SETTINGS, // nav (and the banner link) aren't in the CMS schema yet
-    // Banner copy/link aren't fully modeled in CMS yet — fixtures match production.
+    ...GLOBAL_SETTINGS,
     banner:
-      settings.topBannerEnabled === false ? undefined : GLOBAL_SETTINGS.banner,
+      bannerEnabled && bannerText
+        ? {
+            text: bannerText,
+            href: bannerHref || undefined,
+          }
+        : undefined,
     footerLinks: settings.footerLinks?.length
       ? settings.footerLinks
       : GLOBAL_SETTINGS.footerLinks,

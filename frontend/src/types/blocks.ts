@@ -256,6 +256,8 @@ export interface NewsListBlock {
   __component: "sections.news-list";
   heading: string;
   items: NewsItem[];
+  /** Max cards from Press & News collection (CMS schema default 5). */
+  limit?: number;
 }
 
 export interface EducationListItem {

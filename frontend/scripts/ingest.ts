@@ -426,9 +426,15 @@ async function main() {
     log(await upsertCollection("fund-documents", "title", f.data.title as string, { ...f.data, file: fileId }));
   }
 
-  // News items: dedupe key = url
+  // News items: dedupe key = url; upload thumbnail when present
   for (const n of newsItems) {
-    log(await upsertCollection("news-items", "url", n.url, n));
+    const thumbnail = n.imagePath ? await uploadFile(n.imagePath) : null;
+    log(
+      await upsertCollection("news-items", "url", n.data.url as string, {
+        ...n.data,
+        thumbnail,
+      }),
+    );
   }
 
   // Forms: dedupe key = identifier (Strapi uid)

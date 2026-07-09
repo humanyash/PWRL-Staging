@@ -32,6 +32,28 @@ components in [`src/components/`](src/components/).
 | `faq` | FAQ accordion across the site |
 | `portfolio-snapshot` | Holdings table on `/fund` |
 
+## Editor plugins (Elle-friendly)
+
+Installed community plugins in [`config/plugins.ts`](config/plugins.ts):
+
+| Plugin | Purpose |
+|---|---|
+| `@ckeditor/strapi-plugin-ckeditor` | Rich text with link toolbar for FAQ answers and bios |
+| `strapi-plugin-preview-button` | **View live** / preview links to staging site per entry |
+| `strapi-plugin-publisher` | Schedule publish/unpublish for banner and Press & News |
+| `strapi-plugin-config-sync` | Version-control admin roles/CM layout via `config/sync/` |
+| `strapi-import-export` | CSV/JSON export-import for daily content collections |
+
+Set `STRAPI_PREVIEW_SITE_URL` (default: staging Vercel URL) for preview buttons.
+
+After configuring roles/layout in admin, export config sync once:
+
+```bash
+npm run strapi config-sync export -- --yes
+```
+
+Commit `config/sync/*.json` so Render applies them on deploy (`importOnBootstrap`).
+
 ## Local development
 
 ```bash

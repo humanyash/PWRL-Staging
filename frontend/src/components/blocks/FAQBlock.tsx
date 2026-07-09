@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Section } from "@/components/ui/Section";
-import { renderRich, renderLines } from "@/lib/rich";
+import { renderRich, renderLines, renderCmsAnswer } from "@/lib/rich";
 import type { FAQBlock as FAQBlockType } from "@/types/blocks";
 
 /**
@@ -96,9 +96,13 @@ export function FAQBlock({ block }: { block: FAQBlockType }) {
                       : "max-h-0 opacity-30 duration-300"
                   }`}
                 >
-                  <p className={navy ? "text-white" : "text-charcoal/70"}>
-                    {renderRich(faq.a)}
-                  </p>
+                  <div
+                    className={`font-light leading-[19.6px] md:leading-[25.2px] [&_p]:my-[18px] [&_p]:font-light ${
+                      navy ? "text-white" : "text-charcoal/70"
+                    }`}
+                  >
+                    {renderCmsAnswer(faq.a)}
+                  </div>
                 </div>
               </div>
             );

@@ -4,8 +4,8 @@
   "info": {
     "singularName": "form",
     "pluralName": "forms",
-    "displayName": "Form",
-    "description": "HubSpot form references (portalId, formId, identifier, theme)"
+    "displayName": "HubSpot Forms (Admin only)",
+    "description": "Technical HubSpot form IDs — do not edit. Contact HumanDesign for form changes."
   },
   "options": {
     "draftAndPublish": false

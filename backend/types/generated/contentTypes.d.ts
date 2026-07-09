@@ -444,20 +444,33 @@ export interface ApiBoardDirectorBoardDirector
   extends Struct.CollectionTypeSchema {
   collectionName: 'board_directors';
   info: {
-    description: 'Board directors. alsoOnTeam relation when applicable (Black, Dinsdale)';
-    displayName: 'Board Director';
+    description: 'Board grid on /investor-relations. Upload a headshot and bio for each director.';
+    displayName: 'Board of Directors';
     pluralName: 'board-directors';
     singularName: 'board-director';
   };
   options: {
     draftAndPublish: false;
   };
+  pluginOptions: {
+    'import-export-entries': {
+      idField: 'name';
+    };
+  };
   attributes: {
     alsoOnTeam: Schema.Attribute.Relation<
       'oneToOne',
       'api::team-member.team-member'
     >;
-    bio: Schema.Attribute.RichText;
+    bio: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          licenseKey: 'GPL';
+          output: 'HTML';
+          preset: 'light';
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -516,7 +529,7 @@ export interface ApiDisclaimersDisclaimers extends Struct.SingleTypeSchema {
 export interface ApiFaqFaq extends Struct.SingleTypeSchema {
   collectionName: 'faqs';
   info: {
-    description: 'Single FAQ rendered on /vision#faq and /fund#faq';
+    description: 'Frequently asked questions on /vision and /fund. Use the link button in the answer editor \u2014 do not type [text](url).';
     displayName: 'FAQ';
     pluralName: 'faqs';
     singularName: 'faq';
@@ -544,8 +557,8 @@ export interface ApiFaqFaq extends Struct.SingleTypeSchema {
 export interface ApiFormForm extends Struct.CollectionTypeSchema {
   collectionName: 'forms';
   info: {
-    description: 'HubSpot form references (portalId, formId, identifier, theme)';
-    displayName: 'Form';
+    description: 'Technical HubSpot form IDs \u2014 do not edit. Contact HumanDesign for form changes.';
+    displayName: 'HubSpot Forms (Admin only)';
     pluralName: 'forms';
     singularName: 'form';
   };
@@ -577,13 +590,18 @@ export interface ApiFundDocumentFundDocument
   extends Struct.CollectionTypeSchema {
   collectionName: 'fund_documents';
   info: {
-    description: 'Prospectus, factsheets, reports. Cloudinary-hosted PDF + kind enum';
-    displayName: 'Fund Document';
+    description: "PDF list on /investor-relations. Upload the PDF in each entry's File field.";
+    displayName: 'Fund Documents (PDFs)';
     pluralName: 'fund-documents';
     singularName: 'fund-document';
   };
   options: {
     draftAndPublish: false;
+  };
+  pluginOptions: {
+    'import-export-entries': {
+      idField: 'title';
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -621,13 +639,13 @@ export interface ApiGlobalSettingsGlobalSettings
   extends Struct.SingleTypeSchema {
   collectionName: 'global_settings';
   info: {
-    description: 'Logo, top banner, footer links, socials, copyright';
-    displayName: 'Global Settings';
+    description: 'Home-page banner, footer links, social icons, and copyright. Editors: use the banner fields at the top only.';
+    displayName: 'Site Banner & Footer';
     pluralName: 'global-settings-plural';
     singularName: 'global-settings';
   };
   options: {
-    draftAndPublish: false;
+    draftAndPublish: true;
   };
   attributes: {
     copyright: Schema.Attribute.Text;
@@ -647,6 +665,7 @@ export interface ApiGlobalSettingsGlobalSettings
     topBanner: Schema.Attribute.String;
     topBannerEnabled: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
+    topBannerLink: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -689,13 +708,21 @@ export interface ApiLegalPageLegalPage extends Struct.CollectionTypeSchema {
 export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   collectionName: 'news_items';
   info: {
-    description: 'Headline + date + external URL + source';
-    displayName: 'News Item';
+    description: 'News cards on the home page and Investor Relations page. Add a photo, then Publish.';
+    displayName: 'Press & News';
     pluralName: 'news-items';
     singularName: 'news-item';
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    'import-export-entries': {
+      idField: 'url';
+    };
+    'preview-button': {
+      listViewColumn: true;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -710,7 +737,11 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    showOnHome: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    showOnInvestorRelations: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
     source: Schema.Attribute.String;
+    thumbnail: Schema.Attribute.Media<'images'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -776,8 +807,8 @@ export interface ApiPortfolioSnapshotPortfolioSnapshot
   extends Struct.SingleTypeSchema {
   collectionName: 'portfolio_snapshots';
   info: {
-    description: 'Latest holdings table + asOfDate + footnotes; replaced atomically each month';
-    displayName: 'Portfolio Snapshot';
+    description: 'Holdings table on /fund. Update asOfDate and holdings each month.';
+    displayName: 'Fund Portfolio';
     pluralName: 'portfolio-snapshots';
     singularName: 'portfolio-snapshot';
   };
@@ -844,20 +875,33 @@ export interface ApiSecFilingSecFiling extends Struct.CollectionTypeSchema {
 export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   collectionName: 'team_members';
   info: {
-    description: 'Team members. Supports prose bio OR bullet bio (bioFormat enum)';
-    displayName: 'Team Member';
+    description: 'Leadership grid on /vision. Upload a headshot and bio for each person.';
+    displayName: 'Leadership Team';
     pluralName: 'team-members';
     singularName: 'team-member';
   };
   options: {
     draftAndPublish: false;
   };
+  pluginOptions: {
+    'import-export-entries': {
+      idField: 'name';
+    };
+  };
   attributes: {
     bioBullets: Schema.Attribute.JSON;
     bioFormat: Schema.Attribute.Enumeration<['prose', 'bullets']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'prose'>;
-    bioProse: Schema.Attribute.RichText;
+    bioProse: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          licenseKey: 'GPL';
+          output: 'HTML';
+          preset: 'light';
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1010,6 +1054,46 @@ export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
         },
         number
       >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface PluginPublisherAction extends Struct.CollectionTypeSchema {
+  collectionName: 'actions';
+  info: {
+    displayName: 'actions';
+    pluralName: 'actions';
+    singularName: 'action';
+  };
+  options: {
+    comment: '';
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    entityId: Schema.Attribute.String & Schema.Attribute.Required;
+    entitySlug: Schema.Attribute.String & Schema.Attribute.Required;
+    executeAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::publisher.action'
+    > &
+      Schema.Attribute.Private;
+    mode: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1404,6 +1488,7 @@ declare module '@strapi/strapi' {
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
+      'plugin::publisher.action': PluginPublisherAction;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
       'plugin::upload.file': PluginUploadFile;

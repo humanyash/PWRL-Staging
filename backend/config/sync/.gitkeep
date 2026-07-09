@@ -1,0 +1,7 @@
+# Strapi admin config sync (roles, CM layouts, etc.)
+#
+# Export from a configured Strapi instance:
+#   npm run strapi config-sync export -- --yes
+#
+# On Render (production), importOnBootstrap applies files here on deploy.
+# Do not export in development if importOnBootstrap is off locally.

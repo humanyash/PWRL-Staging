@@ -6,6 +6,7 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { PAGE_FIXTURES, GLOBAL_SETTINGS } from "../src/lib/fixtures";
+import { HOME_NEWS_ITEMS, IR_NEWS_ITEMS } from "../src/lib/news";
 import { LEGAL_FIXTURES } from "../src/lib/legal-fixtures";
 import type { Block, PersonCard } from "../src/types/blocks";
 
@@ -138,19 +139,64 @@ interface NewsItemInput {
   title: string;
   href: string;
   source?: string;
+  imagePath?: string | null;
+  showOnHome: boolean;
+  showOnInvestorRelations: boolean;
+}
+
+/** Convert legacy markdown FAQ answers to HTML for Strapi richtext. */
+function markdownToFaqHtml(text: string): string {
+  const inline = (s: string) =>
+    s
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/_([^_]+)_/g, "<em>$1</em>")
+      .replace(
+        /\[([^\]]+)\]\(([^)\s]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>',
+      );
+
+  return text
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `<p>${inline(p.replace(/\n/g, " "))}</p>`)
+    .join("");
 }
 
 function collectNewsItems(): NewsItemInput[] {
-  const seen = new Map<string, NewsItemInput>();
-  for (const page of Object.values(PAGE_FIXTURES)) {
-    for (const s of page.sections) {
-      if (s.__component !== "sections.news-list") continue;
-      for (const it of (s as any).items as NewsItemInput[]) {
-        if (!seen.has(it.href)) seen.set(it.href, it);
+  const byHref = new Map<string, NewsItemInput>();
+
+  const add = (
+    items: typeof HOME_NEWS_ITEMS,
+    onHome: boolean,
+    onIr: boolean,
+  ) => {
+    for (const it of items) {
+      const existing = byHref.get(it.href);
+      if (existing) {
+        existing.showOnHome ||= onHome;
+        existing.showOnInvestorRelations ||= onIr;
+        if (!existing.imagePath && it.image?.src) {
+          existing.imagePath = it.image.src;
+        }
+        continue;
       }
+      byHref.set(it.href, {
+        date: it.date,
+        title: it.title,
+        href: it.href,
+        source: it.source,
+        imagePath: it.image?.src ?? null,
+        showOnHome: onHome,
+        showOnInvestorRelations: onIr,
+      });
     }
-  }
-  return Array.from(seen.values());
+  };
+
+  add(HOME_NEWS_ITEMS, true, false);
+  add(IR_NEWS_ITEMS, false, true);
+
+  return Array.from(byHref.values());
 }
 
 interface FormInput {
@@ -231,7 +277,10 @@ export function buildPayloads() {
     // faq single: heading, items[{question, answer}]
     faq: {
       heading: faqBlock?.heading ?? "Frequently Asked Questions.",
-      items: (faqBlock?.faqs ?? []).map((f) => ({ question: f.q, answer: f.a })),
+      items: (faqBlock?.faqs ?? []).map((f) => ({
+        question: f.q,
+        answer: markdownToFaqHtml(f.a),
+      })),
     },
     // disclaimers single: paragraphs[{label, body}] + required effectiveDate
     disclaimers: {
@@ -244,6 +293,7 @@ export function buildPayloads() {
     // global-settings single: topBanner(string), footerLinks, socialLinks, copyright
     globalSettings: {
       topBanner: GLOBAL_SETTINGS.banner?.text ?? null,
+      topBannerLink: GLOBAL_SETTINGS.banner?.href ?? null,
       topBannerEnabled: Boolean(GLOBAL_SETTINGS.banner),
       footerLinks: GLOBAL_SETTINGS.footerLinks.map((l) => ({
         label: l.label,
@@ -293,15 +343,22 @@ export function buildPayloads() {
       },
     })),
 
-    // news-item: headline, date, url, source (no image field in schema)
+    // news-item: headline, date, url, source, thumbnail, placement flags
     newsItems: collectNewsItems()
       .map((n) => ({
-        headline: n.title,
-        date: parseLongDate(n.date),
-        url: n.href,
-        source: n.source ?? null,
+        imagePath: n.imagePath ?? null,
+        data: {
+          headline: n.title,
+          date: parseLongDate(n.date),
+          url: n.href,
+          source: n.source ?? null,
+          showOnHome: n.showOnHome,
+          showOnInvestorRelations: n.showOnInvestorRelations,
+        },
       }))
-      .filter((n): n is Required<typeof n> & { date: string } => Boolean(n.date)),
+      .filter(
+        (n): n is typeof n & { data: { date: string } } => Boolean(n.data.date),
+      ),
 
     // form: identifier(uid), portalId, formId, theme
     forms: collectForms(),

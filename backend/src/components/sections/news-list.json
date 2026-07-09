@@ -12,12 +12,8 @@
     "limit": {
       "type": "integer",
       "default": 5,
-      "min": 1
-    },
-    "items": {
-      "type": "component",
-      "repeatable": true,
-      "component": "sections.news-item"
+      "min": 1,
+      "description": "Max cards shown. Items come from Press & News collection."
     }
   }
 }

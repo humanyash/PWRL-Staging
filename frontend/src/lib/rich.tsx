@@ -84,3 +84,19 @@ export function renderRich(text: string): ReactNode {
     return part;
   });
 }
+
+/** FAQ answers from Strapi richtext (HTML) or legacy markdown/plain strings. */
+export function renderCmsAnswer(text: string): ReactNode {
+  if (text.includes("<")) {
+    const safe = text
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+      .replace(/on\w+="[^"]*"/gi, "");
+    return (
+      <span
+        className="[&_a]:underline"
+        dangerouslySetInnerHTML={{ __html: safe }}
+      />
+    );
+  }
+  return renderRich(text);
+}

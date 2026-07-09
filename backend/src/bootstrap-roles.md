@@ -1,99 +1,80 @@
 # Admin Role / Permission Bootstrap
 
 Strapi admin-panel roles live in the database (`admin_roles` /
-`admin_permissions`), not in versioned schema files, so they cannot be created
-by committing JSON. This document is the source of truth for the three roles the
-PWRL site requires. Seed them by hand in **Settings → Administration Panel →
-Roles** on a running instance, or via a one-off script using
-`strapi.service('admin::role')` / `strapi.service('admin::permission')`.
+`admin_permissions`), not in versioned schema files. The **Editor** role is
+synced automatically on server start via [`src/index.ts`](index.ts)
+(`bootstrapEditorRole`). This document is the source of truth for the target
+state.
 
-> Do NOT run a DB seed as part of this schema build. This file only documents the
-> target state.
+> Super Admin and Legal Reviewer are still configured manually in
+> **Settings → Administration Panel → Roles** unless extended in bootstrap.
 
 ## Roles
 
-Strapi ships with `Super Admin`, `Editor`, and `Author` by default. We keep
-`Super Admin` as **Admin**, repurpose/replace the built-in `Editor`, and add a
-new **Legal Reviewer** role.
-
 ### 1. Admin (Super Admin)
-- **Read:** all content types, all settings.
-- **Write:** all content types, plugins, settings, users, roles.
-- This is the built-in `Super Admin` role — leave it untouched.
+- **Read / write:** everything, including Page layout, plugins, users, roles.
+- Built-in `Super Admin` role — leave untouched.
 
-### 2. Editor
-- **Read:** all content types.
-- **Write (create / update / publish / delete):** every content type **except**
-  `Disclaimers` and `LegalPage`.
-  - GlobalSettings ✅
-  - FAQ ✅
-  - PortfolioSnapshot ✅
-  - Page ✅
-  - TeamMember ✅
-  - BoardDirector ✅
-  - NewsItem ✅
-  - FundDocument ✅ (all fields)
-  - Form ✅
-  - SECFiling — **read-only** (synced by the EDGAR cron job; do not grant write
-    to anyone in the admin)
-  - Disclaimers — ❌ no write (read-only)
-  - LegalPage — ❌ no write (read-only)
+### 2. Editor (daily content only)
+
+Elle and other editors use this role. They **never** edit Pages or layout.
+
+**Writable (create / update / publish / delete):**
+
+| Menu label | Content type | Notes |
+|---|---|---|
+| Site Banner & Footer | GlobalSettings | Field-level: `topBanner`, `topBannerLink`, `topBannerEnabled` only |
+| FAQ | FAQ | Use link button in answer editor |
+| Press & News | NewsItem | Upload thumbnail; check Home / IR placement |
+| Leadership Team | TeamMember | |
+| Board of Directors | BoardDirector | |
+| Fund Portfolio | PortfolioSnapshot | |
+| Fund Documents (PDFs) | FundDocument | Upload PDF in File field |
+
+**Hidden (no access):**
+
+| Content type | Reason |
+|---|---|
+| Page | Layout — HumanDesign / ingest only |
+| Form | HubSpot IDs — admin only |
+| SECFiling | EDGAR sync — read-only for all humans |
+| LegalPage | Legal Reviewer role |
+| Disclaimers | Legal Reviewer role |
+
+**Media Library:** upload/read enabled (news photos, fund PDFs).
 
 ### 3. Legal Reviewer
-- **Read:** all content types.
-- **Write (create / update / publish / delete):**
-  - `Disclaimers` ✅ (full)
-  - `LegalPage` ✅ (full)
-  - `FundDocument` — **field-level**: write access limited to the
-    `effectiveDate` field only (review/sign-off on document effective dates).
-    All other FundDocument fields remain read-only for this role. Field-level
-    permissions are configured per-field in the role editor's content-type
-    permission tree.
-- **No write** to any other content type.
+- **Write:** `Disclaimers`, `LegalPage`, and `FundDocument.effectiveDate` only.
+- **Read:** all other content types.
+- Configure manually in the admin panel (field-level on FundDocument).
 
 ## Permission matrix (summary)
 
 | Content type        | Admin | Editor            | Legal Reviewer            |
 |---------------------|-------|-------------------|---------------------------|
-| GlobalSettings      | RW    | RW                | R                         |
-| Disclaimers         | RW    | R (no write)      | RW                        |
+| GlobalSettings      | RW    | RW (banner fields)| R                         |
+| Disclaimers         | RW    | — (hidden)        | RW                        |
 | FAQ                 | RW    | RW                | R                         |
 | PortfolioSnapshot   | RW    | RW                | R                         |
-| Page                | RW    | RW                | R                         |
-| LegalPage           | RW    | R (no write)      | RW                        |
+| Page                | RW    | — (hidden)        | R                         |
+| LegalPage           | RW    | — (hidden)        | RW                        |
 | TeamMember          | RW    | RW                | R                         |
 | BoardDirector       | RW    | RW                | R                         |
 | NewsItem            | RW    | RW                | R                         |
-| SECFiling           | RW*   | R                 | R                         |
+| SECFiling           | RW*   | — (hidden)        | R                         |
 | FundDocument        | RW    | RW                | R + write `effectiveDate` |
-| Form                | RW    | RW                | R                         |
+| Form                | RW    | — (hidden)        | R                         |
 
-`*` SECFiling is mutated only by the scheduled EDGAR sync (server-side, not via
-admin UI). No human role should be granted write access in the admin.
-
-## Seeding outline (run only on a live instance)
-
-```ts
-// Example only — execute via `strapi console` or a bootstrap function,
-// NOT during schema generation.
-const roleService = strapi.service('admin::role');
-
-const editor = await roleService.create({
-  name: 'Editor',
-  description: 'Writes all content except Disclaimers and LegalPage',
-});
-const legal = await roleService.create({
-  name: 'Legal Reviewer',
-  description: 'Owns Disclaimers, LegalPage, and FundDocument.effectiveDate',
-});
-
-// Then assign permissions per the matrix above with
-// strapi.service('admin::permission').
-```
+`*` SECFiling is mutated only by the scheduled EDGAR sync.
 
 ## Public / API permissions
-The Users & Permissions plugin "Public" role also needs `find`/`findOne`
-enabled per content type for the Next.js frontend to read published content over
-the REST/GraphQL API. Configure under **Settings → Users & Permissions →
-Roles → Public**, or issue a read-only API token. This is also a live-instance
-step.
+
+The Users & Permissions plugin **Public** role is bootstrapped automatically in
+[`src/index.ts`](index.ts) so the Next.js frontend can read published content
+without an API token.
+
+## Manual steps after deploy
+
+1. **Settings → Administration Panel → Users** — assign Elle the **Editor** role.
+2. Confirm she does **not** see **Page** or **HubSpot Forms** in Content Manager.
+3. Have Elle run the 5-minute UAT checklist in [`CLIENT-HANDOFF.md`](../CLIENT-HANDOFF.md).

@@ -4,11 +4,11 @@
   "info": {
     "singularName": "global-settings",
     "pluralName": "global-settings-plural",
-    "displayName": "Global Settings",
-    "description": "Logo, top banner, footer links, socials, copyright"
+    "displayName": "Site Banner & Footer",
+    "description": "Home-page banner, footer links, social icons, and copyright. Editors: use the banner fields at the top only."
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
@@ -18,11 +18,17 @@
       "allowedTypes": ["images"]
     },
     "topBanner": {
-      "type": "string"
+      "type": "string",
+      "description": "Banner message on the home page. Use **double asterisks** for bold text."
+    },
+    "topBannerLink": {
+      "type": "string",
+      "description": "Optional URL the banner links to when clicked (leave empty for text-only)."
     },
     "topBannerEnabled": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Turn the home-page banner on or off."
     },
     "footerLinks": {
       "type": "component",

@@ -5,7 +5,7 @@
     "singularName": "faq",
     "pluralName": "faqs",
     "displayName": "FAQ",
-    "description": "Single FAQ rendered on /vision#faq and /fund#faq"
+    "description": "Frequently asked questions on /vision and /fund. Use the link button in the answer editor — do not type [text](url)."
   },
   "options": {
     "draftAndPublish": false

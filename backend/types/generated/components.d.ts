@@ -149,7 +149,6 @@ export interface SectionsNewsList extends Struct.ComponentSchema {
   };
   attributes: {
     heading: Schema.Attribute.String;
-    items: Schema.Attribute.Component<'sections.news-item', true>;
     limit: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -449,7 +448,16 @@ export interface SharedFaqItem extends Struct.ComponentSchema {
     displayName: 'FAQ Item';
   };
   attributes: {
-    answer: Schema.Attribute.RichText & Schema.Attribute.Required;
+    answer: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          licenseKey: 'GPL';
+          output: 'HTML';
+          preset: 'standard';
+        }
+      >;
     question: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
