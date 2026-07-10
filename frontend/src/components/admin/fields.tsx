@@ -40,6 +40,32 @@ const IMAGE_KEYS = new Set([
   "thumbnail",
 ]);
 
+/** String fields that hold a single media URL (image/video/svg). */
+const MEDIA_STRING_KEYS = new Set([
+  "icon",
+  "image",
+  "logo",
+  "backgroundImage",
+  "heroImage",
+  "cardImage",
+  "thumbnail",
+  "video",
+  "backgroundVideo",
+  "videoSrc",
+  "poster",
+  "media",
+  "mediaSrc",
+  "src",
+  "asset",
+]);
+
+const MEDIA_EXT = /\.(png|jpe?g|gif|webp|avif|svg|mp4|webm|mov|m4v)$/i;
+const VIDEO_EXT = /\.(mp4|webm|mov|m4v)$/i;
+
+function isVideoSrc(s: string): boolean {
+  return VIDEO_EXT.test(s.split("?")[0].split("#")[0]);
+}
+
 const HIDDEN_KEYS = new Set(["__component", "id"]);
 
 type Json = unknown;
@@ -107,33 +133,72 @@ function TextInput({
   );
 }
 
-/* --------------------------- ImageField ---------------------------- */
+/* ----------------------------- media ------------------------------- */
 
-export function ImageField({
-  value,
-  onChange,
+const MEDIA_ACCEPT = "image/*,video/*,.svg,image/svg+xml";
+
+/** Renders the right preview for a media URL: video, image, or SVG. */
+export function MediaThumb({
+  src,
+  className = "h-16 w-16",
 }: {
-  value: { src: string; alt?: string } | null | undefined;
-  onChange: (v: { src: string; alt: string } | null) => void;
+  src: string;
+  className?: string;
+}) {
+  if (isVideoSrc(src)) {
+    const clean = src.split("#")[0];
+    return (
+      <video
+        src={`${clean}#t=0.1`}
+        muted
+        playsInline
+        preload="metadata"
+        className={`${className} shrink-0 rounded-md bg-black object-cover`}
+      />
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      className={`${className} shrink-0 rounded-md bg-[#161619] object-contain`}
+    />
+  );
+}
+
+/**
+ * Shared drop-zone that previews the current media and uploads a replacement.
+ * Works for images, videos, and SVGs — returns the public URL to the caller.
+ */
+function MediaPicker({
+  src,
+  onUrl,
+  onClear,
+  accept = MEDIA_ACCEPT,
+}: {
+  src: string;
+  onUrl: (url: string) => void;
+  onClear: () => void;
+  accept?: string;
 }) {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [dragging, setDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const src = value?.src ?? "";
-  const alt = value?.alt ?? "";
 
   function upload(file: File) {
     setError(null);
     const fd = new FormData();
     fd.set("file", file);
-    fd.set("alt", alt);
     startTransition(async () => {
       const res = await uploadMedia(fd);
-      if (res.ok) onChange({ src: res.url, alt });
+      if (res.ok) onUrl(res.url);
       else setError(res.error);
     });
   }
+
+  const kind = src ? (isVideoSrc(src) ? "Video" : "Image / SVG") : null;
 
   return (
     <div>
@@ -157,15 +222,10 @@ export function ImageField({
         }`}
       >
         {src ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={src}
-            alt={alt}
-            className="h-16 w-16 shrink-0 rounded-md object-cover"
-          />
+          <MediaThumb src={src} />
         ) : (
           <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-md bg-[#161619] text-[10px] text-[#6f6f78]">
-            No image
+            No media
           </div>
         )}
         <div className="min-w-0 flex-1 text-sm text-[#9a9aa2]">
@@ -173,10 +233,17 @@ export function ImageField({
             ? "Uploading…"
             : dragging
               ? "Drop to upload"
-              : "Drag an image here, or click to choose a file."}
+              : "Drag an image, video, or SVG here, or click to choose a file."}
           {src ? (
-            <span className="mt-1 block truncate text-xs text-[#5f5f68]">
-              {src}
+            <span className="mt-1 flex items-center gap-2">
+              {kind ? (
+                <span className="rounded bg-[#1d1d21] px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-[#8a8a92]">
+                  {kind}
+                </span>
+              ) : null}
+              <span className="block min-w-0 truncate text-xs text-[#5f5f68]">
+                {src}
+              </span>
             </span>
           ) : null}
         </div>
@@ -185,7 +252,7 @@ export function ImageField({
             type="button"
             onClick={(e) => {
               e.stopPropagation();
-              onChange(null);
+              onClear();
             }}
             className="shrink-0 rounded-md border border-[#33333a] px-2 py-1 text-xs text-[#9a9aa2] hover:text-white"
           >
@@ -196,7 +263,7 @@ export function ImageField({
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept={accept}
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];
@@ -204,18 +271,58 @@ export function ImageField({
           e.target.value = "";
         }}
       />
+      {error ? <p className="mt-1 text-xs text-red-400">{error}</p> : null}
+    </div>
+  );
+}
+
+/** Image object field: `{ src, alt }` with a live preview + alt text. */
+export function ImageField({
+  value,
+  onChange,
+}: {
+  value: { src: string; alt?: string } | null | undefined;
+  onChange: (v: { src: string; alt: string } | null) => void;
+}) {
+  const src = value?.src ?? "";
+  const alt = value?.alt ?? "";
+  return (
+    <div>
+      <MediaPicker
+        src={src}
+        onUrl={(url) => onChange({ src: url, alt })}
+        onClear={() => onChange(null)}
+      />
       {src ? (
         <div className="mt-2">
           <FieldLabel>Alt text</FieldLabel>
-          <TextInput
-            value={alt}
-            onChange={(v) => onChange({ src, alt: v })}
-          />
+          <TextInput value={alt} onChange={(v) => onChange({ src, alt: v })} />
         </div>
       ) : null}
-      {error ? (
-        <p className="mt-1 text-xs text-red-400">{error}</p>
-      ) : null}
+    </div>
+  );
+}
+
+/** Media stored as a plain URL string (e.g. a background video path). */
+function MediaStringField({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const src = value ?? "";
+  return (
+    <div>
+      <MediaPicker
+        src={src}
+        onUrl={(url) => onChange(url)}
+        onClear={() => onChange("")}
+      />
+      <div className="mt-2">
+        <FieldLabel>URL</FieldLabel>
+        <TextInput value={src} onChange={onChange} />
+      </div>
     </div>
   );
 }
@@ -267,6 +374,10 @@ export function FieldControl({
 
   if (typeof value === "string" || value == null) {
     const s = (value as string) ?? "";
+    // A URL that points at media, or an empty media-typed field: show a preview + uploader.
+    if (MEDIA_EXT.test(s) || (s === "" && MEDIA_STRING_KEYS.has(fieldKey))) {
+      return <MediaStringField value={s} onChange={(v) => onChange(v)} />;
+    }
     const multiline =
       LONG_TEXT_KEYS.has(fieldKey) || s.includes("\n") || s.length > 70;
     return <TextInput value={s} onChange={onChange} multiline={multiline} />;

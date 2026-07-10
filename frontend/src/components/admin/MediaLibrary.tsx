@@ -5,6 +5,18 @@ import { useRouter } from "next/navigation";
 import { uploadMedia, deleteMedia } from "@/app/admin/actions";
 import type { AdminMediaRow } from "@/lib/admin/data";
 
+const VIDEO_EXT = /\.(mp4|webm|mov|m4v)$/i;
+const SVG_EXT = /\.svg$/i;
+
+function mediaKind(row: AdminMediaRow): "video" | "svg" | "image" {
+  const url = row.url.split("?")[0].split("#")[0];
+  if ((row.content_type ?? "").startsWith("video/") || VIDEO_EXT.test(url))
+    return "video";
+  if ((row.content_type ?? "") === "image/svg+xml" || SVG_EXT.test(url))
+    return "svg";
+  return "image";
+}
+
 export function MediaLibrary({ media }: { media: AdminMediaRow[] }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,7 +37,7 @@ export function MediaLibrary({ media }: { media: AdminMediaRow[] }) {
   }
 
   function remove(row: AdminMediaRow) {
-    if (!confirm("Delete this image from the library?")) return;
+    if (!confirm("Delete this file from the library?")) return;
     start(async () => {
       const res = await deleteMedia(row.id, row.path);
       if (res.ok) router.refresh();
@@ -73,12 +85,12 @@ export function MediaLibrary({ media }: { media: AdminMediaRow[] }) {
       >
         {pending
           ? "Uploading…"
-          : "Drag an image here, or click to upload to the library."}
+          : "Drag an image, video, or SVG here, or click to upload to the library."}
       </div>
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/*,video/*,.svg,image/svg+xml"
         className="hidden"
         onChange={(e) => {
           const file = e.target.files?.[0];
@@ -92,17 +104,36 @@ export function MediaLibrary({ media }: { media: AdminMediaRow[] }) {
         <p className="text-sm text-[#6f6f78]">No uploads yet.</p>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-          {media.map((m) => (
+          {media.map((m) => {
+            const kind = mediaKind(m);
+            return (
             <div
               key={m.id}
               className="overflow-hidden rounded-lg border border-[#1e1e22] bg-[#111114]"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={m.url}
-                alt={m.alt ?? ""}
-                className="aspect-square w-full object-cover"
-              />
+              <div className="relative">
+                {kind === "video" ? (
+                  <video
+                    src={`${m.url.split("#")[0]}#t=0.1`}
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="aspect-square w-full bg-black object-contain"
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={m.url}
+                    alt={m.alt ?? ""}
+                    className={`aspect-square w-full bg-[#0d0d10] ${
+                      kind === "svg" ? "object-contain p-4" : "object-cover"
+                    }`}
+                  />
+                )}
+                <span className="absolute left-1.5 top-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">
+                  {kind}
+                </span>
+              </div>
               <div className="flex items-center justify-between gap-2 p-2">
                 <button
                   type="button"
@@ -121,7 +152,8 @@ export function MediaLibrary({ media }: { media: AdminMediaRow[] }) {
                 </button>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

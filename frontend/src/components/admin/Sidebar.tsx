@@ -19,16 +19,22 @@ export function Sidebar() {
     <aside className="flex w-60 shrink-0 flex-col border-r border-[#1e1e22] bg-[#09090b] px-4 py-6">
       <Link href="/admin" className="mb-9 flex items-center gap-3 px-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/admin/hd-mark.svg" width={28} height={28} alt="Human Design" />
+        <img
+          src="/admin/hd-logo.png"
+          width={32}
+          height={32}
+          alt="H × PWRL CMS"
+          className="rounded-lg"
+        />
         <span className="flex flex-col leading-tight">
           <span
             className="text-sm text-white"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Human Design
+            H × PWRL
           </span>
           <span className="text-[11px] uppercase tracking-[0.2em] text-[#6f6f78]">
-            PWRL CMS
+            CMS
           </span>
         </span>
       </Link>

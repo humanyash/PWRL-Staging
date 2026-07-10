@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "Human Design — PWRL CMS",
+  title: "H × PWRL CMS",
   robots: { index: false, follow: false },
 };
 
