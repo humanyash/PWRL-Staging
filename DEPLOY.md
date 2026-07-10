@@ -1,6 +1,8 @@
 # Deploying PWRL on Vercel
 
-This repo is a **monorepo**. Only `frontend/` is the Next.js app that belongs on Vercel.
+The site is a single **Next.js app** in `frontend/`, deployed to Vercel. Content
+and media live in **Supabase**; the `/admin` CMS is gated by **Clerk**. There is
+no separate backend service to deploy anymore.
 
 ## Vercel project settings (required)
 
@@ -12,76 +14,70 @@ This repo is a **monorepo**. Only `frontend/` is the Next.js app that belongs on
 | **Output Directory** | *(leave empty — Next.js default; do not set to `public`)* |
 | **Install Command** | `npm install` (declared in `frontend/vercel.json`) |
 
-If Root Directory is blank or `.`, Vercel builds the repo root (which has no Next.js app). The deploy may show "Success" but every URL returns **404 NOT_FOUND**.
+If Root Directory is blank or `.`, Vercel builds the repo root (which has no
+Next.js app). The deploy may show "Success" but every URL returns
+**404 NOT_FOUND**.
 
 ## Environment variables
 
-### Staging (Vercel) — CMS wired
+Set these on the Vercel project (Production **and** Preview).
 
-| Name | Value | Notes |
-|---|---|---|
-| `NEXT_PUBLIC_STRAPI_URL` | `https://pwrl-cms-humandesign.onrender.com` | Required — daily content from Strapi |
-| `NEXT_PUBLIC_TYPEKIT_ID` | `xyr7qcs` | Optional — defaults in `app/layout.tsx` |
-| `NEXT_PUBLIC_GA_ID` | `G-S620CRDB9D` | Optional — defaults in `app/layout.tsx` |
-| `STRAPI_PREVIEW_SECRET` | *(same random string on Vercel + Render)* | Required for draft preview from Strapi |
-| `STRAPI_PREVIEW_TOKEN` | *(Strapi API token, Full Access)* | Server-only — lets preview fetch unpublished drafts |
+### Supabase (content + media)
 
-Do **not** set `NEXT_PUBLIC_STRAPI_DISABLED` on staging. When `true`, the site
-ignores Strapi and serves fixture data only.
+If you used the **Vercel↔Supabase integration**, most of these are injected
+automatically. The app accepts either the plain or `NEXT_PUBLIC_`-prefixed name
+for the URL and anon key.
 
-**Preview setup (one time):**
+| Name | Notes |
+|---|---|
+| `SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`) | Project URL, e.g. `https://<ref>.supabase.co` |
+| `SUPABASE_ANON_KEY` (or `NEXT_PUBLIC_SUPABASE_ANON_KEY`) | Public read key (RLS-restricted) |
+| `SUPABASE_SERVICE_ROLE_KEY` | **Server-only.** Used by admin writes + seed. Never expose to the client. |
 
-1. In Strapi admin → **Settings → API Tokens** → Create token (Full Access).
-2. Copy the token to Vercel env `STRAPI_PREVIEW_TOKEN` (no `NEXT_PUBLIC_` prefix).
-3. Generate a random secret (e.g. `openssl rand -hex 32`) and set the **same**
-   value as `STRAPI_PREVIEW_SECRET` on **both** Vercel and Render.
-4. Redeploy Vercel and Render.
+### Clerk (admin auth)
 
-**Verify CMS wiring:**
+Add these yourself from the Clerk dashboard → **API keys**.
 
-Open https://pwrl-staging-website-y.vercel.app/api/cms-status — you want
-`"ok": true` and `usingFixtures: false`. If `usingFixtures` is true, the site
-is showing baked-in copy, not Strapi (Publish will never appear on staging).
+| Name | Notes |
+|---|---|
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | `pk_test_…` (dev) or `pk_live_…` (production) |
+| `CLERK_SECRET_KEY` | `sk_test_…` (dev) or `sk_live_…` (production). Server-only. |
 
-**Instant updates after Publish (optional webhook):**
+**Dev vs production Clerk keys:**
+- `pk_test`/`sk_test` (development instance) work on `localhost` and any
+  `*.vercel.app` URL. They show a small Clerk "development" badge. Fine for
+  staging.
+- Create a Clerk **production instance** only when launching on the final
+  custom domain (e.g. `www.pwrl.com`). It requires DNS records you add at the
+  registrar — you cannot verify it on a `*.vercel.app` URL. Then swap in the
+  `pk_live`/`sk_live` keys.
 
-1. Use the same secret as `REVALIDATION_SECRET` or `STRAPI_PREVIEW_SECRET`.
-2. In Strapi → **Settings → Webhooks** → Create:
-   - URL: `https://pwrl-staging-website-y.vercel.app/api/revalidate?secret=YOUR_SECRET`
-   - Events: `Entry` → `Publish** (and `Unpublish` if desired)
-3. After Publish in Strapi, staging updates within seconds instead of waiting 60s.
+### Optional (site chrome — have safe defaults in `app/layout.tsx`)
 
-### Strapi admin “Failed to fetch dynamically imported module”
+| Name | Notes |
+|---|---|
+| `NEXT_PUBLIC_TYPEKIT_ID` | Adobe Fonts kit (default `xyr7qcs`) |
+| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 (default `G-S620CRDB9D`) |
 
-After a Render deploy, the admin JS filename changes. Your browser may still
-request an old chunk (e.g. `App-B1lh77m0.js`). Fix:
+## Verify after deploy
 
-1. Hard refresh: **Cmd+Shift+R** (Mac) or **Ctrl+Shift+R** (Windows)
-2. Or clear site data for `pwrl-cms-humandesign.onrender.com`
-3. Or open admin in an incognito window
+1. Open `https://<your-vercel-url>/api/cms-status` — expect `"ok": true` and a
+   page count > 0 (confirms Supabase is reachable).
+2. Open `/` — the homepage should render banner/news/stats from Supabase.
+3. Open `/admin` — you should be redirected to the branded `/admin/sign-in`.
+   Sign in with an invited Google account and confirm the dashboard loads.
+4. Edit a field in the CMS, Save, and confirm the public page updates on
+   refresh (saves call `revalidatePath`, so updates are near-instant).
 
----
+## Database + storage setup (one time)
 
-| Name | Value | Notes |
-|---|---|---|
-| `NEXT_PUBLIC_STRAPI_URL` | `https://pwrl-cms-humandesign.onrender.com` | Same CMS (or production Strapi when split) |
-| `NEXT_PUBLIC_TYPEKIT_ID` | `xyr7qcs` | Optional |
-| `NEXT_PUBLIC_GA_ID` | `G-S620CRDB9D` | Optional |
+The Supabase schema and seed only need to run once per project:
 
-`NEXT_PUBLIC_STRAPI_DISABLED` MUST be unset (or `false`) on production.
+1. In Supabase → **SQL Editor**, run [`frontend/supabase/schema.sql`](frontend/supabase/schema.sql)
+   (idempotent — safe to re-run). This creates the tables, RLS policies, and the
+   `media` storage bucket.
+2. Locally, with `frontend/.env.local` filled in, run `npm run seed` to load the
+   fixture content into Supabase.
 
-## After changing settings
-
-1. Save settings in Vercel → **Deployments** → **Redeploy** (use "Redeploy" on latest, not just a new git push).
-2. Open the deployment **Build Logs** and confirm you see `next build` running inside `frontend/`.
-3. Visit https://pwrl-staging-website-y.vercel.app — homepage should reflect CMS banner/news after publish.
-
-## Backend (separate host)
-
-`backend/` is Strapi on Render: https://pwrl-cms-humandesign.onrender.com/admin
-
-Deploy via [`render.yaml`](render.yaml). See [`INFRA.md`](INFRA.md) and [`backend/README.md`](backend/README.md).
-
-## Editor handoff
-
-See [`CLIENT-HANDOFF.md`](CLIENT-HANDOFF.md) for the editor workflow and [`backend/CMS-OPERATIONS.md`](backend/CMS-OPERATIONS.md) for production vs development mode.
+See [`INFRA.md`](INFRA.md) for the full stack and account details, and
+[`CLIENT-HANDOFF.md`](CLIENT-HANDOFF.md) for the editor workflow.

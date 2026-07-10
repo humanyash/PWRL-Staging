@@ -97,6 +97,14 @@ html {
   }
 }
 
+/* The /admin CMS is a self-contained app that assumes a 16px root. The
+   marketing 112.5% desktop scale (above) would inflate every rem-based size
+   and crunch the admin layout, so reset the root to 100% whenever an admin
+   surface is mounted. Scoped via :has() so the public site is untouched. */
+html:has(.admin-root) {
+  font-size: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

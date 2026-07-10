@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { PageShell } from "@/components/layout/PageShell";
 import { EducationArticleView } from "@/components/education/EducationArticleView";
 import { EDUCATION_ARTICLES } from "@/lib/education";
-import { getEducationArticles, getEducationArticleCms, getGlobalSettings } from "@/lib/strapi";
+import { getEducationArticles, getEducationArticleCms, getGlobalSettings } from "@/lib/content";
 
 export const revalidate = 60;
 

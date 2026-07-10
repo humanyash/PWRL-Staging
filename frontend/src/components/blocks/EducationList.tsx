@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { EducationCard } from "@/components/blocks/EducationCard";
-import { getEducationArticles } from "@/lib/strapi";
+import { getEducationArticles } from "@/lib/content";
 import type { EducationListBlock } from "@/types/blocks";
 
 /**

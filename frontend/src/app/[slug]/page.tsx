@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageView } from "@/components/PageView";
-import { getPage, getAllPageSlugs } from "@/lib/strapi";
+import { getPage, getAllPageSlugs } from "@/lib/content";
 
 export const revalidate = 60;
 

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LegalPageView } from "@/components/legal/LegalPageView";
-import { getLegalPage } from "@/lib/legal";
-import { getGlobalSettings } from "@/lib/strapi";
+import { getLegalPage, getGlobalSettings } from "@/lib/content";
 
 export const revalidate = 60;
 

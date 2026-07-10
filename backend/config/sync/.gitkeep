@@ -1,7 +1,0 @@
-# Strapi admin config sync (roles, CM layouts, etc.)
-#
-# Export from a configured Strapi instance:
-#   npm run strapi config-sync export -- --yes
-#
-# Import is manual (Settings → Config Sync). Auto-import on boot is disabled on
-# Render — see backend/config/plugins.ts and CMS-OPERATIONS.md.

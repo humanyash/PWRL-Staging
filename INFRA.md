@@ -2,135 +2,123 @@
 
 > **Secrets policy:** No connection strings, API secrets, or passwords are
 > stored in this repo or in any agent context. Secrets live only in the
-> hosting provider's env-var settings (Render, Vercel). This file records
-> *non-secret* identifiers only.
+> hosting provider's env-var settings (Vercel, Supabase, Clerk). This file
+> records *non-secret* identifiers only.
 
-## Migration in progress
+## Current stack
 
-The site is being moved from the original developer's personal SaaS
-accounts to HumanDesign-owned accounts. Two stacks are described below.
+As of the July 2026 CMS migration, the site is a single Next.js app backed by
+Supabase and Clerk. **Strapi, Render, Neon, and Cloudinary are no longer used.**
 
-### Target stack (HumanDesign-owned, in progress)
-
-| Layer | Service | Status | URL / ID |
-|---|---|---|---|
-| Source code | GitHub `HumanDesign/pwrl-staging-website-y` | LIVE | <https://github.com/HumanDesign/pwrl-staging-website-y> |
-| Frontend | Next.js → Vercel (HumanDesign team) | PENDING | `__VERCEL_URL_TBD__` |
-| Backend | Strapi v5 → Render (HumanDesign account) | PENDING | `__STRAPI_URL_TBD__` (planned: `https://pwrl-cms-humandesign.onrender.com`) |
-| Database | Neon Postgres (HumanDesign account) | PENDING | `__NEON_PROJECT_TBD__` (planned: `pwrl-humandesign`, US East) |
-| Media | Cloudinary (HumanDesign account) | LIVE | Cloud name: **`qgrvy7ii`** (Render `CLOUDINARY_NAME` — not the API key label `PWRL_Strapi`) |
-| Analytics | Google Analytics 4 (`G-S620CRDB9D`) | LIVE | Wired in `frontend/src/app/layout.tsx` via `next/script`; env override `NEXT_PUBLIC_GA_ID` |
-| Forms | HubSpot portal `243469173` (Forms API) | LIVE | Client-owned; NAV + contact wired |
-| Filings | SEC EDGAR (CIK `2052053`, ISR 1h) | LIVE | |
-| Fonts | Adobe Fonts kit `xyr7qcs` (client-owned) | LIVE | env override `NEXT_PUBLIC_TYPEKIT_ID` |
-
-Deployment is automated:
-- Push to `main` -> Render rebuilds Strapi (see [`render.yaml`](render.yaml))
-- Push to `main` -> Vercel rebuilds the frontend (see [`DEPLOY.md`](DEPLOY.md))
-
-### Legacy stack (Chris Znerold's accounts — TO BE DECOMMISSIONED)
-
-Kept up only as a fallback until the HumanDesign stack is verified. Will
-be deleted after 24-48h of clean operation on the new infra.
-
-| Layer | Legacy URL / ID | Decommission action |
+| Layer | Service | Notes |
 |---|---|---|
-| Source code | `github.com/znerold/pwrl-website` | Archive (do not delete — keeps git history reachable) |
-| Frontend | `https://pwrl-website-theta.vercel.app` (project `pwrl-website`, team `chris-znerolds-projects`) | Delete project in Vercel |
-| Backend | `https://pwrl-cms.onrender.com` (service `pwrl-cms`) | Delete service in Render |
-| Database | Neon project `pwrl-production` (ID `dark-king-53709192`, region `iad1`) | Delete project in Neon |
-| Media | Cloudinary `djf4okl19` | Out of scope (Cloudinary is account-level; HumanDesign cloud is fresh, no migration needed) |
+| Source code | GitHub `HumanDesign/pwrl-staging-website-y` | Monorepo now contains only `frontend/` app code + docs |
+| Frontend + CMS | Next.js → Vercel (HumanDesign team) | Root Directory `frontend`. Public site + `/admin` CMS in one app. |
+| Content DB | **Supabase Postgres** | Tables: `pages`, `blog_posts`, `global_settings`, `legal_pages`, `media`. RLS: public reads published rows; writes are service-role only. |
+| Media | **Supabase Storage** | Public `media` bucket. Admin uploads go here; URLs are `https://<ref>.supabase.co/storage/v1/object/public/media/…` |
+| Admin auth | **Clerk** | Invite-only Google sign-in, scoped to `/admin`. |
+| Analytics | Google Analytics 4 (`G-S620CRDB9D`) | Wired in `frontend/src/app/layout.tsx`; env override `NEXT_PUBLIC_GA_ID` |
+| Forms | HubSpot portal `243469173` (Forms API) | Client-owned; NAV + contact wired |
+| Filings | SEC EDGAR (CIK `2052053`) | |
+| Fonts | Adobe Fonts kit `xyr7qcs` (client-owned) | env override `NEXT_PUBLIC_TYPEKIT_ID` |
 
-## Configuration that does not change between stacks
+Deployment: push to `main` → Vercel rebuilds the frontend (see
+[`DEPLOY.md`](DEPLOY.md)). There is no backend service to deploy.
 
-These are code-level and survive any account migration.
+## How content flows
 
-### Database — backend auto-detection
+- **Public site** reads Supabase via `frontend/src/lib/content.ts` (anon key,
+  RLS-restricted to published rows). Pages use ISR + on-demand revalidation.
+- **`/admin` CMS** reads/writes via server actions in
+  `frontend/src/app/admin/actions.ts` using the **service-role** key (bypasses
+  RLS). Every save calls `revalidatePath`, so public pages update within
+  seconds — no redeploy.
+- **Fallback baseline:** `frontend/src/lib/fixtures.ts` holds the verbatim
+  launch content and seeded Supabase via `npm run seed`.
 
-`backend/config/database.ts` switches automatically:
-- **Dev (local):** SQLite at `.tmp/data.db` — no secret needed
-- **Prod:** Postgres via `DATABASE_URL`, SSL on
+## Config that survives account moves
 
-### Media — backend env-gated Cloudinary
-
-`backend/config/plugins.ts` only enables Cloudinary when all three
-credentials are set; otherwise falls back to the default local-disk
-provider. Means local dev works without Cloudinary creds; prod uses
-Cloudinary automatically once the env vars land.
-
-### Frontend — graceful CMS degradation
-
-`frontend/src/lib/strapi.ts` catches every fetch failure and returns
-`null`. Callers then fall back to the in-repo fixture data in
-`frontend/src/lib/fixtures.ts`. If Strapi is sleeping (Render free tier)
-or down, the public site stays up — visitors see the bundled baseline.
-
-### ISR — 60-second revalidation
-
-Every CMS-backed page is revalidated every 60 seconds. Editor publishes
-in Strapi propagate within ~1 minute with no Vercel redeploy.
+- `frontend/next.config.ts` `images.remotePatterns` allows `**.supabase.co`
+  (admin-uploaded media) and `res.cloudinary.com` (legacy asset URLs still
+  referenced in some fixtures).
+- `frontend/src/lib/supabase/env.ts` resolves Supabase env vars under either the
+  plain or `NEXT_PUBLIC_`-prefixed names (Vercel integration compatibility).
 
 ## Fonts — Adobe Fonts (Typekit)
 
 | Field | Value |
 |---|---|
 | Production kit ID | `xyr7qcs` (client-owned) |
-| Embed | `<link rel="stylesheet" href={`https://use.typekit.net/${TYPEKIT_ID}.css`}>` in `app/layout.tsx` head |
+| Embed | `https://use.typekit.net/${TYPEKIT_ID}.css` in `app/layout.tsx` head |
 | Env override | `NEXT_PUBLIC_TYPEKIT_ID` (defaults to `xyr7qcs`) |
-| Family | `ivypresto-headline` (display) — Regular 400, Italic 400, Bold 700, Bold Italic 700 |
-| Body font | Inter (Google, self-hosted via `next/font`) |
-| Fallback | `globals.css --font-display` = `"ivypresto-headline", var(--font-cormorant), …` |
-| Domains | Domain-locked. The new Vercel `*.vercel.app` URL **and** any custom domain (e.g. `www.pwrl.com`) must be authorized on the `xyr7qcs` kit. |
+| Domains | Domain-locked. The Vercel `*.vercel.app` URL **and** any custom domain (e.g. `www.pwrl.com`) must be authorized on the `xyr7qcs` kit. |
 
-Account history: an earlier dev kit (`usg7ynr`, personal account) was
-replaced with the client's `xyr7qcs` kit. The kit ID is env-driven so
-rotations require no code change.
+---
 
-## Pre-cutover checklist
+## Decommissioning the old stack (Strapi / Render / Neon / Cloudinary)
 
-Before pointing `pwrl.com` DNS at the HumanDesign Vercel project:
+The site no longer touches any of these. Once the new Supabase/Clerk stack is
+verified in production (recommend ~48h of clean operation), decommission the
+legacy services in this order.
 
-1. Authorize the production domain on the client's Adobe Fonts kit
-   `xyr7qcs` (kits are domain-locked).
-2. One supervised HubSpot form submission per form (NAV signup +
-   contact) as acceptance.
-3. Confirm Cloudinary uploads work end-to-end (upload an image via
-   Strapi admin, confirm the URL is `res.cloudinary.com/…`).
-4. Consider Render paid tier (free tier admin cold-starts ~50s; public
-   site unaffected).
-5. Delete the `ingest` API token in Strapi after the bootstrap ingest
-   completes — should never persist.
-6. Set Vercel env vars per [`DEPLOY.md`](DEPLOY.md)
-   (`NEXT_PUBLIC_STRAPI_URL`; ensure `NEXT_PUBLIC_STRAPI_DISABLED` is
-   unset).
+### 1. Verify the new stack first (do NOT skip)
 
-## Go-live changes already in code
+- [ ] `/api/cms-status` returns `"ok": true` with a page count on the live URL.
+- [ ] Homepage + all pages render correctly from Supabase.
+- [ ] `/admin` sign-in works with an invited Google account.
+- [ ] A test edit saves and appears on the public site.
+- [ ] Confirm **no** Vercel env var still points at Strapi
+      (`NEXT_PUBLIC_STRAPI_URL`, `NEXT_PUBLIC_STRAPI_DISABLED`,
+      `STRAPI_PREVIEW_*`). Delete any that remain, then redeploy.
 
-- InvestingChannel stock widget removed (`StockInfoBlock.widgetId`
-  field deleted, `InvestingChannelWidget.tsx` deleted). Stock Info
-  renders only static rows in `fixtures.ts`.
-- All previously Contentful-hosted assets are now bundled in
-  `frontend/public/`:
-  - 9 PDFs → `frontend/public/documents/*.pdf`
-  - 18 portfolio-company logos → `frontend/public/remote-assets/logos/`
-  - 1 news image → `frontend/public/remote-assets/news/7vyvWX-bloomberg-interview.png`
-- `next.config.ts` `images.remotePatterns` only allows
-  `res.cloudinary.com` (Contentful patterns removed).
-- Dev-only `/font-compare` route deleted.
+### 2. Render (Strapi web service)
 
-## Source control
+- [ ] Confirm no traffic is hitting the Strapi service (Render → service →
+      Metrics). It should be idle since the frontend no longer calls it.
+- [ ] **Suspend** the service first (reversible) and leave the site running a
+      few days as insurance.
+- [ ] Once confident, **Delete** the Strapi web service.
+- [ ] Delete the associated Render environment/secrets.
 
-| Field | Target (HumanDesign) | Legacy |
-|---|---|---|
-| Repo | `github.com/HumanDesign/pwrl-staging-website-y` | `github.com/znerold/pwrl-website` (to archive) |
-| Layout | Monorepo: `frontend/` (Vercel root) + `backend/` (Render root) | same |
-| Git remotes (local) | `staging` -> HumanDesign | `origin` and `yash` -> personal mirrors |
+### 3. Neon (Postgres for Strapi)
 
-## For HumanDesign team ops, see
+- [ ] Optional safety: export a final backup / create a Neon branch snapshot in
+      case any content lived only in Strapi (it shouldn't — everything is in
+      fixtures/Supabase).
+- [ ] **Delete** the Neon project (`pwrl-humandesign`, and the legacy
+      `pwrl-production` if still present).
 
-[`AGENCY-HANDOFF.md`](AGENCY-HANDOFF.md) — credential ownership, editor
-onboarding flow, renewals.
+### 4. Cloudinary (Strapi media)
 
-## For PWRL editors, see
+- [ ] Check whether any live content still references `res.cloudinary.com` URLs
+      (`rg "res.cloudinary.com" frontend/src`). If yes, re-upload those assets
+      through the CMS Media library (which stores them in Supabase) and update
+      the fields, **then** remove the `res.cloudinary.com` entry from
+      `next.config.ts`.
+- [ ] Once nothing references Cloudinary, downgrade or delete the Cloudinary
+      account/media as appropriate.
 
-[`CLIENT-HANDOFF.md`](CLIENT-HANDOFF.md) — Strapi-only user guide.
+### 5. Repo cleanup (already done in the migration commit)
+
+- [x] `backend/` (Strapi app) deleted.
+- [x] `render.yaml` (Render blueprint) deleted.
+- [x] Strapi/Cloudinary helper scripts deleted
+      (`ingest*.ts`, `publish-test-banner.ts`, `verify-cloudinary.ts`).
+- [x] Strapi data layer + preview API removed from `frontend/`.
+
+---
+
+## Custom domain cutover (when moving to `www.pwrl.com`)
+
+1. Add the domain in Vercel → project **Settings → Domains**; PWRL updates DNS
+   at their registrar per Vercel's instructions.
+2. **Authorize the new domain on Adobe Fonts kit `xyr7qcs`** (domain-locked).
+3. Create a **Clerk production instance** for that domain, add its DNS records,
+   and swap Vercel to the `pk_live`/`sk_live` keys.
+4. Add the production domain to Clerk's allowed origins.
+
+## See also
+
+- [`AGENCY-HANDOFF.md`](AGENCY-HANDOFF.md) — HumanDesign internal ops.
+- [`CLIENT-HANDOFF.md`](CLIENT-HANDOFF.md) — PWRL editor guide.
+- [`DEPLOY.md`](DEPLOY.md) — Vercel setup + env vars.

@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { EducationCard } from "@/components/blocks/EducationCard";
-import { getEducationArticles } from "@/lib/strapi";
+import { getEducationArticles } from "@/lib/content";
 import type { EducationGridBlock } from "@/types/blocks";
 
 /** Full Learn index — 3×3 article grid (Figma Learn Page). CMS-first. */

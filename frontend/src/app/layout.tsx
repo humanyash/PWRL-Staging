@@ -3,7 +3,6 @@ import Script from "next/script";
 import { Libre_Franklin } from "next/font/google";
 import { MotionRouter } from "@/components/layout/MotionRouter";
 import { ExternalLinkGuard } from "@/components/layout/ExternalLinkGuard";
-import { PreviewBanner } from "@/components/layout/PreviewBanner";
 import "./globals.css";
 
 /**
@@ -62,7 +61,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-franklin)]">
-        <PreviewBanner />
         {children}
         <MotionRouter />
         <ExternalLinkGuard />

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/BlockRenderer";
 import { PageShell } from "@/components/layout/PageShell";
-import { getPage, getGlobalSettings } from "@/lib/strapi";
+import { getPage, getGlobalSettings } from "@/lib/content";
 
 /**
  * Resolves a page by slug (Strapi-first, fixture fallback), then renders it
